@@ -17,3 +17,9 @@ This guide explains how to make a Pull Request (PR) for those who are new to Git
 
    ```bash
    git clone <your-forked-repository-url>
+   ```
+
+   Example:
+   ```bash
+   git clone https://github.com/your-username/forked-repository.git
+   ```

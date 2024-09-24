@@ -2,6 +2,9 @@
 
 This guide explains how to make a Pull Request (PR) for those who are new to GitHub.
 
+### Installing Latex
+Link: https://www.latex-project.org/get/
+
 ## Step-by-Step Guide to Making a Pull Request
 
 ### Step 1: Fork the Repository
@@ -36,3 +39,27 @@ This guide explains how to make a Pull Request (PR) for those who are new to Git
    ```
 
 3.	Replace my-new-feature with a descriptive name for your branch.
+
+### Step 4: Make Your Changes
+1.	Edit the files in the repository using your preferred code editor.
+2.	Save the files after making the necessary changes.
+
+## Step 5: Add and Commit Your Changes
+
+   ``` bash
+   # Fork the repo and clone it locally
+   git clone <your-forked-repository-url>
+   
+   # Navigate into the repo directory
+   cd forked-repository
+   
+   # Create a new branch
+   git checkout -b my-new-feature
+   
+   # Add and commit changes
+   git add .
+   git commit -m "Description of changes"
+   
+   # Push changes to GitHub
+   git push origin my-new-feature
+   ```

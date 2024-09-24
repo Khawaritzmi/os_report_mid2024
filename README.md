@@ -16,11 +16,23 @@ This guide explains how to make a Pull Request (PR) for those who are new to Git
    ```bash
    git clone <your-forked-repository-url>
    ```
+   
    Example:
    ```bash
    git clone https://github.com/your-username/forked-repository.git
    ```
+   
 4. Navigate into the cloned repository
+   
    ```bash
    cd forked-repository
    ```
+   
+### Step 3: Create a New Branch
+1.	Before making any changes, create a new branch to work on by running:
+
+   ```bash
+   git checkout -b my-new-feature
+   ```
+
+3.	Replace my-new-feature with a descriptive name for your branch.

@@ -67,13 +67,60 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
-This section covers:
-\begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
-\end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+    \subsubsection{First-Come, First-Served (FCFS)} 
+    \subsubsection{Shortest Job Next (SJN)}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{assets/SJN 2.1.png}
+    \label{fig:diagram}
+    \end{figure}
+     \hspace{1cm} Dalam algoritma \textit{Shortest Job Next} (SJN), saat memilih proses berikutnya yang akan dijalankan, kita melihat semua proses yang berada dalam keadaan siap dan memilih yang memiliki waktu eksekusi paling singkat. Dalam hal ini, kita perlu mengetahui waktu eksekusi setiap proses pada titik waktu tertentu. SJN adalah algoritma \textit{non-preemptive}, artinya proses baru tidak akan mendapatkan giliran di CPU sampai proses yang sedang berjalan selesai, meskipun proses baru memiliki waktu eksekusi yang lebih singkat.
+
+    \hspace{1cm} Dalam algoritma Shortest Job Next (SJN), beberapa istilah kunci perlu dipahami untuk memahami cara kerja algoritma ini. Berikut adalah istilah-istilah yang relevan: 
+    
+    \begin{itemize}
+        \item \textit{Service time} adalah jumlah waktu yang dibutuhkan oleh sebuah proses atau job untuk menyelesaikan eksekusinya setelah mulai berjalan di CPU. \textit{Service time} juga dikenal sebagai burst time.
+        \item \textit{Arrival time} adalah waktu ketika sebuah proses tiba dan siap untuk dieksekusi di CPU atau antrian penjadwalan.
+        \item \textit{Completion time} adalah titik waktu ketika sebuah proses menyelesaikan eksekusinya.
+        \item \textit{Turnaround time} adalah total waktu yang dibutuhkan oleh sebuah proses untuk menyelesaikan eksekusinya, dari saat proses tersebut tiba di antrian \textit{ready} hingga selesai dieksekusi. \textit{Turnaround time} dihitung sebagai \textit{completion time} dikurangi \textit{arrival time}.
+        \item Algoritma penjadwalan \textit{non-preemptive} adalah algoritma di mana sebuah proses yang telah mulai dieksekusi akan terus berjalan sampai selesai. Proses baru tidak diizinkan untuk mengganggu proses yang sedang berjalan.
+    \end{itemize}
+    
+     \hspace{1cm}Penggunaan algoritma SJN memiliki beberapa keuntungan yang signifikan. Berikut adalah beberapa keuntungan utama dari SJN:
+     \begin{enumerate}
+         \item Penjadwalan SJN meminimalkan waktu tunggu rata-rata untuk proses di antrian \textit{ready} karena proses yang lebih singkat diberi prioritas lebih tinggi, sehingga mengurangi waktu tunggu mereka dan meningkatkan kinerja sistem dalam hal waktu respons dan penyelesaian (\textit{turnaround time}).
+         \item Penggunaan algoritma \textit{Shortest Job Next} (SJN) dapat meningkatkan pemanfaatan sumber daya CPU karena algoritma ini memprioritaskan proses yang lebih pendek. Hal ini memungkinkan lebih banyak proses untuk diselesaikan dengan lebih cepat.
+     \end{enumerate}
+     
+    \hspace{1cm}Meskipun SJN memiliki keuntungan, terdapat juga beberapa kerugian yang perlu diperhatikan. Berikut adalah beberapa kerugian utama dari algoritma SJN:
+    \begin{itemize}
+        \item \textit{Starvation} dapat menjadi masalah dalam penggunaan algoritma SJN. Dalam situasi ini, proses dengan durasi lebih lama mungkin tidak pernah mendapatkan kesempatan untuk dieksekusi jika ada kedatangan proses yang lebih pendek secara terus-menerus. Ini bisa menjadi masalah terutama dalam sistem yang mengutamakan keadilan.
+        \item Memperkirakan durasi proses dengan akurat bisa menjadi tugas yang sulit dalam praktiknya. Jika perkiraan durasi proses ternyata tidak akurat, hal ini bisa memengaruhi kinerja SJN dan menyebabkan preemption yang sering.
+        \item Dalam situasi di mana respons cepat sangat penting, SJN mungkin bukan pilihan yang paling responsif untuk sistem interaktif atau lingkungan \textit{real-time}. Ketika proses singkat mendominasi CPU, proses yang lebih panjang bisa mengalami penundaan yang lama, yang sering kali merugikan.
+    \end{itemize}
+
+    Algoritma SJN memiliki karakteristik unik yang membedakannya dari algoritma penjadwalan lainnya. Berikut adalah beberapa karakteristik dari SJN:
+    \begin{itemize}
+        \item \textit{Shortest Job Next} memiliki keuntungan berupa waktu tunggu rata-rata yang minimum dibandingkan dengan semua algoritma penjadwalan lainnya.
+        \item Algoritma ini merupakan \textit{Greedy Algorithm}, yang berarti mengambil keputusan yang terbaik saat ini tanpa mempertimbangkan konsekuensi di masa depan.
+        \item Algoritma ini dapat menyebabkan \textit{starvation} jika proses yang lebih pendek terus menerus muncul. Masalah ini dapat diatasi dengan menggunakan konsep \textit{ageing}, yaitu memberikan prioritas kepada proses yang telah menunggu lebih lama.
+        \item Dalam praktiknya, SJN sulit diterapkan karena sistem operasi mungkin tidak mengetahui \textit{burst time} dan karena itu tidak dapat mengurutkannya. Meskipun tidak mungkin untuk memprediksi waktu eksekusi dengan akurat, beberapa metode dapat digunakan untuk memperkirakan waktu eksekusi suatu \textit{job}, seperti menggunakan rata-rata tertimbang dari waktu eksekusi sebelumnya.
+        \item SJN dapat digunakan di lingkungan khusus di mana perkiraan waktu \textit{running} yang akurat tersedia.
+    \end{itemize}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{assets/SJN 2.2.png}
+    \label{fig:diagram}
+    \end{figure}
+    Berikut adalah langkah-langkah dalam algoritma \textit{Shortest Job Next} (SJN):
+    \begin{enumerate} 
+        \item Urutkan semua proses berdasarkan \textit{arrival time}.
+        \item Pilih proses yang memiliki \textit{arrival time} terkecil dan \textit{burst time} terkecil.
+        \item Setelah proses tersebut selesai, buat kumpulan proses (\textit{pool}) yang tiba setelahnya hingga proses sebelumnya selesai.
+        \item Dari kumpulan tersebut, pilih proses yang memiliki \textit{burst time} terkecil untuk dieksekusi selanjutnya.
+    \end{enumerate}
+    \subsubsection{Round Robin (RR)} 
+
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:

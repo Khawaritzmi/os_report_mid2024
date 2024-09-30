@@ -90,19 +90,175 @@ This section introduces the concept of threads and their relation to processes, 
 \end{itemize}
 
 \subsection{File Systems}
-File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
-\begin{itemize}
-    \item File system structure
-    \item File access methods
-    \item Directory management
-\end{itemize}
+\subsubsection{Access Methods}
+Metode akses file mengacu pada cara file dibaca, ditulis, atau dimodifikasi dalam sistem file. Ada beberapa metode akses yang digunakan dalam sistem file untuk memungkinkan aplikasi atau pengguna mengambil dan memanipulasi data dalam file. Berikut adalah penjelasan rinci mengenai metode akses file yang umum digunakan:
 
-\subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
-\end{itemize}
+\begin{enumerate}
+    \item Akses Berurutan \textit{(Sequential Access)}
+    
+    \textit{Sequential Access} adalah metode akses file di mana data diakses secara berurutan, dari awal hingga akhir. Ini mirip dengan cara kita membaca sebuah buku, satu halaman per satu secara berurutan.
+
+    {Deskripsi:}
+    \begin{itemize}
+        \item Dalam metode akses ini, file diakses dalam urutan linier tertentu, dari awal hingga akhir. Data dibaca atau ditulis secara berurutan, mirip dengan cara kerja kaset magnetik, di mana untuk membaca bagian tertentu dari data, seluruh file harus dilalui dari awal hingga posisi data tersebut ditemukan.
+        \item Ini adalah metode akses yang paling sederhana dan sering digunakan untuk aplikasi yang memerlukan pemrosesan data dalam urutan tetap.
+    \end{itemize}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\linewidth]{assets/Screenshot 2024-09-30 184303.png}
+        \caption{Metode Akses Berurutan}
+        \label{fig:sequential-access}
+    \end{figure}
+
+    {Deskripsi gambar:}
+     \begin{itemize}
+        \item Current Position: Menunjukkan posisi saat ini dalam file di mana data akan dibaca atau ditulis. Posisi ini akan bergerak maju setiap kali data dibaca atau ditulis.
+
+        \item \textit{Rewind}: Jika ingin kembali ke bagian sebelumnya dari file, perlu dilakukan \textit{"rewind"} atau mundur dari posisi saat ini untuk kembali ke posisi sebelumnya (atau bahkan ke awal file).
+
+        \item \textit{Read and write}: File dibaca atau ditulis secara linier dari posisi saat ini menuju ke akhir file. Data diproses satu per satu dalam urutan dari kiri ke kanan
+
+    \end{itemize}
+
+    {Kasus penggunaan:}
+     \begin{itemize}
+        \item Arsip
+
+        \item Media file
+
+        \item Sistem \textit{backup}: Penyimpanan data yang diakses atau dipulihkan secara berurutan.
+
+    \end{itemize}
+
+    {Kelebihan:}
+     \begin{itemize}
+        \item Sederhana: Metode ini mudah diimplementasikan dan ideal untuk penggunaan di mana urutan data penting.
+
+
+        \item Kinerja: Dapat memberikan kinerja yang baik untuk aplikasi yang membaca atau menulis seluruh file dari awal hingga akhir.
+    \end{itemize}
+
+    {Kekurangan:}
+     \begin{itemize}
+        \item Tidak Fleksibel: Untuk mengakses data di tengah file, seluruh bagian sebelumnya harus dilewati, membuat akses menjadi lambat untuk file besar.
+
+        \item Tidak efisien: Untuk aplikasi yang memerlukan pengambilan data secara acak, metode ini tidak efisien.
+
+    \end{itemize}
+
+    
+\item  Akses Langsung atau Acak \textit{(Direct or Random Access)}
+
+Direct access adalah metode akses file di mana kita dapat langsung mengakses data pada posisi tertentu tanpa harus membaca seluruh file dari awal. Ini memungkinkan akses yang lebih cepat dan efisien.
+
+    {Deskripsi:}
+    \begin{itemize}
+        \item Dalam metode akses langsung, setiap bagian file dapat diakses secara langsung tanpa perlu membaca data secara berurutan. Sistem dapat melompat ke posisi mana pun dalam file, memungkinkan pengguna untuk membaca atau menulis data di bagian tertentu tanpa harus memproses seluruh file.
+
+        \item Akses langsung dimungkinkan karena perangkat penyimpanan modern seperti hard disk drive (HDD) dan solid-state drive (SSD) mendukung lompatan ke lokasi byte atau blok tertentu.
+    \end{itemize}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\linewidth]{assets/p2.png}
+        \caption{Metode Akses Langsung}
+        \label{fig:sequential-access}
+    \end{figure}
+
+    {Deskripsi gambar:}
+     \begin{itemize}
+        \item \textit{Reset}
+        \begin{itemize}
+            \item \textit{Sequential Access}: Reset berarti mengembalikan posisi file ke awal, agar dapat diakses dari posisi pertama.
+            
+            \item \textit{Direct Accses}: Pada akses langsung, ini diimplementasikan dengan mengatur variabel cp (current position) menjadi 0 (), yang berarti mengarahkan penunjuk file ke posisi pertama
+        
+        \end{itemize}
+
+        \item \textit{Read Next}:
+        \begin{itemize}
+        \item \textit{Sequential Access}: Membaca file berikutnya berarti membaca data secara berurutan, satu per satu.
+
+        \item \textit{Direct Accses}: Dalam akses langsung, membaca data dilakukan dari posisi yang ditunjukkan oleh cp (). Setelah membaca data, posisi file kemudian ditingkatkan dengan 1 (), sehingga penunjuk siap membaca data berikutnya
+        
+        \end{itemize}
+
+        \item \textit{Write Next}: File dibaca atau ditulis secara linier dari posisi saat ini menuju ke akhir file. Data diproses satu per satu dalam urutan dari kiri ke kanan
+         \begin{itemize}
+        \item \textit{Sequential Access} : Menulis data berikutnya dilakukan secara berurutan, setelah data yang sudah ada.
+
+            
+        \item \textit{Direct Accses}: Dalam akses langsung, menulis dilakukan pada posisi cp saat ini (). Setelah menulis data, posisi penunjuk juga ditingkatkan dengan 1 (), sehingga siap untuk menulis data selanjutnya.
+        
+        \end{itemize}
+
+    \end{itemize}
+
+    {Kasus penggunaan:}
+     \begin{itemize}
+        \item Basis data (Database): Akses langsung memungkinkan pengambilan catatan individu dalam database tanpa perlu membaca seluruh file.
+
+        \item File indeks: Dalam file indeks, posisi tertentu di dalam file dapat diakses dengan cepat berdasarkan nilai kunci.
+
+        \item File konfigurasi: File yang memerlukan modifikasi pada bagian tertentu tanpa mengubah keseluruhan isi file.
+
+
+    \end{itemize}
+
+    {Kelebihan:}
+     \begin{itemize}
+        \item Efisiensi: Metode ini sangat efisien untuk aplikasi yang memerlukan akses cepat ke bagian tertentu dari file tanpa harus membaca keseluruhan file.
+
+        \item Fleksibilitas: Data dapat dimodifikasi, ditambah, atau dihapus pada bagian mana pun dalam file
+    \end{itemize}
+
+    {Kekurangan:}
+     \begin{itemize}
+        \item Lebih rumit: Implementasi akses langsung membutuhkan manajemen lebih kompleks untuk melacak lokasi fisik data pada media penyimpanan.
+
+        \item Overhead: Mengelola dan memelihara indeks atau metadata untuk mendukung akses langsung bisa menambah overhead.
+
+    \end{itemize}
+
+
+
+\item  Akses Terindex \textit{(Indexes Access)}
+
+    {Deskripsi:}
+    \begin{itemize}
+        \item Akses terindeks menggunakan indeks yang mengaitkan nilai kunci dengan lokasi blok data di dalam file. Indeks berfungsi seperti daftar isi yang memungkinkan sistem untuk menemukan lokasi data tanpa harus menelusuri seluruh file.
+
+        \item Setiap entri dalam indeks berisi kunci pencarian dan pointer ke lokasi data yang sesuai di file.
+    \end{itemize}
+
+    {Kasus penggunaan:}
+     \begin{itemize}
+        \item Sistem basis data: Pengindeksan sering digunakan dalam database untuk mempercepat pencarian data berdasarkan kunci unik (misalnya, nomor ID atau nama).
+
+        \item File besar: Dalam file yang sangat besar atau file yang berisi jutaan catatan, indeks memungkinkan pencarian data yang cepat.
+
+    \end{itemize}
+
+    {Kelebihan:}
+     \begin{itemize}
+        \item Pencarian cepat: Akses ke data sangat cepat, bahkan dalam file yang sangat besar, karena pencarian langsung dilakukan melalui indeks tanpa membaca file secara keseluruhan.
+
+        \item Skalabilitas: Dapat diimplementasikan dalam sistem besar dengan banyak data.
+
+    \end{itemize}
+
+    {Kekurangan:}
+     \begin{itemize}
+        \item Overhead penyimpanan: Indeks memerlukan ruang tambahan untuk menyimpan informasi indeks.
+        
+        \item Overhead pemeliharaan: Indeks harus diperbarui setiap kali ada perubahan pada file (misalnya, penambahan atau penghapusan data), yang dapat menyebabkan peningkatan beban kerja.
+
+    \end{itemize}
+
+\end{enumerate}
+
+
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:

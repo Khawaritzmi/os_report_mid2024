@@ -89,10 +89,124 @@ This section introduces the concept of threads and their relation to processes, 
     \item Benefits of multithreading
 \end{itemize}
 
-\subsection{File Systems}
-File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
+\subsection{File System}
+File adalah unit penyimpanan logika yang diabstraksi oleh sistem operasi dari perangkat penyimpanan. File berisi informasi yang disimpan pada penyimpanan sekunder (seperti \textit{magnetic disk}, \textit{magnetic tape}, dan \textit{optical disk}). Informasi dalam file didefinisikan oleh pembuatnya. Setiap file memiliki struktur tertentu tergantung pada isinya. File dapat terdiri dari data (baik berupa data numerik, karakter, maupun biner) serta program seperti \textit{source program}, \textit{object program}, dan \textit{executable program}.
+
+\subsubsection*{a. Ruang Alamat Logis yang Berdekatan}
+File dalam sistem biasanya disimpan sebagai ruang alamat logis yang berdekatan. Hal ini berarti bahwa file menempati urutan alamat logis dalam memori. Namun, hal ini tidak selalu menyiratkan bahwa file juga menempati ruang fisik yang berdekatan pada disk. Sistem file berfungsi untuk menyederhanakan akses dan pengambilan file dengan membuatnya tampak berurutan, terlepas dari bagaimana penyimpanannya secara fisik.
+
+\subsubsection*{b. Jenis File}
+File dapat dikategorikan menjadi dua jenis utama:
+\begin{enumerate}
+    \item \textbf{File Data}: Berisi data terstruktur atau tidak terstruktur dan dapat dikategorikan lebih lanjut menjadi:
+    \begin{itemize}
+        \item \textbf{Numerik}: Data yang direpresentasikan sebagai angka (misalnya, data statistik atau data keuangan).
+        \item \textbf{Character}: Data yang direpresentasikan sebagai teks yang dapat dibaca manusia.
+        \item \textbf{Biner}: File non-teks, seperti file media (audio, video), atau jenis data lainnya yang dikodekan.
+    \end{itemize}
+    \item \textbf{File Program}: File yang berisi kode yang dapat dieksekusi untuk menjalankan aplikasi atau layanan pada komputer.
+\end{enumerate}
+
+\subsubsection*{c. Konten File yang Ditentukan oleh Pencipta}
+Isi file ditentukan oleh pembuatnya dan tujuan dari pembuatan file tersebut. File yang berbeda mungkin berisi instruksi (\textit{kode sumber}) untuk program komputer, dokumentasi tertulis (file teks), atau kode yang sudah dikompilasi (file \textit{executable}). Contoh jenis file:
 \begin{itemize}
-    \item File system structure
+    \item \textbf{File Teks}: File sederhana yang berisi karakter yang dapat dibaca oleh manusia.
+    \item \textbf{File Sumber}: File yang berisi kode sumber yang ditulis dalam bahasa pemrograman.
+    \item \textbf{File yang dapat dieksekusi}: File yang dapat dijalankan langsung oleh sistem operasi sebagai program. File ini berisi kode yang sudah dikompilasi atau ditafsirkan.
+\end{itemize}
+
+\subsubsection{File System Structure}
+Struktur sistem file mengatur bagaimana file disimpan, diakses, dan diatur dalam perangkat penyimpanan. Struktur ini mencakup beberapa komponen, seperti direktori, tabel alokasi, dan \textit{metadata} yang membantu mengelola file dengan efisien. Struktur file dapat dikategorikan ke dalam berbagai jenis berdasarkan kompleksitas organisasi data. Misalnya:
+
+\begin{enumerate}
+    \item \textbf{Simple record Structure}: terdiri dari urutan baris atau catatan dengan panjang tetap atau variabel
+    \item \textbf{Complex structures}: lebih rumit mencakup dokumen yang diformat dan file beban yang dapat direlokasi, yang memerlukan mekanisme penanganan yang lebih canggih.
+\end{enumerate}
+
+Struktur ini sangat penting dalam mengelola bagaimana data disimpan dan diakses, dan karakter kontrol dapat mensimulasikan struktur yang kompleks. Keputusan tentang organisasi struktur file dipengaruhi oleh sistem operasi dan program yang digunakan. Tipe file juga digunakan untuk menunjukkan struktur internal dari file. File tertentu harus konfirmasi ke struktur yang dibutuhkan yang dimengerti oleh sistem operasi. Misalnya, sistem operasi membutuhkan file \textit{executable} yang mempunyai struktur khusus sehingga dapat menentukan dimana letak memori dan lokasi dari instruksi pertama.
+
+Beberapa sistem operasi menggunakan sekumpulan sistem pendukung struktur file dengan sejumlah operasi khusus untuk manipulasi file dengan struktur tersebut. Hal ini menjadi kelemahan pada sistem operasi yang mendukung struktur file lebih dari satu. Jika sistem operasi menentukan 10 struktur file berbeda, maka perlu menyertakan kode untuk mendukung struktur file tersebut. Setiap file perlu dapat didefinisikan sebagai satu dari tipe file yang didukung oleh sistem operasi. Beberapa sistem operasi seperti UNIX dan MS-DOS hanya mendukung sejumlah struktur file. UNIX menentukan setiap file merupakan deret 8 bit byte dan bit tersebut tidak diterjemahkan oleh sistem operasi. Skema ini mempunyai fleksibilitas maksimum, tetapi sedikit dukungan. Setiap program aplikasi harus menyertakan kode sendiri untuk menterjemahkan file input ke dalam struktur yang tepat. Setidaknya semua SO harus mendukung sedikitnya satu struktur file \textit{executable} sehingga sistem dapat \textit{load} dan menjalankan program.
+
+\subsubsection*{a. File Attributes }
+File memiliki nama dan data. Selain itu, ia juga menyimpan informasi meta seperti tanggal dan waktu pembuatan file, ukuran saat ini, tanggal terakhir dimodifikasi, dll. Semua informasi ini disebut atribut sistem file. Berikut adalah beberapa atribut File penting yang digunakan di OS:.
+
+\begin{enumerate}
+    \item \textbf Nama: Ini adalah satu-satunya informasi yang disimpan dalam bentuk yang dapat dibaca manusia.
+    \item \textbf Pengidentifikasi: Setiap file diidentifikasi dengan nomor tag unik dalam sistem file yang dikenal sebagai pengidentifikasi.
+    \item \textbf Tempat: Menunjuk ke lokasi file di perangkat.	
+    \item \textbf Jenis: Atribut ini diperlukan untuk sistem yang mendukung berbagai jenis file.
+    \item \textbf Ukuran: Atribut yang digunakan untuk menampilkan ukuran file saat ini.	
+    \item \textbf Perlindungan: Atribut ini menetapkan dan mengontrol hak akses membaca, menulis, dan mengeksekusi file.
+    \item \textbf Waktu, tanggal, dan keamanan: Ini digunakan untuk perlindungan, keamanan, dan juga digunakan untuk pemantauan
+\end{enumerate}
+
+Atribut ini disimpan dalam struktur direktori sistem file, yang memungkinkan sistem operasi untuk mengelola file dengan lebih efisien.
+
+\subsubsection*{b. File Operations}
+
+\begin{enumerate}
+    \item \textbf{File sebagai Tipe Data Abstrak}: \\
+    File adalah konsep dalam komputasi yang mewakili kumpulan data yang disimpan secara terstruktur. Ini diperlakukan sebagai tipe data abstrak (ADT) karena cara data disimpan dan diakses disembunyikan dari pengguna. Sistem mengabstraksi kompleksitas mengakses dan mengelola data, menyediakan struktur logis bagi pengguna untuk berinteraksi dengan file.
+    
+    \item \textbf{Buat (Create)}: \\
+    Pembuatan file dalam sistem file melibatkan alokasi ruang dan menginisialisasi metadata file. Metadata mencakup nama file, jenis, ukuran, dan atribut lain yang diperlukan agar file dikelola dalam sistem. File yang baru dibuat mungkin kosong pada awalnya dan siap untuk ditulis.
+    
+    \item \textbf{Tulis (Write)}: \\
+    Menulis ke file berarti memasukkan data ke dalam file, dimulai dari lokasi penunjuk tulis saat ini. Proses ini menambahkan data baru atau mengganti data yang ada pada posisi yang ditentukan dalam file. Jika file tidak ada, beberapa sistem akan membuat file baru untuk menyimpan data.
+    
+    \item \textbf{Baca (Read)}: \\
+    Operasi baca mengambil data dari file mulai dari lokasi penunjuk baca saat ini. Penunjuk menunjukkan di mana dalam file sistem harus mulai membaca. Setelah data dibaca, data dimuat ke dalam memori untuk digunakan atau diproses lebih lanjut oleh program.
+    
+    \item \textbf{Reposisi dalam File -- Cari}: \\
+    Operasi pencarian mengubah posisi penunjuk baca atau tulis dalam file tanpa membaca atau menulis data apa pun. Ini memungkinkan sistem untuk menavigasi ke berbagai bagian file dengan cepat. Misalnya, pindah ke akhir file untuk menambahkan data atau pergi ke lokasi tertentu untuk mengubah informasi yang ada.
+    
+    \item \textbf{Hapus (Delete)}: \\
+    Operasi hapus menghapus file dari sistem file. Itu dapat menghapus seluruh file atau menandai ruang yang ditempatinya sebagai tersedia untuk data baru, tergantung pada sistem file yang digunakan. Dalam kebanyakan kasus, metadata dan referensi ke file juga dihapus.
+    
+    \item \textbf{Truncate}: \\
+    Pemotongan mengurangi ukuran file dengan memotong kontennya dari titik tertentu dan seterusnya. Operasi ini berguna ketika ukuran file perlu dikurangi, sambil tetap menjaga file itu sendiri dan metadatanya tetap utuh.
+    
+    \item \textbf{Open (Buka)}: \\
+    Saat file dibuka, sistem mengambil metadatanya dari struktur direktori dan memuatnya ke dalam memori. Deskriptor file dibuat, memungkinkan operasi berikutnya (seperti membaca atau menulis) dilakukan. Membuka file juga mengatur penunjuk baca/tulis ke posisi yang sesuai.
+    
+    \item \textbf{Close (Tutup)}: \\
+    Menutup file berarti menyelesaikan operasi yang tersisa (seperti membilas data yang di-buffer ke disk) dan menghapus informasi file dari memori. Operasi ini memastikan bahwa tidak ada operasi lebih lanjut yang dapat dilakukan pada file hingga dibuka kembali.
+\end{enumerate}
+\subsubsection*{c. Open Files}
+
+
+Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem operasi modern, karena pada dasarnya, setiap proses yang berjalan sering kali berinteraksi dengan file untuk membaca data, menulis informasi, atau mengakses sumber daya tertentu. Oleh karena itu, manajemen \textit{open files} yang efektif akan berdampak langsung pada kinerja beberapa komponen utama yang dibutuhkan untuk mengelola file:
+
+\begin{enumerate}
+    \item \textbf{Tabel file terbuka}: \\
+    Struktur yang melacak semua file yang sedang dibuka oleh proses. Setiap entri biasanya berisi informasi tentang file seperti penunjuk file, deskriptor file, dan detail relevan lainnya. Tabel file terbuka sangat penting untuk manajemen file yang efisien dalam sistem operasi. Tanpa tabel ini, OS akan kesulitan melacak file mana yang terbuka, dan oleh proses mana. Tabel ini menyediakan kontrol terpusat untuk penanganan file.
+
+    \item \textbf{Penunjuk berkas}: \\
+    Ini merujuk pada penunjuk yang menyimpan posisi baca/tulis terakhir dalam berkas. Ini biasanya disimpan per proses untuk melacak posisi tertentu tempat operasi akan dilanjutkan. Penunjuk berkas memungkinkan setiap proses mempertahankan posisinya di dalam berkas secara independen. Hal ini penting untuk lingkungan multitugas di mana beberapa proses dapat membaca atau menulis ke berkas yang sama.
+
+    \item \textbf{Jumlah file yang dibuka}: \\
+    Penghitung yang digunakan untuk melacak berapa banyak proses yang telah membuka file tertentu. Ini berguna untuk memastikan bahwa entri file dalam tabel file yang dibuka hanya dihapus setelah proses terakhir menutup file. Penghitungan file yang dibuka membantu memastikan bahwa file tidak dihapus sebelum waktunya dari tabel file yang dibuka saat masih digunakan oleh proses lain. Penghitungan ini menyediakan mekanisme penghitungan referensi yang sederhana namun efektif.
+
+    \item \textbf{Lokasi disk berkas}: \\
+    Cache yang menyimpan informasi mengenai lokasi fisik berkas pada disk, yang memungkinkan akses lebih cepat selama operasi. Caching lokasi disk mengurangi operasi I/O disk dengan melacak data akses file dalam memori, sehingga menghasilkan kecepatan akses yang lebih cepat.
+
+    \item \textbf{Hak akses}: \\
+    Izin yang dimiliki setiap proses terkait berkas tertentu. Misalnya, suatu proses mungkin memiliki hak baca, tulis, atau eksekusi berdasarkan mode aksesnya. Hak akses menegakkan keamanan dan memastikan bahwa proses hanya dapat berinteraksi dengan berkas sesuai dengan cara yang diizinkan, mencegah akses atau modifikasi yang tidak sah.
+\end{enumerate}
+
+\subsubsection*{d. Tipe File}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{assets/Table.jpg}
+    \caption{Metode Akses Berurutan}
+    \label{fig:sequential-access}
+    \end{figure}
+
+Salah satu pertimbangan penting dalam merancang sistem file dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem file. Bila sistem operasi mengenali tipe suatu file, maka dapat dilakukan operasi terhadap file dengan lebih baik.
+
+\textit{UNIX} menggunakan \textit{magic number} yang disimpan pada awal file untuk mengindikasikan tipe file berupa program \textit{executable}, \textit{batch file} (shell script), file \textit{postscript} dan lain-lain. Tidak semua file mempunyai \textit{magic number}, sehingga informasi tipe tidak dapat digambarkan. \textit{UNIX} tidak menyimpan nama dari program pembuatnya. \textit{UNIX} juga mengizinkan nama ekstensi dari file tersembunyi, sehingga pengguna dapat menentukan tipe file sendiri dan tidak tergantung pada sistem operasi.
+
     \item File access methods
     \item Directory management
 \end{itemize}

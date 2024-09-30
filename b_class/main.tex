@@ -121,11 +121,94 @@ This section discusses the role of the operating system in managing the user int
 
 \subsection{Virtualization in Operating Systems}
 Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
+\subsubsection{Pengertian Virtualisasi Sistem Operasi}
+    \par Virtualisasi adalah teknologi yang memungkinkan beberapa sistem operasi (OS) berjalan secara bersamaan pada satu mesin fisik. Ini dicapai dengan membuat lingkungan virtual yang memisahkan perangkat keras dari perangkat lunak. Setiap OS yang berjalan di atas mesin virtual (VM) beroperasi seolah-olah memiliki sumber daya perangkat keras yang berdedikasi, meskipun pada kenyataannya perangkat keras tersebut dibagi oleh beberapa VM.
+
+    \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{carakerjavirtualisasi.jpg}
+    \caption{Cara Kerja Virtualisasi}
+    \label{fig:label_gambar}
+\end{figure}
+Pada ilustrasi gambar, terlihat dua kondisi:
 \begin{itemize}
-    \item Concept of virtualization
-    \item Hypervisors and their types
-    \item Benefits of virtualization in modern computing
+    \item Sebelum Virtualisasi (Before): Di sisi kiri gambar, kita melihat bahwa setiap sistem operasi (OS) berjalan langsung di atas perangkat keras yang terpisah. Pendekatan ini kurang efisien karena setiap OS membutuhkan perangkat kerasnya sendiri, yang menyebabkan pemborosan sumber daya fisik ketika perangkat keras tidak dimanfaatkan secara maksimal.
+    \item Setelah Virtualisasi (After): Di sisi kanan gambar, terlihat bahwa setelah virtualisasi diterapkan, satu perangkat keras fisik dapat menjalankan beberapa OS sekaligus melalui penggunaan hypervisor. Hypervisor ini menciptakan beberapa mesin virtual (VM) yang memungkinkan berbagai sistem operasi berjalan di atas satu perangkat keras secara bersamaan. Hal ini meningkatkan efisiensi penggunaan sumber daya dan fleksibilitas dalam pengelolaan sistem.
 \end{itemize}
+
+Dengan cara ini, virtualisasi memungkinkan pemanfaatan sumber daya yang lebih baik, meningkatkan isolasi antar sistem, dan mempermudah proses pemeliharaan serta pengelolaan infrastruktur komputasi.
+
+
+\subsubsection{Jenis Jenis Virtualisasi pada Sistem Operasi}
+\subsubsection{Komponen Virtualisasi Sistem Operasi}
+\subsubsection{Hypervisor dan Virtual Machines}
+\subsubsection{Contoh Penerapan Virtualisasi pada Sistem Operasi}
+\subsubsection{Keuntungan dan Kerugian Virtualisasi}
+
+\begin{enumerate}
+    \item \textbf{Keuntungan dari Virtualisasi}
+    \par Virtualisasi menawarkan banyak keuntungan baik secara operasional maupun finansial, yang membuatnya menjadi kunci dalam komputasi enterprise dan pengembangan perangkat lunak. Berikut ini adalah beberapa keuntungan utama dari virtualisasi: 
+
+\begin{itemize}
+    \item \textbf{Menggunakan Perangkat Keras yang Ada dengan Lebih Baik:} 
+    Prosesor modern berkembang dengan cepat, dari 8-bit hingga 64-bit, serta jumlah inti prosesor yang terus bertambah. Dengan menjalankan beberapa mesin virtual pada satu server fisik, pengguna dapat mengoptimalkan penggunaan perangkat keras yang ada. Sistem multi-core dapat menjalankan beberapa mesin virtual di setiap inti prosesor yang berbeda, memaksimalkan efisiensi sumber daya.
+    
+    \item \textbf{Mengurangi Harga Perangkat Keras:} 
+    Virtualisasi memungkinkan pengguna untuk menambah server atau layanan tanpa harus membeli perangkat keras baru, yang pada akhirnya mengurangi biaya secara signifikan.
+    
+    \item \textbf{Mengurangi Infrastruktur IT:} 
+    Server fisik membutuhkan listrik, ruang, dan pendinginan. Dengan virtualisasi, kebutuhan akan listrik, ruang, dan pendinginan bisa dikurangi karena satu server fisik dapat menjalankan banyak mesin virtual.
+    
+    \item \textbf{Menyederhanakan Administrasi Sistem:} 
+    Dengan menjalankan beberapa mesin virtual pada satu perangkat keras fisik, kesehatan sistem bisa lebih mudah dipantau, dan administrasi sistem dapat disederhanakan, terutama dalam hal migrasi atau cloning ketika terjadi kesalahan perangkat keras.
+    
+    \item \textbf{Meningkatkan Uptime dan Mempercepat Failure Recovery:} 
+    Portabilitas mesin virtual memudahkan pemindahan dari satu server fisik ke server lain jika ada masalah pada perangkat keras, tanpa mengganggu operasi yang sedang berjalan.
+    
+    \item \textbf{Menyederhanakan Ekspansi Kapasitas:} 
+    Mesin virtual dapat dipindahkan dengan mudah ke perangkat keras baru dengan spesifikasi yang lebih tinggi, seperti prosesor yang lebih cepat, memori yang lebih besar, atau kapasitas jaringan yang lebih tinggi.
+    
+    \item \textbf{Dukungan Perangkat Lunak Asli yang Lebih Mudah:} 
+    Dengan virtualisasi, pengguna dapat menjalankan sistem operasi lama di partisi logis, sehingga memungkinkan perangkat lunak lama tetap berjalan meskipun sistem operasi sudah diperbarui.
+    
+    \item \textbf{Menyederhanakan Pengembangan dan Testing Aplikasi:} 
+    Pengembangan dan pengujian aplikasi pada berbagai sistem operasi menjadi lebih mudah dengan virtualisasi, karena mesin virtual dapat menjalankan berbagai sistem operasi tanpa perlu perangkat keras khusus.
+\end{itemize}
+
+
+    \item \textbf{Kerugian Virtualisasi}
+    \par Walaupun virtualisasi menawarkan banyak keuntungan, ada beberapa kerugian yang perlu diperhatikan, di antaranya:
+
+\begin{itemize}
+    \item \textbf{Satu Titik Kesalahan:} 
+    Jika satu perangkat keras fisik digunakan untuk menjalankan banyak server virtual, kerusakan pada perangkat keras tersebut bisa memengaruhi semua server virtual yang berjalan di atasnya. Oleh karena itu, diperlukan strategi cadangan dan monitoring untuk meminimalkan risiko ini.
+    
+    \item \textbf{Kepadatan Saluran Jaringan:} 
+    Jika satu server fisik menjalankan banyak mesin virtual yang membutuhkan akses jaringan intensif, ini bisa menyebabkan kepadatan saluran jaringan dan menurunkan kinerja jaringan. Solusi untuk masalah ini adalah dengan menggunakan beberapa kartu jaringan pada host fisik.
+    
+    \item \textbf{Meningkatkan Kompleksitas Jaringan dan Debugging:} 
+    Virtualisasi jaringan yang kompleks dapat menambah kesulitan dalam hal desain dan pengelolaan infrastruktur, serta memakan lebih banyak waktu dalam proses debugging.
+    
+    \item \textbf{Meningkatkan Kompleksitas Administrasi:} 
+    Administrasi bisa menjadi lebih rumit jika sistem manajemen terdistribusi yang digunakan tidak mendukung mesin virtual. Oleh karena itu, diperlukan perencanaan dan pemilihan alat yang tepat untuk mendukung virtualisasi secara efisien.
+\end{itemize}
+\end{enumerate}
+
+\subsubsection{Kesimpulan}
+Virtualisasi merupakan teknologi penting dalam komputasi modern, yang memungkinkan pemanfaatan sumber daya secara lebih efisien, meningkatkan fleksibilitas, dan menyederhanakan pengelolaan infrastruktur. Meskipun memiliki beberapa kelemahan seperti potensi satu titik kesalahan dan peningkatan kompleksitas jaringan, manfaat yang diperoleh jauh lebih besar, terutama dalam hal penghematan biaya dan peningkatan uptime sistem.
+
+\newpage
+
+\begin{thebibliography}{9}
+    \bibitem{Ref1} Tanenbaum, A. S., \& Bos, H. (2015). \textit{Modern Operating Systems}. Pearson.
+    
+    \bibitem{Ref2} Silberschatz, A., Galvin, P. B., \& Gagne, G. (2018). \textit{Operating System Concepts}. John Wiley \& Sons.
+    
+    \bibitem{Ref3} Singh, G. (2019). \textit{Virtualization Essentials}. John Wiley \& Sons.
+    
+    \bibitem{Ref4} Barham, P., Dragovic, B., Fraser, K., Hand, S., Harris, T., Ho, A., \& Warfield, A. (2003). \textit{Xen and the art of virtualization}. In \textit{Proceedings of the nineteenth ACM symposium on Operating systems principles} (pp. 164-177).
+\end{thebibliography}
+
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
@@ -135,10 +218,10 @@ Students were tasked with implementing various process scheduling algorithms (e.
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied *Amdahl's Law* to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+Students were tasked with creating a simple *CLI* for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

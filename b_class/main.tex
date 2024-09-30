@@ -62,9 +62,22 @@ Describes the architecture of modern computer systems, focusing on the interacti
 Processes are a central concept in operating systems. This section covers:
 \begin{itemize}
     \item Process states and state transitions
-    \item Process control block (PCB)
+    \item Process control block (PCB) \\ \\
+    Process Control Block (PCB) adalah struktur data yang paling penting dalam sebuah sistem operasi. PCB memegang peranan penting dalam mengatur proses, memungkinkan sistem operasi melanjutkan eksekusi dari titik terakhir saat proses kembali dijalankan setelah context switching. PCB digunakan oleh sistem operasi untuk menyimpan semua informasi yang diperlukan untuk mengelola proses, dan setiap proses yang berjalan di sistem operasi memiliki PCB yang terkait dengannya. PCB berisi berbagai informasi tentang proses tersebut, termasuk:
+    \begin{itemize}
+        \item Process ID (PID): Merupakan nomor unik yang digunakan untuk mengidentifikasi setiap proses di dalam sistem.
+        \item State of Process: Menyimpan status atau kondisi proses saat ini, seperti `running`, `waiting`, atau `terminated`.
+        \item Program Counter (PC): Menyimpan alamat dari instruksi berikutnya yang akan dieksekusi oleh CPU untuk proses ini.
+        \item CPU Registers: Menyimpan konten register CPU ketika terjadi context switch, sehingga proses dapat dilanjutkan dari titik terakhirnya saat beralih kembali.
+        \item Memory Management Information: Menyimpan informasi tentang alokasi memori untuk proses ini, termasuk informasi tentang batas memori, tabel halaman (page table), dan segmen memori.
+        \item I/O Status Information: Menyimpan informasi tentang perangkat input/output yang digunakan oleh proses, seperti file yang terbuka, dan perangkat yang dialokasikan.
+        \item Accounting Information: Menyimpan informasi tentang jumlah waktu CPU yang telah digunakan oleh proses, prioritas proses, dan informasi penggunaan sumber daya lainnya.
+    \end{itemize}
+    PCB memungkinkan sistem operasi untuk melacak status setiap proses dan memastikan bahwa CPU dapat melanjutkan proses dengan benar setelah context switch terjadi. Modifikasi PCB dilakukan oleh modul-modul dalam sistem operasi seperti penjadwalan, alokasi sumber daya, dan penanganan interrupt. PCB juga berperan dalam pengawasan dan analisis kinerja sistem.
+    
     \item Context switching
 \end{itemize}
+
 
 \subsection{Scheduling Algorithms}
 This section covers:

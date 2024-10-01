@@ -84,20 +84,46 @@ Details how processes are created and terminated by the operating system, includ
 \end{itemize}
 
 \subsection{Introduction to Threads}
-This section introduces the concept of threads and their relation to processes, covering:
-\begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
-\end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+    \subsubsection{Definisi Process and Thread}
+    \begin{itemize}
+            \item\textbf{Proses} 
+            \par \hspace{2em} Process adalah unit eksekusi independen dalam sistem operasi yang mencakup ruang memori, sumber daya, dan status eksekusinya sendiri. Setiap proses dihasilkan dari eksekusi suatu program dan berjalan secara terpisah dengan proses lainnya. Karena memiliki ruang memori dan sumber daya sendiri, proses tidak saling berbagi data secara langsung kecuali menggunakan mekanisme komunikasi antar-proses (IPC). Proses bertanggung jawab untuk menjalankan instruksi program, dan sistem operasi mengelola eksekusi, alokasi sumber daya, dan status dari setiap proses. 
+            
+            \item\textbf{Thread}
+            \par \hspace{2em} Thread adalah unit eksekusi yang lebih ringan dibandingkan proses. Thread merupakan bagian dari suatu proses yang lebih besar, dan beberapa thread dapat berjalan secara bersamaan dalam satu proses. Tidak seperti proses, thread berbagi memori dan sumber daya dengan thread lain di dalam proses yang sama, sehingga lebih efisien dalam penggunaan sumber daya. Karena berbagi ruang memori, thread dapat berkomunikasi lebih cepat dengan thread lain dalam satu proses, namun juga meningkatkan risiko konflik data. Thread sering digunakan untuk tugas-tugas yang membutuhkan pemrosesan paralel dalam aplikasi.
+            \end{itemize}
+            
+    \subsubsection{Process vs Threads}
+    \begin{enumerate}
+        \item\textbf{Memori}
+        \begin{itemize}
+            \item\textbf{Proses} 
+            \par \hspace{2em} Setiap proses memiliki ruang alamat memori sendiri yang terpisah (dikenal sebagai isolasi memori). Proses tidak dapat langsung mengakses memori dari proses lain kecuali dengan mekanisme komunikasi antar proses (IPC). Karena setiap proses memiliki ruang memori sendiri, switching antar proses membutuhkan lebih banyak memori karena data seperti state, kode, dan data proses disimpan secara terpisah untuk setiap proses.
+            \item\textbf{Thread}
+            \par \hspace{2em} Thread berbagi ruang alamat memori dengan proses induknya. Semua thread dalam satu proses berbagi kode, data, dan file descriptors yang sama. Karena thread berbagi memori, mereka dapat dengan mudah berkomunikasi satu sama lain tanpa perlu IPC yang rumit, tetapi ini juga menyebabkan risiko race condition atau deadlock jika tidak dikelola dengan baik.
+        \end{itemize}
+        \item\textbf{Overhead} 
+        \begin{itemize}
+            \item\textbf{Proses} 
+            \par \hspace{2em} Proses memiliki overhead yang lebih besar dibandingkan thread. Proses mencakup informasi lengkap seperti ruang alamat terpisah, tabel proses, dan lain-lain. Context switching antara proses membutuhkan lebih banyak sumber daya dan waktu karena melibatkan penyimpanan dan pemulihan state dari proses yang berbeda, yang mencakup informasi memori, register, dan lain-lain.
+            \item\textbf{Thread}
+            \par \hspace{2em} Thread memiliki overhead yang lebih rendah dibandingkan proses. Switching antar thread dalam satu proses lebih cepat karena thread berbagi sebagian besar sumber daya (seperti memori).Thread hanya perlu menyimpan dan memulihkan informasi minimal (misalnya, register CPU dan pointer stack), sehingga context switching antar thread jauh lebih ringan dibandingkan dengan antar proses.
+        \end{itemize}
+        \item\textbf{Eksekusi}
+        \begin{itemize}
+            \item\textbf{Proses} 
+            \par \hspace{2em} Setiap proses adalah entitas independen yang dijalankan secara terpisah di CPU. Sebuah proses dapat terdiri dari satu atau lebih thread. Komunikasi antar proses lebih rumit karena proses memiliki ruang memori terpisah, sehingga diperlukan mekanisme Inter-Process Communication (IPC) seperti pipes, message queues, atau shared memory.
+            \item\textbf{Thread}
+            \par \hspace{2em} Thread merupakan unit eksekusi yang lebih kecil dalam sebuah proses. Semua thread dalam satu proses dijalankan secara bersamaan dan berbagi sumber daya yang sama. Komunikasi antar thread lebih efisien karena mereka dapat mengakses data bersama secara langsung dalam ruang memori yang sama, tetapi harus berhati-hati dengan sinkronisasi untuk menghindari kesalahan (seperti race conditions).
+        \end{itemize}
+        \item\textbf{Manajemen Sumber Daya}
+        \begin{itemize}
+            \item\textbf{Proses} 
+            \par \hspace{2em} Setiap proses memiliki sumber dayanya sendiri, termasuk memori, file handles, dan state CPU. Manajemen sumber daya lebih kompleks dan sering membutuhkan operasi yang lebih berat seperti pembagian sumber daya atau komunikasi antar proses. Karena proses memiliki lingkungan eksekusi yang terisolasi, kesalahan pada satu proses biasanya tidak memengaruhi proses lain.
+            \item\textbf{Thread}
+            \par \hspace{2em} Thread berbagi sumber daya dengan thread lain dalam proses yang sama. Mereka berbagi memori, file handles, dan lainnya. Ini membuat manajemen sumber daya antar thread lebih efisien, tetapi juga lebih rentan terhadap konflik jika tidak dikelola dengan baik (misalnya, melalui penggunaan mutexes, semaphores, atau mekanisme sinkronisasi lainnya). Kesalahan dalam satu thread dapat memengaruhi thread lain dalam proses yang sama karena mereka berbagi memori dan sumber daya lainnya.
+        \end{itemize}
+    \end{enumerate}
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:

@@ -117,8 +117,34 @@ Input and output management is key for handling the interaction between the syst
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
-    \item Deadlock conditions
     \item Deadlock prevention techniques
+\end{itemize}
+
+\begin{document}
+
+\section*{Definisi Deadlock}
+Deadlock merupakan suatu kondisi di mana terdapat dua atau lebih proses yang menunggu untuk mendapatkan resource yang mereka butuhkan tanpa melepaskan resource yang mereka miliki, sehingga terjadi kebuntuan proses.
+
+\section*{Definisi Deadlock Prevention}
+Deadlock prevention adalah suatu teknik dalam sistem operasi yang digunakan untuk menghindari terjadinya deadlock dengan memastikan bahwa setidaknya satu dari empat kondisi yang menyebabkan deadlock tidak pernah terpenuhi. Keempat kondisi tersebut meliputi mutual exclusion (eksklusi mutual), hold and wait (tahan dan tunggu), no preemption (tidak ada pencegahan), dan circular wait (tunggu melingkar). Teknik ini biasanya dilakukan dengan mengatur sumber daya dan permintaan proses secara ketat, misalnya dengan menghindari alokasi sumber daya secara eksklusif, atau memastikan bahwa proses tidak menahan sumber daya sambil menunggu sumber daya lain.
+
+\section*{Tujuan}
+Tujuan utama dari deadlock prevention adalah untuk mencegah terjadinya deadlock dengan mengeliminasi salah satu dari empat syarat deadlock sebelum terjadinya kondisi tersebut. Ini dilakukan untuk memastikan sistem tetap berjalan tanpa proses yang terganggu oleh sumber daya yang tidak tersedia.
+
+\section*{Kondisi}
+\begin{itemize}
+    \item \textbf{Mutual Exclusion:} Keadaan di mana setiap sumber daya hanya bisa digunakan untuk satu proses saja pada satu periode tertentu.
+    \item \textbf{Hold and Wait:} Suatu keadaan di mana proses dapat masuk ke dalam status hold dan menunggu resource lain yang sedang digunakan proses lain.
+    \item \textbf{Non-preemptable:} Suatu sumber daya tidak bisa diambil setiap saat dari suatu proses. Sumber daya hanya dapat diambil apabila proses tersebut telah selesai digunakan.
+    \item \textbf{Circular Wait:} Keadaan dua proses saling menunggu secara circular karena proses saling menunggu sumber daya.
+\end{itemize}
+
+\section*{Pentingnya Pencegahan Deadlock}
+\begin{itemize}
+    \item Pencegahan deadlock penting karena dapat meningkatkan efisiensi sistem, memastikan sistem tetap berfungsi optimal tanpa gangguan.
+    \item Deadlock mencegah penggunaan sumber daya oleh proses lain, sehingga pencegahannya menghindari pemborosan sumber daya.
+    \item Dengan mencegah deadlock, sistem tetap stabil dan tangguh dalam menangani permintaan sumber daya meskipun beban kerja tinggi.
+    \item Pencegahan deadlock juga menghindari kegagalan total sistem yang dapat menyebabkan downtime signifikan.
 \end{itemize}
 
 \subsection{User Interface Management}
@@ -186,5 +212,21 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{3}
+
+    \bibitem{}
+    Safei, T. T. Pencegahan Deadlock pada Alokasi Resource dalam Sistem Operasi Menggunakan Algoritma Greedy.
+    
+    \bibitem{}
+    Viswanadham, N., Narahari, Y., and Johnson, T. L. (1990). Deadlock prevention and deadlock avoidance in flexible manufacturing systems using Petri net models. IEEE Transactions on Robotics and Automation Magazine, 6(6), 713-723.
+    
+    \bibitem{}
+    Mumtahana, S. H. A. (2018). Implementasi Penanganan Deadlock Menggunakan Metode Taskkill. TRANSFORMASI, 13(2).
+    
+    \bibitem{}
+    Prasetiyo, S. M., Gustiawan, R., and Albani, F. R. (2024). Penanganan Deadlock Yang Optimal Dalam Sistem Operasi Windows: Pencegahan, Identifikasi Penyebab, Dan Konsekuensi Deadlock. Buletin Ilmiah Ilmu Komputer dan Multimedia (BIIKMA), 2(1), 60-64.
+    
+    \end{thebibliography}
 
 \end{document}

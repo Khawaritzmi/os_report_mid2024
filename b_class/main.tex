@@ -108,11 +108,109 @@ File systems provide a way for the operating system to store, retrieve, and mana
 \end{itemize}
 
 \subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
+
+\subsubsection{Interrupt Driven I/O}
+   \begin{itemize}
+    \item Metode di mana perangkat I/O mengirimkan sinyal interupsi ke CPU
+    saat siap melakukan transfer data. Berbeda dengan polled I/O yang mengharuskan CPU secara terus-menerus memeriksa status perangkat, dalam interrupt-driven I/O, CPU dapat fokus pada tugas lain hingga diinterupsi oleh perangkat I/O.
+    \item Prinsip mekanisme transfer data pada interrupt-driven I/O sama dengan programmed I/O, yaitu CPU tetap mempertukarkan data dengan device I/O melalui beberapa register CPU. Maka antarmuka I/O menyediakan control, status, dan port data. Perbedaan yang prinsip adalah siapa yang bertanggung jawab untuk berinisiatif melakukan transfer data. Pada programmed I/O tanggung jawabnya ada pada CPU. Dengan kata lain, program I/O harus sering melakukan pemeriksaan (scan) status device I/O untuk menentukan apakah device siap melakukan transfer data.Pada interrupt-driven I/O, data transfer dimulai (atasinisiatif) device I/O, yang menggunakan mekanisme interupsi untuk memberitahukan CPU tentang kesiapannya. Mekanisme ini menghilangkan beban scanning status. Device I/O juga dapat menggunakan mekanisme interupsi untuk keperluan yang lain. Sebagai contoh untuk menarik perhatian CPU pada saat terjadi kesalahan/ kerusakkan, atau untuk menunjukkan selesainya operasi lokal.\\
+    Tanpa memperhatikan tipenya, apabila menerima interupsi, CPU akan:
+\begin{enumerate}
+    \item Menagguhkan eksekusi program yang sedang berlangsung.
+    \item Menyimpan statusnya.
+    \item Melompat ke interrupt service routine (ISR).
+    \item Kembali untuk melanjutkan eksekusi program yang diinterupsi.
+\end{enumerate}
 \end{itemize}
+\subsubsection{Jenis Interupsi}
+\begin{enumerate}
+    \item Maskable interupts.
+    \item Non-Maskable interrupts.
+\end{enumerate}
+\subsubsection{Struktur interupsi pada prosesor}
+\begin{enumerate}
+    \item Interupsi maskable dan nonmaskable dengan jalur terpisah.
+\item Interupsi maskable dan nonmaskable dengan jalur bersama.\\
+    Pola pertama berbasis pada dua jalur permintaan interupsi (interrupt request) yang terpisah, satu untuk interupsi maskable (INTREQ) dan satu lagi untuk nonmaskable (NMINT). Jalur INTERQ biasanya berpasangan dengan jalur interrupt acknowledge (INTACK). Melalui jalur ini CPU menjawab penerimaan permintaan nterupsi dan menginstrusksikan device I/O untuk meletakkan kode alamat ke bus data. Kode alamat menunjukkan CPU ke ISR yang mentansfer data atau melakukan pelayanan yang lainya atas nama device I/O. INTERQ dan INTACK dapat dipandang sebagai pasangan jalurjabat tangan (handshaking).Beberapa CPU tidak menyediakan sinyal jawanan interupsi pada jalur yang terpisah, tetapi melakukan enscodesiklus ini pada jalur status. Dalam kasus ini sinyal INTACKdiperoleh dengan cara mengkode jalur status CPU. Interupsi non maskable tidak memerlukan acknowledge karena interupsi ini selalu diterima dan karena tidak ada kode alamat yang diberikan secara eksternal. Dengan demikian tidak diperlukan jalur acknowledge untuk interupsi ini. Contoh prosesor yang menggunakan pola ini adalah 8086 dan 8088.
+\end{enumerate}
+\subsubsection{Pemrosesan Interupsi}
+\begin{enumerate}
+    \item Menangguhkan eksekusi program.
+    \item Menyimpan status program (context).
+    \item Melompat ke Interrupt Service Routine (ISR).
+    \item embali ke program yang diinterupsi.
+\end{enumerate}
+\subsubsection{Klasifikasi Perangkat I/O}
+\begin{itemize}
+    \item Sifat aliran datanya
+\begin{enumerate}
+    \item Perangkat berorientasi blok \\
+    Yaitu menyimpan, menerima, dan mengirim informasi sebagai blok-blok berukuran tetap yang berukuran 128 sampai 1024 byte dan memiliki alamat tersendiri, sehingga memungkinkan membaca atau menulis blok-blok secara independen (mandiri), yaitu dapat membaca atau menulis sembarang blok tanpa harus melewati blok-blok lain. Contoh : disk,tape,CD ROM,optical disk.
+    \item Perangkat berorientasi aliran karakter \\
+    Perangkat yang menerima, dan mengirimkan aliran karakter tanpa membentuk suatu struktur blok. Contoh : terminal, line printer, pita kertas, kartu-kartu berlubang, interface jaringan, mouse.
+\end{enumerate}
+\end{itemize}
+\begin{itemize}
+    \item Sasaran komunikasi 
+\begin{enumerate}
+    \item Perangkat yang terbaca oleh manusia \\
+    Perangkat yang digunakan untuk berkomunikasi dengan manusia. 
+    Contoh : VDT (video display terminal) : monitor, keyboard, mouse.
+    \item Perangkat yang terbaca oleh mesin 
+    Perangkat yang digunakan untuk berkomunikasi dengan perangkat elektronik. Contoh : Disk dan tape, sensor, controller.
+    \item perangkat komunikasi\\
+    Perangkat yang digunakan untuk komunikasi dengan perangkat jarak jauh. Contoh : Modem
+\end{enumerate}
+\end{itemize}
+\subsubsection{Prinsip Manajemen Perangkat I/O}
+\begin{itemize}
+    \item Terdapat dua sasaran perancangan I/O
+\begin{enumerate}
+    \item Efisiensi \\
+    Aspek penting karena operasi I/O sering menimbulkan bottleneck.
+    \item Generalitas(device independence) \\
+    Manajemen perangkat I/O selain berkaitan dengan simplisitas dan bebas kesalahan, juga menangani perangkat secara seragam baik dari cara proses memandang maupun cara sistem operasi mengelola perangkat dan operasi I/O.
+\end{enumerate}
+\end{itemize}
+\subsubsection{Masalah-Masalah Manajemen I/O}
+\begin{itemize}
+    \item Penamaan yang seragam (uniform naming) \\
+    Nama berkas atau perangkat adalah string atau integer, tidak bergantung pada perangkat sama sekali. 
+    \item Penanganan kesalahan(errorhandling)\\
+    Umumnya penanganan kesalahan ditangani sedekat mungkin dengan perangkat keras.
+    \item Transfer sinkron vs asinkron \\
+    Kebanyakan I/O adalah asinkron. Pemroses memulai transfer serta mengabaikan untuk melakukan kerja lain sampai interupsi tiba. Program pemakai sangat lebih mudah ditulis jika operasi I/O berorientasi blok. Setelah perintah read, program kemudian ditunda secara otomatis sampai data tersedia di buffer.
+    \item Sharable vs dedicated \\
+    Beberapa perangkat dapat dipakai bersama seperti disk, tapi ada juga perangkat yang hanya satu pemakai yang dibolehkan memakai pada satu saat. Contoh : printer
+\end{itemize}
+\subsubsection{Direct Memory Access}
+Dirrect Memory Acces atau DMA merupakan suatu alat pengendali khusus yang disediakan untuk memungkinkan transfer blok data langsung antar perangkat eksternal dan memori utama, tanpa interversi terus menerus dari prosesor. \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.80\linewidth]{b_class/asset/I_O.jpg}
+    \caption{Struktur Modul I/O}
+    \label{fig:enter-label}
+\end{figure}
+Penjelasan :
+\begin{itemize}
+    \item CPU Mengatur Pekerjaan
+    Saat CPU memulai pekerjaan, CPU ingin memindahkan data dari disk (penyimpanan) ke RAM (memori). Untuk melakukan ini, CPU akan memberi perintah ke DMA Controller. DMA berfungsi membantu CPU agar tidak terlalu sibuk.
+    \item DMA Controller Beraksi
+    Setelah mendapat perintah, DMA controller mengambil alih pekerjaan untuk sementara. Dia akan membuat jalur khusus agar data dari disk bisa langsung masuk ke memori tanpa harus melalui CPU. Hal ini dilakukan agar CPU bisa tetap fokus pada tugas lain dan tidak perlu bolak-balik mengurus transfer data.
+    \item Transfer Data
+    DMA controller menggunakan PCI bus untuk memindahkan data dari disk ke RAM dengan menggunakan bantuan jalur-jalur khusus yang sudah ada. Dalam perjalanan ini, Pada transfer data terdapat buffer yang berfungsi sebagai tempat persinggahan sementara. Buffer menampung data sementara sebelum data benar-benar sampai ke RAM.
+    \item Pemberitahuan ke CPU
+    Setelah semua data berhasil dipindahkan ke RAM, DMA controller akan memberi tahu CPU dengan "sinyal interupsi." \\
+    Inti dari diagram ini adalah menunjukkan bagaimana sistem komputer bisa bekerja lebih efisien menggunakan DMA. Dengan menggunakan DMA controller, CPU tidak perlu sibuk mengurus transfer data. CPU cukup memberi perintah sekali, lalu DMA yang akan menangani semua proses transfer. Hasilnya, Komputer bekerja lebih cepat dan efisien karena CPU bisa mengerjakan tugas lain tanpa terhambat.
+\end{itemize}
+
+\subsubsection{Metode DMA Dalam Mentransfer Data}
+\begin{itemize}
+    \item Metode HALT atau BurstMode DMA
+    \item Mengikut sertakan pengendali DMA \\
+    Pada dasarnya DMA mempunyai dua metode yang berbeda dalam mentransfer data, Metode yang pertama ialah metode yang sangat baku dan sederhana disebut HALT, atau BurstMode DMA, karena pengendali DMA memegang control dari system bus dan mentransfer semua blok data atau dari memori pada single burst. Selagi transfer masih dalam proses, system mikroprosessor di-setidle, tidak melakukan intruksi operasi untuk menjaga internal register. Tipe operasi DMA seperti ini ada pada kebanyakan komputer. Metode yang kedua adalah mengikut sertakan pengendali DMA untuk memegang control dari system bus untuk jangka waktu yang lebih pendek pada periode dimana mikroprosessor sibuk dengan operasi internal dan tidak membutuhkan akses ke system bus. Metode DMA ini disebut dengan cycle stealing mode. Cycle stealing mode DMA lebih kompleks untuk diimplementasikan dibandingkan HALT DMA, karena pengendali DMA harus mempunyai kepintaran untuk merasakan waktu pada saat sistem bus terbuka.
+\end{itemize}
+
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:

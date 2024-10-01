@@ -81,6 +81,115 @@ Details how processes are created and terminated by the operating system, includ
 \begin{itemize}
     \item Process spawning
     \item Process termination conditions
+    
+    \subsubsection{Process Normal Termination}
+    
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.2\linewidth]{Normal.png}
+        \caption{Normal Termination}
+        \label{fig:enter-label}
+    \end{figure}
+    
+        \begin{itemize}
+            Proses Normal Termination adalah suatu kondisi di mana sebuah proses menyelesaikan fungsinya yang dimaksudkan tanpa mengalami kesalahan atau pengecualian. Ini adalah akhir eksekusi proses yang terkontrol dan disengaja. Dalam kode program, biasanya ada instruksi atau statement yang menunjukkan akhir dari proses, seperti return di fungsi main dalam bahasa C atau Java. Proses ini adalah bagian dari siklus hidup normal sebuah proses.
+        \end{itemize}
+    
+        Skenario umum untuk terminasi normal:
+        \begin{itemize} 
+            \item Penyelesaian proses: Proses telah menyelesaikan semua tugasnya dan mencapai titik akhir alami.
+            \item Terminasi yang diinisiasi oleh pengguna: Pengguna telah secara eksplisit meminta proses untuk berhenti, biasanya melalui perintah atau antarmuka.
+            \item Pengembalian dari fungsi: Sebuah proses dapat terminasi ketika sebuah fungsi yang dijalankan mengembalikan nilai yang mengindikasikan penyelesaian.
+        \end{itemize}
+    
+        Karakteristik terminasi normal:
+        \begin{itemize} 
+            \item Proses terminasi dengan cara yang dapat diprediksi dan teratur.
+            \item Tidak ada masalah atau pengecualian yang tidak terduga yang menyebabkan proses berakhir sebelum waktunya.
+            \item Proses melepaskan semua sumber daya yang digunakannya (misalnya, memori, file, koneksi jaringan) sebelum terminasi.
+        \end{itemize}
+        
+        Contoh terminasi normal:
+        \begin{itemize}
+            \item Sebuah proses browser web menyelesaikan pemuatan halaman web.
+            \item Sebuah proses editor teks menyimpan dokumen dan kemudian keluar.
+            \item Sebuah tugas latar belakang menyelesaikan pekerjaannya yang dijadwalkan dan terminasi.
+        \end{itemize} 
+    
+    
+    \item 
+    \subsubsection {Abnormal Termination}
+    
+    \item Abnormal Termination adalah Proses berakhir tidak normal akibat adanya kesalahan yang tidak dapat ditangani dengan benar. Hal ini sering kali disebabkan oleh kondisi yang tidak diharapkan yang membuat proses tidak dapat melanjutkan eksekusi
+    
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\linewidth]{Abnormal.png}
+            \caption{Abnormal Termination}
+            \label{Abnormal}
+        \end{figure}
+    
+    
+    Penyebab Terminasi Abnormal:
+    \begin{itemize}
+        \item Kesalahan Logika: Kesalahan dalam kode program, seperti pembagian dengan nol, akses array di luar batas, atau penggunaan pointer yang tidak valid.
+        \item Kehabisan Sumber Daya: Proses kehabisan sumber daya yang dibutuhkan untuk beroperasi, seperti memori, file descriptor, atau waktu CPU.
+        \item Sinyal: Proses menerima sinyal yang memaksanya untuk berhenti, seperti sinyal SIGKILL (terminate immediately) atau SIGSEGV (segmentation fault).
+        \item Kesalahan Perangkat Keras: Kerusakan perangkat keras dapat menyebabkan proses berhenti secara tiba-tiba.
+        \item Deadlock: Dua atau lebih proses saling menunggu satu sama lain, sehingga tidak ada yang dapat melanjutkan eksekusi.
+        \item Interupsi: Terjadinya interupsi yang tidak dapat ditangani oleh sistem operasi.
+    \end{itemize}
+    
+        Kontras dengan terminasi abnormal:
+        \begin{itemize}
+            \item Terminasi abnormal terjadi ketika sebuah proses berakhir secara tidak terduga karena kesalahan, pengecualian, atau keadaan tak terduga lainnya. Hal ini dapat menyebabkan perilaku yang tidak terkendali, kebocoran sumber daya, atau ketidakstabilan sistem.
+        \end{itemize}
+    
+    Dampak Terminasi Abnormal :
+    \begin{itemize}
+        \item Kehilangan Data: Data yang sedang diproses oleh proses yang terminasi secara abnormal mungkin hilang atau rusak.
+        \item Ketidakstabilan Sistem: Terminasi abnormal dapat menyebabkan sistem menjadi tidak stabil atau bahkan crash.
+        \item Kerusakan Data: Data yang disimpan di disk atau memori dapat rusak jika proses tidak sempat menyimpan data dengan benar sebelum terminasi.
+        \item Gangguan Proses Lain: Terminasi abnormal suatu proses dapat mempengaruhi proses lain yang berinteraksi dengannya.
+    \end{itemize}
+    
+    
+    Mekanisme Penanganan Terminasi Abnormal:
+    \begin{itemize}
+        Sistem Operasi: Sistem operasi akan berusaha untuk mendeteksi dan menangani terminasi abnormal. Ini melibatkan mekanisme seperti:
+    \end{itemize}
+    
+    
+        \begin{itemize}
+            \item Penanganan Pengecualian: Sistem operasi akan menangkap pengecualian yang terjadi selama eksekusi proses dan mengambil tindakan yang sesuai, seperti menghentikan proses atau menampilkan pesan kesalahan.
+            \item Pengawasan Memori: Sistem operasi akan memantau penggunaan memori oleh proses untuk mencegah terjadinya akses memori yang tidak sah.
+            \item Pengawasan Waktu: Sistem operasi akan membatasi waktu eksekusi suatu proses untuk mencegah proses berjalan terlalu lama dan menghabiskan sumber daya sistem.
+            \item     Debugging: Pengembang dapat menggunakan debugger untuk melacak kesalahan yang menyebabkan terminasi abnormal dan memperbaiki kode program.
+        \end{itemize}
+    
+    
+    Contoh Terminasi Abnormal
+    \begin{itemize}
+        \item Program crash: Sebuah program tiba-tiba berhenti bekerja dan menampilkan pesan kesalahan.
+        \item Blue Screen of Death (BSOD): Sistem operasi Windows mengalami kegagalan fatal dan menampilkan layar biru.
+        \item Kernel panic: Sistem operasi Linux mengalami kegagalan yang sangat serius dan tidak dapat melanjutkan operasi.
+    \end{itemize}
+    
+    
+    
+    Pencegahan Terminasi Abnormal:
+    \begin{itemize}
+        \item Pengujian yang Memadai: Melakukan pengujian yang menyeluruh pada perangkat lunak untuk menemukan dan memperbaiki bug sebelum di-deploy.
+        \item Penanganan Pengecualian: Menulis kode yang dapat menangani berbagai jenis pengecualian yang mungkin terjadi.
+        \item Manajemen Memori yang Baik: Memastikan alokasi dan dealokasi memori dilakukan dengan benar untuk mencegah kebocoran memori.
+        \item Validasi Input: Memeriksa semua input pengguna untuk memastikan bahwa input tersebut valid dan tidak akan menyebabkan kesalahan.
+    \end{itemize}
+    
+    \begin{itemize}
+    \item {Wahab, A., & Mubarok, R. (2019). Pengenalan Sistem Operasi (Edisi Revisi). Penerbit Andi.}
+    \item {Hidayat, M., & Santoso, A. (2018). "Analisis Penanganan Error dan Exception Handling Pada Bahasa Pemrograman Java." Jurnal Ilmu Komputer dan Teknologi Informasi, 5(1), 55-62.}
+    \end{itemize}
+
 \end{itemize}
 
 \subsection{Introduction to Threads}

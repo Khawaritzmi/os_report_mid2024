@@ -68,13 +68,44 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
-This section covers:
-\begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
-\end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+	This section covers:
+	\subsubsection{First-Come, First-Served (FCFS)}
+	\subsubsection{Shortest Job Next (SJN)}
+	\subsubsection{Round Robin (RR)}
+        \begin{figure} [h]
+        \centering
+        \includegraphics[width=0.75\textwidth]{assets/Round Robin Diagram.png}
+        \label{fig:diagram}
+        \end{figure}
+		Round robin scheduling adalah versi preemptive dari first-come, first-served scheduling. Proses-proses dijalankan dalam urutan first-in-first-out, tetapi setiap proses hanya diizinkan berjalan dalam jangka waktu yang terbatas. Interval waktu ini dikenal sebagai time-slice atau quantum. Jika suatu proses tidak selesai atau tidak diblokir karena operasi I/O dalam jangka waktu tersebut, maka time-slice akan habis, dan proses tersebut akan dipreempt. Proses yang dipreempt ini ditempatkan di bagian belakang antrian dan harus menunggu semua proses yang sudah ada di dalam antrian untuk berputar melalui CPU
+		\par Jika suatu proses diblokir karena operasi I/O sebelum time-slice habis, maka tentu saja proses tersebut masuk ke dalam keadaan terblokir karena operasi I/O tersebut. Setelah operasi tersebut selesai, proses ini akan ditempatkan di akhir antrian dan menunggu gilirannya.
+		\par Dalam round robin scheduling, kinerja interaktif tergantung pada panjang quantum dan jumlah proses dalam antrian. Quantum yang terlalu panjang membuat algoritma ini berperilaku seperti first come, first served scheduling, karena sangat mungkin bahwa suatu proses akan diblokir atau selesai sebelum time-slice habis. Quantum yang kecil memungkinkan sistem berputar melalui proses dengan cepat, yang bagus untuk proses interaktif. Sayangnya, ada overhead dalam context switching, dan melakukan hal ini terlalu sering meningkatkan persentase waktu sistem yang digunakan untuk context switching dibandingkan dengan pekerjaan nyata.
+		
+		\subsubsection*{Karakteristik Algoritma Penjadwalan CPU Round Robin}
+		\begin{itemize}
+			\item Sederhana, mudah diimplementasikan, dan bebas dari kekurangan sumber daya karena semua proses mendapat porsi CPU yang adil.
+			\item Salah satu teknik yang paling umum digunakan dalam penjadwalan CPU adalah inti.
+			\item Hal ini bersifat preemptif karena proses hanya ditugaskan ke CPU untuk jangka waktu tertentu saja maksimal.
+			\item Kerugiannya adalah lebih besarnya biaya overhead pelestarian konteks.
+		\end{itemize}
+		
+		\subsubsection*{Keuntungan Algoritma Penjadwalan CPU Round Robin}
+		\begin{itemize}
+			\item Ada keadilan karena setiap proses mendapat bagian yang sama dari CPU.
+			\item Proses yang baru dibuat ditambahkan ke akhir antrean siap.
+			\item Penjadwalan round-robin umumnya menggunakan Pembagian waktu, yang memberikan setiap slot pekerjaan waktu atau quantum. 
+			\item Saat melakukan penjadwalan round-robin, penempatan waktu tertentu dialokasikan untuk pekerjaan yang berbeda-beda. 
+			\item Setiap proses mendapat kesempatan untuk menjadwalkan ulang setelah waktu tertentu tertentu dalam penjadwalan ini. 
+		\end{itemize}
+		
+		\subsubsection*{Kekurangan Algoritma Penjadwalan CPU Round Robin}
+		\begin{itemize}
+			\item Ada waktu tunggu dan waktu respon yang lebih besar.
+			\item Throughputnya rendah.
+			\item Ada Peralihan Konteks.
+			\item Bagan Gantt tampaknya terlalu besar (jika waktu penempatan lebih sedikit untuk penjadwalan. Misalnya: 1 ms untuk penjadwalan besar.)
+			\item Penjadwalan yang memakan waktu untuk ukuran kecil.
+		\end{itemize}
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:
@@ -187,4 +218,13 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
+\begin{thebibliography}{9}
+    \bibitem{ref1} GeeksforGeeks. (n.d.-a). First Come First Serve | CPU scheduling (non-preemptive). Retrieved October 1, 2024, from https://www.geeksforgeeks.org/first-come-first-serve-cpu-scheduling-non-preemptive/
+    \bibitem{ref2} GeeksforGeeks. (n.d.-b). Program for FCFS CPU scheduling | Set 1. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/program-for-fcfs-cpu-scheduling-set-1/
+    \bibitem{ref3} GeeksforGeeks. (n.d.-c). Shortest Job Next (SJN) in Operating System. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/shortest-job-next-sjn-in-operating-system/
+    \bibitem{ref4} GeeksforGeeks. (n.d.-d). Program for Shortest Job First (SJF) CPU scheduling | Set 1 (non-preemptive). Retrieved October 1, 2024, from https://www.geeksforgeeks.org/program-for-shortest-job-first-or-sjf-cpu-scheduling-set-1-non-preemptive/
+    \bibitem{ref5} GeeksforGeeks. (n.d.-e). Program for Round Robin scheduling for the same arrival time. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/program-for-round-robin-scheduling-for-the-same-arrival-time/
+    \bibitem{ref6} GeeksforGeeks. (n.d.-f). Round Robin scheduling with different arrival times. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/round-robin-scheduling-with-different-arrival-times/ 
+    \bibitem{ref7}Marty, J. (n.d.). Process scheduling. Clemson University. Retrieved October 1, 2024, from https://people.computing.clemson.edu/~jmarty/courses/commonCourse
+    Content/AdvancedModule-LinuxSysAdmin/NotesProcessScheduling.pdf 
 \end{document}

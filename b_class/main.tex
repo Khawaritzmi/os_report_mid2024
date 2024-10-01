@@ -57,7 +57,17 @@ This section explains the fundamental components that make up a computer system,
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
 \subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+\subsubsection{Interaksi antara Hardware dengan Sistem Operasi}
+Sistem Operasi (OS) berperan sebagai penghubung antara perangkat keras ( \textit{hardware}) dan perangkat lunak (\textit{software}) yang dijalankan oleh pengguna. Sistem operasi mengelola dan mengatur semua komponen perangkat keras agar dapat berfungsi secara efisien. Ada beberapa cara interaksi antara \textit{hardware} dengan sistem operasi:
+\begin{itemize}
+    \item Penglolaan Sumber Daya \textit{Hardware}: Sistem operasi mengatur penggunaan perangkat keras seperti CPU, memori, dan perangkat \textit{input/output} (I/O) berdasarkan kebutuhan perangkat lunak dan pengguna. Proses ini mencakup pengelolaan memori, penjadwalan tugas, dan manajemen textit{file}. Dengan cara ini, OS memastikan bahwa sumber daya tersebut digunakan secara optimal untuk berbagai proses yang berjalan di komputer.
+    \item Kontrol Arus Data: Sistem operasi mengendalikan aliran data antara perangkat keras dan perangkat lunak. Ketika perangkat keras mengirimkan data, OS memastikan bahwa data tersebut diterima dan diproses oleh perangkat lunak dengan benar. Sebaliknya, OS juga memastikan bahwa instruksi dari perangkat lunak dapat dikirim ke perangkat keras tanpa masalah.
+    \item Driver: Sistem operasi menggunakan \textit{driver} untuk berkomunikasi dengan perangkat keras. \textit{Driver} adalah perangkat lunak spesifik yang mengendalikan perangkat keras, seperti \textit{printer}, kartu jaringan, atau perangkat penyimpanan. Tanpa \textit{driver} yang tepat, perangkat keras tidak dapat dikenali atau digunakan oleh OS.
+    \item \textit{Interrupt Handling}: Ketika perangkat keras membutuhkan perhatian segera, seperti saat ada \textit{input} dari keyboard atau \textit{mouse}, perangkat tersebut mengirimkan \textit{interrupt} ke CPU. Sistem operasi akan menghentikan sementara proses yang sedang berjalan untuk menangani \textit{interrupt} tersebut, kemudian mengembalikan kontrol ke proses sebelumnya setelah \textit{interrupt} selesai ditangani.
+    \item Manajemen Akses Pengguna: OS mengatur dan mengontrol akses pengguna terhadap perangkat keras melalui pengaturan hak akses dan izin. Sistem operasi memastikan bahwa setiap pengguna hanya dapat mengakses sumber daya yang relevan dengan tugas atau peran mereka, menjaga keamanan dan integritas sistem.
+    \item \textit{Direct Memory Access} (DMA): OS menggunakan DMA untuk memungkinkan perangkat keras tertentu, seperti perangkat penyimpanan, berinteraksi langsung dengan memori tanpa memerlukan campur tangan CPU. Ini mempercepat proses transfer data dan mengurangi beban kerja CPU.
+    \item \textit{System Calls}: \textit{System calls} adalah antarmuka yang digunakan oleh perangkat lunak untuk meminta layanan dari OS, termasuk layanan yang terkait dengan perangkat keras. Dengan \textit{system calls}, perangkat lunak dapat berinteraksi dengan perangkat keras melalui OS, tanpa harus langsung mengendalikan perangkat keras tersebut. Hal ini memastikan keamanan dan kestabilan sistem secara keseluruhan.
+\end{itemize}
 
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:

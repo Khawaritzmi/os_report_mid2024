@@ -130,12 +130,175 @@ This section discusses the role of the operating system in managing the user int
 \end{itemize}
 
 \subsection{Virtualization in Operating Systems}
-Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
-\begin{itemize}
-    \item Concept of virtualization
-    \item Hypervisors and their types
-    \item Benefits of virtualization in modern computing
-\end{itemize}
+Virtualisasi memungkinkan beberapa sistem operasi berjalan secara bersamaan pada satu mesin fisik. Bagian ini akan membahasnya:
+    
+\subsubsection{Pengertian Virtualisasi Sistem Operasi}
+
+\subsubsection{Jenis Jenis Virtualisasi pada Sistem Operasi}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/Asset_DS-Halaman-1.drawio.png}
+    \caption{Type of Virtualization}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Full Virtualization}
+    \par Virtualisasi Penuh (Full Virtualization), atau yang juga dikenal sebagai Native Virtualization, adalah metode virtualisasi di mana mesin virtual (VM) digunakan untuk menjembatani sistem operasi tamu dengan perangkat keras fisik yang ada di bawahnya. Proses menjembatani ini sangat penting dalam teknik ini karena VM bertindak sebagai perantara antara sistem operasi tamu dan perangkat keras. Beberapa instruksi terprivileg yang sensitif tidak dapat dijalankan langsung oleh sistem operasi tamu dan perlu diperangkap oleh hypervisor, yang kemudian menangani instruksi tersebut, karena perangkat keras diakses melalui hypervisor, bukan secara langsung oleh sistem operasi tamu.
+    
+    \par Kinerja Virtualisasi Penuh lebih cepat dibandingkan dengan metode emulasi perangkat keras, namun tetap lebih lambat dibandingkan dengan akses langsung ke perangkat keras fisik. Hal ini terjadi karena hypervisor harus berfungsi sebagai media penghubung yang menyebabkan adanya overhead dalam komunikasi antara sistem operasi tamu dan perangkat keras. Namun, keuntungan terbesar dari virtualisasi penuh adalah tidak memerlukan modifikasi pada sistem operasi tamu. Artinya, sistem operasi yang berjalan di atas virtualisasi penuh dapat berjalan sebagaimana adanya tanpa memerlukan perubahan atau penyesuaian khusus.
+    
+    \par Meski demikian, terdapat batasan dalam virtualisasi penuh, yaitu bahwa sistem operasi tamu harus kompatibel dengan perangkat keras yang ada di bawahnya. Beberapa jenis perangkat keras dapat menimbulkan masalah dalam virtualisasi penuh. Contohnya, beberapa instruksi sensitif tidak selalu bisa ditangkap oleh VM, yang berarti hypervisor harus secara dinamis memindai instruksi tersebut menggunakan mode khusus pemerangkap untuk dapat menangani instruksi-instruksi tersebut. Ini menambah beban kerja hypervisor dan dapat mempengaruhi performa sistem secara keseluruhan.
+    
+    \par Beberapa contoh implementasi virtualisasi penuh:
+    \begin{itemize}
+        \item \textbf{Contoh}
+        \begin{itemize}
+            \item VMware ESX Server: Menggunakan hypervisor tipe 1 yang berjalan langsung di perangkat keras, memungkinkan banyak mesin virtual tanpa modifikasi pada sistem operasi tamu.
+    
+            \item Microsoft Virtual Server: Memungkinkan menjalankan sistem operasi tamu tanpa perubahan, meski kini lebih umum digunakan Hyper-V.
+        \end{itemize}
+    \end{itemize}
+    Untuk mengurangi overhead ini, beberapa produsen perangkat keras seperti Intel dan AMD telah memperkenalkan teknologi yang mendukung virtualisasi secara langsung pada level perangkat keras, seperti Intel VT (Virtualization Technology) dan AMD-V. Teknologi ini membantu mengurangi overhead yang disebabkan oleh hypervisor dengan memungkinkan sistem operasi tamu untuk berinteraksi lebih langsung dengan perangkat keras, sehingga meningkatkan efisiensi dan kinerja keseluruhan dari virtualisasi penuh.
+    
+    \par Dengan demikian, virtualisasi penuh menjadi salah satu pilihan yang sering digunakan dalam lingkungan server dan data center, karena kelebihannya dalam mendukung berbagai macam sistem operasi tanpa memerlukan perubahan pada kode sistem operasi tersebut, meskipun tetap ada beberapa batasan terkait performa dan kebutuhan perangkat keras khusus yang harus dipenuhi untuk memastikan virtualisasi berjalan secara optimal.
+
+    \item \textbf{Para-Virtualization}
+    \newline Paravirtualisasi adalah teknik virtualisasi yang mirip dengan virtualisasi penuh, namun dengan pendekatan yang sedikit berbeda. Pada metode ini, hypervisor tetap digunakan untuk berbagi akses ke perangkat keras, tetapi sistem operasi tamu perlu dimodifikasi agar lebih sadar akan proses virtualisasi (lihat Gambar 3). Pendekatan ini menghilangkan kebutuhan untuk melakukan rekompilasi atau pemerangkapan instruksi, karena sistem operasi bekerja sama dengan hypervisor dalam proses virtualisasi.
+
+    \par Salah satu kelemahan utama dari paravirtualisasi adalah bahwa sistem operasi tamu harus dimodifikasi agar kompatibel dengan lingkungan virtualisasi. Hal ini bisa menjadi kerugian bagi sistem operasi yang tidak siap untuk diubah atau dimodifikasi. 
+    
+    \par Beberapa contoh implementasi paravirtualisasi:
+    \begin{itemize}
+        \item \textbf{Contoh}
+        \begin{itemize}
+            \item VMware ESXi: Hypervisor tipe 1 yang memanfaatkan Intel VT dan AMD-V untuk efisiensi mesin virtual.
+
+            \item KVM (Kernel-based Virtual Machine): Hypervisor di Linux yang menggunakan ekstensi virtualisasi prosesor modern untuk kinerja optimal.
+            
+            \item Microsoft Hyper-V: Platform virtualisasi yang memanfaatkan dukungan hardware untuk menjalankan mesin virtual dengan overhead minimal.
+            
+            \item Xen: Meskipun menggunakan paravirtualisasi, Xen juga memanfaatkan ekstensi hardware untuk meningkatkan performa.
+        \end{itemize}
+    \end{itemize}
+    
+    \par Keunggulan utama dari paravirtualisasi adalah kemampuannya untuk memberikan performa yang mendekati sistem non-virtualisasi, karena overhead yang lebih rendah dibandingkan dengan virtualisasi penuh. Mirip dengan virtualisasi penuh, beberapa sistem operasi dapat dijalankan secara bersamaan dalam lingkungan paravirtualisasi. Namun, modifikasi pada sistem operasi menjadi persyaratan yang tidak dapat dihindari dalam metode ini.
+    
+    \par Cara kerja paravirtualisasi dimulai dengan modifikasi pada sistem operasi tamu agar dapat berinteraksi secara langsung dengan hypervisor. Dengan adanya Application Programming Interface (API) yang disediakan oleh hypervisor, sistem operasi dapat melakukan panggilan untuk mendapatkan akses ke sumber daya perangkat keras, seperti CPU dan memori, tanpa melalui proses penjebakan yang kompleks. Proses ini memungkinkan komunikasi yang lebih cepat dan efisien antara sistem operasi dan hypervisor, sehingga mengurangi overhead yang biasanya terdapat dalam virtualisasi penuh. Karena sistem operasi sudah "sadar" akan lingkungan virtualisasi, banyak instruksi sensitif dapat dijalankan dengan lebih langsung, sehingga memberikan kinerja yang lebih baik dibandingkan dengan metode virtualisasi lainnya.
+    
+    \item \textbf{Hardware-assisted Virtualization}
+    \newline Virtualisasi Berbasis Hardware (Hardware-Assisted Virtualization) mirip dengan Virtualisasi Penuh dan Paravirtualisasi, tetapi memiliki perbedaan mendasar karena bergantung pada ekstensi hardware khusus yang dirancang untuk mengurangi overhead dan meningkatkan performa. Teknik ini memanfaatkan fitur yang ada dalam prosesor modern, seperti Intel VT (Vanderpool) dan AMD-V (Pacifica), untuk menangani tugas yang biasanya menyebabkan kemacetan dalam virtualisasi berbasis perangkat lunak, terutama operasi I/O dan instruksi terprivileg pada sistem operasi tamu.
+
+    \par Beberapa contoh implementasi Hardware-Assisted Virtualization:
+    \begin{itemize}
+        \item \textbf{Contoh}
+        \begin{itemize}
+            \item VMware ESXi: Platform virtualisasi yang populer, menggunakan virtualisasi berbasis hardware untuk meningkatkan performa dan efisiensi.
+
+            \item KVM (Kernel-based Virtual Machine): Solusi virtualisasi yang dibangun di atas kernel Linux, mendukung banyak mesin virtual dengan overhead yang minimal.
+            
+            \item Microsoft Hyper-V: Platform virtualisasi dari Microsoft yang memanfaatkan fitur virtualisasi berbasis hardware untuk menjalankan berbagai sistem operasi tamu secara efisien.
+        \end{itemize}
+    \end{itemize}
+
+    \par Keunggulan utama dari virtualisasi berbasis hardware adalah kemampuannya untuk menjalankan sistem operasi tamu yang tidak dimodifikasi. Berbeda dengan Paravirtualisasi, di mana sistem operasi tamu harus dimodifikasi agar bisa bekerja sama dengan hypervisor, virtualisasi berbasis hardware memungkinkan sistem operasi tamu berinteraksi dengan perangkat keras seolah-olah ia berjalan langsung di mesin fisik. Perangkat keras memberikan dukungan untuk operasi terprivileg dan terlindungi, sehingga meningkatkan efisiensi virtualisasi.
+    
+    \par Selain itu, virtualisasi berbasis hardware juga mengurangi kompleksitas dalam menangani instruksi sensitif. Dalam virtualisasi berbasis perangkat lunak, hypervisor harus mencegat dan mengemulasikan instruksi terprivileg, yang tidak efisien. Dengan fitur seperti Intel VT-x dan AMD-V, operasi sensitif ditangani langsung oleh prosesor, yang mempercepat manajemen mesin virtual dan eksekusi sistem operasi tamu.
+
+    \item \textbf{OS-level Virtualization (Containerization)}
+    
+    \begin{figure}[h!]
+        \centering 
+        \includegraphics[width=0.8\textwidth]{assets/Asset_DS-Halaman-2.jpg}
+        \caption{Containerization}
+    \end{figure}
+    
+    \par OS-Level Virtualization, atau lebih dikenal sebagai Containerization, adalah teknologi yang memungkinkan pengembang untuk membungkus aplikasi beserta semua dependensinya ke dalam "kontainer" yang dapat dijalankan di berbagai lingkungan yang mendukung teknologi kontainer, seperti Docker atau Kubernetes. Kontainer ini berjalan di atas sistem operasi host yang sama, tetapi memberikan lingkungan runtime yang terisolasi dan konsisten untuk aplikasi. Hal ini memungkinkan pengembang untuk mengembangkan, menguji, dan menyebarluaskan aplikasi dengan lebih efisien dan konsisten.
+
+    \par Keunggulan utama dari teknologi kontainerisasi adalah portabilitas dan efisiensi sumber daya. Kontainer dapat dengan mudah dipindahkan antar lingkungan, seperti dari pengembangan ke produksi, atau antara penyedia cloud yang berbeda. Selain itu, kontainer lebih ringan dan menggunakan lebih sedikit sumber daya dibandingkan dengan mesin virtual tradisional. Namun, kontainer juga memiliki beberapa kerugian, seperti membutuhkan waktu lama untuk belajar dan memerlukan perhatian khusus dalam hal keamanan dan pengelolaan kompleksitas.
+    
+    \par Contoh yang paling populer dari teknologi kontainerisasi adalah \textbf{Docker}. Dengan Docker, pengembang dapat membuat versi aplikasi mereka dalam wadah yang dapat dijalankan di berbagai lingkungan. Docker juga mendukung alat orkestrasi kontainer seperti Docker Swarm dan Kubernetes, yang membantu mengelola klaster kontainer di beberapa host. Implementasi kontainerisasi biasanya dimulai dengan membuat image kontainer yang mencakup semua dependensi aplikasi, kemudian menjalankan image tersebut menggunakan Docker atau alat lainnya.
+\end{enumerate}
+
+\par Jenis penerapan spesifik virtualisasi yang dibangun di atas dasar virtualisasi sistem operasi:
+
+\begin{enumerate}
+    \item \textbf{Desktop Virtualization}
+    \begin{itemize}
+        \item \textbf{Pengertian}: Proses menjalankan sistem operasi desktop dalam lingkungan virtual yang diakses dari jarak jauh.
+        \item \textbf{Cara Kerja}: Sistem operasi desktop berjalan di server pusat, diakses melalui klien (thin client atau komputer lain).
+        \item \textbf{Keuntungan}: Akses dari mana saja dan manajemen terpusat untuk banyak pengguna.
+    \end{itemize}
+
+    \item \textbf{Network Virtualization}
+    \begin{itemize}
+        \item \textbf{Pengertian}: Pembuatan beberapa jaringan virtual di atas perangkat keras jaringan fisik.
+        \item \textbf{Cara Kerja}: Setiap jaringan virtual terpisah seperti jaringan fisik.
+        \item \textbf{Keuntungan}: Skalabilitas dan fleksibilitas dalam pengelolaan infrastruktur jaringan.
+    \end{itemize}
+
+    \item \textbf{Storage Virtualization}
+    \begin{itemize}
+        \item \textbf{Pengertian}: Menyatukan beberapa perangkat penyimpanan fisik menjadi satu sumber penyimpanan virtual.
+        \item \textbf{Cara Kerja}: Data disimpan di beberapa perangkat tetapi disajikan seolah-olah berasal dari satu perangkat terpusat.
+        \item \textbf{Keuntungan}: Meningkatkan fleksibilitas, manajemen, dan penggunaan penyimpanan.
+    \end{itemize}
+
+    \item \textbf{Application Virtualization}
+    \begin{itemize}
+        \item \textbf{Pengertian}: Teknologi yang memungkinkan aplikasi dijalankan di lingkungan virtual terpisah dari sistem operasi dasar.
+        \item \textbf{Cara Kerja}: Aplikasi dibungkus dalam lingkungan virtual yang menyimpan semua dependensi dan konfigurasi.
+        \item \textbf{Keuntungan}: Pengelolaan terpusat, keamanan yang ditingkatkan, portabilitas, dan efisiensi sumber daya.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Komponen Virtualisasi Sistem Operasi}
+\begin{enumerate}
+    \item \textbf{Host Machine (Host OS)}:
+        Sistem operasi fisik yang berjalan langsung di atas perangkat keras dan mengelola sumber daya seperti CPU, RAM, dan penyimpanan. Berfungsi sebagai platform untuk hypervisor.
+    \begin{itemize}
+        \item Contoh: Windows, Linux, macOS.
+    \end{itemize}
+    
+    \item \textbf{Guest Machine (Guest OS)}:
+        Sistem operasi virtual yang berjalan di atas mesin virtual (VM) dan diatur oleh hypervisor. 
+    \begin{itemize}
+        \item Contoh: Linux, Windows.
+    \end{itemize}
+    
+    \item \textbf{Hypervisor}:
+    Perangkat lunak yang memungkinkan virtualisasi dan mengelola VM.
+    \begin{itemize}
+        \item Tipe 1 (Bare-metal): Berjalan langsung di perangkat keras. Contoh: VMware ESXi, Hyper-V.
+        \item Tipe 2 (Hosted): Berjalan di atas sistem operasi host. Contoh: VirtualBox, VMware Workstation.
+    \end{itemize}
+    
+    \item \textbf{Virtual Machine (VM)}:
+    Lingkungan perangkat lunak yang dibuat oleh hypervisor untuk menjalankan guest OS secara terisolasi dari perangkat keras fisik.
+\end{enumerate}
+
+\subsubsection{Hypervisor dan Virtual Machines}
+\subsubsection{Contoh Penerapan Virtualisasi pada Sistem Operasi}
+\subsubsection{Kelebihan dan Kekurangan Virtualisasi pada Sistem Operasi}
+\subsubsection{Kesimpulan}
+    \par Virtualisasi sistem operasi telah menjadi fondasi penting dalam pengelolaan infrastruktur TI modern. Dengan memungkinkan pembuatan dan pengelolaan lingkungan virtual yang meniru perangkat keras fisik, teknologi ini memberikan efisiensi sumber daya yang signifikan, isolasi antara aplikasi, dan kemampuan skalabilitas yang tinggi. Teknik-teknik seperti full virtualization, para-virtualization, dan containerization, serta penggunaan hypervisor tipe 1 dan tipe 2, memberikan fleksibilitas dalam pengelolaan berbagai sistem operasi dan aplikasi. Implementasi luas teknologi ini, yang mencakup solusi seperti VMware, VirtualBox, KVM, dan Docker, menunjukkan kemampuannya dalam mendukung berbagai kebutuhan, mulai dari pengembangan dan pengujian perangkat lunak hingga manajemen infrastruktur TI yang kompleks. Dengan demikian, virtualisasi tidak hanya meningkatkan efisiensi operasional, tetapi juga memberikan kemudahan dalam pengelolaan sumber daya yang beragam, menjadikannya solusi yang sangat diperlukan dalam dunia TI yang terus berkembang.
+
+    \begin{thebibliography}{9}
+        \bibitem{umar2013}
+        Umar, R., \& Fakultas Teknologi Industri Universitas Ahmad Dahlan Yogyakarta. (2013). REVIEW TENTANG VIRTUALISASI. \textit{JURNAL INFORMATIKA}, 7(2), 775–777. 
+        
+        \bibitem{firmansyah2015}
+        Firmansyah Adiputra. (2015). CONTAINER DAN DOCKER: TEKNIK VIRTUALISASI DALAM PENGELOLAAN BANYAK APLIKASI WEB. \textit{Jurnal Ilmiah SimanteC}, 4(3), 167–169. Jl. Raya Telang, PO BOX 2 Kamal, Bangkalan. Retrieved September 27, 2024.
+        
+        \bibitem{knowledgehut2023}
+        Operating System Virtualization – Types, Working, Benefits. (2023, September 8). Retrieved from \url{https://www.knowledgehut.com/blog/cloud-computing/os-virtualization}
+        
+        \bibitem{geeksforgeeks2023}
+        GeeksforGeeks. (2023, October 31). Types of server virtualization in computer network. Retrieved from \url{https://www.geeksforgeeks.org/types-of-server-virtualization-in-computer-network/}
+        
+        \bibitem{hashemi2024}
+        Hashemi-Pour, C., Brush, K., \& Kirsch, B. (2024, June 5). virtualization. IT Operations. Retrieved from \url{https://www.techtarget.com/searchitoperations/definition/virtualization}
+    \end{thebibliography}
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}

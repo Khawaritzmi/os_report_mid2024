@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -56,6 +55,50 @@ This section explains the fundamental components that make up a computer system,
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
+\subsubsection{Matriks Performa}
+\label{subsec:performance_matrix}
+
+\quad Evaluasi performa sistem komputer merupakan salah satu aspek paling penting dalam menentukan efisiensi eksekusi program dan operasi sistem secara keseluruhan. Matriks performa menyediakan pengukuran yang dapat diandalkan untuk mengevaluasi efisiensi suatu sistem dalam mengeksekusi instruksi, mengelola proses, dan memaksimalkan sumber daya perangkat keras.\\
+
+Beberapa komponen utama dari matriks performa termasuk \textit{Cycles Per Instruction (CPI)}, \textit{Clock Speed}, \textit{Latency}, \textit{Throughput}, \textit{Clock Rate}, dan \textit{Execution Time}. Berikut adalah penjelasan dari masing-masing komponen:\\
+
+\textbf{1. Cycles Per Instruction (CPI):} Mengukur rata-rata jumlah siklus \textit{clock} yang diperlukan oleh prosesor untuk menyelesaikan satu instruksi. Rumusnya adalah:\\
+
+\begin{equation}
+CPI = \frac{\text{Total Siklus Clock}}{\text{Total Instruksi}}
+\end{equation}\\
+
+Semakin rendah \textit{CPI}, semakin efisien prosesor. \textit{CPI} dapat dioptimalkan dengan memperbaiki arsitektur seperti \textit{pipelining}, \textit{superscalar}, atau \textit{branch prediction}.\\
+
+\textbf{2. Clock Speed:} Merupakan jumlah siklus \textit{clock} yang diselesaikan oleh prosesor dalam satu detik, diukur dalam \textit{Gigahertz (GHz)}. Meskipun \textit{clock speed} yang lebih tinggi biasanya menunjukkan kecepatan yang lebih baik, efisiensi arsitektur tetap memainkan peran penting.\\
+
+\textbf{3. Latency:} Mengacu pada penundaan yang terjadi antara saat instruksi diberikan kepada prosesor dan saat instruksi mulai diproses. \textit{Latency} bisa berasal dari berbagai sumber, seperti memori, jaringan, atau disk.\\
+
+\textbf{4. Throughput:} Jumlah pekerjaan atau instruksi yang dapat diselesaikan oleh sistem dalam satu satuan waktu. \textit{Throughput} yang lebih tinggi menunjukkan kemampuan sistem untuk memproses lebih banyak data atau instruksi dalam waktu yang lebih singkat.\\
+
+\textbf{5. Clock Rate:} Didefinisikan sebagai jumlah siklus \textit{clock} per detik. Hubungannya dengan waktu eksekusi adalah:\\
+
+\begin{equation}
+\text{Clock Rate} = \frac{1}{\text{Waktu per Siklus Clock}}
+\end{equation}\\
+
+\textbf{6. Execution Time:} Waktu total yang dibutuhkan oleh sistem untuk menyelesaikan eksekusi suatu program. Rumusnya adalah:\\
+
+\begin{equation}
+\text{Execution Time} = \frac{\text{Jumlah Instruksi} \times \text{CPI}}{\text{Clock Rate}}
+\end{equation}\\
+
+\textbf{Interaksi Matriks Performa:} Matriks performa ini saling mempengaruhi satu sama lain. Sebagai contoh, \textit{clock speed} yang lebih tinggi dengan \textit{CPI} yang rendah akan meningkatkan \textit{throughput}, tetapi juga dapat meningkatkan konsumsi daya dan panas.\\
+
+\textbf{Contoh Perhitungan:} Misalkan sebuah sistem memiliki \textit{clock rate} 2.5 GHz, \textit{CPI} 1.2, dan program membutuhkan 20 juta instruksi. Waktu eksekusi dihitung sebagai berikut:\\
+
+\[
+\text{Execution Time} = \frac{20 \times 10^6 \times 1.2}{2.5 \times 10^9} = 0.0096 \text{ detik}
+\]\\
+
+Sistem ini akan mengeksekusi program tersebut dalam 0.0096 detik.\\
+
+
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
@@ -89,15 +132,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Single-threaded vs. multi-threaded processes
     \item Benefits of multithreading
 \end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -140,32 +174,6 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.

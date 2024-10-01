@@ -86,18 +86,48 @@ Details how processes are created and terminated by the operating system, includ
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+\subsubsection{Kelebihan Multi-Threading}
+\begin{itemize}
+    \item\textbf{Responsive} 
+    \par \hspace{2em} Multi-threading memungkinkan aplikasi tetap responsif bahkan jika sebagian thread terjebak dalam tugas yang lama. Sebagai contoh, dalam aplikasi GUI, thread utama tetap bisa merespons input pengguna sementara thread lain memproses tugas di latar belakang.
+    \item\textbf{Resource Sharing}
+    \par \hspace{2em} Dalam satu proses, semua thread dapat berbagi memori dan sumber daya (seperti file dan variabel). Ini membuat komunikasi antar-thread lebih efisien dibandingkan antar-proses, karena tidak memerlukan mekanisme komunikasi antar-proses yang kompleks.
+    \item\textbf{Economics}
+    \par \hspace{2em} Membuat dan mengelola thread lebih hemat sumber daya dibandingkan membuat proses baru, karena thread berbagi ruang memori dan sumber daya yang sama. Ini mengurangi biaya overhead yang dibutuhkan untuk alokasi memori dan waktu eksekusi.
+    \item\textbf{Utilization}
+    \par \hspace{2em} Multi-threading memaksimalkan penggunaan prosesor multi-core dengan memungkinkan berbagai thread berjalan secara paralel di core yang berbeda. Ini meningkatkan throughput aplikasi, sehingga meningkatkan kinerja keseluruhan pada sistem dengan banyak prosesor.
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+\subsubsection{Model Multi-Threading}
+\begin{enumerate}
+    \item\textbf{Many-To-One}
+    \begin{itemize}
+        \item\textbf{Definisi} 
+        \par \hspace{2em} Many-to-One adalah model threading di mana banyak thread pengguna (user-level threads) dipetakan ke satu thread kernel. Dalam model ini, hanya ada satu thread kernel yang menangani eksekusi semua thread pengguna. Threading pada user space sepenuhnya dikelola oleh pustaka thread pengguna, dan kernel hanya mengenali satu thread aktif pada satu waktu.
+        \item\textbf{Cara Kerja}
+        \par \hspace{2em} Beberapa thread pengguna berjalan di dalam ruang alamat yang sama. Mereka saling berbagi data dan status. Kemudian, Hanya ada satu thread kernel yang menangani semua thread pengguna. Ketika sebuah thread pengguna menjalankan operasi blocking, seluruh thread dalam proses itu akan terblokir. Selain itu, Penjadwalan dilakukan sepenuhnya di tingkat pengguna. Thread pengguna melakukan manajemen dan penjadwalan sendiri tanpa intervensi kernel.
+        \item\textbf{Contoh}
+        \par \hspace{2em} Green threads pada implementasi awal Java.
+    \end{itemize}
+    \item\textbf{One-To-One} 
+        \begin{itemize}
+        \item\textbf{Definisi}
+        \par \hspace{2em} One-to-One adalah model threading di mana setiap thread pengguna dipetakan langsung ke thread kernel. Setiap thread pengguna memiliki thread kernel yang terkait, sehingga kernel dapat mengelola eksekusi secara langsung. Dalam model ini, setiap thread yang dibuat pada level pengguna juga akan membuat thread pada kernel.
+        \item\textbf{Cara Kerja}
+        \par \hspace{2em} Setiap thread yang dibuat di ruang pengguna dikelola oleh kernel, dan masing-masing memiliki thread kernel tersendiri. Kemudian, Kernel dapat melakukan penjadwalan secara independen untuk setiap thread pengguna. Ini memungkinkan banyak thread dieksekusi secara bersamaan pada mesin multiprosesor. Selain itu, Penjadwalan dan manajemen dilakukan oleh kernel, sehingga kernel dapat menggunakan algoritma penjadwalan untuk memaksimalkan penggunaan CPU.
+        \item\textbf{Contoh}
+        \par \hspace{2em} Posix Threads (Pthreads) di Linux dan Windows.
+    \end{itemize}
+    \item\textbf{Many-To-Many}
+        \begin{itemize}
+        \item\textbf{Definisi} 
+        \par \hspace{2em} Many-to-Many adalah model threading di mana banyak thread pengguna dipetakan ke thread kernel yang lebih sedikit, tetapi tidak terbatas pada satu thread kernel saja. Thread pengguna dapat dijadwalkan dan dijalankan oleh beberapa thread kernel, memungkinkan concurrency yang lebih baik. Model ini mengizinkan thread pengguna untuk dijadwalkan ke thread kernel yang tersedia tanpa menciptakan ketergantungan satu-ke-satu atau satu-ke-banyak.
+        \item\textbf{Cara Kerja}
+        \par \hspace{2em} Banyak thread pengguna dapat berjalan secara bersamaan dan dapat dialokasikan ke thread kernel yang tersedia. Kemudian, Thread kernel bertindak sebagai mediator yang memungkinkan beberapa thread pengguna dieksekusi pada saat yang bersamaan, tergantung pada ketersediaan sumber daya kernel. Selain itu, Penjadwalan bisa dilakukan oleh kernel atau oleh pustaka thread, tergantung pada bagaimana sistem dirancang. Hal ini memungkinkan eksekusi thread yang lebih efisien.
+        \item\textbf{Contoh}
+        \par \hspace{2em} Beberapa sistem thread pada Solaris atau model thread hybrid.
+    \end{itemize}
+\end{enumerate}
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:

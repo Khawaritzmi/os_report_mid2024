@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -56,6 +55,58 @@ This section explains the fundamental components that make up a computer system,
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
+\subsubsection{Definisi Performa Sistem}
+
+Performa sistem komputer mengacu pada kemampuan suatu sistem untuk menjalankan tugas atau fungsinya secara efisien dan efektif. Terdapat beberapa aspek penting yang menjadi indikator performa sistem komputer, yaitu:
+
+\textbf{1. Kecepatan Pemrosesan:} \\
+Kecepatan pemrosesan adalah waktu yang dibutuhkan oleh sistem untuk mengeksekusi tugas tertentu. Hal ini biasanya diukur dalam satuan waktu (detik atau milidetik) yang diperlukan untuk menyelesaikan sebuah tugas. Rumus untuk kecepatan pemrosesan dalam hal frekuensi adalah:
+
+\[
+T = \frac{1}{F}
+\]
+
+dengan:
+\begin{itemize}
+    \item $T$ adalah waktu untuk satu siklus pemrosesan (detik per siklus).
+    \item $F$ adalah frekuensi prosesor (siklus per detik atau Hz).
+\end{itemize}
+
+\textbf{2. Penggunaan Sumber Daya:} \\
+Penggunaan sumber daya mengacu pada seberapa efisien sistem menggunakan CPU, memori, dan perangkat keras lainnya untuk menyelesaikan tugas. Pengelolaan sumber daya yang baik akan meminimalkan penggunaan yang berlebihan dan meningkatkan performa secara keseluruhan.
+
+\textbf{3. Responsivitas:} \\
+Responsivitas adalah kecepatan sistem dalam merespons input dari pengguna atau proses lainnya. Responsivitas yang tinggi sangat penting dalam aplikasi \textit{real-time} dan interaktif. Pengukuran responsivitas sering kali berkaitan dengan waktu tunda (\textit{latency}).
+
+\textbf{4. Throughput:} \\
+Throughput mengukur jumlah tugas atau pekerjaan yang dapat diselesaikan oleh sistem dalam waktu tertentu. Throughput yang lebih tinggi menunjukkan bahwa sistem dapat menangani lebih banyak pekerjaan dalam satu waktu. Rumus throughput dapat dinyatakan sebagai:
+
+\[
+Throughput = \frac{\text{Jumlah Pekerjaan}}{\text{Waktu}}
+\]
+
+\textbf{Faktor-Faktor yang Mempengaruhi Performa Sistem:} \\
+Faktor-faktor yang memengaruhi performa sistem dapat dibagi menjadi dua kategori utama, yaitu faktor internal dan faktor eksternal.
+
+\begin{itemize}
+    \item \textbf{Faktor Internal:} Faktor internal melibatkan komponen yang memengaruhi performa sistem dari dalam, termasuk:
+    \begin{itemize}
+        \item \textbf{Kecepatan CPU:} Prosesor dengan kecepatan clock yang lebih tinggi dapat memproses instruksi lebih cepat. Kecepatan CPU diukur dalam Hertz (Hz), dan hubungan antara waktu eksekusi dan clock rate adalah:
+        \[
+        Waktu Eksekusi = \frac{\text{Jumlah Instruksi} \times \text{CPI}}{\text{Clock Rate}}
+        \]
+        \item \textbf{Arsitektur Memori:} Efisiensi memori sangat memengaruhi kinerja, terutama dalam hal kecepatan akses ke data. Struktur \textit{cache}, bandwidth memori, dan ukuran RAM berperan penting.
+        \item \textbf{Algoritma dan Struktur Data:} Algoritma yang dioptimalkan dan pemilihan struktur data yang tepat akan meningkatkan kecepatan pemrosesan serta penggunaan memori secara efisien.
+    \end{itemize}
+    
+    \item \textbf{Faktor Eksternal:} Faktor eksternal mencakup elemen di luar komponen internal yang juga dapat memengaruhi performa sistem, seperti:
+    \begin{itemize}
+        \item \textbf{Beban Kerja:} Semakin besar beban kerja yang ditangani oleh sistem, semakin tinggi kebutuhan akan sumber daya seperti CPU dan memori.
+        \item \textbf{Kondisi Lingkungan:} Faktor-faktor seperti suhu, kelembapan, dan pasokan listrik yang stabil juga memengaruhi performa perangkat keras.
+        \item \textbf{Jaringan:} Dalam sistem yang terhubung ke jaringan, kecepatan dan stabilitas jaringan sangat penting dalam menjaga throughput dan latensi yang rendah.
+    \end{itemize}
+\end{itemize}
+
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
@@ -89,15 +140,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Single-threaded vs. multi-threaded processes
     \item Benefits of multithreading
 \end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -140,32 +182,6 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.

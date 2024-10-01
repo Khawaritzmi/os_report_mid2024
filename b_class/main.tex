@@ -130,80 +130,83 @@ system and external devices. This section includes:
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
-\begin{itemize}
-    \item Deadlock conditions
-\end{itemize}
-\subsubsection{\textit{Deadlock prevention}}
+
+\subsubsection{\textit{Deadlock conditions}}
 
 \subsubsection{\textit{Deadlock prevention methods}}
 
-\hspace{1cm} Pencegahan terhadap \textit{deadlock} adalah teknik yang digunakan untuk mencegah sistem memasuki keadaan \textit{deadlock}.
-Berbeda dengan \textit{deadlock} avoidance yang di mana mengatasi masalah setelah \textit{deadlock} terjadi, pencegahan ada agar memperkecil
-kemungkinan terjadinya \textit{deadlock}. Pencegahan \textit{deadlock} dapat dilakukan dengan cara menghindari keadaan-keadaan yang dapat menyebabkan \textit{deadlock}.
-Beberapa metode pencegahan \textit{deadlock} adalah:
+\par  Pencegahan terhadap \textit{deadlock} adalah teknik yang digunakan untuk
+mencegah sistem memasuki keadaan \textit{deadlock}. Berbeda dengan
+\textit{deadlock} avoidance yang di mana mengatasi masalah setelah
+\textit{deadlock} terjadi, pencegahan ada agar memperkecil kemungkinan
+terjadinya \textit{deadlock}. Pencegahan \textit{deadlock} dapat dilakukan
+dengan cara menghindari keadaan-keadaan yang dapat menyebabkan
+\textit{deadlock}. Beberapa metode pencegahan \textit{deadlock} adalah:
 
 \begin{enumerate}
     \item \textit{Resources Ordering}
 
-          \hspace{1cm}\textit{Resources Ordering} adalah pengurutan sumber daya di mana setiap sumber daya
+          \par \textit{Resources Ordering} adalah pengurutan sumber daya di mana setiap sumber daya
           dalam sistem diberi nomor atau urutan unik. Proses harus meminta sumber daya
           dalam urutan yang konsisten dengan nomor tersebut. Artinya, jika suatu proses
           sudah memegang satu sumber daya dengan nomor lebih rendah, maka ia hanya boleh
           meminta sumber daya dengan nomor lebih tinggi.
 
-          \hspace{1cm}Salah satu contoh kasus pencegahan \textit{deadlock} dengan metode \textit{resources
-          ordering} yaitu jika ada dua sumber daya, R1 dan R2, dan proses P1 memegang R1 dan ingin
-          meminta R2, maka metode ini memastikan bahwa proses P1 tidak dapat memegang R2
-          tanpa mengikuti urutan yang telah ditentukan.
+          \par Salah satu contoh kasus pencegahan \textit{deadlock} dengan metode
+          \textit{resources ordering} yaitu jika ada dua sumber daya, R1 dan R2, dan
+          proses P1 memegang R1 dan ingin meminta R2, maka metode ini memastikan bahwa
+          proses P1 tidak dapat memegang R2 tanpa mengikuti urutan yang telah ditentukan.
 
     \item \textit{Resource allocation denial}
 
-          \hspace{1cm}Metode ini dikenal juga sebagai \textit{Banker's
-          Algorithm} atau \textit{safety algorithm}, di mana sistem memeriksa apakah pemberian
-          sumber daya tertentu akan menyebabkan kondisi \textit{unsafe} atau potensi \textit{deadlock}.
-          Jika pemberian sumber daya dianggap tidak aman, maka permintaan sumber daya
-          tersebut akan ditolak.
+          \par Metode ini dikenal juga sebagai \textit{Banker's Algorithm} atau \textit{safety
+              algorithm}, di mana sistem memeriksa apakah pemberian sumber daya tertentu akan
+          menyebabkan kondisi \textit{unsafe} atau potensi \textit{deadlock}. Jika
+          pemberian sumber daya dianggap tidak aman, maka permintaan sumber daya tersebut
+          akan ditolak.
 
-          \hspace{1cm}Metode \textit{resources allocation denial} adalah ketika
-          proses P1 meminta sumber daya R1. Sebelum mengalokasikan sumber daya, sistem mengevaluasi
-          apakah proses lain bisa menyelesaikan eksekusi dengan sumber daya yang tersisa.
-          Jika tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua sumber daya yang dibutuhkan sudah lengkap.
+          \par Metode \textit{resources allocation denial} adalah ketika proses P1 meminta
+          sumber daya R1. Sebelum mengalokasikan sumber daya, sistem mengevaluasi apakah
+          proses lain bisa menyelesaikan eksekusi dengan sumber daya yang tersisa. Jika
+          tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua
+          sumber daya yang dibutuhkan sudah lengkap.
 
     \item \textit{Timeouts}
 
-          \hspace{1cm}Dalam metode ini, sistem menggunakan batas waktu (\textit{timeout})
-          untuk menunggu sumber daya. Jika proses menunggu terlalu lama, ia akan dipaksa
-          gagal atau \textit{restart}. \textit{Timeout} dapat digunakan untuk mencegah proses berlama-lama
-          dalam kondisi menunggu, sehingga menghindari \textit{deadlock}.
+          \par Dalam metode ini, sistem menggunakan batas waktu (\textit{timeout}) untuk
+          menunggu sumber daya. Jika proses menunggu terlalu lama, ia akan dipaksa gagal
+          atau \textit{restart}. \textit{Timeout} dapat digunakan untuk mencegah proses
+          berlama-lama dalam kondisi menunggu, sehingga menghindari \textit{deadlock}.
 
-          \hspace{1cm}Proses P1 sedang menunggu sumber daya R1 selama 5 menit. Jika setelah batas waktu ini R1 belum tersedia, proses P1 akan dibatalkan atau dijadwalkan ulang untuk mencoba lagi.
+          \par Proses P1 sedang menunggu sumber daya R1 selama 5 menit. Jika setelah batas
+          waktu ini R1 belum tersedia, proses P1 akan dibatalkan atau dijadwalkan ulang
+          untuk mencoba lagi.
 
     \item \textit{Avoidance of hold-and-wait conditions}
 
-          \hspace{1cm}Teknik \textit{avoidance of hold-and-wait
-          conditions} adalah teknik pencegahan \textit{deadlock} dengan kondisi saling tunggu sumber daya antara suatu proses.
-          Dalam teknik ini, proses tidak
-          diperbolehkan menahan sumber daya sambil menunggu sumber daya lain. Proses
-          harus meminta semua sumber daya yang dibutuhkan di awal (sebelum memulai
-          eksekusi) atau melepaskan sumber daya yang sedang dipegang sebelum meminta
-          sumber daya tambahan.
+          \par Teknik \textit{avoidance of hold-and-wait conditions} adalah teknik pencegahan
+          \textit{deadlock} dengan kondisi saling tunggu sumber daya antara suatu proses.
+          Dalam teknik ini, proses tidak diperbolehkan menahan sumber daya sambil
+          menunggu sumber daya lain. Proses harus meminta semua sumber daya yang
+          dibutuhkan di awal (sebelum memulai eksekusi) atau melepaskan sumber daya yang
+          sedang dipegang sebelum meminta sumber daya tambahan.
 
-          \hspace{1cm}Dalam penerapannya, Proses P1 harus meminta sumber daya
-          R1 dan R2 sekaligus. Jika R2 tidak tersedia, maka proses tidak diperbolehkan
-          memegang R1 dan harus melepaskannya sampai kedua sumber daya tersedia.
-          Setiap proses yang belum memiliki sumber daya yang cukup untuk berjalan maka
-          akan terus menunggu hingga sumber daya yang dibutuhkan terpenuhi semua.
+          \par Dalam penerapannya, Proses P1 harus meminta sumber daya R1 dan R2 sekaligus.
+          Jika R2 tidak tersedia, maka proses tidak diperbolehkan memegang R1 dan harus
+          melepaskannya sampai kedua sumber daya tersedia. Setiap proses yang belum
+          memiliki sumber daya yang cukup untuk berjalan maka akan terus menunggu hingga
+          sumber daya yang dibutuhkan terpenuhi semua.
 
     \item \textit{Resource preemption}
 
-          \hspace{1cm}Teknik ini memungkinkan sistem untuk merebut atau
-          mengambil kembali sumber daya dari proses yang sedang berjalan jika diperlukan
-          oleh proses lain yang lebih prioritas atau jika diperlukan untuk mencegah
+          \par Teknik ini memungkinkan sistem untuk merebut atau mengambil kembali sumber daya
+          dari proses yang sedang berjalan jika diperlukan oleh proses lain yang lebih
+          prioritas atau jika diperlukan untuk mencegah
           \textit{deadlock}\textit{deadlock}.
 
-          \hspace{1cm}Dalam kasus seperti proses P1 harus meminta sumber daya
-          R1 dan R2 sekaligus. Jika R2 tidak tersedia, proses tidak diperbolehkan
-          memegang R1 dan harus melepaskannya sampai kedua sumber daya tersedia.
+          \par Dalam kasus seperti proses P1 harus meminta sumber daya R1 dan R2 sekaligus.
+          Jika R2 tidak tersedia, proses tidak diperbolehkan memegang R1 dan harus
+          melepaskannya sampai kedua sumber daya tersedia.
 \end{enumerate}
 
 \subsection{User Interface Management}
@@ -254,11 +257,125 @@ conditions.
     \end{tabular}
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 
+\end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock
 scenarios and explore various prevention methods.
+
+\subsubsection{\textit{Deadlock prevention resources allocation methods}}
+\begin{python}
+    import numpy as np
+
+    class DeadlockPrevention:
+    def __init__(self, available, max_need, allocation):
+        self.available = np.array(available)
+        self.max_need = np.array(max_need)
+        self.allocation = np.array(allocation)
+        self.need = self.max_need - self.allocation
+
+    def is_safe_state(self):
+        work = self.available.copy()
+        finish = [False] * len(self.allocation)
+        
+        while False in finish:
+            safe = False
+            for i in range(len(finish)):
+                if not finish[i] and all(self.need[i] <= work):
+                    work += self.allocation[i]
+                    finish[i] = True
+                    safe = True
+            if not safe:
+                return False
+        return True
+
+    def request_resources(self, process, request):
+        if any(request > self.need[process]):
+            return False
+        if any(request > self.available):
+            return False
+        
+        self.available -= request
+        self.allocation[process] += request
+        self.need[process] -= request
+        
+        if self.is_safe_state():
+            return True
+        
+        self.available += request
+        self.allocation[process] -= request
+        self.need[process] += request
+        return False
+
+    # Inisialisasi sistem
+    available = [3, 3, 2]
+    max_need = [
+    [7, 5, 3],
+    [3, 2, 2],
+    [9, 0, 2],
+    [2, 2, 2],
+    [4, 3, 3]
+    ]
+    allocation = [
+    [0, 1, 0],
+    [2, 0, 0],
+    [3, 0, 2],
+    [2, 1, 1],
+    [0, 0, 2]
+    ]
+
+    dp = DeadlockPrevention(available, max_need, allocation)
+
+    # Simulasi permintaan sumber daya
+    print("Initial state is safe:", dp.is_safe_state())
+
+    request1 = [1, 0, 2]
+    process1 = 1
+    print(f"Request {request1} for process {process1} granted:", dp.request_resources(process1, request1))
+    
+    request2 = [3, 3, 0]
+    process2 = 4
+    print(f"Request {request2} for process {process2} granted:", dp.request_resources(process2, request2))
+    
+    print("Final state is safe:", dp.is_safe_state())
+    
+\end{python}
+
+\textbf{Soal :}
+
+\par Analisis kode Python di atas yang mengimplementasikan algoritma \textit{resources allocation denial} untuk
+pencegahan \textit{deadlock}. Jelaskan alur kerja kode, fungsi utama dari setiap metode,
+bagaimana kode ini mencegah \textit{deadlock}, dan prediksi outputnya beserta alasannya.
+
+\textbf{Jawaban :}
+
+\begin{enumerate}
+    \item Alur kerja dan fungsi utama
+    
+Implementasi metode \textit{resources allocation denial} dalam kode ini berpusat pada kelas \texttt{DeadlockPrevention}. Kelas ini menginisialisasi sistem dengan informasi tentang sumber daya yang tersedia, kebutuhan maksimum setiap proses, dan alokasi saat ini. Metode utama dalam kelas ini adalah \texttt{is\_safe\_state()} dan \texttt{request\_resources()}.
+
+Metode \texttt{is\_safe\_state()} berperan krusial dalam pencegahan \textit{deadlock}. Metode ini mensimulasikan eksekusi semua proses untuk memastikan bahwa setidaknya ada satu urutan eksekusi yang memungkinkan semua proses untuk menyelesaikan tugasnya. Ini dilakukan dengan menggunakan array \texttt{work} untuk melacak sumber daya yang tersedia selama simulasi dan mencoba untuk "menyelesaikan" setiap proses secara berurutan. Jika semua proses dapat diselesaikan, keadaan sistem dianggap aman.
+
+Di sisi lain, metode \texttt{request\_resources()} menangani permintaan sumber daya dari proses. Metode ini pertama-tama memeriksa validitas permintaan, memastikan bahwa permintaan tidak melebihi kebutuhan proses atau sumber daya yang tersedia. Jika permintaan valid, metode ini mencoba mengalokasikan sumber daya dan kemudian memeriksa keamanan sistem menggunakan \texttt{is\_safe\_state()}. Jika alokasi menyebabkan keadaan tidak aman, perubahan dibatalkan dan permintaan ditolak, efektif mencegah sistem memasuki keadaan yang berpotensi \textit{deadlock}.
+
+\item Mekanisme Pencegahan \textit{Deadlock}
+
+metode \textit{resources allocation denial} mencegah \textit{deadlock} dengan menerapkan beberapa prinsip kunci. Pertama, ia selalu memeriksa keamanan sistem sebelum mengalokasikan sumber daya. Ini memastikan bahwa sistem tidak pernah memasuki keadaan yang dapat mengarah pada deadlock. Kedua, algoritma ini hanya mengizinkan alokasi sumber daya jika alokasi tersebut tidak menyebabkan keadaan tidak aman, secara efektif mencegah kondisi {hold-and-wait}. Ketiga, dengan memastikan bahwa setiap alokasi sumber daya tidak mengarah pada siklus ketergantungan, algoritma ini secara implisit mencegah \textit{circular wait}, salah satu kondisi yang diperlukan untuk terjadinya deadlock.
+
+\item Analisis Output
+
+Berdasarkan kode yang diberikan, output yang diharapkan adalah:
+
+\begin{verbatim}
+Initial state is safe: True
+Request [1, 0, 2] for process 1 granted: True
+Request [3, 3, 0] for process 4 granted: False
+Final state is safe: True
+\end{verbatim}
+
+Output ini menunjukkan bahwa keadaan awal sistem aman, yang berarti distribusi sumber daya awal memungkinkan semua proses untuk menyelesaikan eksekusinya. Permintaan pertama ([1, 0, 2] untuk proses 1) diterima karena setelah alokasi, sistem tetap dalam keadaan aman. Namun, permintaan kedua ([3, 3, 0] untuk proses 4) ditolak karena akan menghabiskan terlalu banyak sumber daya dan berpotensi menyebabkan deadlock. Keadaan akhir sistem tetap aman karena hanya permintaan yang aman yang diterima.
+\end{enumerate}
+
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a
@@ -286,5 +403,10 @@ The first half of the course introduced core operating system concepts,
 including process management, scheduling, multithreading, and file system
 access. These topics provided a foundation for more advanced topics to be
 covered in the second half of the course.
+
+\begin{thebibliography}{9}
+    \bibitem{dijkstra1965} Dijkstra, E.W. (1965). Cooperating sequential processes. In Programming Languages (pp. 43-112). Academic Press.
+    \bibitem{duo}Duo, W., Jiang, X., Karoui, O., Guo, X., You, D., Wang, S., Ruan, Y. (2020). A deadlock prevention policy for a class of multithreaded software. IEEE Access, 8, 16676-16688.
+\end{thebibliography}
 
 \end{document}

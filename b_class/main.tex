@@ -85,19 +85,21 @@ Details how processes are created and terminated by the operating system, includ
 
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
+\subsubsection{Single-Threading}
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item\textbf{Definisi} 
+    \par \hspace{2em} Single-Threading adalah model pemrograman di mana hanya satu thread atau alur eksekusi dijalankan dalam suatu program pada satu waktu. Dalam single-threading, satu instruksi dijalankan setelah yang lain secara berurutan. Tidak ada eksekusi paralel, sehingga semua tugas diselesaikan satu per satu, dan jika satu tugas memakan waktu lama, seluruh aplikasi akan menunggu hingga tugas tersebut selesai sebelum melanjutkan ke yang berikutnya.
+    \item\textbf{Contoh}
+    \par \hspace{2em} Sebuah aplikasi kalkulator sederhana: Setiap operasi (seperti penjumlahan atau pengurangan) 	dilakukan satu per satu, dan tidak ada operasi lain yang dapat berjalan sampai operasi sebelumnya selesai. Jika pengguna meminta hasil kalkulasi yang rumit, aplikasi akan menjadi tidak responsif hingga proses kalkulasi selesai.
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+\subsubsection{Multi-Threading}
+\begin{itemize}
+    \item\textbf{Definisi}
+    \par \hspace{2em} Multi-Threading adalah model pemrograman di mana suatu proses dapat dibagi menjadi beberapa thread atau alur eksekusi yang berjalan secara bersamaan. Setiap thread dapat menjalankan tugas yang berbeda secara paralel dalam satu proses, sehingga program dapat menjalankan banyak operasi secara bersamaan, mempercepat kinerja dan responsivitas.
+    \item\textbf{Contoh} 
+    \par \hspace{2em} Browser Web: Saat membuka tab baru di browser, setiap tab mungkin berjalan dalam thread terpisah. Ini memungkinkan Anda untuk memuat halaman web di satu tab tanpa mengganggu tab lain. Jika satu halaman memerlukan waktu lama untuk memuat, tab lain tetap bisa digunakan tanpa masalah.
+\end{itemize}
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:

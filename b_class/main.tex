@@ -111,7 +111,124 @@ File systems provide a way for the operating system to store, retrieve, and mana
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
 \begin{itemize}
     \item Device drivers
-    \item I/O scheduling
+    \subsubsection{Teknik Buffering}
+    \begin{itemize}
+        \item Single Buffering
+        \par Merupakan teknik paling sederhana. Ketika proses memberi perintah untuk perangkat
+ I/O, sistem operasi menyediakan buffer memori utama sistem untuk operasi. Untuk
+ perangkat berorientasi blok. Transfer masukan dibuat ke buffer sistem. Ketika transfer
+ selesai,proses memindahkan blok ke ruang pemakai dan segera meminta blok lain.Teknik
+ ini disebut reading ahead atau anticipated input.Teknik ini dilakukan dengan harapan
+ blok akan segera diperlukan. Untuk banyak tipe komputasi, asumsi ini berlaku. Hanya
+ di akhir pemrosesan maka blok yang dibaca tidak diperlukan.
+ \newline Keunggulan:
+    \begin{itemize}
+        \item  Meningkatkan kecepatan karena proses
+ dapat memproses data sementara blok
+ berikutnya sedang dibaca.
+ \item Sistem operasi dapat melakukan swapping
+ karena data berada di memori sistem.
+    \end{itemize}
+    \newline Kekurangan:
+    \begin{itemize}
+        \item Memperumit sistem operasi karena harus
+        mengelola buffer.
+        \item Logika swapping terpengaruh, terutama jika
+        melibatkan disk I/O.
+    \end{itemize}
+    \item Double Buffering
+    \par Peningkatan dapat dibuat dengan dua buffer sistem.Proses dapat ditransfer ke/dari satu
+    buffer sementara sistem operasi mengosongkan (atau mengisi) buffer lain. Teknik ini
+    disebut double buffering atau buffer swapping. Double buffering menjamin proses tidak
+    menunggu operasi I/O. Peningkatan ini harus dibayar dengan peningkatan kompleksitas.
+    \newline Keunggulan & Kelemahan 
+    \begin{itemize}
+        \item  Meningkatkan efisiensi I/O, namun
+        dengan peningkatan kompleksitas
+        sistem.
+    \end{itemize}
+    \item Circular Buffering
+    \par  Seharusnya melembutkan aliran data antara perangkat I/O dan proses. Jika kinerja
+ proses tertentu menjadi fokus kita, maka kita ingin agar operasi I/O mengikuti proses.
+ Double buffering tidak mencukupi jika proses melakukan operasi I/O yang berturutan
+ dengan cepat. Masalah sering dapat dihindari denga menggunakan lebih dari dua buffer.
+ Ketika lebih dari dua buffer yang digunakan, kumpulan buffer itu sendiri diacu sebagai
+ circulat buffer. Tiap buffer individu adalah satu unit di circular buffer.
+\newline
+\newline Keterbatasan Double Buffering 
+\begin{itemize}
+\item  Double buffering tidak cukup jika
+proses melakukan operasi I/O secara
+berurutan dengan cepat.
+\end{itemize}
+\newline Solusi
+\begin{itemize}
+\newline  
+\item Menggunakan lebih dari dua buffer untuk
+mengatasi masalah tersebut.
+\item Circular buffer adalah kumpulan buffer
+yang berputar, di mana tiap buffer adalah
+satu unit di dalamnya.
+    
+    
+\end{itemize}
+\end{itemize}
+\subsubsection{Programed I/O}
+\par  Pada I/O terprogram, data saling dipertukarkan antara CPU dengan modul I/O. CPU
+mengeksekusi program yang memberikan operasi I/O kepada CPU secara langsung,
+termasuk status perangkat pengindra, pengiriman perintah pembacaan atau penulisan,
+dan pemindahan data. Ketika CPU mengeluarkan perintah ke modul I/O, maka CPU
+harus menunggu sampai operasi I/O selesai. Apabila CPU lebih cepat dibandingkan
+modul I/O, maka hal ini akan membuang-buang waktu CPU. Dengan menggunakan
+interupt driven I/O, CPU mengeluarkan perintah I/O, dilanjutkan dengan mengeksekusi
+intstruksi-instruksi lainnya, dan diinterupsi oleh modul I/O apabila instruksi-instruksi
+tersebut telah selesai dilaksanakan. Dengan menggunakan I/O terprogram dan I/O
+interupt, maka CPU bertanggung jawab atas pengeluaran data dan memori utama untuk
+keperluan output dan penyimpanan data di dalam memori utama untuk keperluaninput.
+Ada dua bentuk lain dari programmed I/O yaitu:
+\begin{itemize}
+\item  Direct I/O
+\par  Sebagai contoh instrument berbasis computer dengan panel saklar dan indicator.Saklar
+berfungsi untuk pemilihan mode operasi oleh operatorinstrument. 
+Indikator
+diimplementasikan menggunakan LED, yang berfungsi sebagai indicator status
+instrument.
+\newline 
+\par Rangkaian tersebut menggunakan prosesor 8-bit dengan ruang alamat I/O terpisah.
+Untuk mengisolasi antara bus data dengan saklar diperlukan rangkaian penyangga.
+Penyangga ini diimplementasikan dengan octal buffer, yang dapat menampung delapan
+saklar. Bagian terpenting lainnya adalah address decoder, yang meng-enable hanya
+jika keluaran address decoder hanya dilewatkan pada saat RD* rendah. Selanjutnya,
+melihat apa yang terjadi ketika CPU mengeksekusi instruksi “INPUT”. Dianggap alamat
+operand berhubungan dengan port input yang ditetapkan.
+\newline
+\par Pada awal I/O machine cycle keluaran address decoder adalah rendah. Kemudian, RD*
+diaktifkan dan SEL1* juga rendah.Selanjutnya keluaran penyangga bus di-enable.
+\newline
+\par Setiap rangkaian peyangga mengemudikan setiap jalur dari jalur bus data CPU untuk
+memberikan nilai tinggi atau rendah. Hal ini tergantung pada posisi saklar yang
+bersangkutan.
+\newline 
+\item  Polled I/O
+\par  Pada polled I/O terlebih dahulu di perlukan pemeriksaan status device I/O. Setelah
+system diinisialisasi, program I/O yang berhubungan, yaitu I/O driver, membaca
+status device I/O. Kemudian menguji bit status untuk menentukan kondisi operasional
+device.Apabila device tidak siap, CPU dapat melompat ke tugas (task) yang
+lain. Beberapa saat kemudian, setelah beberapa interval waktu, mengulangi proses
+sepertidiuraikan di atas. Interval waktu ini tergantung pada kecepatan divais. Sebagai
+contoh printer dengan kecepatan 10 cps lamanya adalah 100 ms.
+\newline
+\par Pada langkah di atas apabila tidak ada task yang dikerjakan, CPU segera mengulang
+kembali untuk membaca dan memeriksa status device. Program I/O keluar “wait
+loop”.Sekarang program melakukan transfer data atau bisa disebut melayani device.
+I/O Interface Controller hubungan device I/O dengan system computer disediakan
+melalui rangkaian standar dalam bentuk chip LSI (large scale integration). Rangkaian
+ini dikenal dengan I/O interface controller, pheripheral interface adapter, dan
+lain-lain. Dengan adanya komponen ini dapat memudahkan menghubungkan device
+I/O yang memiliki karakteristik berbeda dengan system bus umum, tanpa atau
+meminimumkan penggunaan perangkat keras yang khusus. Antarmuka yang paling
+sederhanaadalahregisterpenyanggasatuwordyangbertindaksebagaiportI/O.
+\end{itemize}
 \end{itemize}
 
 \subsection{Deadlock Introduction and Prevention}

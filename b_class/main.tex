@@ -57,7 +57,37 @@ This section explains the fundamental components that make up a computer system,
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
 \subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+\subsubsection{Sistem Operasi}
+Sistem operasi merupakan sebuah penghubung antara pengguna komputer dengan perangkat keras komputer. Pengertian sistem operasi secara umum ialah pengelola seluruh sumber daya yang terdapat pada sistem komputer dan menyediakan sekumpulan layanan \textit{(sistem calls)} ke pemakai sehingga mempermudah dan menyamankan penggunaan serta pemanfaatan sumber daya sistem komputer.Sistem operasi atau dalam bahasa Inggris disebut dengan \textit{operating sistem} (OS) adalah perangkat lunak sistem yang bertugas melakukan kontrol dan manajemen terhadap perangkat keras, serta operasi-operasi dasar sistem, termasuk menjalankan aplikasi seperti program-program pengolah kata, desain animasi, pengolah kata, \textit{database} dan browser web. 
+\\[12pt]
+Secara umum, sistem operasi adalah \textit{software} lapisan pertama yang diletakkan pada memori komputer pada saat komputer dinyalakan, sedangkan \textit{software} lainnya dijalankan setelah sistem operasi bekerja. Sistem operasi akan melakukan layanan inti umum untuk semua \textit{software} aplikasi itu. Layanan inti umum tersebut seperti akses ke disk, manajemen memori, \textit{skeduling task}, dan antarmuka \textit{user} sehingga masing-masing \textit{software} tidak perlu lagi melakukan tugas-tugas inti umum tersebut, karena dapat dilayani dan dilakukan oleh sistem operasi. 
+\\[12pt]
+Sebuah Komputer yang \textit{modern} pada saat ini terdiri dari satu atau lebih \textit{prosesor}, \textit{harddisk}, \textit{memori}, \textit{printer}, \textit{keyboard}, \textit{monitor}, kartu jaringan, dan beberapa \textit{input/ouput} yang ada di komputer tersebut. Semua itu menjadi sebuah kesatuan dalam suatu sistem yang lengkap.
+\\[12pt]
+Dalam banyak kasus, sistem operasi menyediakan suatu pustaka dari fungsi-fungsi standar di mana aplikasi lain dapat memanggil fungsi-fungsi itu sehingga dalam setiap pembuatan program baru tidak perlu membuat fungsi-fungsi tersebut dari awal.
+\subsubsection *{Secara umum, Sistem operasi terdiri dari beberapa bagian:}
+\begin{itemize}
+    \item Mekanisme \textit{boot}, yaitu meletakkan kernel ke dalam memori.
+    \item Kernel, yaitu inti dari sebuah sistem operasi.
+    \item \textit{Command interpreter} atau \textit{shell}, yang bertugas membaca \textit{input} dari pengguna.
+    \item Pustaka-pustaka, yaitu yang menyediakan kumpulan fungsi dasar dan standar yang dapat dipanggil oleh aplikasi lain.
+\end{itemize}
+\subsubsection *{Tujuan adanya sistem operasi:}
+Sistem operasi merupakan program yang mengontrol eksekusi program- program aplikasi dan berfungsi sebagai \textit{interface} antara \textit{user} dengan \textit{hardware}. Sistem operasi memiliki tujuan :
+\begin{itemize}
+    \item Sistem operasi membuat komputer menjadi lebih mudah dan nyaman untuk digunakan.
+    \item Sistem operasi memungkinkan sumber daya sistem komputer untuk digunakan dengan cara yang efisien.
+    \item Sistem operasi harus disusun sedemikian rupa sehingga memungkinkan pengembangan yang efektif, pengujian dan penerapan fungsi-fungsi sistem yang baru tanpa mengganggu layanan yang telah ada.
+\end{itemize}
+Dalam \textit{software} sistem operasi, terdapat istilah seperti \textit{platform}, serta CLI \textit{(Command Line Interfaces)} dan GUI \textit{(Graphical User Interfaces)}. Platform yaitu \textit{software} sistem operasi yang digunakan pada sebuah komputer. CLI dan GUI mempunyai perbedaan. CLI adalah sistem operasi yang menggunakan perintah-perintah yang ditulis dalam baris teks. GUI adalah sistem operasi Macintosh yang hanya bisa dihasilkan oleh perusahaan komputer, Apple.
+\begin{figure}[h]
+		\centering
+		\includegraphics[width=1\textwidth]{asset/sistemoperasi.png}
+		\caption{Sebuah komputer yang terdiri dari perangkat keras, sistem operasi, dan program aplikasi} 
+		\label{fig:contoh_gambar}
+	\end{figure}
+    \item Referensi :
+    \item Haryanto,E.V.(2012).\textit{Sistem Operasi Konsep dan Teori}.CV Andi Offset
 
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:

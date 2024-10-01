@@ -19,7 +19,11 @@
 \newpage
 
 \section{Introduction}
-This report summarizes the topics covered during the first half of the Operating System course. It includes theoretical concepts, practical implementations, and assignments. The course focuses on the fundamentals of operating systems, including system architecture, process management, CPU scheduling, and deadlock handling.
+This report summarizes the topics covered during the first half of the
+Operating System course. It includes theoretical concepts, practical
+implementations, and assignments. The course focuses on the fundamentals of
+operating systems, including system architecture, process management, CPU
+scheduling, and deadlock handling.
 
 \section{Course Overview}
 \subsection{Objectives}
@@ -32,7 +36,8 @@ The main objectives of this course are:
 \end{itemize}
 
 \subsection{Course Structure}
-The course is divided into two halves. This report focuses on the first half, which covers:
+The course is divided into two halves. This report focuses on the first half,
+which covers:
 \begin{itemize}
     \item Basic Concepts and Components of Computer Systems
     \item System Performance and Metrics
@@ -51,13 +56,17 @@ The course is divided into two halves. This report focuses on the first half, wh
 \section{Topics Covered}
 
 \subsection{Basic Concepts and Components of Computer Systems}
-This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
+This section explains the fundamental components that make up a computer
+system, including the CPU, memory, storage, and input/output devices.
 
 \subsection{System Performance and Metrics}
-This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
+This section introduces various system performance metrics used to measure the
+efficiency of a computer system, including throughput, response time, and
+utilization.
 
 \subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+Describes the architecture of modern computer systems, focusing on the
+interaction between hardware and the operating system.
 
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:
@@ -77,30 +86,34 @@ This section covers:
 It explains how these algorithms are used to allocate CPU time to processes.
 
 \subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
+Details how processes are created and terminated by the operating system,
+including:
 \begin{itemize}
     \item Process spawning
     \item Process termination conditions
 \end{itemize}
 
 \subsection{Introduction to Threads}
-This section introduces the concept of threads and their relation to processes, covering:
+This section introduces the concept of threads and their relation to processes,
+covering:
 \begin{itemize}
     \item Single-threaded vs. multi-threaded processes
     \item Benefits of multithreading
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{./b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+%     \caption{Ini adalah gambar contoh dari multithreading.}
+%     \label{fig:contoh_gambar}
+% \end{figure}
 
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara
+menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
-File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
+File systems provide a way for the operating system to store, retrieve, and
+manage data. This section explains:
 \begin{itemize}
     \item File system structure
     \item File access methods
@@ -108,7 +121,8 @@ File systems provide a way for the operating system to store, retrieve, and mana
 \end{itemize}
 
 \subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
+Input and output management is key for handling the interaction between the
+system and external devices. This section includes:
 \begin{itemize}
     \item Device drivers
     \item I/O scheduling
@@ -118,11 +132,81 @@ Input and output management is key for handling the interaction between the syst
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
-    \item Deadlock prevention techniques
 \end{itemize}
+\subsubsection{Deadlock prevention}
+
+\hspace{1cm} Pencegahan terhadap deadlock adalah teknik yang digunakan untuk mencegah sistem memasuki keadaan deadlock.
+Berbeda dengan deadlock avoidance yang dimana mengatasi masalah setelah deadlock terjadi, pencegahan ada agar memperkecil
+kemungkinan terjadinya deadlock. Pencegahan deadlock dapat dilakukan dengan cara menghindari keadaan-keadaan yang dapat menyebabkan deadlock.
+Beberapa metode pencegahan deadlock adalah:
+
+\begin{enumerate}
+    \item Resources Ordering
+
+          \hspace{1cm}Resources Ordering adalah pengurutan sumber daya dimana setiap sumber daya
+          dalam sistem diberi nomor atau urutan unik. Proses harus meminta sumber daya
+          dalam urutan yang konsisten dengan nomor tersebut. Artinya, jika suatu proses
+          sudah memegang satu sumber daya dengan nomor lebih rendah, maka ia hanya boleh
+          meminta sumber daya dengan nomor lebih tinggi.
+
+          \hspace{1cm}Salah satu contoh kasus pencegahan deadlock dengan metode resources
+          ordering yaitu jika ada dua sumber daya, R1 dan R2, dan proses P1 memegang R1 dan ingin
+          meminta R2, maka metode ini memastikan bahwa proses P1 tidak dapat memegang R2
+          tanpa mengikuti urutan yang telah ditentukan.
+
+    \item Resource allocation denial
+
+          \hspace{1cm}Metode ini dikenal juga sebagai Banker's
+          Algorithm atau safety algorithm, di mana sistem memeriksa apakah pemberian
+          sumber daya tertentu akan menyebabkan kondisi unsafe atau potensi deadlock.
+          Jika pemberian sumber daya dianggap tidak aman, maka permintaan sumber daya
+          tersebut akan ditolak.
+
+          \hspace{1cm}Metode resources allocation denial adalah ketika
+          proses P1 meminta sumber daya R1. Sebelum mengalokasikan sumber daya, sistem mengevaluasi
+          apakah proses lain bisa menyelesaikan eksekusi dengan sumber daya yang tersisa.
+          Jika tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua sumberdaya yang dibutuhkan sudah lengkap.
+
+    \item Timeouts
+
+          \hspace{1cm}Dalam metode ini, sistem menggunakan batas waktu (timeout)
+          untuk menunggu sumber daya. Jika proses menunggu terlalu lama, ia akan dipaksa
+          gagal atau restart. Timeout dapat digunakan untuk mencegah proses berlama-lama
+          dalam kondisi menunggu, sehingga menghindari deadlock.
+
+          \hspace{1cm}Proses P1 sedang menunggu sumber daya R1 selama 5 menit. Jika setelah batas waktu ini R1 belum tersedia, proses P1 akan dibatalkan atau dijadwalkan ulang untuk mencoba lagi.
+
+    \item Avoidance of hold-and-wait conditions
+
+          \hspace{1cm}Teknik avoidance of hold-and-wait
+          conditions adalah teknik pencegahan deadlock dengan kondisi saling tunggu sumber daya antara suatu proses.
+          Dalam teknik ini, proses tidak
+          diperbolehkan menahan sumber daya sambil menunggu sumber daya lain. Proses
+          harus meminta semua sumber daya yang dibutuhkan di awal (sebelum memulai
+          eksekusi) atau melepaskan sumber daya yang sedang dipegang sebelum meminta
+          sumber daya tambahan.
+
+          \hspace{1cm}Dalam penerapannya, Proses P1 harus meminta sumber daya
+          R1 dan R2 sekaligus. Jika R2 tidak tersedia, maka proses tidak diperbolehkan
+          memegang R1 dan harus melepaskannya sampai kedua sumber daya tersedia.
+          Setiap proses yang belum memiliki sumber daya yang cukup untuk berjalan maka
+          akan terus menunggu hingga sumber daya yang dibutuhkan terpenuhi semua.
+
+    \item Resource preemption
+
+          \hspace{1cm}Teknik ini memungkinkan sistem untuk merebut atau
+          mengambil kembali sumber daya dari proses yang sedang berjalan jika diperlukan
+          oleh proses lain yang lebih prioritas atau jika diperlukan untuk mencegah
+          deadlock.
+
+          \hspace{1cm}Dalam kasus seperti proses P1 harus meminta sumber daya
+          R1 dan R2 sekaligus. Jika R2 tidak tersedia, proses tidak diperbolehkan
+          memegang R1 dan harus melepaskannya sampai kedua sumber daya tersedia.
+\end{enumerate}
 
 \subsection{User Interface Management}
-This section discusses the role of the operating system in managing the user interface. Topics covered include:
+This section discusses the role of the operating system in managing the user
+interface. Topics covered include:
 \begin{itemize}
     \item Graphical User Interface (GUI)
     \item Command-Line Interface (CLI)
@@ -130,7 +214,8 @@ This section discusses the role of the operating system in managing the user int
 \end{itemize}
 
 \subsection{Virtualization in Operating Systems}
-Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
+Virtualization allows multiple operating systems to run concurrently on a
+single physical machine. This section explores:
 \begin{itemize}
     \item Concept of virtualization
     \item Hypervisors and their types
@@ -139,45 +224,55 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+Students were tasked with implementing various process scheduling algorithms
+(e.g., FCFS, SJN, and RR) and comparing their performance under different
+conditions.
 \subsubsection{Group 1}
 \begin{python}
     class Process:
     def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
+    self.pid = pid
+    self.arrival_time = arrival_time
+    self.burst_time = burst_time
+    self.completion_time = 0
+    self.turnaround_time = 0
+    self.waiting_time = 0
 \end{python}
 
 \begin{table}[htbp] % Optional: For floating position
     \centering
     \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
+        \hline
+        Header 1        & Header 2        & Header 3        \\ % Column headers
+        \hline
+        Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
+        \hline
+        Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
+        \hline
     \end{tabular}
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+In this assignment, students were asked to simulate different deadlock
+scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+This assignment involved designing a multithreading scenario to solve a
+computationally intensive problem. Students then applied **Amdahl's Law** to
+calculate the theoretical speedup of the program as the number of threads
+increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+Students were tasked with creating a simple **CLI** for user interface
+management. The CLI should support basic commands such as file manipulation
+(creating, listing, and deleting files), process management, and system status
+reporting.
 
 \subsection{Assignment 5: File System Access}
-In this assignment, students implemented file system access routines, including:
+In this assignment, students implemented file system access routines,
+including:
 \begin{itemize}
     \item File creation and deletion
     \item Reading from and writing to files
@@ -185,6 +280,9 @@ In this assignment, students implemented file system access routines, including:
 \end{itemize}
 
 \section{Conclusion}
-The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+The first half of the course introduced core operating system concepts,
+including process management, scheduling, multithreading, and file system
+access. These topics provided a foundation for more advanced topics to be
+covered in the second half of the course.
 
 \end{document}

@@ -118,6 +118,42 @@ Input and output management is key for handling the interaction between the syst
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
+    \textbf{Deadlock Avoidance} 
+
+Deadlock avoidance adalah teknik yang digunakan untuk mencegah sistem komputer masuk ke dalam situasi deadlock, yaitu ketika beberapa proses tidak dapat melanjutkan karena saling menunggu sumber daya yang dipegang oleh proses lain. Prinsip utama dari deadlock avoidance adalah menjaga sistem agar selalu berada dalam \textit{safe state}, di mana deadlock tidak mungkin terjadi.
+\begin{itemize}
+\item \textbf{Ide Dasar Deadlock Avoidance}: Deadlock avoidance bertujuan untuk memastikan bahwa sistem tidak pernah berada dalam \textit{unsafe state}, di mana kemungkinan deadlock bisa terjadi. Hal ini dilakukan dengan menganalisis dan memperkirakan permintaan sumber daya yang mungkin akan diminta oleh setiap proses sebelum mereka benar-benar diberikan.
+\item \textbf{Kebutuhan Informasi tentang Permintaan Sumber Daya}: Teknik ini membutuhkan informasi sebelumnya tentang bagaimana proses-proses yang berbeda akan meminta sumber daya di masa depan. Dengan mengetahui berapa banyak dan kapan proses akan meminta sumber daya, sistem dapat memutuskan apakah permintaan tersebut aman untuk dipenuhi atau tidak.
+\item \textbf{Safe State (State Aman)}: \textit{Safe state} adalah kondisi di mana sistem dapat memberikan semua permintaan sumber daya dari proses-prosesnya tanpa menyebabkan deadlock. Dalam state ini, ada urutan eksekusi proses yang memungkinkan semua proses menyelesaikan tugasnya.
+\item \textbf{Unsafe State (State Tidak Aman)}: \textit{Unsafe state} terjadi ketika sistem berada dalam kondisi di mana ada kemungkinan deadlock, meskipun tidak terjadi secara langsung. Di dalam \textit{unsafe state}, jika proses-proses meminta sumber daya tertentu yang tidak tersedia, deadlock dapat terjadi.
+
+\end{itemize}
+\textbf{Deadlock Detection} 
+Deadlock detection adalah strategi yang memungkinkan deadlock terjadi dalam sistem terlebih dahulu, kemudian mendeteksinya, dan melakukan tindakan \textit{recovery} untuk mengembalikan sistem ke keadaan normal. Deadlock detection berfokus pada pemantauan sistem dan mengambil langkah korektif ketika deadlock terdeteksi.
+\begin{itemize}
+\item \textbf{Ide Dasar Deadlock Detection}: Deadlock detection tidak mencegah deadlock dari awal, tetapi mengizinkan deadlock untuk terjadi dan kemudian mendeteksi keberadaannya. Setelah deadlock terdeteksi, sistem melakukan langkah \textit{recovery}.
+\item \textbf{Membatalkan Semua Proses yang Terlibat dalam Deadlock}: Salah satu solusi yang ekstrem adalah membatalkan atau menghentikan semua proses yang terlibat dalam deadlock. Meskipun ini akan secara efektif menyelesaikan deadlock, pendekatan ini sering kali tidak efisien karena dapat menyebabkan hilangnya banyak pekerjaan yang sudah dilakukan oleh proses tersebut.
+\item \textbf{Membatalkan Satu Proses pada Satu Waktu hingga Deadlock Teratasi}: Alternatif yang lebih efisien adalah membatalkan satu proses pada satu waktu. Proses yang dibatalkan dipilih berdasarkan kriteria tertentu, seperti proses yang memiliki prioritas lebih rendah atau proses yang sudah menggunakan lebih sedikit sumber daya. Proses ini diulang hingga siklus deadlock dapat dihilangkan.
+\item \textbf{Preemption (Pengambilalihan Sumber Daya)}: Teknik lain untuk \textit{recovery} adalah dengan \textit{preemption}, yaitu mengambil sumber daya dari satu atau lebih proses yang sedang menjalankan tugasnya. Sumber daya yang telah diambil bisa diberikan ke proses lain yang memerlukan untuk melanjutkan eksekusi dan memecah siklus deadlock.
+\item \textbf{Checkpoint dan Rollback}: Sistem dapat melakukan \textit{checkpoint}, yaitu menyimpan status proses di titik tertentu. Jika deadlock terdeteksi, sistem bisa melakukan \textit{rollback}, yaitu mengembalikan proses ke \textit{checkpoint} terakhir, lalu memulai ulang proses. Proses yang memiliki prioritas lebih rendah atau yang menyebabkan deadlock bisa dihentikan untuk menyelesaikan masalah.
+\end{itemize}
+\paragraph{Kesimpulan tentang Deadlock}
+\textbf{Deadlock} adalah kondisi dalam sistem komputer di mana satu atau lebih proses tidak dapat melanjutkan eksekusi karena saling menunggu sumber daya yang sedang dipegang oleh proses lain. Dalam keadaan deadlock, proses-proses ini tidak akan pernah selesai kecuali jika dilakukan tindakan \textit{recovery} untuk memecah siklus deadlock tersebut.
+{Empat Kondisi Penting untuk Terjadinya Deadlock}
+\begin{itemize}
+\item \textit{Mutual Exclusion} (Saling Mengunci): Sumber daya tidak dapat digunakan oleh lebih dari satu proses pada saat yang bersamaan.
+\item \textit{Hold and Wait} (Menahan dan Menunggu): Proses yang telah memiliki beberapa sumber daya menahan sumber daya tersebut sambil menunggu sumber daya lain yang sedang digunakan oleh proses lain.
+\item \textit{No Preemption} (Tidak Ada Pengambilalihan): Sumber daya yang telah dialokasikan ke suatu proses tidak dapat diambil alih secara paksa dari proses tersebut, hanya bisa dilepaskan secara sukarela oleh proses yang sedang menggunakannya.
+\item \textit{Circular Wait} (Tunggu Melingkar): Terdapat rangkaian proses yang menunggu secara melingkar, di mana setiap proses dalam siklus menunggu sumber daya yang dimiliki oleh proses berikutnya dalam siklus.
+
+\end{itemize}
+Ada empat strategi utama untuk menangani deadlock:
+\begin{itemize}
+\item \textit{Prevention} (Pencegahan): Mencegah terjadinya salah satu atau lebih dari empat kondisi deadlock. Misalnya, dengan memastikan tidak ada \textit{hold and wait} atau memperbolehkan \textit{preemption}.
+\item \textit{Avoidance} (Penghindaran): Sistem memantau statusnya secara dinamis dan hanya mengalokasikan sumber daya jika tidak menyebabkan \textit{unsafe state} yang berpotensi menyebabkan deadlock. Contoh metode penghindaran adalah \textit{Banker’s Algorithm}.
+\item \textit{Detection} (Deteksi): Deadlock diizinkan untuk terjadi, tetapi sistem memiliki mekanisme untuk mendeteksinya setelah itu. Ketika deadlock terdeteksi, sistem kemudian mengambil tindakan untuk \textit{recovery}.
+\item \textit{Recovery} (Pemulihan): Setelah deadlock terdeteksi, sistem dapat melakukan berbagai tindakan untuk memulihkan keadaan, seperti membatalkan proses, mengambil sumber daya dari proses, atau menggunakan \textit{checkpoint} dan \textit{rollback}.
+\end{itemize}
     \item Deadlock prevention techniques
 \end{itemize}
 

@@ -117,8 +117,81 @@ Input and output management is key for handling the interaction between the syst
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
-    \item Deadlock conditions
-    \item Deadlock prevention techniques
+    \subsubsection{Pengenalan \textit{Deadlock}}
+        \begin{enumerate}
+            \item \textbf{Pengertian \textit{Deadlock}}
+            \item \textbf{Kondisi Terjadinya \textit{Deadlock}}
+            \item \textbf{Model \textit{Deadlock}}
+
+                \hspace{1cm}
+                Model \textit{deadlock} adalah representasi dari situasi di mana serangkaian proses dalam suatu sistem tidak dapat melanjutkan eksekusi karena saling menunggu sumber daya yang sedang digunakan oleh proses lain.\newline
+                
+                \begin{enumerate}
+                    \item \textit{\textbf{Resource Alocation Graph}}
+
+                        \hspace{1cm}
+                        Sebuah model graf yang digunakan untuk mempresentasikan hubungan antara proses dan sumber daya dalam sistem komputasi.
+
+                        \hspace{1cm}
+                        Untuk menggambar model \textit{resource allocation graph} ada beberapa ketentuan sebagai berikut :
+                        \begin{itemize}
+                            \item \textbf{Persegi} menandakan sebuah sumber daya atau \textit{resource} yang biasa diberi penanda "R(n)", jumlah \textit{resource} yang bisa digunakan biasa ditandai dengan jumlah titik yang ada dalam persegi tersebut,
+                            \item \textbf{Lingkaran} menandakan sebuah proses dengan penanda huruf "P(n)",
+                            \item \textbf{Lingkaran} $\longrightarrow$ \textbf{Persegi} menandakan bahwa proses tersebut sedang meminta sebuah sumber daya dari \textit{resource},
+                            \item \textbf{Persegi} $\longrightarrow$ \textbf{Lingkaran} menandakan bahwa sumber daya dari \textit{resource} sedang digunakan oleh proses tersebut.\newline
+                        \end{itemize}
+                        \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=0.45\linewidth]
+                            {asset/RAG.drawio.png}
+                            \caption{Contoh Diagram \textit{Deadlock} dalam RAG}
+                            \label{fig:deadlock-RAG}
+                            \end{figure}
+                        
+                    \item \textit{\textbf{State-based model}}
+
+                        \hspace{1cm}
+                        model yang digunakan untuk menganalisa dan mendeteksi \textit{deadlock} dengan melihat keadaan (\textit{state}) sistem dalam hal alokasi sumber daya dan proses yang sedang berjalan. 
+
+                        \hspace{1cm}
+                        Gambar dibawah adalah contoh ilustrasi dari \textit{state-based model} yang biasa digunakan untuk menentukan apakah sistem berada dalam kondisi \textit{safe} atau \textit{unsafe}. Sistem bisa dikatakan dalam \textit{state} aman jika sistem dapat mengalokasikan sumber daya untuk setiap proses secara berurutan dan menghindari \textit{deadlock}.
+                        
+                        \hspace{1cm}
+                        Untuk menentukan apakah sistem berada dalam kondisi \textit{safe} atau \textit{unsafe} kita bisa menggunakan \textit{safety algorithm} atau \textit{banker algorithm}\newline
+
+                        \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=0.45\linewidth]
+                            {asset/WFG.drawio.png}
+                                \caption{Contoh Model \textit{State-based} model}
+                            \label{fig:deadlock-SBM}
+                            \end{figure}
+                        
+                    \item \textit{\textbf{Wait-For Graph}}
+
+                        \hspace{1cm}
+                        Model ini adalah penyederhanaan dari \textit{Resource Allocation Graph}. Dalam \textit{Wait-for Graph} hanya proses yang diwakili sebagai \textit{node}, dan ada panah yang menunjukkan bahwa satu proses menunggu proses lain untuk melepaskan sumber daya.
+                            \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=0.4\linewidth]
+                            {asset/WFG1.drawio.png}
+                            \caption{Contoh Diagram Deadlock dalam WFG}
+                            \label{fig:deadlock-WFG}
+                            \end{figure}
+
+                        \hspace{1cm}
+                        Model \textit{wait-for graph} biasa digunakan untuk menyederhanakan hasil dari model \textit{resource allocation graph}, tapi ada beberapa syarat yang harus terpenuhi jika ingin mengubah \textit{resource allocation graph} menjadi model \textit{wait-for graph}, adapun syarat dan ketentuannya sebagai berikut :
+                        \begin{itemize}
+                            \item Tidak ada \textit{resource}, jadi model WFG hanya dapat menampilkan proses tanpa menampilkan \textit{resource},
+                            \item  Mengubah relasi proses-\textit{resource} menjadi antar proses.\newline
+                        \end{itemize}
+
+                        
+                \end{enumerate}
+            \item \textbf{Deteksi Dan Pemulihan \textit{Deadlock}}
+            \item \textbf{\textit{Deadlock} Dalam Keseharian}
+        \end{enumerate}
+    \subsubsection{ \textit{Deadlock prevention techniques}}
 \end{itemize}
 
 \subsection{User Interface Management}

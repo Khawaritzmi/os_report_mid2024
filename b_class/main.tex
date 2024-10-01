@@ -61,12 +61,45 @@ Describes the architecture of modern computer systems, focusing on the interacti
 
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:
+\subsubsection{Definition of Process}
+\subsubsection{Process states and state transitions}
+
+\subsubsection{Process Control Block (PCB)}
+Process Control Block (PCB) adalah struktur data yang digunakan oleh sistem operasi untuk menyimpan semua informasi yang diperlukan tentang proses. PCB sangat penting untuk mengelola dan mengontrol proses yang sedang berjalan. PCB berfungsi sebagai representasi dari proses dalam memori dan memfasilitasi manajemen dan penjadwalan proses yang efisien.
+
+PCB terdiri dari beberapa elemen informasi yang berhubungan dengan proses, termasuk:
 \begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
+\item \textbf{Process ID (PID)}: Setiap proses memiliki ID unik yang digunakan oleh sistem operasi untuk membedakan satu proses dari yang lain.
+\item \textbf{Process State}: Menyimpan keadaan saat ini dari proses seperti New, Ready, Running, Waiting, atau Terminated.
+\item \textbf{Program Counter}: Menyimpan alamat dari instruksi berikutnya yang akan dieksekusi oleh proses.
+\item \textbf{CPU Registers}: Menyimpan nilai dari register CPU yang digunakan oleh proses, termasuk register umum dan register status.
+\item \textbf{Memory Management Information}: Berisi informasi tentang manajemen memori untuk proses, termasuk base dan limit register atau informasi halaman.
+\item \textbf{I/O Status Information}: Menyimpan informasi tentang perangkat I/O yang digunakan oleh proses, termasuk daftar perangkat I/O yang sedang digunakan dan statusnya.
+\item \textbf{Scheduling Information}: Menyimpan informasi yang diperlukan untuk penjadwalan proses, seperti prioritas proses dan pointer ke antrean penjadwalan.
 \end{itemize}
 
+\subsubsection{Context Switching}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{asset/gambar_multitasking.png}
+\caption{contoh proses multitasking}
+\end{figure}
+
+Context switching adalah proses di mana CPU beralih dari satu proses ke proses lain. Ini adalah mekanisme penting dalam sistem operasi multitasking yang memungkinkan beberapa proses untuk berbagi CPU.
+
+Langkah-langkah dalam context switching meliputi:
+\begin{itemize}
+\item \textbf{Menyimpan Status Proses yang Berjalan}:
+Sistem operasi menyimpan konteks proses yang sedang berjalan, termasuk isi register CPU (seperti accumulator, instruction pointer, flags), serta informasi lain seperti program counter dan status memori.
+\item \textbf{Memilih Proses Baru}:
+Sistem operasi memilih proses lain dari antrean ready untuk mulai dieksekusi. Proses ini dilakukan oleh penjadwal proses yang bertanggung jawab untuk menentukan proses mana yang harus diberi akses ke CPU.
+\item \textbf{Memulihkan Status Proses yang Dipilih}:
+Sistem operasi memuat kembali konteks dari proses yang telah dipilih untuk dieksekusi.
+\item \textbf{Eksekusi Proses Baru}:
+Setelah proses baru dipulihkan, CPU mulai mengeksekusi instruksi dari proses tersebut.
+\end{itemize}
+
+\subsubsection{Process Management By Operating Systems}
 \subsection{Scheduling Algorithms}
 This section covers:
 \begin{itemize}
@@ -92,7 +125,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -186,5 +219,12 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{}
+    \bibitem{}
+    Tutorialspoint. (n.d.). \textit{Operating system - Process control block}. Diakses pada 30 September 2024, dari \url{https://www.tutorialspoint.com/operating_system/os_process_control_block.htm}
+    \bibitem{}
+    Wikipedia contributors. (n.d.). Context switch. Dalam \textit{Wikipedia, The Free Encyclopedia}. Diakses pada 30 September 2024, dari \url{https://en.wikipedia.org/wiki/Context_switch} 
+\end{thebibliography}
 
 \end{document}

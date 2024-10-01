@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -89,6 +90,15 @@ This section introduces the concept of threads and their relation to processes, 
     \item Benefits of multithreading
 \end{itemize}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \caption{Ini adalah gambar contoh dari multithreading.}
+    \label{fig:contoh_gambar}
+\end{figure}
+
+Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
 \begin{itemize}
@@ -114,20 +124,20 @@ Model deadlock dapat dijelaskan menggunakan diagram graf alokasi sumber daya (\t
     \item \textbf{Sumber daya}: Digambarkan sebagai kotak atau persegi panjang.
 \end{enumerate}
 
-Setiap sumber daya mungkin memiliki beberapa unit yang dapat dialokasikan ke proses. Terdapat dua jenis edge (panah) dalam graf ini:
+Setiap sumber daya mungkin memiliki beberapa unit yang dapat dialokasikan ke proses. Terdapat dua jenis busur (panah) dalam graf ini:
 
 \begin{itemize}
-    \item \textbf{Request edge (panah permintaan)}: Dari proses ke sumber daya, menunjukkan bahwa proses meminta sumber daya.
-    \item \textbf{Assignment edge (panah alokasi)}: Dari sumber daya ke proses, menunjukkan bahwa sumber daya telah dialokasikan ke proses tersebut.
+    \item \textbf{Busur permintaan (request edge)}: Dari proses ke sumber daya, menunjukkan bahwa proses meminta sumber daya.
+    \item \textbf{Busur alokasi (assignment edge)}: Dari sumber daya ke proses, menunjukkan bahwa sumber daya telah dialokasikan ke proses tersebut.
 \end{itemize}
 
 Contoh sederhana deadlock: Misalkan ada dua proses, P1 dan P2, serta dua sumber daya, R1 dan R2. Proses P1 memegang sumber daya R1 dan meminta R2, sementara P2 memegang R2 dan meminta R1. Maka terbentuk lingkaran penantian sebagai berikut:
 
 \begin{enumerate}
-    \item P1 $\rightarrow$ (request) R2
-    \item P2 $\rightarrow$ (request) R1
-    \item R1 $\rightarrow$ (assigned) P1
-    \item R2 $\rightarrow$ (assigned) P2
+    \item P1 $\rightarrow$ (meminta) R2
+    \item P2 $\rightarrow$ (meminta) R1
+    \item R1 $\rightarrow$ (dialokasikan) P1
+    \item R2 $\rightarrow$ (dialokasikan) P2
 \end{enumerate}
 
 Karena kedua proses saling menunggu, sistem mengalami deadlock.
@@ -136,7 +146,6 @@ Karena kedua proses saling menunggu, sistem mengalami deadlock.
     \centering
     \includegraphics[width=0.5\linewidth]
     {asset/deadlockRAG.drawio.png}
-    \caption{Contoh Diagram Deadlock dalam RAG}
     \label{fig:deadlock-RAG}
 \end{figure}
 
@@ -144,13 +153,13 @@ Dalam diagram ini, P1 menunggu R2 dan P2 menunggu R1, sehingga keduanya tidak da
 
 \subsubsection{Deadlock: Konsep Dasar, Contoh, dan Deteksi}
 
-Deadlock adalah situasi di mana dua atau lebih proses mengalami kebuntuan karena saling menunggu sumber daya yang dipegang oleh proses lain. Deadlock sering terjadi pada sistem multiproses dan multithreading, di mana proses-proses berbagi sumber daya seperti memori, file, atau perangkat keras.
+Deadlock adalah situasi di mana dua atau lebih proses mengalami kebuntuan karena saling menunggu sumber daya yang dipegang oleh proses lain. Deadlock sering terjadi pada sistem multiproses dan multithreading, di mana proses-proses berbagi sumber daya seperti memori, berkas, atau perangkat keras.
 
 Sumber daya yang terlibat dalam deadlock dapat berupa:
 
 \begin{itemize}
-    \item \textbf{Sumber daya fisik}: seperti printer, port jaringan, CPU, atau memori.
-    \item \textbf{Sumber daya logis}: seperti file, mutex, semafor, atau basis data.
+    \item \textbf{Sumber daya fisik}: seperti pencetak (printer), port jaringan, CPU, atau memori.
+    \item \textbf{Sumber daya logis}: seperti berkas, mutex, semafor, atau basis data.
 \end{itemize}
 
 Sistem operasi modern menghadapi risiko deadlock terutama pada sistem yang mendukung multitasking.
@@ -183,17 +192,17 @@ Jika ada siklus dalam graf ini, deadlock telah terjadi.
 
 \paragraph{b. Algoritma Deteksi Deadlock pada Sumber Daya Tunggal}
 
-Pada sistem di mana setiap sumber daya hanya memiliki satu instance, deteksi deadlock dilakukan dengan memeriksa apakah ada siklus dalam graf alokasi sumber daya. Jika siklus terdeteksi, maka deadlock terjadi.
+Pada sistem di mana setiap sumber daya hanya memiliki satu instansi, deteksi deadlock dilakukan dengan memeriksa apakah ada siklus dalam graf alokasi sumber daya. Jika siklus terdeteksi, maka deadlock terjadi.
 
 \paragraph{c. Algoritma Deteksi Deadlock pada Sumber Daya Multipel}
 
-Jika sebuah sistem memiliki beberapa instance dari jenis sumber daya yang sama, maka algoritma seperti \textit{Banker's Algorithm} dapat digunakan. Algoritma ini menilai apakah sistem dapat memenuhi semua permintaan sumber daya tanpa memasuki kondisi deadlock.
+Jika sebuah sistem memiliki beberapa instansi dari jenis sumber daya yang sama, maka algoritma seperti \textit{Banker's Algorithm} dapat digunakan. Algoritma ini menilai apakah sistem dapat memenuhi semua permintaan sumber daya tanpa memasuki kondisi deadlock.
 
 Dengan mengidentifikasi cara aman untuk mengalokasikan sumber daya, algoritma ini membantu mencegah terjadinya deadlock.
 
 \paragraph{Referensi}
 Ali A. \textit{151444239-Sistem-Operasi-Buku.pdf}. C.V.ANDI; 2005. p.212.
-
+Mengeksplorasi konsep deadlock dan metode untuk mencegahnya:
 \begin{itemize}
     \item Deadlock conditions
     \item Deadlock prevention techniques
@@ -218,6 +227,32 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+\subsubsection{Group 1}
+\begin{python}
+    class Process:
+    def __init__(self, pid, arrival_time, burst_time):
+        self.pid = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+        self.completion_time = 0
+        self.turnaround_time = 0
+        self.waiting_time = 0
+\end{python}
+
+\begin{table}[htbp] % Optional: For floating position
+    \centering
+    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \hline
+    Header 1 & Header 2 & Header 3 \\ % Column headers
+    \hline
+    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
+    \hline
+    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
+    \hline
+    \end{tabular}
+    \caption{Your table caption} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.

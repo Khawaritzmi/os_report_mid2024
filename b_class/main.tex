@@ -194,18 +194,32 @@ Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem oper
     Izin yang dimiliki setiap proses terkait berkas tertentu. Misalnya, suatu proses mungkin memiliki hak baca, tulis, atau eksekusi berdasarkan mode aksesnya. Hak akses menegakkan keamanan dan memastikan bahwa proses hanya dapat berinteraksi dengan berkas sesuai dengan cara yang diizinkan, mencegah akses atau modifikasi yang tidak sah.
 \end{enumerate}
 
-\subsubsection*{d. Tipe File}
+\\subsubsection*{d. Tipe File}
 
-\begin{figure}[h]
+\begin{table}[htbp] 
     \centering
-    \includegraphics[width=0.5\linewidth]{assets/Table.jpg}
-    \caption{Metode Akses Berurutan}
-    \label{fig:sequential-access}
-    \end{figure}
+    \begin{tabular}{|c|c|p{4cm}|p{7cm}|} 
+    \hline
+\textbf{File Type}      & \textbf{Usual Extension}        & \textbf {Function}                                                      \\ \hline
+Executable              & exe, com, bin or none           & Read to run machine-language program                                    \\ \hline
+Object                  & obj, o                          & Compiled, machine language, not linked                                  \\ \hline
+Source code             & c, cc, java, pas, asm, a        & Source code in various languages                                        \\ \hline
+Batch                   & bat, sh                         & Commands to the command interpreter                                     \\ \hline
+Text                    & txt, doc                        & Textual data, documents                                                 \\ \hline
+Word processor          & wp, tex, rrf, doc               & Various word-processor formats                                          \\ \hline
+Library                 & lib, a, so, dll                 & Libraries of routines for programmers                                   \\ \hline
+Print or view           & arc, zip, tar                   & ASCII or binary file in a format for printing or viewing                \\ \hline
+Archive                 & arc, zip, tar                   & Related files grouped into one file, sometimes compressed, for archiving or storage \\ \hline
+Multimedia              & mpeg, mov, rm                   & Binary file containing audio or A/V information                         \\ \hline
+\end{tabular}
+    \caption{File Type}
+    \label{tab:your_label}
+\end{table}
 
 Salah satu pertimbangan penting dalam merancang sistem file dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem file. Bila sistem operasi mengenali tipe suatu file, maka dapat dilakukan operasi terhadap file dengan lebih baik.
 
-\textit{UNIX} menggunakan \textit{magic number} yang disimpan pada awal file untuk mengindikasikan tipe file berupa program \textit{executable}, \textit{batch file} (shell script), file \textit{postscript} dan lain-lain. Tidak semua file mempunyai \textit{magic number}, sehingga informasi tipe tidak dapat digambarkan. \textit{UNIX} tidak menyimpan nama dari program pembuatnya. \textit{UNIX} juga mengizinkan nama ekstensi dari file tersembunyi, sehingga pengguna dapat menentukan tipe file sendiri dan tidak tergantung pada sistem operasi.
+\textit{UNIX} menggunakan \textit{magic number} yang disimpan pada awal file untuk mengindikasikan tipe file berupa program \textit{executable}, \textit{batch file} (shell script), file \textit{postscript}, dan lain-lain. Tidak semua file mempunyai \textit{magic number}, sehingga informasi tipe tidak dapat digambarkan. \textit{UNIX} tidak menyimpan nama dari program pembuatnya. \textit{UNIX} juga mengizinkan nama ekstensi dari file tersembunyi, sehingga pengguna dapat menentukan tipe file sendiri dan tidak tergantung pada sistem operasi.
+
 
     \item File access methods
     \item Directory management

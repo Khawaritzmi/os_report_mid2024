@@ -60,11 +60,56 @@ This section introduces various system performance metrics used to measure the e
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
 \subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
+\subsubsection{Definition of Process}
+\subsubsection{Process states and state transitions}
+\subsubsection{Process Control Block (PCB)}
+\subsubsection{Context Switching}
+
+
+\subsubsection{Process Management By Operating Systems}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{asset/menejemen.jpg}  % Sesuaikan nama file dan ukurannya
+    \caption{Ini adalah gambar contoh dari multithreading.}
+    \label{fig:contoh_gambar}
+\end{figure}
+Manajemen proses oleh sistem operasi adalah salah satu tugas utama dari sistem operasi yang melibatkan pengelolaan dan pengendalian berbagai proses yang berjalan di komputer. Sistem operasi bertanggung jawab untuk memastikan bahwa proses-proses ini dieksekusi secara efisien dan tidak saling mengganggu. Berikut adalah aspek utama dari manajemen proses oleh sistem operasi:
+
 \begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
+    \item \textbf{Pembuatan dan Penghancuran Proses}: 
+   Sistem operasi membuat proses baru ketika suatu program dieksekusi atau ketika suatu proses meminta sistem untuk membuat subproses (misalnya dengan menggunakan perintah \textit{fork()} pada sistem UNIX). Saat proses dibuat, \textit{Process Control Block (PCB)} dialokasikan, dan informasi proses disimpan, termasuk ID proses, status proses, dan informasi lainnya. Sistem operasi juga bertanggung jawab untuk menghentikan dan menghapus proses yang telah selesai. Setelah proses selesai, sumber daya yang digunakan oleh proses dibebaskan agar bisa digunakan oleh proses lain.
+    
+    \item \textbf{Penjadwalan Proses (Process Scheduling)}: 
+    Sistem operasi harus menentukan proses mana yang akan dijalankan terlebih dahulu, terutama dalam lingkungan multitasking di mana banyak proses berjalan secara bersamaan. Penjadwal Proses\textit{ (Scheduler) }menentukan urutan eksekusi proses berdasarkan prioritas dan status proses. Beberapa jenis penjadwalan proses yang umum meliputi:
+    \begin{itemize}
+        \item \textit{First Come First Serve }(FCFS): Proses yang datang terlebih dahulu akan dijalankan terlebih dahulu.
+        \item \textit{Round Robin}: Setiap proses diberikan waktu eksekusi yang terbatas, kemudian berpindah ke proses lain.
+        \item \textit{Shortest Job Next} (SJN): Proses dengan waktu eksekusi tersingkat dijalankan lebih dulu.
+        \item \textit{Priority Scheduling}: Proses dengan prioritas lebih tinggi mendapatkan akses CPU lebih cepat.
+    \end{itemize}
+    
+    \item \textbf{Context Switching}: 
+    \textit{Context switching} adalah proses di mana CPU berpindah dari satu proses ke proses lain. Sistem operasi harus menyimpan konteks proses yang sedang berjalan (informasi register, \textit{program counter}, dll.) dan memuat konteks proses baru. Ini memungkinkan multitasking, di mana beberapa proses berjalan secara bersamaan (secara sekuensial tetapi sangat cepat sehingga tampak bersamaan).
+    
+    \item \textbf{Komunikasi Antar-Proses (\textit{Inter-Process Communication} - IPC)}: 
+    Sistem operasi menyediakan mekanisme bagi proses untuk berkomunikasi satu sama lain, terutama jika mereka perlu berbagi data atau bekerja sama. Beberapa metode umum IPC termasuk:
+    \begin{itemize}
+        \item \textit{Shared Memory}: Dua atau lebih proses berbagi bagian dari memori.
+        \item \textit{Message Passing}: Proses saling mengirim pesan untuk bertukar informasi.
+    \end{itemize}
+    
+    \item \textbf{Sinkronisasi Proses}: 
+    Sinkronisasi diperlukan untuk menghindari \textit{race conditions}, di mana dua proses mencoba mengakses atau memodifikasi sumber daya yang sama secara bersamaan. Mekanisme sinkronisasi yang disediakan oleh sistem operasi termasuk\textit{ semaphores, mutexes,} dan \textit{monitors.}
+    
+    \item \textbf{Manajemen Deadlock}: 
+    Deadlock terjadi ketika dua atau lebih proses saling menunggu untuk sumber daya yang tidak bisa mereka peroleh, yang mengakibatkan proses tersebut tidak bisa melanjutkan eksekusi. Sistem operasi mengelola deadlock melalui berbagai strategi, seperti deteksi \textit{deadlock, }pencegahan \textit{deadlock}, atau penghindaran \textit{deadlock} (seperti algoritma Banker's).
+    
+    \item \textbf{Manajemen Sumber Daya Proses}: 
+    Sistem operasi bertanggung jawab untuk mengalokasikan dan mengelola sumber daya yang dibutuhkan oleh proses, seperti CPU, memori, perangkat I/O, dan file. Ini termasuk memantau penggunaan sumber daya untuk mencegah konflik dan memastikan distribusi yang adil antara proses.
+    
+    \item \textbf{Keadaan Proses (Process States)}: 
+    Setiap proses dalam sistem memiliki status tertentu (misalnya \textit{New, Ready, Running, Waiting, Terminated}) yang mencerminkan posisinya dalam siklus hidupnya. Sistem operasi bertanggung jawab untuk memindahkan proses antar status ini dan melakukan transisi secara efisien, seperti memindahkan proses dari \textit{ready} ke \textit{running} atau dari \textit{running} ke \textit{waiting.}
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
@@ -92,7 +137,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -186,5 +231,20 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+%\section*{Daftar Pustaka}
+
+\begin{thebibliography}{}
+
+\bibitem{}
+GeeksforGeeks. (n.d.). \textit{Process states in operating system}. Diakses pada 30 September 2024, dari \url{https://www.geeksforgeeks.org/process-states-in-operating-system/}
+
+\bibitem{}
+Tutorialspoint. (n.d.). \textit{Operating system - Process control block}. Diakses pada 30 September 2024, dari \url{https://www.tutorialspoint.com/operating_system/os_process_control_block.htm}
+
+\bibitem{}
+Wikipedia contributors. (n.d.). Context switch. Dalam \textit{Wikipedia, The Free Encyclopedia}. Diakses pada 30 September 2024, dari \url{https://en.wikipedia.org/wiki/Context_switch}
+
+\end{thebibliography}
 
 \end{document}

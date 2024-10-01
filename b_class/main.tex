@@ -133,53 +133,55 @@ Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
 \end{itemize}
-\subsubsection{Deadlock prevention}
+\subsubsection{\textit{Deadlock prevention}}
 
-\hspace{1cm} Pencegahan terhadap deadlock adalah teknik yang digunakan untuk mencegah sistem memasuki keadaan deadlock.
-Berbeda dengan deadlock avoidance yang dimana mengatasi masalah setelah deadlock terjadi, pencegahan ada agar memperkecil
-kemungkinan terjadinya deadlock. Pencegahan deadlock dapat dilakukan dengan cara menghindari keadaan-keadaan yang dapat menyebabkan deadlock.
-Beberapa metode pencegahan deadlock adalah:
+\subsubsection{\textit{Deadlock prevention methods}}
+
+\hspace{1cm} Pencegahan terhadap \textit{deadlock} adalah teknik yang digunakan untuk mencegah sistem memasuki keadaan \textit{deadlock}.
+Berbeda dengan \textit{deadlock} avoidance yang di mana mengatasi masalah setelah \textit{deadlock} terjadi, pencegahan ada agar memperkecil
+kemungkinan terjadinya \textit{deadlock}. Pencegahan \textit{deadlock} dapat dilakukan dengan cara menghindari keadaan-keadaan yang dapat menyebabkan \textit{deadlock}.
+Beberapa metode pencegahan \textit{deadlock} adalah:
 
 \begin{enumerate}
-    \item Resources Ordering
+    \item \textit{Resources Ordering}
 
-          \hspace{1cm}Resources Ordering adalah pengurutan sumber daya dimana setiap sumber daya
+          \hspace{1cm}\textit{Resources Ordering} adalah pengurutan sumber daya di mana setiap sumber daya
           dalam sistem diberi nomor atau urutan unik. Proses harus meminta sumber daya
           dalam urutan yang konsisten dengan nomor tersebut. Artinya, jika suatu proses
           sudah memegang satu sumber daya dengan nomor lebih rendah, maka ia hanya boleh
           meminta sumber daya dengan nomor lebih tinggi.
 
-          \hspace{1cm}Salah satu contoh kasus pencegahan deadlock dengan metode resources
-          ordering yaitu jika ada dua sumber daya, R1 dan R2, dan proses P1 memegang R1 dan ingin
+          \hspace{1cm}Salah satu contoh kasus pencegahan \textit{deadlock} dengan metode \textit{resources
+          ordering} yaitu jika ada dua sumber daya, R1 dan R2, dan proses P1 memegang R1 dan ingin
           meminta R2, maka metode ini memastikan bahwa proses P1 tidak dapat memegang R2
           tanpa mengikuti urutan yang telah ditentukan.
 
-    \item Resource allocation denial
+    \item \textit{Resource allocation denial}
 
-          \hspace{1cm}Metode ini dikenal juga sebagai Banker's
-          Algorithm atau safety algorithm, di mana sistem memeriksa apakah pemberian
-          sumber daya tertentu akan menyebabkan kondisi unsafe atau potensi deadlock.
+          \hspace{1cm}Metode ini dikenal juga sebagai \textit{Banker's
+          Algorithm} atau \textit{safety algorithm}, di mana sistem memeriksa apakah pemberian
+          sumber daya tertentu akan menyebabkan kondisi \textit{unsafe} atau potensi \textit{deadlock}.
           Jika pemberian sumber daya dianggap tidak aman, maka permintaan sumber daya
           tersebut akan ditolak.
 
-          \hspace{1cm}Metode resources allocation denial adalah ketika
+          \hspace{1cm}Metode \textit{resources allocation denial} adalah ketika
           proses P1 meminta sumber daya R1. Sebelum mengalokasikan sumber daya, sistem mengevaluasi
           apakah proses lain bisa menyelesaikan eksekusi dengan sumber daya yang tersisa.
-          Jika tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua sumberdaya yang dibutuhkan sudah lengkap.
+          Jika tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua sumber daya yang dibutuhkan sudah lengkap.
 
-    \item Timeouts
+    \item \textit{Timeouts}
 
-          \hspace{1cm}Dalam metode ini, sistem menggunakan batas waktu (timeout)
+          \hspace{1cm}Dalam metode ini, sistem menggunakan batas waktu (\textit{timeout})
           untuk menunggu sumber daya. Jika proses menunggu terlalu lama, ia akan dipaksa
-          gagal atau restart. Timeout dapat digunakan untuk mencegah proses berlama-lama
-          dalam kondisi menunggu, sehingga menghindari deadlock.
+          gagal atau \textit{restart}. \textit{Timeout} dapat digunakan untuk mencegah proses berlama-lama
+          dalam kondisi menunggu, sehingga menghindari \textit{deadlock}.
 
           \hspace{1cm}Proses P1 sedang menunggu sumber daya R1 selama 5 menit. Jika setelah batas waktu ini R1 belum tersedia, proses P1 akan dibatalkan atau dijadwalkan ulang untuk mencoba lagi.
 
-    \item Avoidance of hold-and-wait conditions
+    \item \textit{Avoidance of hold-and-wait conditions}
 
-          \hspace{1cm}Teknik avoidance of hold-and-wait
-          conditions adalah teknik pencegahan deadlock dengan kondisi saling tunggu sumber daya antara suatu proses.
+          \hspace{1cm}Teknik \textit{avoidance of hold-and-wait
+          conditions} adalah teknik pencegahan \textit{deadlock} dengan kondisi saling tunggu sumber daya antara suatu proses.
           Dalam teknik ini, proses tidak
           diperbolehkan menahan sumber daya sambil menunggu sumber daya lain. Proses
           harus meminta semua sumber daya yang dibutuhkan di awal (sebelum memulai
@@ -192,12 +194,12 @@ Beberapa metode pencegahan deadlock adalah:
           Setiap proses yang belum memiliki sumber daya yang cukup untuk berjalan maka
           akan terus menunggu hingga sumber daya yang dibutuhkan terpenuhi semua.
 
-    \item Resource preemption
+    \item \textit{Resource preemption}
 
           \hspace{1cm}Teknik ini memungkinkan sistem untuk merebut atau
           mengambil kembali sumber daya dari proses yang sedang berjalan jika diperlukan
           oleh proses lain yang lebih prioritas atau jika diperlukan untuk mencegah
-          deadlock.
+          \textit{deadlock}\textit{deadlock}.
 
           \hspace{1cm}Dalam kasus seperti proses P1 harus meminta sumber daya
           R1 dan R2 sekaligus. Jika R2 tidak tersedia, proses tidak diperbolehkan

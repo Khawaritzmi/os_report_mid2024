@@ -4,7 +4,20 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
+
+\lstset{
+    language=Python,                      % Set bahasa ke Python
+    basicstyle=\ttfamily\footnotesize,    % Ukuran dan font kode
+    keywordstyle=\color{blue},            % Warna keyword
+    stringstyle=\color{red},              % Warna string
+    commentstyle=\color{green},           % Warna komentar
+    numbers=left,                         % Menampilkan nomor baris
+    numberstyle=\tiny,                    % Ukuran nomor baris
+    stepnumber=1,                         % Setiap baris diberi nomor
+    breaklines=true,                      % Pemenggalan baris otomatis
+    frame=single,                         % Bingkai di sekitar kode
+    tabsize=4                             % Ukuran tab
+}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -54,7 +67,23 @@ The course is divided into two halves. This report focuses on the first half, wh
 This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
 
 \subsection{System Performance and Metrics}
-This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
+\subsubsection{\textit{Performance Metrics} Pada CPU}
+\hspace*{1cm}Kalau kita membahas kinerja matriks pada komputer, maka kita tidak lepas dari CPU. CPU atau \textit{Central Processing Unit} adalah komponen utama dari komputer yang bertanggung jawab untuk mengeksekusi instruksi-instruksi yang diberikan kepada komputer. Kinerja sebuah sistem sangat dipengaruhi oleh bagaimana CPU mengeksekusi instruksi. Jika kita ingin memaksimalkan kinerja sebuah sistem, kita tentu perlu meminimalkan waktu eksekusi karena kinerja berbanding terbalik dengan waktu eksekusi.
+\newline
+\newline
+\hspace*{1cm}Untuk menentukan waktu eksekusi CPU untuk sebuah program, Anda dapat mencari tahu jumlah total siklus clock yang dibutuhkan program dan mengalikannya dengan waktu siklus clock. Setiap program terdiri dari sejumlah instruksi dan setiap instruksi membutuhkan sejumlah siklus clock untuk dieksekusi. Jika Anda mengetahui jumlah total siklus clock per program dan mengetahui waktu siklus clock untuk setiap siklus clock ini, maka waktu eksekusi CPU dapat dihitung sebagai hasil perkalian jumlah total siklus clock CPU per program dengan waktu siklus clock. Karena waktu siklus clock dan clock rate saling terkait, hal ini juga dapat ditulis sebagai jumlah siklus clock CPU untuk sebuah program dibagi dengan clock rate.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{asset/image1.png}
+    \caption{Rumus waktu CPU}
+\end{figure}
+
+
+\hspace*{1cm}Karena waktu eksekusi CPU merupakan hasil dari kedua faktor ini, kita dapat meningkatkan kinerja dengan mengurangi durasi waktu siklus clock atau jumlah siklus clock yang diperlukan untuk suatu program. Kecepatan clock pada dasarnya bergantung pada organisasi CPU tertentu.
+
+\subsubsection{Mengapa \textit{Performance Metrics} Penting}
+\hspace*{1cm}Mengukur kinerja menggunakan data yang akurat sangat penting dalam sebuah sistem karena memberikan gambaran nyata tentang performa yang sedang berlangsung. Dengan data yang tepat, manajemen dapat mengambil keputusan yang lebih terinformasi, sehingga memperkecil risiko kesalahan strategi. Selain itu, pengukuran kinerja juga membantu mengidentifikasi area yang membutuhkan perbaikan, sehingga organisasi dapat berfokus pada peningkatan yang signifikan. Memantau perkembangan dan kemajuan kinerja secara berkala meningkatkan akuntabilitas, baik di tingkat individu maupun tim, sehingga setiap anggota lebih bertanggung jawab atas hasil kerjanya. Pada akhirnya, penggunaan  \textit{performance metrics} yang tepat dapat mendorong peningkatan berkelanjutan, dengan memberikan dasar yang kuat bagi evaluasi dan inovasi secara sistematis dalam mencapai tujuan jangka panjang.
 
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
@@ -89,15 +118,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Single-threaded vs. multi-threaded processes
     \item Benefits of multithreading
 \end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -140,32 +160,6 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
@@ -186,5 +180,10 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{9}
+    \bibitem{gfg2024}
+    GeeksforGeeks. (n.d.). Computer organization: Performance of computer. GeeksforGeeks. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/computer-organization-performance-of-computer/
+    \end{thebibliography}
 
 \end{document}

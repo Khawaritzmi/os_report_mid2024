@@ -59,13 +59,42 @@ This section introduces various system performance metrics used to measure the e
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
-\subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
-\begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
-\end{itemize}
+\subsubsection{\textit{Process Control Block}}
+ \textit{Process Control Block} (PCB) adalah struktur data penting yang digunakan
+ oleh sistem operasi untuk melacak dan mengelola proses yang sedang
+ berjalan. Setiap kali sebuah proses dibuat, sistem operasi menciptakan PCB
+ yang berisi informasi lengkap tentang proses tersebut. PCB ini
+ menyimpan berbagai elemen yang memungkinkan sistem operasi
+ mengatur proses secara efisien, termasuk status, memori, hingga informasi
+ tentang perangkat \textit{input/output} yang digunakan.
+ PCB bisa dianggap sebagai “identitas” atau “profil” dari sebuah proses.
+ Setiap proses di dalam sistem operasi memiliki satu PCB, yang berisi
+ informasi yang digunakan saat proses tersebut dijalankan, dihentikan, atau
+ ditukar dengan proses lain (\textit{context switching}).
+ \newline Elemen-elemen PCB:
+ \begin{enumerate}
+     \item \textit{Identifier}
+        \newline Nomor unik yang disebut PID untuk membedakan setiap proses.
+     \item \textit{Priority}
+        \newline Nilai yang menentukan urutan proses mana yang akan dijalankan terlebih dahulu oleh CPU.
+     \item \textit{Memory Pointers}
+        \newline  Menunjuk ke lokasi kode, data, dan stack proses di memori.
+     \item \textit{I/O Status Information}
+        \newline Nomor unik yang disebut PID untuk membedakan setiap proses.
+     \item \textit{State}
+        \newline Status proses saat ini, seperti \textit{new, ready, running, waiting,} atau \textit{terminated}.
+     \item \textit{Program Counter}
+        \newline Menyimpan alamat instruksi berikutnya yang akan dijalankan dalam proses.
+     \item \textit{Context Data}
+        \newline  Isi register CPU dan informasi lain yang disimpan saat proses dihentikan sementara untuk memungkinkan \textit{context switching}.
+     \item \textit{Accounting Information}
+        \newline  Data penggunaan sumber daya oleh proses, termasuk waktu CPU, waktu mulai, dan statistik penting lainnya.
+ \end{enumerate}
+
+ \subsubsection{\textit{Process Control}}
+Kontrol Proses/\textit{Process Control} adalah sekumpulan metode dan mekanisme yang digunakan oleh sistem operasi untuk mengelola siklus hidup suatu proses, 
+mulai dari penciptaan, penjadwalan, hingga penghentian proses. Proses ini sangat penting untuk menjaga sistem tetap berjalan efisien dan memastikan setiap 
+proses mendapatkan sumber daya CPU yang dibutuhkan tanpa mengganggu proses lain.
 
 \subsection{Scheduling Algorithms}
 This section covers:
@@ -111,7 +140,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
 \begin{itemize}
     \item Device drivers
-    \item I/O scheduling
+    \item I/O performance
 \end{itemize}
 
 \subsection{Deadlock Introduction and Prevention}
@@ -184,6 +213,6 @@ In this assignment, students implemented file system access routines, including:
 \end{itemize}
 
 \section{Conclusion}
-The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+The  half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
 \end{document}

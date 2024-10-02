@@ -119,6 +119,35 @@ Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
     \item Deadlock prevention techniques
+    \item Resource Allocation Denial
+        
+    \hspace{1cm} Sistem operasi menganalisis permintaan sumber daya dari proses secara saksama dan menentukan  apakah pemberian sumber daya tertentu akan menyebabkan kondisi \textit{unsafe} atau potensi \textit{deadlock}. Jika pemberian sumber daya dianggap tidak aman, sistem akan menolak permintaan sumber daya untuk menghindari \textit{deadlock}. 
+        
+    \hspace{1cm}Salah satu contoh kasus dengan metode ini adalah ketika proses P1 meminta sumber daya R1. Sebelum mengalokasikan sumber daya, sistem mengevaluasi apakah proses lain bisa menyelesaikan eksekusi dengan sumber daya yang tersisa.Jika tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua sumber daya yang dibutuhkan sudah lengkap.
+    
+    \item Reource Ordering
+
+    \hspace{1cm} Sistem operasi menetapkan pengenal numerik yang unik untuk setiap sumber daya dan memastikan bahwa proses hanya dapat meminta sumber daya dalam urutan yang meningkat. Hal ini memastikan bahwa proses tidak pernah memasuki status \textit{circular wait} dan mencegah \textit{deadlock}.
+    
+    \hspace{1cm} Salah satu contoh kasusnya saat sumber daya 1 harus selalu diminta sebelum sumber daya 2 jika Proses 1 ingin meminta kedua sumber daya. Karena sistem menetapkan urutan, proses 1 harus meminta Sumber daya 1 terlebih dahulu. Jika mendapatkannya, baru boleh meminta sumber daya 2.
+
+    \item Avoidance of Hold-and-wait conditions
+
+    \hspace{1cm} Proses harus meminta semua sumber daya yang dibutuhkan di awal (sebelum memulai eksekusi) atau melepaskan sumber daya yang sedang dipegang sebelum meminta sumber daya tambahan, sehingga menghilangkan kemungkinan \textit{hold and wait}.
+    
+    \hspace{1cm} Salah satu contoh kasus dengan metode ini yaitu ketika proses P1 sedang memegang sumber daya R1 ("\textit{P1 is holding R1}") dan secara bersamaan menunggu sumber daya R2 yang belum tersedia ("\textit{P1 is waiting for R2}"). Dalam konteks ini, proses P1 belum dapat melanjutkan karena masih membutuhkan R2 yang mungkin sedang digunakan oleh proses lain atau belum dialokasikan.
+
+    \item Resource Preemption
+
+    \hspace{1cm} Teknik ini memungkinkan sistem untuk merebut atau mengambil alih sumber daya dari proses yang sedang berjalan jika proses lain tersebut lebih prioritas atau jika diperlukan untuk mencegah \textit{deadlock}. Secara sederhana, jika suatu proses meminta sumber daya yang saat ini dialokasikan ke proses lain, sistem operasi dapat mendahului (mencabut sementara) sumber daya tersebut dari proses saat ini dan mengalokasikannya ke proses yang meminta. 
+
+    \hspace{1cm} Salah satu contoh kasusnya saat proses 1 menggunakan sumber daya 1 dan proses 2 sedang menunggu sumber daya 1. Sistem memutuskan untuk mengambil Sumber Daya 1 dari proses 1 karena dianggap bahwa proses 1 dapat dihentikan sementara dan di-\textit{restart} nanti. Sumber daya 1 kemudian diberikan kepada proses 2, sehingga proses 2 bisa menyelesaikan tugasnya. Setelah proses 2 menyelesaikan pekerjaannya, sumber daya 1 dibebaskan dan proses 1 dapat melanjutkan pekerjaannya setelah mendapatkan kembali sumber daya 1.
+
+    \item Timeouts
+
+    \hspace{1cm} Sistem menggunakan batas waktu (\textit{timeout}) untuk menunggu sumber daya. Jika proses menunggu terlalu lama, ia akan dipaksa gagal atau \textit{restart}. Timeout dapat digunakan untuk mencegah proses berlama-lama dalam kondisi menunggu, sehingga menghindari \textit{deadlock}. Contoh kasus dengan metode ini adalah ketika proses P1 sedang menunggu sumber daya R1 selama 5 menit. Jika setelah batas waktu ini R1 belum tersedia, prosesP1 akan dibatalkan atau dijadwalkan ulang untuk mencoba lagi.
+
+    \hspace{1cm} Salah satu contoh kasusnya saat Proses 1 membutuhkan sumber daya 1 untuk menyelesaikan tugasnya. Namun, sumber daya 1 sedang digunakan oleh proses lain (Proses 2). Sistem menetapkan batas waktu menunggu, misalnya 5 detik untuk proses 1 mencoba untuk mengakses sumber daya 1. Jika dalam 5 detik proses 1 tidak bisa mendapatkan sumber daya 1, maka terjadi \textit{timeout}. Setelah \textit{timeout}, Proses 1 akan melepaskan klaim terhadap sumber daya 1, membatalkan aksinya, dan bisa menunggu beberapa saat sebelum mencoba lagi.
 \end{itemize}
 
 \subsection{User Interface Management}

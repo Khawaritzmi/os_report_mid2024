@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage{caption}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -90,14 +91,14 @@ This section introduces the concept of threads and their relation to processes, 
     \item Benefits of multithreading
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+%     \caption{Ini adalah gambar contoh dari multithreading.}
+%     \label{fig:contoh_gambar}
+% \end{figure}
 
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+% Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -109,10 +110,82 @@ File systems provide a way for the operating system to store, retrieve, and mana
 
 \subsection{Input and Output Management}
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
-\end{itemize}
+
+\subsubsection{Struktur Input/Output}
+\begin{figure}[h] % [h] artinya gambar diletakkan 'here' (di sini)
+    \centering
+    \includegraphics[width=0.5\textwidth]{asset/Struktur_IO.png}
+    \captionsetup{labelformat=empty}
+    \caption{Gambar 1 : Struktur I/O \emph{Synchronous} dan \emph{Asynchronous.}}
+    \label{Gambar 1}
+\end{figure}
+
+\begin{enumerate}
+    \item Struktur I/O \emph{Synchronous} 
+    \begin{enumerate}
+        \item Karakteristik :
+        \begin{itemize}
+            \item Proses yang meminta I/O akan menunggu hingga operasi I/O selesai.
+            \item CPU akan \emph{idle} (tidak melakukan pekerjaan lain) selama menunggu operasi I/O.
+        \end{itemize}
+        \item Alur Kerja:
+        \begin{itemize}
+            \item Proses aplikasi \emph{user level} meminta operasi I/O.
+            \item Permintaan diteruskan ke driver perangkat.
+            \item Driver akan melakukan operasi I/O dan menunggu hingga selesai.
+            \item Setelah selesai, driver akan memberitahu proses aplikasi.
+            \item Proses aplikasi kemudian dapat melanjutkan pekerjaannya.
+        \end{itemize}
+        \item Kelebihan:Sederhana untuk diimplementasikan.
+        \item Kekurangan:
+        \begin{itemize}
+            \item Efisiensi CPU rendah karena CPU harus menunggu.
+            \item Respons sistem menjadi lambat, terutama untuk operasi I/O yang lama.    
+        \end{itemize}
+    \end{enumerate}
+    \item Struktur I/O \emph{Asynchronous}
+    \begin{enumerate}
+        \item Karakteristik
+        \begin{itemize}
+            \item Proses yang meminta I/O tidak perlu menunggu, melainkan dapat melanjutkan pekerjaan lain.
+            \item CPU dapat melakukan tugas lain selama operasi I/O berlangsung.  
+        \end{itemize}
+        \item Alur Kerja:
+        \begin{itemize}
+            \item Proses aplikasi meminta operasi I/O.
+            \item Permintaan diteruskan ke driver perangkat.
+            \item Driver akan memulai operasi I/O dan memberikan kendali kembali ke CPU.
+            \item Saat operasi I/O selesai, perangkat akan mengirimkan interupsi ke CPU.
+            \item CPU akan merespons interupsi dengan menjalankan \emph{interrupt handler.}
+            \item \emph{Interrupt handler} akan memberitahu proses aplikasi bahwa operasi I/O telah selesai. 
+        \end{itemize}
+        \item Kelebihan
+        \begin{itemize}
+            \item Efisiensi CPU tinggi karena CPU dapat melakukan tugas lain.
+            \item Respons sistem lebih cepat.
+        \end{itemize}
+        \item Kekurangan:
+        \begin{itemize}
+            \item Implementasinya lebih kompleks
+            \item Membutuhkan mekanisme penanganan interupsi
+        \end{itemize}
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Metode Operasi Sistem Input/Output}
+\begin{enumerate}
+    \item I/O Terprogram \par
+    Metode ini melibatkan CPU secara langsung dalam proses pengiriman dan penerimaan data dari perangkat I/O. Dalam I/O terprogram, CPU harus memeriksa secara terus-menerus (polling) apakah perangkat I/O siap untuk melakukan transfer data. CPU kemudian mentransfer data secara manual antara perangkat dan memori. Ini menyebabkan CPU terlibat penuh dalam operasi I/O dan tidak dapat melakukan tugas lain selama proses berlangsung. Salah satu kelemahan utama metode ini adalah efisiensinya yang rendah karena CPU harus menunggu perangkat I/O untuk siap.
+    \item I/O \emph{Interrupt Driven} \par
+    Pada metode ini, perangkat I/O mengirim sinyal interupsi kepada CPU ketika perangkat tersebut siap untuk menerima atau mengirim data. CPU tidak perlu terus-menerus memeriksa status perangkat I/O, sehingga bisa mengerjakan tugas lain sampai menerima interupsi. Ketika interupsi terjadi, CPU menghentikan sementara tugas yang sedang dilakukan, menangani interupsi untuk menyelesaikan operasi I/O, kemudian kembali melanjutkan tugas sebelumnya. Metode ini lebih efisien dibandingkan I/O terprogram karena CPU tidak selalu terikat dengan perangkat I/O dan bisa mengerjakan tugas lain sambil menunggu interupsi.
+    \item \emph{Direct Memory Access} (DMA) \par
+    DMA adalah metode yang memungkinkan perangkat I/O mengakses memori secara langsung tanpa melibatkan CPU dalam proses transfer data. Dengan menggunakan DMA \emph{controller}, data dapat ditransfer antara perangkat I/O dan memori secara mandiri, sementara CPU hanya diberi tahu ketika operasi transfer selesai. Metode ini sangat efisien karena memungkinkan CPU untuk melakukan tugas lain tanpa harus terlibat langsung dalam proses I/O, sehingga cocok untuk transfer data dalam jumlah besar atau operasi I/O yang intensif.
+\end{enumerate}
+
+\subsubsection{\emph{Interrupt Handler}}
+Apabila suatu transfer selesai maka pengontrol biasanya menyebabkan suatu interupt yang memaksa CPU untuk menunda menjalankan programnya dan mulai menjalankan prosedur khusus yang disebut \emph{interupt handler}. \emph{Interupt handler} adalah kondisi dimana CPU menunda program yang sedang dijalankan dan berganti menjalankan program khusus pada saat akses memori langsung sedang berlangsung dan minta \emph{interupt}.
+
+\pagebreak
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
@@ -186,4 +259,21 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
+\pagebreak
+
+
+\begin{thebibliography}{10}
+    \bibitem{Jurnal Kendali Teknik dan Sains}
+    Alifah, N., Deanda, G. V., Juniwan, Aribowo, D. (2023).Peran Teknologi Input dan Output dalam Pengembangan Perangkat Keras.\textit{Jurnal Kendali Teknik dan Sains,}.1(4), 123-136.
+
+    \bibitem{builtin}
+    Gallo, K. (2024,September20). \textit{builtin.} Retrieved from https://builtin.com/hardware/i-o-input-output
+    
+    \bibitem{Jurnal Multidisiplin Saintek}
+    Nurasyifa, N., Sheril, J. A., Maulana, M. R., Muiz, A.,Febrian.(2024). ANALISIS INPUT/OUTPUT:PERANGKAT DAN INTERFACE PADA ORGANISASI ARSITEKTUR KOMPUTER.\textit{Jurnal Multidisiplin Saintek,} 3(6), 100-111.
+
+
+\end{thebibliography}
+
 \end{document}
+

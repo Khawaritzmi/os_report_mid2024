@@ -68,13 +68,40 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
-This section covers:
+\subsubsection{Round Robbin}
+salah satu algoritma penjadwalan proses yang digunakan dalam sistem operasi. Algoritma ini membagi waktu eksekusi secara adil kepada setiap proses yang berjalan dalam sistem dengan prinsip "quantum time". Setelah quantum habis, proses yang sedang berjalan akan ditunda, dan CPU akan diberikan ke proses berikutnya dalam antrian. Algoritma ini berfokus pada fairness atau keadilan dalam pembagian waktu CPU.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{asset/Kelompok5_RoundRobbin.png}
+\caption{Ilustrasi Algoritma Round Robin}
+\label{fig:roundrobin}
+\end{figure}
+
 \begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
+\item Kelebihan
+\begin{itemize}
+    \item Setiap proses memiliki kesempatan untuk dieksekusi secara adil dalam waktu yang sama.
+    \item Cocok untuk sistem time-sharing.
 \end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+\end{itemize}
+
+\begin{itemize}
+\item Kekurangan
+\begin{itemize}
+    \item Overhead terjadi karena switching antara proses, terutama jika quantum terlalu kecil.
+    \item Jika quantum terlalu besar, algoritma ini bisa berubah menjadi FCFS
+\end{itemize}
+\end{itemize}
+
+\paragraph{Contoh}
+ nyata dari algoritma Round Robin dapat dilihat dalam situasi seperti ujian, di mana seorang siswa memiliki sejumlah soal untuk dijawab. Misalnya, setiap soal diberi waktu 2 menit. Jika siswa belum selesai menjawab soal tersebut dalam 2 menit, mereka harus beralih ke soal berikutnya. Setelah semua soal sudah dibaca atau dikerjakan sebentar, siswa kembali ke soal yang belum selesai.
+\begin{itemize}
+    \item Siswa mulai dengan soal pertama dan memiliki waktu 2 menit untuk menjawab.
+    \item Jika belum selesai dalam 2 menit, siswa harus melanjutkan ke soal berikutnya.
+    \item Setelah semua soal telah dikerjakan sebentar, siswa kembali ke soal-soal yang belum selesai, dan melanjutkan dari bagian yang tertinggal, lagi-lagi selama 2 menit setiap kali.
+    \item Siklus ini berulang sampai semua soal selesai atau waktu ujian habis.
+\end{itemize}
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:

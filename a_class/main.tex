@@ -109,10 +109,79 @@ File systems provide a way for the operating system to store, retrieve, and mana
 
 \subsection{Input and Output Management}
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
-\end{itemize}
+\subsubsection{Pengertian \textit{Input} dan \textit{Output}}
+\textit{Input/Output} adalah Suatu perangkat yang berhubungan dengan sistem komputer dengan cara mengirim sinyal melalui suatu kabel atau bahkan melalui udara .\\
+\begin{enumerate}
+    \item \textit{Input}.
+    \textit{Input} adalah semua data dan perintah yang dimasukkan ke dalam memori komputer untuk diproses lebih lanjut oleh prosesor.
+    Contoh: data (angka, teks, gambar), perintah (klik mouse, ketikan \textit{keyboard}, perintah suara).\\
+    \item \textit{Output}.
+    \textit{Output} adalah hasil dari pemrosesan data oleh komputer. Setelah menerima dan memproses \textit{input}, komputer menghasilkan \textit{output} yang bisa berupa informasi atau tindakan.
+    Contoh: hasil visual (tampilan di layar monitor), cetakan fisik (dokumen dari \textit{printer}), \textit{Audio} (notifikasi dari \textit{speaker}), \textit{file} (dokumen digital, \textit{spreadsheet}).\\
+\end{enumerate}
+\subsubsection{Konsep \textit{Input/Output}}
+Secara umun, konsep \textit{input/output} ada tiga, yaitu:
+\begin{enumerate}
+    \item \textit{Port}. \textit{Port} ialah koneksi yang digunakan oleh perangkat untuk berkomunikasi dengan mesin. 
+    \item \textit{Bus (Daisy Chain/ Shared Direct Access)}. \textit{Bus }ialah koneksi yang menghubungkan beberapa perangkat menggunakan kabel-kabel.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]
+{/asset/busPC.jpg}  % Sesuaikan nama file dan ukurannya
+\caption{Struktur \textit{Bus} pada PC}
+\label{fig:contoh_gambar}
+\end{figure}
+Struktur logik komputer pribadi memiliki sebuah bus tunggal yang digunakan untuk menghubungkan CPU, memori, dan piranti-piranti I/O. Sebagian besar sistem memiliki 2 \textit{bus} atau lebih (\textit{bus} kecepatan tinggi, untuk papan-papan I/O modern) dan bus kecepatan rendah (untuk papan-papan I/O yang lebih lama). Macam-macam Bus:
+\begin{enumerate}
+    \item \textit{Bus Arbiter} adalah sebuah \textit{chip} yang menentukan untuk mendapatkan giliran pertama penggunaan \textit{bus}.
+    \item \textit{Bus} ISA (\textit{Industry Standard Architecture}) adalah suatu rancangan komputer yang tetap mempertahankan \textit{bus} PC lama.
+    \item \textit{Bus} EISA (\textit{Extended} ISA) adalah suatu rancangan komputer yang menggunakan \textit{multiple bus} dimana salah satu busnya adalah \textit{bus} ISA.
+    \item \textit{Bus} PCI (\textit{Peripheral Component Interconnect}) suatu rancangan komputer yang dapat digunakan dalam banyak konfigurasi dan memiliki sebuah penghubung kepada bus ISA. 
+\end{enumerate}
+\item \textit{Host Adapter}. Pengendali ialah alat-alat elektronik yang berfungsi untuk mengoperasikan \textit{port, bus}, dan perangkat. 
+\end{enumerate}
+
+\subsubsection{Alat dan Perangkat \textit{Input/Output}}
+\begin{enumerate}
+    \item Alat \textit{Input/Output}
+    \begin{enumerate}
+        \item Alat \textit{Input}
+        \begin{enumerate}
+            \item Alat \textit{Input} Langsung
+            \begin{enumerate}
+                \item \textit{Keyboard}
+                \item \textit{Pointing Device}
+                \item \textit{Scanner}
+                \item \textit{Voice Recognizer}
+            \end{enumerate}
+            \item Alat \textit{Input} Tidak Langsung
+            \begin{enumerate}
+                \item \textit{Key-to-card}
+                \item \textit{Key-to-card}
+                \item \textit{Key-to-disk}
+            \end{enumerate}
+        \end{enumerate}
+        \item Alat \textit{Output}
+        \begin{enumerate}
+            \item \textit{Hard-copy device}, yaitu alat yang digunakan untuk mencetak tulisan dan image pada media keras seperti kertas atau film.
+            \item \textit{Soft-copy device}, yaitu alat yang digunakan untuk menampilkan tulisan dan gambar pada media lunak yang berupa sinyal elektronik.
+        \end{enumerate}
+    \end{enumerate}
+    \item Perangkat I\textit{nput/Output}
+    \begin{enumerate}
+        \item Perangkat Blok (\textit{Block Devices})
+        \begin{enumerate}
+            \item Perangkat blok menyimpan informasi dalam sebuah blok yang ukurannya tertentu, dan memiliki alamat masing-masing. Umumnya blok berukuran antara 512 \textit{bytes} sampai 32.768 \textit{bytes}.
+            \item Keuntungan dari perangkat blok ini ialah mampu membaca atau menulis setiap blok secara independen. \textit{Disk} merupakan contoh perangkat blok yang paling banyak digunakan.
+            \item Perintahnya meliputi \textit{read, write, seek z Raw} I/O atau f\textit{ile-system access z} memungkinkan dilakukannya \textit{Memory-Mapped File Access}.
+        \end{enumerate}
+        \item Perangkat Karakter (\textit{Character Devices})
+        \begin{enumerate}
+            \item Tipe lain perangkat I/O ialah perangkat karakter. Perangkat karakter mengirim atau menerima sebarisan karakter, tanpa menghiraukan struktur blok. Tipe ini tidak memiliki alamat, dan tidak memiliki kemampuan mencari (\textit{seek}). \textit{Printer} dan antarmuka jaringan merupakan contoh perangkat jenis ini.
+            \item \textit{Character devices} termasuk ke dalamnya \textit{keyboards, mice, serial ports z} Perintahnya meliputi \textit{get, put z Libraries layered} terletak pada bagian atas baris \textit{editing}.
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:

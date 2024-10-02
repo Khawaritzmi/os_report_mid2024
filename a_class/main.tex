@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -56,105 +55,23 @@ This section explains the fundamental components that make up a computer system,
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
-\subsection{System Architecture of Computer Systems}
+\subsection{Sistem arsitektur dari sistem komputer}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+\subsubsection{Pengertian Sistem Arsitektur Komputer}
+\subsubsection{Fungsi Arsitektur Sistem Komputer}
+\begin{enumerate}
+    \item Perancangan awal komputer
+    \par Perancangan awal ini artinya komputer disusun dan dirancang sebaik mungkin agar kinerjanya maksimal. Perancangan ini juga bertujuan untuk mengetahui hal apa yang kurang atau perlu diperbaiki.
+    \item Kontrol Komponen dalam Meningkatkan Efisiensi Komputer
+    \par Mengontrol komponen ini bertujuan agar kinerja komputer bisa berjalan dengan baik atau maksimal. Fungsi kontrol ini juga bisa membantu pengguna untuk bisa menjalankan banyak pekerjaan atau aplikasi dalam satu komputer.
+    \item Peran Arsitektur Komputer dalam Pemilihan Aplikasi yang Tepat
+    \par Arsitektur komputer dapat membantu programmer dalam menentukan aplikasi atau program apa yang cocok dengan komputer tersebut. Sehingga bisa disesuaikan dengan kebutuhan pengguna dan berjalan dengan maksimal.
+\end{enumerate}
 
-\subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
-\begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
-\end{itemize}
-
-\subsection{Scheduling Algorithms}
-This section covers:
-\begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
-\end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
-
-\subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
-\begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
-\end{itemize}
-
-\subsection{Introduction to Threads}
-This section introduces the concept of threads and their relation to processes, covering:
-\begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
-\end{itemize}
-
-\begin{figure}[h]
+\subsection{Assignments}
+\begin{table}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
-
-\subsection{File Systems}
-File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
-\begin{itemize}
-    \item File system structure
-    \item File access methods
-    \item Directory management
-\end{itemize}
-
-\subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
-\end{itemize}
-
-\subsection{Deadlock Introduction and Prevention}
-Explores the concept of deadlocks and methods for preventing them:
-\begin{itemize}
-    \item Deadlock conditions
-    \item Deadlock prevention techniques
-\end{itemize}
-
-\subsection{User Interface Management}
-This section discusses the role of the operating system in managing the user interface. Topics covered include:
-\begin{itemize}
-    \item Graphical User Interface (GUI)
-    \item Command-Line Interface (CLI)
-    \item Interaction between the user and the operating system
-\end{itemize}
-
-\subsection{Virtualization in Operating Systems}
-Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
-\begin{itemize}
-    \item Concept of virtualization
-    \item Hypervisors and their types
-    \item Benefits of virtualization in modern computing
-\end{itemize}
-
-\section{Assignments and Practical Work}
-\subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \begin{tabular}{|c|c|c|} 
     \hline
     Header 1 & Header 2 & Header 3 \\ % Column headers
     \hline
@@ -166,6 +83,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
@@ -185,5 +103,22 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{}
+\bibitem{}
+Arsitektur dan organisasi komputer oleh Bambang Hariyanto (2015), Penerbit Informatika Bandung.
+
+\bibitem{}
+"Organisasi dan Arsitektur Komputer" oleh William Stallings, diterjemahkan oleh Thamir Abdul Hafedh Al-Hamdany (2010), Penerbit PT Indeks.
+
+\bibitem{}
+Pengantar Teknologi Informasi: Teknik Komputer dan Telekomunikasi oleh Abdul Kadir dan Terra Ch. Triwahyuni (2013), Penerbit Andi Publisher.
+
+\bibitem{}
+Dasar-dasar Komputer oleh Hapnes Toba (2009), Penerbit Informatika Bandung.
+
+\bibitem{}
+Konsep Dasar Sistem Komputer oleh Yani Maulita, Heru Budianto, dan Onno W. Purbo (2005), Penerbit Elex Media Komputindo.
+\end{thebibliography}
 
 \end{document}

@@ -124,6 +124,7 @@ Describes the architecture of modern computer systems, focusing on the interacti
     \end{itemize}
 
     \item Arsitektur MISD (Multiple Instruction, Single Data)
+
     MISD (Multiple Instruction, Single Data) adalah jenis arsitektur komputasi paralel di mana beberapa prosesor menjalankan operasi berbeda pada data yang sama secara bersamaan. Arsitektur ini digunakan untuk mendeteksi dan menutupi kesalahan, seperti pada sistem toleransi kesalahan yang menggunakan replikasi tugas untuk memastikan keandalan. Meskipun termasuk dalam jenis komputasi paralel, MISD kurang umum dibandingkan dengan arsitektur SIMD dan MIMD, yang lebih cocok untuk pemrosesan data paralel pada umumnya. Contoh penerapannya jarang, karena efisiensinya yang lebih rendah dibanding arsitektur lainnya.
     \begin{figure}[h]
         \centering
@@ -136,6 +137,7 @@ Describes the architecture of modern computer systems, focusing on the interacti
         \item kekurangannya adalah penggunaan yang sangat terbatas dalam komputasi umum, karena tidak efisien untuk tugas-tugas yang memerlukan paralelisme standar. kekurangannya adalah penggunaan yang sangat terbatas dalam komputasi umum, karena tidak efisien untuk tugas-tugas yang memerlukan paralelisme standar. 
     \end{itemize}
     \item Arsitektur MIMD (Multiple Instruction, Multiple Data)
+    
     MIMD (Multiple Instruction Multiple Data) adalah arsitektur di mana beberapa instruksi dapat dieksekusi secara paralel pada banyak unit data. Dengan kata lain, MIMD menerapkan berbagai instruksi pada beberapa data secara bersamaan. Arsitektur ini menggunakan mekanisme sinkronisasi lokal yang eksplisit, yang membuatnya fleksibel, tetapi juga menyebabkan perangkat lunak menjadi lebih kompleks karena programmer atau kompiler paralelisasi harus menulis secara langsung perintah untuk komunikasi data antara prosesor yang berbeda.
     \begin{figure}[h]
         \centering

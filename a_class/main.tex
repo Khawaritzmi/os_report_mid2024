@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -86,18 +85,69 @@ Details how processes are created and terminated by the operating system, includ
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item Konsep Threads
+    \item Hubungan antara Threads dan Proses
+    \item Manfaat Penggunaan Threads
+    \item Multithreading
+    \item Threads vs Process
+    \item Model Multithreading
+    \item Pengelolaan Threads
+    \item Penerapan Threads pada Sistem Operasi
 \end{itemize}
+\subsubsection{Konsep Threads}
+\subsubsection{Hubungan antara Threads dan Proses}
+\subsubsection{Manfaat Penggunaan Threads}
+Beberapa manfaat utama dari \textit{multithreading} meliputi:
+\begin{itemize}
+    \item Peningkatan kinerja dan efisiensi:
+    \begin{itemize}
+        \item Memungkinkan eksekusi tugas secara bersamaan, memanfaatkan sumber daya \textit{CPU} dengan lebih baik.
+        \item Pada sistem \textit{multiprosesor} atau \textit{multi-core}, \textit{threads} dapat berjalan secara paralel, meningkatkan \textit{throughput} secara signifikan.
+    \end{itemize}
+    
+    \item Responsivitas aplikasi yang lebih baik:
+    \begin{itemize}
+        \item Aplikasi dapat tetap responsif terhadap input pengguna sambil melakukan tugas berat di latar belakang.
+        \item Mencegah aplikasi "membeku" atau menjadi tidak responsif selama operasi yang memakan waktu lama.
+    \end{itemize}
+    
+    \item Penggunaan sumber daya yang lebih efisien:
+    \begin{itemize}
+        \item \textit{Threads} berbagi ruang memori dan sumber daya proses yang sama, menggunakan lebih sedikit sumber daya daripada menjalankan beberapa proses terpisah.
+    \end{itemize}
+    
+    \item Penyederhanaan desain program:
+    \begin{itemize}
+        \item Memungkinkan pemisahan tugas-tugas yang berbeda menjadi \textit{threads} terpisah, menyederhanakan struktur program.
+        \item Memudahkan penanganan beberapa operasi secara bersamaan dalam satu program.
+    \end{itemize}
+    
+    \item Komunikasi antar-\textit{threads} yang efisien:
+    \begin{itemize}
+        \item \textit{Threads} dalam proses yang sama dapat berkomunikasi lebih cepat dan mudah dibandingkan komunikasi antar-proses.
+    \end{itemize}
+    
+    \item Skalabilitas yang lebih baik:
+    \begin{itemize}
+        \item Program \textit{multithreaded} dapat dengan mudah diskalakan untuk memanfaatkan sumber daya tambahan pada sistem yang lebih kuat.
+    \end{itemize}
+    
+    \item Pemanfaatan waktu tunggu \textit{I/O}:
+    \begin{itemize}
+        \item Saat satu \textit{thread} menunggu operasi \textit{I/O}, \textit{threads} lain dapat melanjutkan eksekusi, meningkatkan efisiensi keseluruhan.
+    \end{itemize}
+    
+    \item Cocok untuk aplikasi \textit{server}:
+    \begin{itemize}
+        \item Memungkinkan \textit{server} untuk menangani banyak koneksi klien secara bersamaan dengan efisien.
+    \end{itemize}
+\end{itemize}
+\subsubsection{Multithreading}
+\subsubsection{Threads vs Process}
+\subsubsection{Model Multithreading}
+\subsubsection{Pengelolaan Threads}
+\subsubsection{Penerapan Threads pada Sistem Operasi}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -140,32 +190,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 

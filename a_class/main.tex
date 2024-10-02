@@ -118,8 +118,35 @@ Input and output management is key for handling the interaction between the syst
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
-    \item Deadlock prevention techniques
+    \end{itemize}
+    \subsection{Deadlock Prevention} 
+\hspace{1cm} \textit{Deadlock Prevention} adalah teknik yang digunakan untuk mencegah sistem memasuki keadaan buntu (\textit{deadlock}). Dengan berusaha memastikan setidaknya  satu dari keempat kondisi \textit{deadlock} tidak terpenuhi. 4 kondisi yang menyebabkan terjadinya \textit{deadlock}, yakni:
+\begin{itemize}
+    \item Mutual Exclusion : Kondisi ini terjadi ketika sumber daya hanya dapat digunakan oleh satu proses pada satu waktu. Jadi, ketika satu proses sedang menggunakan sumber daya, sumber daya tersebut tidak bisa digunakan oleh proses lain. Contoh sederhana proses terjadinya \textit{mutual exclusion} adalah pada \textit{printer}, dimana \textit{printer} hanya dapat digunakan oleh satu proses pada satu waktu. Jika proses A sedang mencetak, proses B harus menunggu sampai proses A selesai melakukan tugasnya.
+
+    \item Hold and Wait: Ketika sebuah proses sudah memegang satu atau lebih sumber daya dan menunggu untuk mendapatkan sumber daya tambahan yang sedang dipegang oleh proses lain. Proses tersebut tidak melepaskan sumber daya yang sudah dipegangnya saat menunggu sumber daya tambahan. Ssederhananya, kondisi \textit{Hold-and-Wait} ini adalah proses menahan sumber daya sambil menuggu sumber daya lain.  Kondisi ini dapat menyebabkan situasi di mana proses lain juga menahan sumber daya yang dibutuhkan sehingga menciptakan siklus saling menunggu.
+    \item No Preemption:  Sumber daya yang sudah dialokasikan untuk sebuah proses tidak bisa diputuskan atau diambil secara paksa. Sumber daya hanya dapat dilepaskan secara sukarela oleh proses yang memegangnya setelah selesai menggunakannya. Jika suatu proses menunggu sumber daya yang dipegang proses lain, dan sumber daya tersebut tidak bisa diambil paksa, maka proses pertama akan terjebak menunggu selamanya. Kondisi seperti inilah yang bisa menyebabkan \textit{deadlock} itu terjadi.
+    \item Circular Wait:  Kondisi di mana serangkaian proses membentuk sebuah lingkaran, di mana setiap proses dalam lingkaran menunggu sumber daya yang sedang dipegang oleh proses lain. Siklus ini mengakibatkan tidak ada proses yang bisa melanjutkan karena semuanya saling menunggu sumber daya yang tidak akan pernah dilepaskan.
+    Dalam \textit{circular wait}, proses saling menunggu satu sama lain, membentuk siklus yang mencegah kemajuan setiap proses. Misalkan, ada empat proses (P1, P2, P3, P4) dan empat sumber daya atau \textit{resource} (R1, R2, R3, R4). \textit{Circular wait} terjadi jika:
+
+    - P1 memegang R1 dan menunggu R2 (yang dipegang oleh P2),
+    
+    - P2 memegang R2 dan menunggu R3 (yang dipegang oleh P3),
+    
+    - P3 memegang R3 dan menunggu R4 (yang dipegang oleh P4),
+    
+    - P4 memegang R4 dan menunggu R1 (yang dipegang oleh P1).
+    
 \end{itemize}
+\begin{enumerate}
+
+    
+
+    
+    
+
+\end{enumerate}
+
 
 \subsection{User Interface Management}
 This section discusses the role of the operating system in managing the user interface. Topics covered include:
@@ -166,8 +193,18 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
-\subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsection{Assignment 2: Deadlock Prevention}
+\begin{itemize}
+    \item Sebuah sistem operasi memiliki tiga jenis sumber daya: R1, R2, dan R3. Ada empat proses yang membutuhkan sumber daya tersebut, yaitu P1, P2, P3, dan P4. Setiap proses hanya dapat meminta satu sumber daya dalam satu waktu. Identifikasi jenis penyebab \textit{deadlock} apa dan jelaskan penyebab terjadinya \textit{deadlock} sertakan gambar sederhana bagaimana \textit{deadlock} terjadi!
+    
+    Jawaban: Kondisi ini termasuk kedalam  \textit{Hold-and-Wait}, karena siklus dari ketiga proses saling terjebak menuggu satu sama lain, sehingga tidak ada proses yang dapat melanjutkan eksekusinya. 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{asset/gambar1.drawio.png} 
+    \caption{Diagram sederhana dari proses \textit{Hold-and-Wait Conditions}.}
+    \label{fig:contoh_gambar}
+\end{figure}
+
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

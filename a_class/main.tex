@@ -102,6 +102,84 @@ Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahk
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
 \begin{itemize}
+    \item File system concept
+    File adalah unit penyimpanan logis yang diabstraksikan oleh sistem operasi dari perangkat penyimpanan. File berisi informasi yang disimpan di penyimpanan sekunder (seperti disk magnetik, pita magnetik, dan disk optik). Informasi dalam file ditentukan oleh pembuatnya. Sebuah file memiliki struktur tertentu tergantung pada jenisnya. Jenis file terdiri dari data numerik, karakter, dan biner, serta program seperti program sumber, program objek, dan program yang dapat dieksekusi.
+    
+    Atribut file 
+
+    Sebuah file memiliki atribut yang bervariasi dari satu sistem operasi ke sistem operasi lainnya, tetapi umumnya terdiri dari file : 
+
+    - Nama, informasi yang disimpan dalam bentuk yang dapat dibaca manusia  
+    
+    - Jenis, diperlukan untuk sistem yang mendukung berbagai jenis. 
+    
+     - Lokasi, penunjuk lokasi file pada perangkat. 
+    
+     - Ukuran, ukuran file saat ini. 
+    
+     - Perlindungan, mengontrol siapa yang dapat membaca, menulis, dan menjalankan. 
+    
+      - Waktu, tanggal dan identifikasi pengguna, data untuk memantau perlindungan, keamanan dan penggunaan. 
+
+        Informasi file disimpan dalam struktur direktori yang diatur berdasarkan disk. 
+    
+        Operasi pada file 
+    
+             	Sebagai tipe data abstrak, perlu untuk mendefinisikan operasi yang dapat dibentuk oleh file. Ada enam operasi dasar yang disediakan sebagai panggilan sistem, yaitu: 
+    
+     		- Membuat file (create)  
+    
+     		- Menulis file (write)  
+    
+     		- Membaca file (read) 
+    
+     		- Mencari kembali file (file seek) 
+    
+     		- Menghapus file (delete) 
+    
+        	- Memotong file (truncate)  
+    
+        	- Open(Fi) mencari struktur direktori untuk entri Fi dan memindahkan isi entri ke memori. 
+    
+     		- Close(Fi) memindahkan isi entri Fi dalam memori ke struktur direktori pada disk. 
+     		   Operasi tambahan yang biasanya dilakukan pada file 
+                  adalah: 
+    
+     		- Menambahkan (append) informasi baru pada akhir file yang sudah ada 
+    
+     		- Mengganti nama file yang sudah ada 
+    
+     		- Menggandakan (menyalin) file
+       
+                \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=0.5\linewidth]
+                            {asset/gambarfilesystem.png}
+                            \caption{Contoh Pemetaan File ke Memori}
+                            \label{fig:deadlock-RAG}
+                            \end{figure}
+       
+              Sebagian besar operasi file melibatkan pencarian direktori untuk input yang terkait dengan file. Untuk menghindari pencarian yang tetap, beberapa sistem akan membuka file saat pertama kali aktif. Sistem operasi menyimpan tabel kecil yang berisi informasi tentang semua file yang terbuka (tabel file terbuka). Ketika file tidak lagi digunakan, file akan ditutup oleh proses dan sistem operasi akan menghapus file tersebut dari tabel file terbuka. Beberapa informasi yang terkait dengan pembukaan file adalah: 
+    
+     		 - Penunjuk file. 
+    
+     		 - Jumlah file yang dibuka. 
+    
+     		 - Lokasi file pada disk. 
+    
+      Jenis file 
+      Salah satu pertimbangan penting dalam mendesain sistem berkas dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem berkas. Jika sistem operasi mengenali jenis file, maka operasi dapat dilakukan pada file dengan cara yang rasional. Sebagai contoh, pengguna yang mencoba mencetak file yang dapat dieksekusi dapat dicegah oleh sistem operasi karena file tersebut adalah program biner. Teknik umum untuk mengimplementasikan tipe file adalah dengan menyertakan tipe file sebagai bagian dari nama file. Nama file dibagi menjadi dua bagian: nama dan ekstensi (seperti pada MS-DOS) seperti yang ditunjukkan pada Gambar 9-2. Setiap file memiliki atribut pembuat yang berisi nama program yang membuatnya (seperti pada MSWindows/Apple Macintosh). Atribut ini diatur oleh sistem operasi ketika menggunakan panggilan sistem create. Ketika pengguna membuka file dengan mengklik dua kali mouse pada ikon file, program yang dibuat akan ditampilkan secara otomatis. UNIX menggunakan nomor ajaib yang disimpan di awal file untuk menunjukkan jenis file seperti program yang dapat dieksekusi, file batch (shell script), file postscript dan lain-lain. Tidak semua file mempunyai magic number, sehingga informasi tipe tidak dapat dijelaskan. UNIX tidak menyimpan nama program yang membuatnya. UNIX juga mengijinkan nama ekstensi file disembunyikan, sehingga user dapat menentukan sendiri jenis file dan tidak tergantung pada sistem operasi. 
+
+      Struktur file 
+      Jenis file juga digunakan untuk menunjukkan struktur internal file. File tertentu harus mengonfirmasi struktur yang diperlukan yang dipahami oleh sistem operasi. Misalnya, sistem operasi memerlukan file yang dapat dieksekusi yang memiliki struktur khusus sehingga dapat menentukan di mana letak memori dan lokasi instruksi pertama. Beberapa sistem operasi menggunakan seperangkat sistem pendukung struktur file dengan sejumlah operasi khusus untuk memanipulasi file dengan struktur ini. Ini merupakan kelemahan dalam sistem operasi yang mendukung lebih dari satu struktur file. Jika sistem operasi menetapkan 10 struktur file yang berbeda, sistem operasi perlu menyertakan kode untuk mendukung struktur file tersebut. Setiap file harus didefinisikan sebagai salah satu jenis file yang didukung oleh sistem operasi. Beberapa sistem operasi seperti UNIX dan MS-DOS hanya mendukung sejumlah struktur file yang terbatas. UNIX mendefinisikan setiap berkas sebagai urutan byte 8 bit dan bit-bit ini tidak diterjemahkan oleh sistem operasi. Skema ini memiliki fleksibilitas maksimum, tetapi sedikit dukungan. Setiap program aplikasi harus menyertakan kodenya sendiri untuk menerjemahkan file input ke dalam struktur yang benar. Semua SO harus mendukung setidaknya satu struktur file yang dapat dieksekusi sehingga sistem dapat memuat dan menjalankan program. 
+
+      Struktur file internal 
+      Jenis file 
+
+      Salah satu pertimbangan penting dalam mendesain sistem berkas dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem berkas. Jika sistem operasi mengenali jenis file, maka operasi dapat dilakukan pada file dengan cara yang rasional. Sebagai contoh, pengguna yang mencoba mencetak file yang dapat dieksekusi dapat dicegah oleh sistem operasi karena file tersebut adalah program biner. Teknik umum untuk mengimplementasikan tipe file adalah dengan menyertakan tipe file sebagai bagian dari nama file. Nama file dibagi menjadi dua bagian: nama dan ekstensi (seperti pada MS-DOS) seperti yang ditunjukkan pada Gambar 9-2. Setiap file memiliki atribut pembuat yang berisi nama program yang membuatnya (seperti pada MSWindows/Apple Macintosh). Atribut ini diatur oleh sistem operasi ketika menggunakan panggilan sistem create. Ketika pengguna membuka file dengan mengklik dua kali mouse pada ikon file, program yang dibuat akan ditampilkan secara otomatis. UNIX menggunakan nomor ajaib yang disimpan di awal file untuk menunjukkan jenis file seperti program yang dapat dieksekusi, file batch (shell script), file postscript dan lain-lain. Tidak semua file mempunyai magic number, sehingga informasi tipe tidak dapat dijelaskan. UNIX tidak menyimpan nama program yang membuatnya. UNIX juga mengijinkan nama ekstensi file disembunyikan, sehingga user dapat menentukan sendiri jenis file dan tidak tergantung pada sistem operasi. 
+
+      Struktur file 
+      Jenis file juga digunakan untuk menunjukkan struktur internal file. File tertentu harus mengonfirmasi struktur yang diperlukan yang dipahami oleh sistem operasi. Misalnya, sistem operasi memerlukan file yang dapat dieksekusi yang memiliki struktur khusus sehingga dapat menentukan di mana letak memori dan lokasi instruksi pertama. Beberapa sistem operasi menggunakan seperangkat sistem pendukung struktur file dengan sejumlah operasi khusus untuk memanipulasi file dengan struktur ini. Ini merupakan kelemahan dalam sistem operasi yang mendukung lebih dari satu struktur file. Jika sistem operasi menetapkan 10 struktur file yang berbeda, sistem operasi perlu menyertakan kode untuk mendukung struktur file tersebut. Setiap file harus didefinisikan sebagai salah satu jenis file yang didukung oleh sistem operasi. Beberapa sistem operasi seperti UNIX dan MS-DOS hanya mendukung sejumlah struktur file yang terbatas. UNIX mendefinisikan setiap berkas sebagai urutan byte 8 bit dan bit-bit ini tidak diterjemahkan oleh sistem operasi. Skema ini memiliki fleksibilitas maksimum, tetapi sedikit dukungan. Setiap program aplikasi harus menyertakan kodenya sendiri untuk menerjemahkan file input ke dalam struktur yang benar. Semua SO harus mendukung setidaknya satu struktur file yang dapat dieksekusi sehingga sistem dapat memuat dan menjalankan program. 
     \item File system structure
     \item File access methods
     \item Directory management

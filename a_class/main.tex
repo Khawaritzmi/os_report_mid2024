@@ -5,6 +5,8 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage[style=apa]{biblatex} % Package APA style untuk sitasi dan dapus
+\addbibresource{asset/references.bib} % Resource untuk sitasi dan dapus (file .bib)
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -53,6 +55,33 @@ The course is divided into two halves. This report focuses on the first half, wh
 \subsection{Basic Concepts and Components of Computer Systems}
 This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
 
+\subsubsection{Interaksi Antara \textit{Brainware}, \textit{Hardware}, dan \textit{Software}}
+
+\subsubsection*{\textit{Brainware}}
+\hspace{0.5cm} \textit{Brainware} adalah orang yang menggunakan, menjalankan, memanfaatkan, dan mengoperasikan perangkat komputer. Istilah brainware lebih sering ditujukan kepada pengguna komputer yang mampu mengoperasikan komputer dengan canggih, baik dari segi perangkat lunak (\textit{software}) maupun perangkat keras (\textit{hardware}) (\cite{brainwareKompas}).
+
+\subsubsection*{Jenis-Jenis \textit{Brainware}}
+\hspace{0.5cm} Dalam bidang teknologi dan komputer, terdapat beragam jenis pekerjaan, masing-masing dengan peran dan tanggung jawab yang berbeda. Di bawah ini, terdapat penjelasan secara singkat:
+\begin{itemize}
+    \item \textbf{\textit{Project Manager}}
+    \\Jenis \textit{brainware} ini bertanggung jawab untuk merencanakan, mengoordinasikan, dan mengawasi proyek teknologi dari awal hingga akhir.
+    \item \textbf{Teknisi Komputer}
+    \\Individu yang ahli dalam memperbaiki, memelihara, dan memasang perangkat keras dan jaringan.
+    \item \textbf{Operator}
+    \\Operator adalah pengguna yang mengoperasikan sistem komputer atau perangkat lunak untuk melakukan tugas-tugas tertentu.
+    \item \textbf{\textit{Database Administrator}}
+    \\\textit{Database Administrator} biasanya melakukan pencadangan dan pemulihan data, mengelola izin akses, dan memastikan basis data beroperasi secara optimal.
+\end{itemize}
+
+Demikianlah penjelasan tentang jenis-jenis \textit{brainware} (\cite{brainwarecmlabs}).
+
+\subsubsection*{Hubungan antara \textit{Brainware}, \textit{Hardware}, dan \textit{Software}}
+\hspace{0.5cm} Agar dapat berfungsi secara normal, komputer harus memiliki perangkat keras dan perangkat lunak. Perangkat lunak memberikan nilai fungsional pada perangkat keras.
+
+Namun, adanya \textit{brainware} juga sangat penting. \textit{Brainware} memberikan nilai tambahan pada komputer sehingga memiliki nilai operasional. Tanpa \textit{brainware}, komputer akan menjadi robot yang tidak memiliki nilai operasional (\cite{interaksi3ware}).
+
+Jadi, interaksi komputer tidak hanya pada perangkatnya saja, tetapi juga harus diperhatikan dari nilai operasionalnya.
+
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
@@ -92,7 +121,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -185,5 +214,9 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\newpage % Membuat halaman baru untuk dapus/references
+\addcontentsline{toc}{section}{References} % Menambahkan section References ke toc (Table of Contents) tanpa dimasukkan ke daftar section yang telah ada (tanpa diawali dengan angka)
+\printbibliography{} % Menampilkan dapus APA style
 
 \end{document}

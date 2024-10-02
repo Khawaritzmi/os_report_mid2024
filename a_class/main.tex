@@ -68,13 +68,51 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
-This section covers:
+
+\subsubsection{\textit{First-Come, First-Served} (FCFS)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{asset/fcfs-illustration.jpg}
+    \caption{Contoh ilustrasi algoritma FCFS.}
+    \label{fig:contoh-ilustrasi-algoritma-fcfs}
+\end{figure}
+
+\hspace{1cm}
+
+Algoritma \textbf{\textit{First-Come, First-Served} (FCFS)} atau \textbf{Pertama Datang, Pertama Dilayani} adalah salah satu metode penjadwalan paling sederhana yang digunakan dalam sistem operasi komputer, khususnya dalam alokasi waktu CPU. Prinsip dasar dari algoritma ini adalah bahwa setiap proses yang tiba lebih awal dalam keadaan \textit{ready} akan dimasukkan ke dalam antrian dengan prinsip \textit{First-In, First-Out} (FIFO). Proses yang tiba pertama kali akan mendapatkan jatah waktu CPU terlebih dahulu dan dieksekusi hingga selesai sebelum proses berikutnya dapat dilayani. Proses-proses lain yang datang setelahnya harus menunggu hingga proses sebelumnya selesai.
+
+
+\hspace{1cm}
+
+Dalam penerapannya pada penjadwalan CPU, metode FCFS menempatkan setiap proses dalam urutan waktu kedatangan, tanpa memperhitungkan berapa lama waktu yang diperlukan untuk mengeksekusi proses tersebut (\textit{burst time}). Artinya, proses dengan \textit{burst time} yang lebih panjang akan tetap dilayani terlebih dahulu jika datang lebih awal, meskipun hal ini dapat menyebabkan proses-proses lain yang lebih singkat harus menunggu lebih lama.
+
+\hspace{1cm}
+
+\textbf{Kelebihan dan Kekurangan FCFS}
+
+\hspace{1cm}
+
 \begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
+    \item \textbf{Kelebihan}:
 \end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+
+\begin{enumerate}
+    \item Sederhana dan mudah digunakan.
+    \item \textit{Fair} karena tidak ada prioritas.
+    \item Tidak ada \textit{starvation} karena setiap proses akan dijalankan jika sudah masuk ke antrian.
+\end{enumerate}
+
+
+\begin{itemize}
+    \item \textbf{Kekurangan:}
+\end{itemize}
+
+\begin{enumerate}
+    \item Kinerja yang buruk karena proses yang lebih singkat harus menunggu proses yang lebih lama selesai.
+    \item Waktu tunggu umumnya tinggi.
+    \item Tidak ideal untuk sistem waktu-berbagi karena tidak dapat memenuhi kebutuhan respons cepat.
+\end{enumerate}
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:

@@ -292,24 +292,45 @@ Dengan informasi ini, Ragilnata pun mencoba menghitung berapa kecepatan (speedup
 \begin{enumerate}
     \item \textbf{Speedup dengan 4 thread} \\
     Amdahl's Law:
-    \[
-    S = \frac{1}{(1 - P) + \frac{P}{N}}
-    \]
-    Di mana: \\
-    $P$ = proporsi bagian yang bisa diparalelkan = 0.7 \\
-    $N$ = jumlah thread = 4
+        \[
+        S = \frac{1}{(1 - P) + \frac{P}{N}}
+        \]
+        Di mana:
 
-    Maka:
-    \[
-    S = \frac{1}{(1 - 0.7) + \frac{0.7}{4}} = \frac{1}{0.3 + 0.175} = \frac{1}{0.475} \approx 2.105
-    \]
+        $P$ = proporsi bagian yang bisa diparalelkan = 0.7 \\
+        $N$ = jumlah thread = 4
+
+        \textbf{Hasil perhitungan menggunakan Python}
+
+    \begin{python}
+        # Definisikan variabel
+        P = 0.7
+        N = 4
+            
+        # Fungsi untuk menghitung speedup berdasarkan Amdahl's Law
+         def amdahl_speedup(P, N):
+            return 1 / ((1 - P) + (P / N))
+            
+        # Hitung speedup
+        speedup = amdahl_speedup(P, N)
+        speedup
+
+        #Hasil : 2.1052631578947367
+           
+    \end{python}
     Jadi, speedup dengan 4 thread adalah sekitar \textbf{2.105 kali} lebih cepat.
     
     \item \textbf{Speedup dengan 2 thread} \\
-    Dengan 2 thread:
-    \[
-    S = \frac{1}{(1 - 0.7) + \frac{0.7}{2}} = \frac{1}{0.3 + 0.35} = \frac{1}{0.65} \approx 1.538
-    \]
+    \begin{python}
+        # Update jumlah thread menjadi 2
+        N = 2
+
+        # Hitung speedup dengan 2 thread
+        speedup_with_2_threads = amdahl_speedup(P, N)
+        speedup_with_2_threads
+
+        #Hasil : 1.5384615384615383
+    \end{python}
     Jadi, speedup dengan 2 thread adalah sekitar \textbf{1.538 kali} lebih cepat. \\
     Speedup dengan 4 thread (2.105) lebih signifikan dibandingkan dengan 2 thread (1.538). Artinya, menggunakan 4 thread lebih efisien dalam hal kecepatan.
     

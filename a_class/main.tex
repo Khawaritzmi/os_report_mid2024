@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -86,18 +85,139 @@ Details how processes are created and terminated by the operating system, includ
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item Konsep Threads
+    \item Hubungan antara Threads dan Proses
+    \item Manfaat Penggunaan Threads
+    \item Multithreading
+    \item Threads vs Process
+    \item Model Multithreading
+    \item Pengelolaan Threads
+    \item Penerapan Threads pada Sistem Operasi
 \end{itemize}
+\subsubsection{Konsep Threads}
+\subsubsection{Hubungan antara Threads dan Proses}
+\subsubsection{Manfaat Penggunaan Threads}
+\subsubsection{Multithreading}
+\subsubsection{\textit{Threads vs Proses}}
+Dalam sistem operasi modern, konsep proses dan thread adalah dua mekanisme penting untuk melakukan eksekusi program secara paralel atau multitasking. Keduanya memberikan kemampuan bagi sistem untuk menjalankan berbagai tugas secara efisien, tetapi dengan cara yang berbeda dalam hal pengelolaan sumber daya, memori, dan performa. Makalah ini akan membahas perbedaan mendasar antara thread dan proses, cara kerja keduanya, serta kelebihan dan kekurangan masing-masing.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
+\begin{enumerate}
+	\item Pengertian Proses dan Threaded
+	      \begin{enumerate}
+		      \item Proses
 
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+		            Proses adalah program yang sedang dieksekusi, yang terdiri dari instruksi yang dijalankan oleh CPU dan memiliki ruang memori sendiri, mencakup ruang alamat, data, dan variabel. Setiap proses yang berjalan di sistem operasi adalah entitas independen yang tidak berbagi memori atau sumber daya dengan proses lain kecuali menggunakan mekanisme komunikasi khusus seperti Inter-Process Communication (IPC).
+
+		            Karakteristik proses:
+		            \begin{enumerate}
+			            \item Isolasi Memori: Setiap proses memiliki ruang memori sendiri, terisolasi dari proses lain.
+			            \item Komunikasi: Menggunakan mekanisme IPC seperti shared memory, pipes, atau message passing.
+			            \item Overhead Tinggi: Membuat proses baru membutuhkan waktu dan sumber daya lebih banyak karena setiap proses memiliki salinan terpisah dari memori, sumber daya, dan lingkungan eksekusi.
+		            \end{enumerate}
+		      \item Thread
+
+		            Thread adalah unit eksekusi yang lebih ringan di dalam proses. Sebuah proses dapat memiliki banyak thread yang berbagi ruang memori dan sumber daya. Semua thread dalam satu proses dapat mengakses data yang sama dan bekerja secara bersamaan, membuatnya lebih efisien untuk tugas-tugas yang memerlukan multitasking dalam ruang memori yang sama.
+
+		            Karakteristik proses:
+		            \begin{enumerate}
+			            \item Berbagi Memori: Semua thread dalam satu proses berbagi ruang alamat yang sama, membuat komunikasi antar thread lebih cepat.
+			            \item Komunikasi Lebih Efisien: Karena berbagi memori, thread tidak memerlukan mekanisme IPC yang kompleks untuk berkomunikasi.
+			            \item Overhead Rendah: Membuat thread baru lebih cepat dan membutuhkan lebih sedikit sumber daya dibandingkan membuat proses baru.
+		            \end{enumerate}
+	      \end{enumerate}
+	\item Perbedaan utama antara proses dan thread
+	      \begin{enumerate}
+		      \item Isolasi memori
+		            \begin{enumerate}
+			            \item Proses memiliki ruang memori sendiri yang terpisah dari proses lain. Ini berarti setiap proses memiliki wilayah alamat memori yang terisolasi, dan satu proses tidak bisa secara langsung mengakses data dari proses lain.
+			            \item Thread, di sisi lain, berbagi ruang memori dengan thread lain dalam satu proses. Semua thread dalam satu proses memiliki akses ke data dan variabel yang sama, sehingga komunikasi antar-thread lebih mudah tetapi membutuhkan manajemen sinkronisasi.
+		            \end{enumerate}
+		      \item Komunikasi
+		            \begin{enumerate}
+			            \item Proses menggunakan mekanisme Inter-Process Communication (IPC) untuk berkomunikasi satu sama lain, seperti message passing, pipes, atau shared memory. Mekanisme IPC sering kali lebih lambat dan kompleks karena memerlukan protokol tambahan untuk mentransfer data antara proses.
+			            \item Thread dalam satu proses dapat berkomunikasi secara langsung melalui memori bersama tanpa perlu menggunakan IPC. Karena itu, komunikasi antar-thread jauh lebih cepat dibandingkan dengan antar-proses.
+		            \end{enumerate}
+		      \item Overhead
+		            \begin{enumerate}
+			            \item Membuat atau mengelola proses baru membutuhkan lebih banyak waktu dan sumber daya. Setiap kali sebuah proses baru dibuat, sistem harus menyiapkan ruang memori dan salinan sumber daya terpisah untuk proses tersebut, yang membutuhkan overhead yang besar.
+			            \item Membuat thread baru dalam sebuah proses jauh lebih efisien dan memerlukan lebih sedikit sumber daya karena thread berbagi sebagian besar lingkungan eksekusi dengan thread lain di proses yang sama
+
+		            \end{enumerate}
+		      \item Manajemen
+		            \begin{enumerate}
+			            \item Proses dikelola secara independen oleh sistem operasi. Setiap proses memiliki siklus hidup sendiri yang tidak bergantung pada proses lain. Jika sebuah proses mengalami crash, tidak akan mempengaruhi proses lain.
+			            \item Thread dikelola di bawah proses yang sama dan berbagi sumber daya bersama. Jika satu thread mengalami crash atau kegagalan, bisa mempengaruhi thread lain dalam proses yang sama, sehingga meningkatkan risiko ketidakstabilan.
+
+		            \end{enumerate}
+		      \item Kegagalan
+		            \begin{enumerate}
+			            \item Jika sebuah proses mengalami kegagalan atau crash, proses tersebut tidak akan mempengaruhi proses lain karena setiap proses terisolasi satu sama lain. Hal ini memberikan keandalan yang lebih besar.
+			            \item Jika satu thread dalam sebuah proses mengalami kegagalan, hal itu dapat berdampak pada thread lain dalam proses yang sama karena mereka berbagi ruang memori dan sumber daya yang sama. Oleh karena itu, kegagalan satu thread bisa menyebabkan seluruh proses menjadi tidak stabil.
+
+		            \end{enumerate}
+		      \item Penggunaan
+		            \begin{enumerate}
+			            \item Proses lebih cocok untuk menjalankan aplikasi yang berbeda secara terpisah, terutama ketika keamanan dan isolasi sangat penting. Misalnya, menjalankan dua aplikasi seperti browser dan editor teks sebagai dua proses berbeda.
+			            \item Thread lebih cocok digunakan ketika sebuah aplikasi memerlukan multitasking internal. Contohnya, aplikasi seperti server web menggunakan thread untuk menangani banyak permintaan pengguna dalam satu proses yang sama.
+
+		            \end{enumerate}
+	      \end{enumerate}
+	\item Manfaat dan Kekurangan
+	      \begin{enumerate}
+		      \item Proses
+
+		            Manfaat:
+		            \begin{enumerate}
+			            \item Isolasi dan Keamanan: Proses yang berbeda terisolasi satu sama lain, sehingga kegagalan atau crash pada satu proses tidak akan memengaruhi proses lain. Ini memberikan stabilitas dan keamanan lebih baik, terutama untuk aplikasi yang berjalan secara independen.
+			            \item Penggunaan untuk Aplikasi Terpisah: Proses cocok untuk menjalankan aplikasi yang berbeda, seperti menjalankan editor teks bersamaan dengan browser.
+		            \end{enumerate}
+		            Kekurangan:
+		            \begin{enumerate}
+			            \item Overhead Besar: Pembuatan proses baru memerlukan lebih banyak sumber daya dan waktu karena setiap proses memiliki salinan sendiri dari memori dan sumber daya.
+			            \item Komunikasi yang Rumit: Komunikasi antar proses memerlukan mekanisme IPC, yang lebih lambat dan kompleks dibandingkan komunikasi antar thread.
+		            \end{enumerate}
+		      \item Thread
+
+		            Manfaat:
+		            \begin{enumerate}
+			            \item Multitasking yang Cepat: Thread memungkinkan multitasking yang lebih efisien dalam satu proses, karena berbagi memori dan sumber daya dengan thread lain.
+			            \item Lebih Efisien dalam Sumber Daya: Membuat thread baru lebih cepat dan ringan dibandingkan membuat proses baru, sehingga cocok untuk aplikasi yang membutuhkan banyak tugas paralel seperti server web atau aplikasi real-time.
+
+		            \end{enumerate}
+
+		            Kekurangan:
+		            \begin{enumerate}
+			            \item Masalah Keamanan dan Kestabilan: Karena thread berbagi memori dan sumber daya, jika satu thread mengalami crash atau error, hal itu bisa berdampak pada thread lain dalam proses yang sama.
+			            \item Kompleksitas Pengelolaan Sinkronisasi: Dalam aplikasi multithreaded, sinkronisasi antara thread harus dikelola dengan hati-hati untuk menghindari masalah seperti race conditions atau deadlock.
+
+		            \end{enumerate}
+	      \end{enumerate}
+	\item Implementasi
+	      \begin{enumerate}
+		      \item Proses
+
+		            Pada sistem operasi seperti Linux, menjalankan dua aplikasi berbeda seperti **Google Chrome dan LibreOffice adalah contoh penggunaan proses. Masing-masing aplikasi berjalan dalam ruang memori yang terpisah dan tidak dapat berinteraksi secara langsung tanpa melalui mekanisme IPC.
+		      \item Thread
+
+		            Aplikasi seperti Google Chrome juga menggunakan multithreading di dalam satu proses. Setiap tab atau plugin di browser mungkin dijalankan sebagai thread terpisah yang berbagi memori, tetapi berfungsi secara independen untuk meningkatkan performa dan responsivitas.
+
+	      \end{enumerate}
+	\item Kapan menggunakan Proses dan Thread?
+	      \begin{enumerate}
+		      \item Gunakan proses ketika isolasi dan keamanan antar tugas sangat penting, misalnya saat menjalankan aplikasi yang berbeda. Isolasi memori dan sumber daya membantu melindungi stabilitas sistem jika terjadi crash.
+		      \item Gunakan thread ketika kamu memerlukan efisiensi dalam multitasking di dalam satu aplikasi. Thread cocok untuk aplikasi yang membutuhkan banyak tugas paralel yang saling bergantung, seperti server web atau aplikasi multimedia.
+
+	      \end{enumerate}
+\end{enumerate}
+Baik thread maupun proses memiliki peran penting dalam eksekusi multitasking pada sistem operasi. Proses memberikan isolasi yang lebih baik antara tugas-tugas yang berbeda, tetapi memiliki overhead lebih besar dalam hal pembuatan dan komunikasi. Thread, di sisi lain, memungkinkan komunikasi yang lebih cepat dan efisien dalam satu proses, tetapi menimbulkan risiko kegagalan dan masalah sinkronisasi. Pemilihan antara thread dan proses bergantung pada kebutuhan spesifik aplikasi yang sedang dikembangkan.
+
+
+Tanenbaum, A. S., \& Bos, H. (2015). \textit{Modern operating systems} (4th ed.). Pearson.
+
+\subsubsection{Model Multithreading}
+\subsubsection{Pengelolaan Threads}
+\subsubsection{Penerapan Threads pada Sistem Operasi}
+
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -140,32 +260,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 

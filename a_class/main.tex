@@ -66,6 +66,22 @@ Processes are a central concept in operating systems. This section covers:
     \item Process control block (PCB)
     \item Context switching
 \end{itemize}
+\subsubsection{\textit{Context switching}}
+ \textit{Context switching} Context switching adalah mekanisme yang memungkinkan sistem operasi untuk \textbf{berpindah dari satu proses ke proses lain.} Setiap kali terjadi perpindahan, OS perlu menyimpan state dari proses yang sedang berjalan (misalnya nilai register, program counter, stack pointer, dll.) dan memuat state dari proses yang akan dijalankan. Proses penyimpanan dan pemuatan ini memerlukan waktu dan sumber daya, sehingga context switching dianggap sebagai overhead dalam sistem multitasking. 
+
+ Dalam sistem preemptive multitasking, di mana proses-proses dihentikan secara paksa oleh OS untuk memberikan giliran pada proses lain, context switching menjadi sangat penting untuk menjaga ilusi bahwa semua proses berjalan secara bersamaan. Proses ini terjadi ketika CPU berpindah dari satu proses ke proses lain, atau dari proses ke kernel mode, misalnya saat menangani interrupts. 
+ (\textit{Context switching}).
+
+ \subsubsection{\textit{Inter-Process Communication}}
+ \textit{Inter-Process Communication} IPC adalah serangkaian mekanisme yang disediakan oleh OS untuk \textbf{memungkinkan proses-proses yang berjalan secara bersamaan untuk saling berkomunikasi }atau bekerja sama. Karena proses-proses ini biasanya terisolasi satu sama lain, IPC memungkinkan pertukaran data dan sinkronisasi kerja mereka. 
+
+Beberapa metode umum IPC termasuk:
+\begin{itemize}
+    \item \textbf{Message Passing: }Proses berkomunikasi dengan mengirim dan menerima pesan melalui saluran yang disediakan OS. 
+    \item \textbf{Shared Memory:} Proses berbagi area memori bersama untuk bertukar data, memerlukan sinkronisasi agar tidak terjadi konflik. 
+    \item \textbf{Signals:} Mekanisme sederhana untuk mengirim notifikasi antar-proses tentang terjadinya suatu kejadian. 
+\end{itemize}
+ (\textit{Inter-Process Communication}).
 
 \subsection{Scheduling Algorithms}
 This section covers:

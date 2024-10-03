@@ -67,15 +67,36 @@ Processes are a central concept in operating systems. This section covers:
     \item Context switching
 \end{itemize}
 
-\subsection{Scheduling Algorithms}
-This section covers:
-\begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
-\end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
 
+\subsection{Scheduling Algorithms}
+\subsubsection{Shortest Job Next (SJN)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{asset/sjn-illustration.jpg}
+    \caption{Ilustrasi SJN}
+    \label{fig:ilustrasi sjn}
+\end{figure}
+
+ Dalam Shortest Job Next (SJN), saat memilih pekerjaan berikutnya untuk dijalankan, lihat semua proses dalam status siap dan jalankan yang memiliki waktu layanan tersingkat. Dalam kasus ini, kita perlu mengetahui waktu layanan pada setiap titik waktu tertentu. Ini adalah algoritma non -preemptif.Pekerjaan baru tidak akan diberi kesempatan pada CPU hingga pekerjaan saat ini selesai meskipun pekerjaan baru tersebut lebih pendek.
+ \subsubsection{Konsep dan Istilah Utama}
+\begin{itemize}
+    \item Waktu layanan adalah jumlah waktu yang dibutuhkan suatu proses atau pekerjaan untuk menyelesaikan eksekusi setelah mulai berjalan pada CPU. Waktu layanan juga dikenal sebagai burst time.
+    \item Waktu kedatangan adalah waktu saat suatu proses tiba dan siap untuk dieksekusi di CPU atau antrean penjadwalan.
+    \item Waktu penyelesaian adalah titik waktu ketika suatu proses menyelesaikan eksekusinya.
+    \item Waktu penyelesaian adalah total waktu yang dibutuhkan oleh suatu proses untuk menyelesaikan eksekusinya, sejak proses tersebut tiba di antrian siap hingga proses tersebut menyelesaikan eksekusi. Waktu penyelesaian dihitung sebagai waktu penyelesaian dikurangi waktu kedatangan.
+    \item Algoritma penjadwalan nonpreemptif adalah algoritma yang mana proses yang telah mulai dijalankan akan terus berlanjut hingga proses tersebut selesai. Proses baru tidak diperbolehkan mengganggu proses yang sedang berjalan.
+\end{itemize}
+
+\subsubsection{Contoh Kasus Shortest Job Next (SJN) Scheduling}
+    \begin{itemize}
+        \item Pada server, terdapat beberapa proses yang membutuhkan CPU untuk waktu yang berbeda-beda. Misalnya, proses A membutuhkan 5 detik CPU, proses B membutuhkan 3 detik, dan proses C membutuhkan 1 detik.
+        \item SJN memilih proses dengan waktu eksekusi tersingkat terlebih dahulu.Dalam kasus ini, sistem akan menjalankan proses C terlebih dahulu,kemudian B, dan terakhir A. Ini mengurangi waktu tunggu rata-rata karena proses yang lebih singkat diselesaikan lebih cepat.
+    \end{itemize} 
+
+
+ 
+    
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:
 \begin{itemize}

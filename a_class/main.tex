@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage{float}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -167,7 +168,7 @@ Struktur logik komputer pribadi memiliki sebuah bus tunggal yang digunakan untuk
             \item \textit{Soft-copy device}, yaitu alat yang digunakan untuk menampilkan tulisan dan gambar pada media lunak yang berupa sinyal elektronik.
         \end{enumerate}
     \end{enumerate}
-    \item Perangkat I\textit{nput/Output}
+    \item Perangkat \textit{Input/Output}
     \begin{enumerate}
         \item Perangkat Blok (\textit{Block Devices})
         \begin{enumerate}
@@ -235,6 +236,215 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+\subsubsection{Group 9}
+Terdapat 4 proses yang akan dijadwalkan berdasarkan \textit{burst time} dan \textit{arrival time} berikut:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{\textit{Process ID}} & \textbf{\textit{Burst Time (ms)}} & \textbf{\textit{Arrival Time (ms)}} \\
+\hline
+P1 & 6 & 0 \\
+\hline
+P2 & 8 & 1 \\
+\hline
+P3 & 7 & 2 \\
+\hline
+P4 & 3 & 3 \\
+\hline
+\end{tabular}
+\caption{Data Proses}
+\end{table}
+
+Dari data tersebut, tentukanlah:
+\begin{itemize}
+     \item \textit{Waiting Time, Turnaround Time, Average Waiting Time}, dan \textit{Average Turnaround Waiting Time} untuk setiap proses berdasarkan algoritma FCFS, SJN, dan RR dengan \textit{quantum} 2
+    \item Bandingkan hasil rata-rata \textit{Waiting Time} dan \textit{Turnaround Time} dari ketiga algoritma tersebut dan tentukan algoritma mana yang paling baik.
+\end{itemize}
+
+\textbf{Jawaban}
+\begin{python}
+    def fcfs(processes):
+    n = len(processes)
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    completion_time = [0] * n
+    
+    # Calculate waiting and turnaround time
+    for i in range(1, n):
+        waiting_time[i] = waiting_time[i - 1] + processes[i - 1][1]
+    
+    for i in range(n):
+        turnaround_time[i] = waiting_time[i] + processes[i][1]
+        completion_time[i] = turnaround_time[i]
+    
+    total_wt = sum(waiting_time)
+    total_tat = sum(turnaround_time)
+    
+    print("\nFCFS Results:")
+    print("Process\tBurst Time\tWaiting Time\tTurnaround Time\tCompletion Time")
+    for i in range(n):
+        print(f"P{processes[i][0]}\t{processes[i][1]}\t\t{waiting_time[i]}\t\t{turnaround_time[i]}\t\t{completion_time[i]}")
+    
+    avg_wt = total_wt / n
+    avg_tat = total_tat / n
+    print(f"\nAverage Waiting Time (FCFS): {avg_wt:.2f}")
+    print(f"Average Turnaround Time (FCFS): {avg_tat:.2f}")
+    return avg_wt, avg_tat
+
+def sjn(processes):
+    n = len(processes)
+    remaining_processes = sorted(processes, key=lambda x: x[1])  # Sort by burst time
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    completion_time = [0] * n
+    
+    # Calculate waiting and turnaround time
+    current_time = 0
+    for i in range(n):
+        waiting_time[i] = current_time - remaining_processes[i][2] if current_time >= remaining_processes[i][2] else 0
+        current_time += remaining_processes[i][1]
+        turnaround_time[i] = waiting_time[i] + remaining_processes[i][1]
+    
+    total_wt = sum(waiting_time)
+    total_tat = sum(turnaround_time)
+    
+    print("\nSJN Results:")
+    print("Process\tBurst Time\tWaiting Time\tTurnaround Time\tCompletion Time")
+    for i in range(n):
+        print(f"P{remaining_processes[i][0]}\t{remaining_processes[i][1]}\t\t{waiting_time[i]}\t\t{turnaround_time[i]}")
+    
+    avg_wt = total_wt / n
+    avg_tat = total_tat / n
+    print(f"\nAverage Waiting Time (SJN): {avg_wt:.2f}")
+    print(f"Average Turnaround Time (SJN): {avg_tat:.2f}")
+    return avg_wt, avg_tat
+
+def round_robin(processes, quantum):
+    n = len(processes)
+    remaining_time = [process[1] for process in processes]
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    time = 0
+    
+    while True:
+        done = True
+        for i in range(n):
+            if remaining_time[i] > 0:
+                done = False
+                if remaining_time[i] > quantum:
+                    time += quantum
+                    remaining_time[i] -= quantum
+                else:
+                    time += remaining_time[i]
+                    waiting_time[i] = time - processes[i][1]
+                    remaining_time[i] = 0
+        
+        if done:
+            break
+    
+    for i in range(n):
+        turnaround_time[i] = waiting_time[i] + processes[i][1]
+    
+    total_wt = sum(waiting_time)
+    total_tat = sum(turnaround_time)
+    
+    print("\nRR Results:")
+    print("Process\tBurst Time\tWaiting Time\tTurnaround Time")
+    for i in range(n):
+        print(f"P{processes[i][0]}\t{processes[i][1]}\t\t{waiting_time[i]}\t\t{turnaround_time[i]}")
+    
+    avg_wt = total_wt / n
+    avg_tat = total_tat / n
+    print(f"\nAverage Waiting Time (RR): {avg_wt:.2f}")
+    print(f"Average Turnaround Time (RR): {avg_tat:.2f}")
+    return avg_wt, avg_tat
+
+def compare_algorithms(processes, quantum):
+    # Copy the original list of processes for each algorithm
+    fcfs_processes = processes[:]
+    sjn_processes = processes[:]
+    rr_processes = processes[:]
+    
+    # Get average WT and TAT for each algorithm
+    avg_wt_fcfs, avg_tat_fcfs = fcfs(fcfs_processes)
+    avg_wt_sjn, avg_tat_sjn = sjn(sjn_processes)
+    avg_wt_rr, avg_tat_rr = round_robin(rr_processes, quantum)
+    
+    # Compare the results
+    print("\nComparison of Algorithms:")
+    print(f"Algorithm\tAverage Waiting Time\tAverage Turnaround Time")
+    print(f"FCFS\t\t{avg_wt_fcfs:.2f}\t\t\t{avg_tat_fcfs:.2f}")
+    print(f"SJN\t\t{avg_wt_sjn:.2f}\t\t\t{avg_tat_sjn:.2f}")
+    print(f"RR\t\t{avg_wt_rr:.2f}\t\t\t{avg_tat_rr:.2f}")
+
+# Assignment 1 (Process ID, Burst Time, Arrival Time)
+processes = [(1, 6, 0), (2, 8, 1), (3, 7, 2), (4, 3, 3)]  
+quantum = 2  # Time quantum for RR
+
+# Call comparison function
+compare_algorithms(processes, quantum)
+\end{python}
+\begin{itemize}
+    \item Hasil Perhitungan Algoritma \textit{First Come First Serve} (FCFS)
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Process ID} & \textbf{\textit{Burst Time (ms)}} & \textbf{\textit{Waiting Time (ms)}} & \textbf{\textit{Turnaround Time (ms)}} \\ \hline
+    P1 & 6 & 0 & 6 \\ \hline
+    P2 & 8 & 6 & 14 \\ \hline
+    P3 & 7 & 14 & 21 \\ \hline
+    P4 & 3 & 21 & 24 \\ \hline
+    \textbf{Rata-rata} &  & 10.25 & 16.25 \\ \hline
+    \end{tabular}
+    \caption{Hasil Perhitungan FCFS}
+    \end{table}
+    \item Hasil Perhitungan Algoritma \textit{Shortest Job Next} (SJN)
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{\textit{Process} ID} & \textbf{\textit{Burst Time (ms)}} & \textbf{\textit{Waiting Time (ms)}} & \textbf{\textit{Turnaround Time (ms)}} \\ \hline
+    P1 & 6 & 0  & 6  \\ \hline
+    P4 & 3 & 3  & 6  \\ \hline
+    P3 & 7 & 7  & 14 \\ \hline
+    P2 & 8 & 15 & 23 \\ \hline
+    \textbf{Rata-rata} &  & 6.25 & 12.25 \\ \hline
+    \end{tabular}
+    \caption{Hasil Perhitungan (SJN)}
+    \end{table}
+    \item Hasil Perhitungan Algoritma \textit{Round Robin} (RR)
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{\textit{Process} ID} & \textbf{\textit{Burst Time (ms)}} & \textbf{\textit{Waiting Time (ms)}} & \textbf{\textit{Turnaround Time (ms)}} \\ \hline
+    P1 & 6 & 8 & 14 \\ \hline
+    P2 & 8 & 14 & 22 \\ \hline
+    P3 & 7 & 15 & 22 \\ \hline
+    P4 & 3 & 13 & 16 \\ \hline
+    \textbf{Rata-rata} &  & 12.50 & 18.50 \\ \hline
+    \end{tabular}
+    \caption{Hasil Perhitungan RR}
+    \end{table}
+    \item Perbandingan ketiga algoritma
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Algoritma} & \textbf{Rata-rata \textit{Waiting Time (ms)}} & \textbf{Rata-rata \textit{Turnaround Time (ms)}} \\ \hline
+    FCFS & 10.25 & 16.25 \\ \hline
+    SJN  & 6.25  & 12.25 \\ \hline
+    RR   & 12.50 & 18.50 \\ \hline
+    \end{tabular}
+    \caption{Perbandingan Algoritma FCFS, SJN, dan RR}
+    \end{table}
+    \item Kesimpulan \\
+    Dari hasil di atas, dapat disimpulkan bahwa algoritma SJN memberikan hasil rata \textit{waiting time} dan \textit{turnaround time} yang lebih baik dibandingkan dengan FCFS dan RR, karena algoritma ini mengeksekusi proses dengan waktu \textit{burst time} terpendek terlebih dahulu. 
+    \end{itemize}
+    
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 

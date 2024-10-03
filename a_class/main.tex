@@ -245,6 +245,83 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
+\subsubsection{Group 10}
+\begin{enumerate}
+    \item No 1
+
+    Sebuah program memiliki 75\% bagian yang dapat diparalelkan. Jika program ini dijalankan pada sistem dengan 6 core prosesor, berapakah speedup maksimum yang dapat dicapai menurut Hukum Amdahl?
+
+    \textit{JAWABAN : }
+    \begin{python}
+    import math
+
+    def calculate_speedup(parallel_fraction, num_processors):
+        serial_fraction = 1 - parallel_fraction
+        return 1 / (serial_fraction + (parallel_fraction / num_processors))
+    
+    # Problem parameters
+    parallel_percentage = 75  # 75% can be parallelized
+    num_cores = 6
+    
+    # Convert percentage to fraction
+    parallel_fraction = parallel_percentage / 100
+    
+    # Calculate speedup
+    speedup = calculate_speedup(parallel_fraction, num_cores)
+    
+    print(f"Untuk program dengan {parallel_percentage}% kode yang dapat diparalelkan berjalan pada {num_cores} cores:")
+    print(f"Kecepatan maksimum menurut Amdahl's Law adalah: {speedup:.2f}x")
+    
+    # Calculate theoretical maximum speedup (with infinite cores)
+    max_theoretical_speedup = calculate_speedup(parallel_fraction, math.inf)
+    print(f"Kecepatan maksimum teoritis (dengan cores tak terbatas) adalah: {max_theoretical_speedup:.2f}x")
+\end{python}
+
+    \textit{PENJELASAN : }
+    \begin{enumerate}
+        \item Kita mengimpor modul \textit{math} untuk menggunakan konstanta inf (tak terhingga) nanti.
+        \item Membuat fungsi \textit{calculate\_speedup} yang menerima dua parameter:
+            \begin{enumerate}
+                \item \textit{parallel\_fraction}: Bagian program yang dapat diparalelkan (0 sampai 1)
+                \item \textit{num\_processors}: Jumlah prosesor atau \textit{thread} yang digunakan
+            \end{enumerate}
+        \item Implementasi Hukum Amdahl:
+            \begin{enumerate}
+                \item Ini adalah implementasi langsung dari rumus Hukum Amdahl: \textit{Speedup} = 1 / ((1 - P) + (P / N))
+                \item \textit{serial\_fraction} adalah bagian yang tidak dapat diparalelkan (1 - P)
+                \item Rumus menghitung \textit{speedup} berdasarkan fraksi paralel dan jumlah prosesor
+            \end{enumerate}
+        \item Pengaturan parameter masalah :
+            \begin{enumerate}
+                \item Sesuai soal, 75\% program dapat diparalelkan dan menggunakan 6 \textit{core}
+            \end{enumerate}
+        \item Konversi persentase ke fraksi :
+            \begin{enumerate}
+                \item Mengubah 75\% menjadi 0.75 untuk perhitungan
+            \end{enumerate}
+        \item Perhitungan \textit{speedup} :
+            \begin{enumerate}
+                \item Memanggil fungsi dengan parameter yang telah ditentukan
+            \end{enumerate}
+        \item  Mencetak hasil :
+            \begin{enumerate}
+                \item Menampilkan hasil perhitungan dengan format yang mudah dibaca
+                \item .2f memformat angka dengan 2 desimal
+            \end{enumerate}
+        \item  Perhitungan \textit{speedup} teoritis maksimum :
+            \begin{enumerate}
+                \item Menghitung \textit{speedup} dengan jumlah prosesor tak terbatas (\textit{math.inf})
+                \item Ini menunjukkan batas atas teoritis dari \textit{speedup} yang mungkin dicapai
+            \end{enumerate}
+        \item Mencetak \textit{speedup} teoritis maksimum :
+            \begin{enumerate}
+                \item Menampilkan batas atas teoritis \textit{speedup}
+            \end{enumerate}
+
+
+    \end{enumerate}
+\end{enumerate}
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 

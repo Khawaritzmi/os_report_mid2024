@@ -116,7 +116,9 @@ Dalam sistem operasi modern, multithreading digunakan untuk menjalankan proses-p
     \item \textbf{Tantangan dalam Multithreading}: Meskipun multithreading dapat meningkatkan performa, teknik ini juga menimbulkan tantangan. Salah satunya adalah debugging, karena perilaku aplikasi multithreaded bisa menjadi sulit diprediksi. Kesalahan seperti \textit{deadlock} atau \textit{race conditions} sering kali sulit ditemukan, karena mereka mungkin tidak selalu muncul pada setiap eksekusi program. Oleh karena itu, pengembangan aplikasi multithreaded memerlukan perhatian khusus untuk memastikan bahwa semua \textit{threads} berjalan dengan aman dan efisien.
 \end{itemize}
 
-Dengan mengimplementasikan multithreading, kita bisa menciptakan aplikasi yang lebih efisien dan responsif, terutama ketika menangani tugas-tugas yang kompleks dan memerlukan pemrosesan paralel. Namun, seperti halnya teknologi lainnya, multithreading juga memerlukan perencanaan dan pengelolaan yang matang untuk memastikan hasil yang optimal.
+Dengan mengimplementasikan multithreading, kita bisa menciptakan aplikasi yang lebih efisien dan responsif, terutama ketika menangani tugas-tugas yang kompleks dan memerlukan pemrosesan paralel. Namun, seperti halnya teknologi lainnya, multithreading juga memerlukan perencanaan dan pengelolaan yang matang untuk memastikan hasil yang optimal.\\
+
+\noindent GeeksforGeeks. (n.d.). \textit{Model multi-threading dalam manajemen proses}. GeeksforGeeks. Diakses pada 3 Oktober 2024, dari \url{https://www.geeksforgeeks.org/multi-threading-models-in-process-management/}
 
 \subsubsection{Threads vs Process}
 \subsubsection{Model \textit{Multithreading}}
@@ -217,6 +219,8 @@ Ada beberapa model \textit{Multithreading} umumnya dibagi menjadi tiga, yaitu:
 
 \end{enumerate}
 
+\noindent Tutorialspoint. (n.d.). \textit{Multithreading models in operating system}. Tutorialspoint. Diakses pada 3 Oktober 2024, dari \url{https://www.tutorialspoint.com/operating_system/os_multi_threading_models.htm}
+
 \subsubsection{Pengelolaan \textit{Threads}}
 Pengelolaan \textit{threads} merupakan salah satu aspek penting dalam sistem operasi untuk memastikan bahwa \textit{threads} dapat berjalan secara efisien dan tidak saling mengganggu. Sistem operasi bertanggung jawab untuk mengalokasikan waktu CPU, memori, serta sumber daya lain bagi setiap \textit{thread}. Berikut adalah beberapa elemen utama dalam pengelolaan \textit{threads}:
 
@@ -234,6 +238,9 @@ Pengelolaan \textit{threads} merupakan salah satu aspek penting dalam sistem ope
 
 Pengelolaan \textit{threads} yang efektif sangat penting untuk meningkatkan kinerja sistem operasi, terutama pada sistem dengan banyak tugas yang berjalan secara bersamaan. Dengan teknik yang tepat, \textit{threads} dapat membantu mempercepat penyelesaian tugas dan memastikan pemanfaatan sumber daya secara optimal.
 
+\noindent Studytonight. (n.d.). \textit{Thread management in operating system}. Studytonight. Diakses pada 3 Oktober 2024, 
+dari \url{https://www.studytonight.com/operating-system/thread-management}
+
 \subsubsection{Penerapan \textit{Threads} pada Sistem Operasi}
 Sistem operasi modern seperti \textit{Windows}, \textit{Linux}, dan \textit{macOS} menerapkan konsep \textit{threads} untuk meningkatkan efisiensi dan performa ketika menjalankan berbagai tugas secara bersamaan. Berikut adalah beberapa contoh penerapan \textit{threads} pada sistem operasi:
 
@@ -247,7 +254,9 @@ Sistem operasi modern seperti \textit{Windows}, \textit{Linux}, dan \textit{macO
     \item \textbf{\textit{Input/Output} (\textit{I/O} Operations)}: Ketika aplikasi menunggu input dari pengguna atau operasi \textit{I/O} seperti pembacaan file dari disk atau pengunduhan data dari internet, \textit{threads} lain masih bisa berjalan. Misalnya, saat menunggu halaman web dimuat, kamu tetap bisa menggulir halaman atau mengetik alamat baru karena ada \textit{thread} yang khusus menangani \textit{I/O} dan \textit{thread} lainnya yang tetap aktif untuk menerima interaksi pengguna.
 \end{itemize}
 
-
+\noindent Scaler. (2023). 
+\textit{Introduction to multithreading in operating systems}. Scaler. Diakses pada 3 Oktober 2024, dari \\ 
+\url{https://www.scaler.com/topics/multithreading-in-operating-system/}
 
 
 \subsection{File Systems}
@@ -290,7 +299,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}

@@ -475,6 +475,35 @@ In this assignment, students implemented file system access routines, including:
     \item Navigating directories and managing file permissions
 \end{itemize}
 
+\subsubsection{Group 11}
+
+\textbf{Soal}
+\\
+Anita sedang bekerja di perusahaan teknologi dan diberikan tugas untuk membuat laporan penjualan dalam bentuk file teks. Laporan tersebut harus dibuat setiap minggu. Sebelum menulis laporan baru, Anita harus membuat file dengan nama "laporan\_penjualan\_mingguan.txt". Namun, saat ia mencoba membuat file, sistem menolak permintaan karena ada file dengan nama yang sama. Bagaimana Anita dapat menghapus file lama tersebut agar bisa membuat file yang baru?
+\\\\
+\textbf{Jawaban}\\
+Anita dapat menghapus file lama dengan menggunakan modul Python os. Berikut adalah contoh kode Python yang bisa digunakan untuk menghapus file lama dan kemudian membuat file baru:\\
+\begin{python}
+    import os
+
+    filename = "laporan_penjualan_mingguan.txt"
+
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+    with open(filename, "w") as file:
+        file.write("Ini adalah laporan penjualan mingguan yang baru.")
+        print(f"File '{filename}' berhasil dibuat dan diisi dengan laporan baru.")
+
+\end{python}
+Penjelasan untuk kode diatas:
+\\
+1. os.path.exists() digunakan untuk memeriksa apakah file dengan nama yang sama sudah ada.\\
+2. Jika file sudah ada, maka os.remove() digunakan untuk menghapus file tersebut.\\
+3.Setelah file lama dihapus, kita membuat file baru menggunakan open() dengan mode "w" untuk menulis laporan baru ke dalam file.\\
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 

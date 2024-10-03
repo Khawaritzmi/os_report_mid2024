@@ -68,13 +68,29 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
-This section covers:
+
+\hspace{1cm}
+\textbf{Scheduling Process} adalah salah satu fungsi utama dalam sistem operasi yang bertugas mengelola eksekusi berbagai proses yang berjalan di CPU. Dalam sebuah sistem operasi, banyak proses yang dapat berjalan secara bersamaan atau bergantian, sedangkan CPU hanya dapat menjalankan satu proses dalam satu waktu (pada sistem CPU tunggal). Oleh karena itu, diperlukan mekanisme untuk menentukan proses mana yang harus dijalankan terlebih dahulu, berapa lama proses tersebut akan dijalankan, serta kapan giliran proses lainnya tiba.
+
+\subsubsection{Tahapan dalam Scheduling Process:}
 \begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
+    \item New Process (Proses Baru)
+    \item Ready Process (Proses Siap)
+    \item Running Process (Proses Berjalan)
+    \item Waiting Process (Proses Menunggu)
+    \item Terminated Process (Proses Selesai)
 \end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+\subsubsection{Peran CPU Scheduler}
+\hspace{1cm}
+CPU scheduler memiliki peran penting dalam menentukan urutan eksekusi proses. Scheduler menggunakan algoritma tertentu untuk memilih proses mana yang harus dijalankan. Pemilihan proses yang tepat sangat penting untuk memastikan bahwa sistem beroperasi secara efisien dan bahwa tidak ada proses yang terjebak menunggu terlalu lama.
+\subsubsection{Tujuan Scheduling Process}
+\begin{itemize}
+    \item Menjaga agar CPU selalu aktif dengan memilih proses secara efisien sehingga tidak ada waktu yang terbuang.
+    \item Memastikan bahwa proses tidak menunggu terlalu lama di antrian siap.
+    \item Mengoptimalkan jumlah proses yang dapat diselesaikan dalam waktu tertentu.
+    \item Memberikan respons yang cepat, terutama pada sistem interaktif atau real-time.
+    \item Memberikan kesempatan yang adil bagi semua proses untuk dieksekusi.
+\end{itemize}
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:

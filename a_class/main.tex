@@ -255,6 +255,134 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
+\subsubsection{group 8} 
+Dalam sebuah sistem operasi, user A membuat file project.txt di dalam direktori /home/userA/documents/. User B juga memiliki akses ke direktori tersebut. Setelah beberapa waktu, terjadi skenario berikut:
+
+1. User A mencoba menulis data ke file project.txt yang dibuatnya, tetapi sistem operasi memberikan pesan error bahwa file tersebut tidak bisa diakses untuk ditulis. Jelaskan kemungkinan alasan terjadinya error ini, dan solusi yang dapat diambil oleh user A.
+   
+2. User B mencoba membaca file project.txt, tetapi mendapatkan pesan bahwa ia tidak memiliki izin untuk membaca file tersebut. Bagaimana administrator sistem dapat memperbaiki izin file sehingga User B bisa membaca file tersebut tanpa memberikan hak menulis? Jelaskan langkah-langkah yang dapat dilakukan dalam sistem operasi berbasis UNIX/Linux.
+
+3. User A ingin mengatur struktur direktori baru di dalam /home/userA/documents/ untuk memisahkan berbagai file proyeknya. Ia berencana untuk membuat dua subdirektori baru projA dan projB. Berikan perintah yang diperlukan untuk membuat direktori tersebut dan pindahkan file project.txt ke dalam projA. Pastikan bahwa hanya User A yang dapat membaca, menulis, dan mengeksekusi direktori tersebut, sementara user lain tidak memiliki hak akses.
+
+Jawaban:
+
+\begin{python}
+    
+import os
+import stat
+import shutil
+import subprocess
+
+class FileOperation:
+    class FileOperation:
+    def __init__(self, path, file_name):
+        self.path = path
+        self.file_name = file_name
+        self.file_path = os.path.join(self.path, self.file_name)
+
+    def create_file(self, content):
+        with open(self.file_path, 'w') as f:
+            f.write(content)
+        print(f"File {self.file_name} created in {self.path}")
+
+    def set_permissions(self, permissions):
+        os.chmod(self.file_path, permissions)
+        print(f"Permissions set for {self.file_path}: {oct(permissions)}")
+
+    def read_file(self):
+        if os.access(self.file_path, os.R_OK):
+            with open(self.file_path, 'r') as f:
+                print(f"Contents of {self.file_path}:")
+                print(f.read())
+        else:
+            print(f"Cannot read {self.file_path}: Permission denied")
+
+    def write_to_file(self, content):
+        if os.access(self.file_path, os.W_OK):
+            with open(self.file_path, 'a') as f:
+                f.write(content)
+            print(f"Data written to {self.file_path}")
+        else:
+            print(f"Cannot write to {self.file_path}: Permission denied")
+
+    def check_lock(self):
+        try:
+            result = subprocess.run(['fuser', self.file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if result.stdout:
+                print(f"File is locked by process: {result.stdout.decode().strip()}")
+            else:
+                print("File is not locked by any process.")
+        except Exception as e:
+            print(f"Error while checking file lock: {str(e)}")
+
+    def move_file(self, destination):
+        shutil.move(self.file_path, destination)
+        print(f"File moved from {self.file_path} to {destination}")
+
+class DirectoryOperation:
+    def __init__(self, directory_path):
+        self.directory_path = directory_path
+
+    def create_directory(self):
+        os.makedirs(self.directory_path, exist_ok=True)
+        print(f"Directory {self.directory_path} created.")
+
+    def set_directory_permissions(self, permissions):
+        os.chmod(self.directory_path, permissions)
+        print(f"Permissions set for directory {self.directory_path}: {oct(permissions)}")
+    
+Simulasi path untuk user A dan user B
+    user_a_path = '/home/userA/documents/'
+    user_b_path = '/home/userB/documents/'
+    file_name = 'project.txt'
+    
+    1. User A membuat file di direktori
+    file_op_a = FileOperation(user_a_path, file_name)
+    file_op_a.create_file("Initial project content.\n")
+    
+    2. Set permissions untuk file sehingga hanya user A yang bisa menulis (rw-------)
+    file_op_a.set_permissions(stat.S_IRUSR | stat.S_IWUSR)
+    
+    3. Cek apakah file sedang digunakan (file lock)
+    file_op_a.check_lock()
+    
+    4. User B mencoba membaca file project.txt (izin baca untuk others harus diset)
+    print("\nUser B trying to read the file without proper permissions:")
+    file_op_a.read_file()  #Expected to fail
+    
+    Administrator mengatur izin baca untuk User B (r--r--r--)
+    file_op_a.set_permissions(stat.S_IRUSR | stat.S_IWUSR | stat.S_IROTH)
+    
+    5. User B mencoba membaca lagi
+    print("\nUser B trying to read the file after setting read permissions:")
+    file_op_a.read_file()  # Expected to succeed
+    
+    6. User A membuat dua subdirektori baru dan memindahkan file project.txt ke salah satu direktori
+    projA_path = os.path.join(user_a_path, 'projA')
+    projB_path = os.path.join(user_a_path, 'projB')
+    
+    dir_op_a = DirectoryOperation(projA_path)
+    dir_op_b = DirectoryOperation(projB_path)
+    
+    dir_op_a.create_directory()
+    dir_op_b.create_directory()
+    
+    Pindahkan file project.txt ke dalam projA
+    file_op_a.move_file(projA_path)
+    
+    7. Set permissions untuk direktori agar hanya User A yang bisa mengakses (rwx------)
+    dir_op_a.set_directory_permissions(stat.S_IRWXU)
+    dir_op_b.set_directory_permissions(stat.S_IRWXU)
+    
+    Verifikasi konten file setelah dipindah
+    moved_file_path = os.path.join(projA_path, file_name)
+    file_op_projA = FileOperation(projA_path, file_name)
+    
+    print("\nVerifying moved file in projA:")
+    file_op_projA.read_file() # User A should still have access
+
+\end{python}
+
 \begin{itemize}
     \item File creation and deletion
     \item Reading from and writing to files

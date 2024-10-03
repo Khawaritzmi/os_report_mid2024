@@ -59,15 +59,27 @@ This section introduces various system performance metrics used to measure the e
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
-\subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
-\begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
-\end{itemize}
+\subsection{Proses Describes and control}
+Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
-\subsection{Scheduling Algorithms}
+\subsubsection{Process Creation}
+Process creation adalah tahap di mana sistem operasi menciptakan proses baru:
+\begin{enumerate}
+    \item \textbf{Inisialisasi PCB:} OS membuat Process Control Block (PCB) yang berisi informasi dasar proses, seperti Process ID (PID), status awal, dan program counter.
+    \item \textbf{Masuk ke Ready Queue:} Proses ditempatkan dalam Ready Queue, menunggu giliran untuk dijadwalkan dan dieksekusi oleh CPU.
+    \item \textbf{Alokasi sumber daya:} OS mengalokasikan sumber daya yang diperlukan oleh proses, seperti memori untuk kode dan data, serta akses ke perangkat I/O.
+\end{enumerate}
+
+\subsubsection{Process Scheduling}
+Process Scheduling adalah mekanisme yang berjalan secara terus-menerus untuk menentukan proses mana yang akan dijalankan pada CPU. Penjadwalan terjadi ketika sistem memutuskan proses yang siap untuk dieksekusi atau melakukan context switching antara beberapa proses. Tanpa penjadwalan yang baik, sistem tidak bisa mengalokasikan waktu CPU dengan efisien untuk berbagai proses yang ada.
+
+\subsubsection{Process Termination}
+Process Termination hanya terjadi ketika proses tersebut sudah tidak diperlukan lagi, entah karena telah selesai dieksekusi, terjadi kesalahan, atau karena dihentikan oleh pengguna atau OS. Proses yang dihentikan akan dibuang dari sistem (PCB dihapus, memori dibebaskan), dan tidak lagi dijadwalkan untuk berjalan.
+
+\subsubsection{Context Switching}
+Context switching adalah mekanisme yang memungkinkan sistem operasi untuk berpindah dari satu proses ke proses lain. Setiap kali terjadi perpindahan, OS perlu menyimpan state dari proses yang sedang berjalan (misalnya nilai register, program counter, stack pointer, dll.) dan memuat state dari proses yang akan dijalankan. Proses penyimpanan dan pemuatan ini memerlukan waktu dan sumber daya, sehingga context switching dianggap sebagai overhead dalam sistem multitasking. Dalam sistem preemptive multitasking, di mana proses-proses dihentikan secara paksa oleh OS untuk memberikan giliran pada proses lain, context switching menjadi sangat penting untuk menjaga ilusi bahwa semua proses berjalan secara bersamaan. Proses ini terjadi ketika CPU berpindah dari satu proses ke proses lain, atau dari proses ke kernel mode, misalnya saat menangani interrupts.
+
+\subsection{Process Scheduling}
 This section covers:
 \begin{itemize}
     \item First-Come, First-Served (FCFS)

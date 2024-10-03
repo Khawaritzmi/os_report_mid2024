@@ -60,34 +60,40 @@ This section introduces various system performance metrics used to measure the e
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
 \subsection{Process Description and Control}
-\subsubsection{Process description}
-Sebuah proses adalah sebuah program yang sedang dijalankan pada komputer. Setiap proses membutuhkan sumber daya, seperti CPU, memori, dan perangkat \textit{input/output}, untuk bisa berfungsi dengan baik. Komputer harus mengelola berbagai proses agar semua program dapat berfungsi dengan baik. Dalam pengelolaan ini, setiap proses memiliki \textit{process state} dan \textit{process control block} (PCB) yang membantu sistem untuk mengawasi dan mengatur kondisi serta informasi penting mengenai proses tersebut.
-\subsubsection{Process states and state transitions}
+Processes are a central concept in operating systems. This section covers:
+    \subsubsection{Process Description}
+    Sebuah proses adalah sebuah program yang sedang dijalankan pada komputer. Setiap proses membutuhkan sumber daya, seperti CPU, memori, dan perangkat \textit{input/output}, untuk bisa berfungsi dengan baik. Komputer harus mengelola berbagai proses agar semua program dapat berfungsi dengan baik. Dalam pengelolaan ini, setiap proses memiliki \textit{process state} dan \textit{process control block} (PCB) yang membantu sistem untuk mengawasi dan mengatur kondisi serta informasi penting mengenai proses tersebut.
+    \subsubsection{Process States and State Transitions}
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{asset/process-state.jpg}
-\caption{Process states and state transitions}
-\label{fig:process_state}
+    \centering
+    \includegraphics[width=0.8\textwidth]{asset/process-state.jpg}
+    \caption{Process states and state transitions}
+    \label{fig:process_state}
 \end{figure}
+
 \noindent Siklus hidup proses dalam sistem operasi terdiri dari beberapa status, seperti yang terlihat pada gambar di atas. Status-status tersebut meliputi:
 \begin{itemize}
-    \item \textbf{New}: Proses baru saja dibuat dan sedang menunggu  untuk dimasukkan dalam daftar proses yang siap dijalankan. Proses akan berada dalam status ini hingga sistem menerima proses tersebut.
-    \item \textbf{Ready}: Setelah diterima, proses akan berpindah ke status \textit{ready}. Proses sudah siap untuk dieksekusi namun harus menunggu hingga \textit{scheduler} memilihnya untuk dieksekusi.
-    \item \textbf{Running}: Proses sedang dieksekusi oleh CPU. Setelah dijadwalkan, proses akan berpindah dari status \textit{ready} ke \textit{running}.
-    \item \textbf{Waiting}: Proses sedang menunggu operasi I/O atau suatu \textit{event} tertentu. Ketika proses membutuhkan input dari perangkat keras atau menunggu suatu \textit{event}, ia akan berpindah dari status running ke \textit{waiting}.
-    \item \textbf{Terminated}: Proses telah selesai dieksekusi. Setelah eksekusi selesai, proses akan berpindah dari status \textit{running} ke \textit{terminated}, di mana ia tidak lagi menjadi bagian dari sistem.
+    \item \textbf{\textit{New}}: Proses baru saja dibuat dan sedang menunggu  untuk dimasukkan dalam daftar proses yang siap dijalankan. Proses akan berada dalam status ini hingga sistem menerima proses tersebut.
+    \item \textbf{\textit{Ready}}: Setelah diterima, proses akan berpindah ke status \textit{ready}. Proses sudah siap untuk dieksekusi namun harus menunggu hingga \textit{scheduler} memilihnya untuk dieksekusi.
+    \item \textbf{\textit{Running}}: Proses sedang dieksekusi oleh CPU. Setelah dijadwalkan, proses akan berpindah dari status \textit{ready} ke \textit{running}.
+    \item \textbf{\textit{Waiting}}: Proses sedang menunggu operasi I/O atau suatu \textit{event} tertentu. Ketika proses membutuhkan input dari perangkat keras atau menunggu suatu \textit{event}, ia akan berpindah dari status running ke \textit{waiting}.
+    \item \textbf{\textit{Terminated}}: Proses telah selesai dieksekusi. Setelah eksekusi selesai, proses akan berpindah dari status \textit{running} ke \textit{terminated}, di mana ia tidak lagi menjadi bagian dari sistem.
 \end{itemize}
 Transisi antar status tersebut meliputi:
 \begin{itemize}
-    \item \textbf{Admitted}: Ketika sebuah proses baru dibuat, ia akan berpindah dari status \textit{new} ke \textit{ready} setelah diterima oleh sistem operasi.
-    \item \textbf{Scheduler Dispatch}: Ketika CPU siap untuk mengeksekusi proses, penjadwal akan memindahkan proses dari status \textit{ready} ke \textit{running}.
-    \item \textbf{I/O or Event Wait}: Ketika proses membutuhkan operasi I/O atau menunggu suatu kejadian, proses akan berpindah dari \textit{running} ke \textit{waiting}.
-    \item \textbf{I/O or Event Completion}: Setelah operasi I/O atau kejadian selesai, proses yang berada di status \textit{waiting} akan berpindah kembali ke status \textit{ready}.
-    \item \textbf{Interrupt}: Jika proses yang sedang berjalan terganggu (misalnya oleh penjadwal untuk memberikan giliran kepada proses lain), proses akan berpindah dari \textit{running} ke \textit{ready}.
-    \item \textbf{Exit}: Ketika proses selesai dieksekusi, ia akan berpindah dari \textit{running} ke \textit{terminated}.
+    \item \textbf{\textit{Admitted}}: Ketika sebuah proses baru dibuat, ia akan berpindah dari status \textit{new} ke \textit{ready} setelah diterima oleh sistem operasi.
+    \item \textbf{\textit{Scheduler Dispatch}}: Ketika CPU siap untuk mengeksekusi proses, penjadwal akan memindahkan proses dari status \textit{ready} ke \textit{running}.
+    \item \textbf{\textit{I/O or Event Wait}}: Ketika proses membutuhkan operasi I/O atau menunggu suatu kejadian, proses akan berpindah dari \textit{running} ke \textit{waiting}.
+    \item \textbf{\textit{I/O or Event Completion}}: Setelah operasi I/O atau kejadian selesai, proses yang berada di status \textit{waiting} akan berpindah kembali ke status \textit{ready}.
+    \item \textbf{\textit{Interrupt}}: Jika proses yang sedang berjalan terganggu (misalnya oleh penjadwal untuk memberikan giliran kepada proses lain), proses akan berpindah dari \textit{running} ke \textit{ready}.
+    \item \textbf{\textit{Exit}}: Ketika proses selesai dieksekusi, ia akan berpindah dari \textit{running} ke \textit{terminated}.
 \end{itemize}
-\subsubsection {Process control block (PCB)}
-\subsubsection {Process control}
+    \subsubsection {Process Control Block (PCB)}
+    \subsubsection {Process Control}
+    \begin{thebibliography}{9}
+    \bibitem{Silberschatz2009} 
+    Silberschatz, A., Galvin, P. B., \& Gagne, G. (2009). \textit{Operating System Concepts} (8th ed.). Hoboken, NJ: Wiley.
+    \end{thebibliography}
 
 \subsection{Scheduling Algorithms}
 This section covers:

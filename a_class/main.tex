@@ -597,26 +597,23 @@ round_robin(rr_processes, 2)
 rr_avg_waiting, rr_avg_turnaround = calculate_averages(rr_processes)
 \end{lstlisting}
 
-\textbf{Output:}
+\textbf{\textit{Output:}}
 
-\begin{table}[h]
+\begin{figure}[h]
     \centering
-    \begin{tabular}{|l|c|c|}
-    \hline
-    \textbf{Algoritma} & \textbf{Waktu Tunggu Rata-rata} & \textbf{Waktu Penyelesaian Rata-rata} \\
-    \hline
-    FCFS               & 7.75                           & 12.00                                \\
-    SJN                & 6.25                           & 10.50                                \\
-    RR (q=2)           & 9.25                           & 9.25                                 \\
-    \hline
-    \end{tabular}
-    \caption{Perbandingan Kinerja Algoritma Penjadwalan Proses}
-    \label{tabel:penjadwalan}
-\end{table}
+    \includegraphics[width=1\textwidth]{D:/Universitas Hasanuddin/Semester III/Sistem Operasi/Repository/os_report_mid2024/a_class/asset/Screenshot 2024-10-03 120048.png}
+    \caption{\textit{Ouput} Kode}
+\end{figure}
 
 \textbf{Kesimpulan:}
 
-Setelah dihitung algoritma SJN merupakan algoritma terbaik dengan waktu tunggu rata rata terendah dan waktu penyelesaian rata-rata terendah. FCFS di posisi kedua dan terakhir adalah algoritma RR.
+Dari hasil output tersebut, kita bisa menyimpulkan bahwa:
+
+\begin{itemize}
+    \item Algoritma SJN memberikan waktu tunggu dan waktu penyelesaian yang paling rendah di antara ketiga algoritma tersebut.
+    \item FCFS memiliki waktu tunggu dan waktu penyelesaian yang tertinggi.
+    \item Algoritma Round Robin dengan kuantum waktu 2 unit menunjukkan waktu penyelesaian yang efisien, tetapi waktu tunggu rata-rata yang lebih tinggi dibandingkan SJN.
+\end{itemize}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
@@ -631,7 +628,7 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 \subsubsection{Group 6}
 \textbf{Soal:}
 
-Anda diminta untuk membuat skrip shell sederhana yang melakukan tugas-tugas berikut:
+Anda diminta untuk melakukan tugas-tugas berikut:
 
 \begin{enumerate}
     \item Membuat direktori baru bernama \texttt{ProyekA}.
@@ -642,30 +639,62 @@ Anda diminta untuk membuat skrip shell sederhana yang melakukan tugas-tugas beri
     \item Ganti nama berkas \texttt{file3.txt} menjadi \texttt{file\_final.txt}.
 \end{enumerate}
 
-Tulis perintah shell untuk menyelesaikan tugas di atas.
+Tulis kode python untuk menyelesaikan tugas di atas.
 
 \textbf{Jawaban:}
 
-\begin{lstlisting}[language=bash]
-# 1. Membuat direktori baru bernama ProyekA
-mkdir ProyekA
+\begin{lstlisting}
+import os
 
-# 2. Masuk ke direktori ProyekA dan membuat tiga berkas teks
-cd ProyekA
-touch file1.txt file2.txt file3.txt
+def main():
+    # 1. Membuat direktori baru bernama ProyekA
+    os.mkdir("ProyekA")
+    print("Direktori ProyekA berhasil dibuat.")
+    
+    # Pindah ke direktori ProyekA
+    os.chdir("ProyekA")
+    print("Berpindah ke direktori ProyekA.")
 
-# 3. Menulis "Hello World" ke dalam file1.txt
-echo "Hello World" > file1.txt
-
-# 4. Menampilkan isi file1.txt ke layar
-cat file1.txt
-
-# 5. Menghapus file2.txt
-rm file2.txt
-
-# 6. Mengganti nama file3.txt menjadi file_final.txt
-mv file3.txt file_final.txt
+    # 2. Membuat tiga berkas teks baru
+    for file in ["file1.txt", "file2.txt", "file3.txt"]:
+        with open(file, "w") as f:
+            pass
+    print("Berkas file1.txt, file2.txt, dan file3.txt berhasil dibuat.")
+    
+    # 3. Menuliskan "Hello World" ke dalam file1.txt
+    with open("file1.txt", "w") as f:
+        f.write("Hello World")
+    print("Berhasil menulis 'Hello World' ke file1.txt.")
+    
+    # 4. Menampilkan isi dari file1.txt ke layar
+    print("\nIsi dari file1.txt:")
+    with open("file1.txt", "r") as f:
+        print(f.read())
+    
+    # 5. Menghapus berkas file2.txt
+    os.remove("file2.txt")
+    print("\nBerkas file2.txt berhasil dihapus.")
+    
+    # 6. Mengganti nama berkas file3.txt menjadi file_final.txt
+    os.rename("file3.txt", "file_final.txt")
+    print("Berkas file3.txt berhasil diubah namanya menjadi file_final.txt.")
+    
+    # Menampilkan isi direktori akhir
+    print("\nIsi direktori ProyekA setelah semua operasi:")
+    print(os.listdir())
+    
+if __name__ == "__main__":
+    main()
 \end{lstlisting}
+
+\newpage
+\textbf{Output:}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{D:/Universitas Hasanuddin/Semester III/Sistem Operasi/Repository/os_report_mid2024/a_class/asset/Screenshot 2024-10-03 115044.png}
+    \caption{\textit{Ouput}}
+    
+\end{figure}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

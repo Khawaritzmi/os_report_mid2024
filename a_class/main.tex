@@ -286,67 +286,104 @@ This assignment involved designing a multithreading scenario to solve a computat
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 \subsubsection {Group 6}
 Tuliskan implementasi CLI sederhana yang dapat melakukan perintah berikut:
-\begin{itemize}
-    \item Membuat file
-    \item Menampilkan daftar file di direktori
-    \item menghapus file
-\end{itemize}
-Jawaban:
 
+\subsubsection{Group 6}
 
-Berikut adalah implementasi kode Python untuk CLI sederhana yang mencakup perintah create, list, dan delete.
-\begin{python}
-        import os
-        import sys
+\textbf{Soal:}
 
-        def create_file(filename):
-            with open(filename, 'w') as f:
-                f.write('')  # Membuat file kosong
-            print(f'File {filename} berhasil dibuat.')
+Buatlah \textit{Simple CLI} menggunakan Python, lalu lakukan serangkaian operasi berikut dan catat hasilnya:
 
-        def list_files(directory='.'):
-            try:
-                files = os.listdir(directory)
-                print("\n".join(files))
-            except FileNotFoundError:
-                print(f'Direktori {directory} tidak ditemukan.')
+    \begin{enumerate}
+        \item Buat sebuah berkas bernama \texttt{laporan.txt}.
+        \item Tampilkan daftar berkas dalam direktori saat ini.
+        \item Tampilkan status sistem.
+        \item Tampilkan daftar proses yang sedang berjalan.
+        \item Hapus berkas \texttt{laporan.txt} yang telah dibuat sebelumnya.
+        \item Tampilkan kembali daftar berkas dalam direktori saat ini.
+    \end{enumerate}
 
-        def delete_file(filename):
-            try:
-                os.remove(filename)
-                print(f'File {filename} berhasil dihapus.')
-            except FileNotFoundError:
-                print(f'File {filename} tidak ditemukan.')
+Berikan tangkapan layar atau salin keluaran dari setiap langkah di atas.
 
-        def main():
-            if len(sys.argv) < 2:
-                print("Penggunaan: <perintah> [opsi]")
-                sys.exit(1)
+\textbf{Jawaban:}
 
-            command = sys.argv[1]
+\begin{lstlisting}
+import os
+import psutil
+import datetime
 
-            if command == "create":
-                create_file(sys.argv[2])
-            elif command == "list":
-                list_files(sys.argv[2] if len(sys.argv) > 2 else '.')
-            elif command == "delete":
-                delete_file(sys.argv[2])
-            else:
-                print(f"Perintah tidak dikenal: {command}")
+def create_file(filename):
+    with open(filename, 'w') as f:
+        f.write("This is a new file.")
+    return f"File '{filename}' created successfully."
 
-        if __name__ == "__main__":
-            main()
+def list_files():
+    files = os.listdir('.')
+    return "\n".join(files)
 
-\end{python}
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        return f"File '{filename}' deleted successfully."
+    else:
+        return f"File '{filename}' not found."
 
-Penjelasan:
-\begin{itemize}
-    \item Membuat file baru dengan nama yang ditentukan
-    \item Menampilkan daftar file dalam direktori
-    \item Menghapus file dengan nama yang ditentukan
-\end{itemize}
+def list_processes():
+    processes = []
+    for proc in psutil.process_iter(['pid', 'name']):
+        processes.append(f"{proc.info['pid']}: {proc.info['name']}")
+    return "\n".join(processes[:10])  # Limiting to first 10 for brevity
 
+def system_status():
+    cpu_percent = psutil.cpu_percent()
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage('C:\\')  # Ganti '/' dengan 'C:\\'
+    
+    return f"CPU Usage: {cpu_percent}%\nMemory Usage: {memory.percent}%\nDisk Usage: {disk.percent}%"
 
+def main():
+    print("Welcome to the Simple CLI Simulator!")
+    print("Type 'help' for a list of commands.")
+    
+    while True:
+        command = input(">>> ").strip().lower()
+        
+        if command == "exit":
+            print("Goodbye!")
+            break
+        elif command == "help":
+            print("Available commands:")
+            print("  create <filename> - Create a new file")
+            print("  list - List files in the current directory")
+            print("  delete <filename> - Delete a file")
+            print("  processes - List running processes")
+            print("  status - Show system status")
+            print("  exit - Exit the CLI")
+        elif command.startswith("create "):
+            filename = command.split(" ", 1)[1]
+            print(create_file(filename))
+        elif command == "list":
+            print(list_files())
+        elif command.startswith("delete "):
+            filename = command.split(" ", 1)[1]
+            print(delete_file(filename))
+        elif command == "processes":
+            print(list_processes())
+        elif command == "status":
+            print(system_status())
+        else:
+            print("Unknown command. Type 'help' for a list of commands.")
+
+if _name_ == "_main_":
+    main()
+\end{lstlisting}
+
+\textbf{\textit{Output:}}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{D:/Repo Sisop/os_report_mid2024/a_class/asset/Screenshot 2024-10-03 114321.png}
+    \caption{\textit{Output} Kode}
+\end{figure}
 
 
 \subsection{Assignment 5: File System Access}

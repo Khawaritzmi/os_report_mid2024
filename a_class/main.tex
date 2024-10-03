@@ -5,6 +5,11 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -92,7 +97,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{../a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -118,6 +123,23 @@ Input and output management is key for handling the interaction between the syst
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
+    \begin{enumerate}
+        \item Pengertian Deadlock
+        \item Kondisi Terjadinya Deadlock
+        \item Model Deadlock
+        \item Deteksi Dan Pemulihan Deadlock
+        \par Untuk mendeteksi deadlock tanpa ada pencegahan ada 2 cara yaitu: \par
+        \begin{itemize}
+            \item Deteksi deadlock dengan satu sumber tiap tipe
+            \par Sistem ini hanya mungkin untuk memiliki satu bluRay Record, satu plotter, dan satu tape drive pada setiap tipe
+            \item Deteksi deadlock dengan banyak sumber daya pada tiap tipe
+            \par Pendeteksian sistem ini dengan penyajian algoritma berbasis matriks untuk menangani deadlock, contohnya menggunakan algoritma safety
+            \newline
+            \subparagraph{Algoritma Safety}
+            \par tes
+        \end{itemize}
+        \item Deadlock Dalam Keseharian
+    \end{enumerate}
     \item Deadlock prevention techniques
 \end{itemize}
 
@@ -152,22 +174,122 @@ Students were tasked with implementing various process scheduling algorithms (e.
         self.waiting_time = 0
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Group 10}
+Hitunglah available selanjutnya dan tentukan proses urutan eksekusi proses menggunakan Algoritma Safety!
+
+\begin{table}[htbp]
+    \centering % Centering the table
+    \resizebox{\textwidth}{!}{ % Resize the table to fit within the text width
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|} % Defines number of columns and alignment
+        \hline
+        \multirow{2}{*}{Proses} & \multicolumn{3}{c|}{Allocation} & \multicolumn{3}{c|}{Max} & \multicolumn{3}{c|}{Available} & \multicolumn{3}{c|}{Need} \\ % Column headers
+        \cline{2-13}
+        & A & B & C & A & B & C & A & B & C & A & B & C \\ % Sub-column headers
+        \hline
+        P0 & 1 & 0 & 2 & 7 & 5 & 3 & 2 & 3 & 1 & 6 & 5 & 1 \\ % First row of data
+        \hline
+        P1 & 2 & 1 & 0 & 3 & 2 & 2 &  &  &  & 1 & 1 & 2 \\ % Second row of data
+        \hline
+        P2 & 3 & 0 & 3 & 9 & 0 & 4 &  &  &  & 6 & 0 & 1 \\ % Third row of data
+        \hline
+        P3 & 2 & 1 & 1 & 4 & 2 & 2 &  &  &  & 2 & 1 & 1 \\ % Fourth row of data
+        \hline
+        \end{tabular}
+    }
+    \caption{Table Algoritma sAfety} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
+
+Jawab:
+\break Untuk menyelesaikan soal tersebut, kita bisa gunakan rumus algoritma safety
+\begin{python}
+    class Process:
+    def is_safe(available, max, allocation):
+    num_processes = len(max)
+    num_resources = len(available)
+
+    work = available[:]
+    finish = [False] * num_processes
+    safe_sequence = []
+
+    while len(safe_sequence) < num_processes:
+        made_progress = False
+        for i in range(num_processes):
+            if not finish[i] and all(need[i][j] <= work[j] for j in range(num_resources)):
+                # If Need \leq Available
+                print(f"Process {i} can be executed. Need: {need[i]}, Available: {work}")
+                # Execute the process
+                work = [work[j] + allocation[i][j] for j in range(num_resources)]
+                finish[i] = True
+                safe_sequence.append(i)
+                made_progress = True
+                print(f"Process {i} executed. New Available: {work}")
+        
+        if not made_progress:
+            print("Do not execute go forward")
+            return False, []
+
+    print("System is in a safe state.")
+    print(f"Safe sequence: {safe_sequence}")
+    return True, safe_sequence
+\end{python}
+
+Atau bisa kita sederhanakan menjadi
+\begin{align*}
+    \text{If} \quad & \text{Need} \leq \text{Available} \\
+    \text{Then} \quad & \text{execute process} \\
+                    & \text{new Available} = \text{Available} + \text{Allocation} \\
+    \text{Else} \quad & \text{do not execute go forward}
+\end{align*}
+Maka,
+
+\begin{align*}
+    \text{P0} \quad & \rightarrow \quad \text{Need} \leq \text{Available} \\
+                    & \quad 651 \leq 231 \\
+                    & \quad \text{do not execute P0, go forward} \\
+    \text{P1} \quad & \rightarrow \quad \text{Need} \leq \text{Available} \\
+                    & \quad 112 \leq 231 \\
+                    & \quad \text{Execute P1} \\
+                    & \quad \text{new Available} = \text{Available} + \text{Allocation} = 231 + 210 \rightarrow 441 \\
+    \text{P2} \quad & \rightarrow \quad \text{Need} \leq \text{Available} \\
+                    & \quad 601 \leq 441 \\
+                    & \quad \text{do not execute P2, go forward} \\
+    \text{P3} \quad & \rightarrow \quad \text{Need} \leq \text{Available} \\
+                    & \quad 211 \leq 441 \\
+                    & \quad \text{Execute P3} \\
+                    & \quad \text{new Available} = \text{Available} + \text{Allocation} = 441 + 211 \rightarrow 652 \\
+    \text{P0} \quad & \rightarrow \quad \text{Need} \leq \text{Available} \\
+                    & \quad 651 \leq 652 \\
+                    & \quad \text{Execute P0} \\
+                    & \quad \text{new Available} = \text{Available} + \text{Allocation} = 652 + 102 \rightarrow 754
+\end{align*}
+
+
+\begin{table}[htbp]
+    \centering % Centering the table
+    \resizebox{\textwidth}{!}{ % Resize the table to fit within the text width
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|} % Defines number of columns and alignment
+        \hline
+        \multirow{2}{*}{Proses} & \multicolumn{3}{c|}{Allocation} & \multicolumn{3}{c|}{Max} & \multicolumn{3}{c|}{Available} & \multicolumn{3}{c|}{Need} \\ % Column headers
+        \cline{2-13}
+        & A & B & C & A & B & C & A & B & C & A & B & C \\ % Sub-column headers
+        \hline
+        P0 & 1 & 0 & 2 & 7 & 5 & 3 & 2 & 3 & 1 & 6 & 5 & 1 \\ % First row of data
+        \hline
+        P1 & 2 & 1 & 0 & 3 & 2 & 2 &  &  &  & 1 & 1 & 2 \\ % Second row of data
+        \hline
+        P2 & 3 & 0 & 3 & 9 & 0 & 4 &  &  &  & 6 & 0 & 1 \\ % Third row of data
+        \hline
+        P3 & 2 & 1 & 1 & 4 & 2 & 2 &  &  &  & 2 & 1 & 1 \\ % Fourth row of data
+        \hline
+        \end{tabular}
+    }
+    \caption{Table Algoritma sAfety} % Optional: For adding a caption
+    \label{tab:tabel2} 
+\end{table}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

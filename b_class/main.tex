@@ -232,38 +232,119 @@ single physical machine. This section explores:
 Students were tasked with implementing various process scheduling algorithms
 (e.g., FCFS, SJN, and RR) and comparing their performance under different
 conditions.
-\subsubsection{Group 1}
+
+\subsubsection{Kelompok 11}
 \begin{python}
+    import heapq
+
     class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-    self.pid = pid
-    self.arrival_time = arrival_time
-    self.burst_time = burst_time
-    self.completion_time = 0
-    self.turnaround_time = 0
-    self.waiting_time = 0
+        def __init__(self, id, arrival_time, burst_time):
+            self.id = id
+            self.arrival_time = arrival_time
+            self.burst_time = burst_time
+    
+    def sjf_scheduling(processes):
+        time = 0
+        completed = []
+        ready_queue = []
+        processes.sort(key=lambda x: x.arrival_time)
+    
+        while processes or ready_queue:
+            print(f"\Waktu saat ini: {time}")
+            
+            while processes and processes[0].arrival_time <= time:
+                arriving_process = processes.pop(0)
+                print(f"Process {arriving_process.id} tiba saat {arriving_process.arrival_time}")
+                heapq.heappush(ready_queue, (arriving_process.burst_time, arriving_process.id, arriving_process))
+            
+            if ready_queue:
+                _, _, current_process = heapq.heappop(ready_queue)
+                print(f"Menjalankan process {current_process.id} dengan burst time {current_process.burst_time}")
+                time += current_process.burst_time
+                completed.append((current_process.id, time))
+                print(f"Process {current_process.id} selesai di {time}")
+            else:
+                next_arrival = processes[0].arrival_time
+                time = next_arrival
+    
+        return completed
+    
+    processes = [
+        Process(1, 0, 10),
+        Process(2, 1, 6),
+        Process(3, 3, 2),
+        Process(4, 5, 4)
+    ]
+    
+    result = sjf_scheduling(processes)
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-        \hline
-        Header 1        & Header 2        & Header 3        \\ % Column headers
-        \hline
-        Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-        \hline
-        Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-        \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
+\textbf{Soal :}
+\\
+Dari kode python diatas, Tuliskan output yang dihasilkan dan gambarkan eksekusi proses menggunakan Grantt chart!
 
-\end{table}
+\textbf{Jawaban :}
+\begin{python}
+Waktu saat ini: 0
+Process 1 tiba saat 0
+Menjalankan process 1 dengan burst time 10
+Process 1 selesai di 10
+
+Waktu saat ini: 10
+Process 2 tiba saat 1
+Process 3 tiba saat 3
+Process 4 tiba saat 5
+Menjalankan process 3 dengan burst time 2
+Process 3 selesai di 12
+
+Waktu saat ini: 12
+Menjalankan process 4 dengan burst time 4
+Process 4 selesai di 16
+
+Waktu saat ini: 16
+Menjalankan process 2 dengan burst time 6
+Process 2 selesai di 22
+
+\end{python}
+
+\renewcommand{\figurename}{Gambar}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{./asset/GranttChart.png}
+    \caption{Shortest-Job-First Process Scheduling}
+\end{figure}
+% \subsubsection{Group 1}
+% \begin{python}
+%     class Process:
+%     def __init__(self, pid, arrival_time, burst_time):
+%     self.pid = pid
+%     self.arrival_time = arrival_time
+%     self.burst_time = burst_time
+%     self.completion_time = 0
+%     self.turnaround_time = 0
+%     self.waiting_time = 0
+% \end{python}
+
+% \begin{table}[htbp] % Optional: For floating position
+%     \centering
+%     \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+%         \hline
+%         Header 1        & Header 2        & Header 3        \\ % Column headers
+%         \hline
+%         Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
+%         \hline
+%         Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
+%         \hline
+%     \end{tabular}
+%     \caption{Your table caption} % Optional: For adding a caption
+%     \label{tab:your_label} % Optional: For cross-referencing the table
+
+% \end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock
 scenarios and explore various prevention methods.
 
-\subsubsection{\textit{Deadlock prevention resources allocation methods}}
+\subsubsection{Kelompok 11}
 \begin{python}
     import numpy as np
 
@@ -397,6 +478,67 @@ including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
+\subsubsection{Kelompok 11}
+\textbf{Soal :}
+Buatlah sebuah program Python sederhana yang melakukan operasi-operasi berikut:
+
+\begin{enumerate}
+    \item Membuat file bernama "contoh.txt" dengan isi "Ini adalah contoh isi file."
+    \item Membaca dan menampilkan isi file "contoh.txt"
+    \item Membuat direktori baru bernama "folder\_baru"
+    \item Menampilkan isi direktori saat ini
+    \item Mengubah izin file "contoh.txt" menjadi rw-r--r-- (644 dalam oktal)
+    \item Menghapus file "contoh.txt" dan direktori "folder\_baru"
+    \item Menampilkan kembali isi direktori saat ini
+\end{enumerate}
+
+\textbf{Jawaban :}
+\begin{python}
+import os
+import shutil
+
+def buat_file(nama_file, isi):
+    with open(nama_file, 'w') as f:
+        f.write(isi)
+    print(f"File '{nama_file}' berhasil dibuat.")
+
+def baca_file(nama_file):
+    with open(nama_file, 'r') as f:
+        isi = f.read()
+    print(f"Isi file '{nama_file}':\n{isi}")
+
+def hapus_file(nama_file):
+    os.remove(nama_file)
+    print(f"File '{nama_file}' berhasil dihapus.")
+
+def buat_direktori(nama_dir):
+    os.mkdir(nama_dir)
+    print(f"Direktori '{nama_dir}' berhasil dibuat.")
+
+def ubah_izin_file(nama_file, mode):
+    os.chmod(nama_file, mode)
+    print(f"Izin file '{nama_file}' berhasil diubah.")
+
+def tampilkan_isi_direktori(path='.'):
+    print(f"Isi direktori '{path}':")
+    for item in os.listdir(path):
+        print(item)
+
+# Contoh penggunaan
+if __name__ == "__main__":
+    buat_file("contoh.txt", "Ini adalah contoh isi file.")
+    baca_file("contoh.txt")
+    
+    buat_direktori("folder_baru")
+    tampilkan_isi_direktori()
+    
+    ubah_izin_file("contoh.txt", 0o644)  # rw-r--r--
+    
+    hapus_file("contoh.txt")
+    shutil.rmtree("folder_baru")
+    tampilkan_isi_direktori()
+\end{python}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts,

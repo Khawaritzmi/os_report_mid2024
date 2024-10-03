@@ -131,7 +131,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
         \\File indeks dapat disimpan di memori. Bila file besar, file indeks juga menjadi terlalu besar untuk disimpan di memori. Salah satu pemecahan nya adalah membuat indeks untuk file indeks. File indeks primer berisi \textit{pointer} ke file indeks sekunder, yang menunjuk ke data item aktual. Bentuk pengaksesan secara berindeks diilustrasikan pada gambar di bawah.
         \begin{figure}[h]
 			\centering
-			\includegraphics[width=0.6\textwidth]{asset/gambar5.png}
+			\includegraphics[width=0.7\textwidth]{asset/gambar5.png}
             \caption{Mengubah akses berurutan menjadi akses langsung}
         \end{figure}
     \end{itemize}
@@ -145,9 +145,17 @@ File systems provide a way for the operating system to store, retrieve, and mana
         \end{figure}
         \begin{figure}[h!]
 			\centering
-			\includegraphics[width=0.4\textwidth]{asset/gambar7.png}
+			\includegraphics[width=0.6\textwidth]{asset/gambar7.png}
             \caption{\textit{Mount point}}
         \end{figure}
+    \subsubsection{File Sharing}
+    \subsubsection{Proteksi}
+    \begin{thebibliography}{99}
+        \bibitem{arpaci2018} 
+        Silberschatz, Galvin \& Gagne. (2013). \textit{Operating System Concepts – 9th Edition}. cc.ee.ntu.edu.tw.
+        \bibitem{Geeks} 
+        GeeksforGeeks. (2024, Juny 24). \textit{File Systems in Operating System}. Retrieved from GeeksforGeeks: \textit{https://www.geeksforgeeks.org/file-systems-in-operating-system/}
+    \end{thebibliography}
 
 \subsection{Input and Output Management}
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
@@ -213,6 +221,19 @@ In this assignment, students were asked to simulate different deadlock scenarios
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\subsubsection{Group 8}
+\textbf{Soal:}
+\par Sebuah perusahaan teknologi sedang mengembangkan sebuah aplikasi pengolahan gambar yang memanfaatkan kemampuan komputasi \textit{multithreading} untuk mempercepat proses \textit{rendering} gambar. Aplikasi ini didesain agar bisa memanfaatkan beberapa \textit{core} CPU secara bersamaan. Salah satu developer aplikasi ini, Sarah, mendapati bahwa tidak semua bagian dari proses rendering bisa dijalankan secara paralel, karena ada beberapa bagian yang harus dijalankan secara berurutan (\textit{sequential}).
+\par Sarah mendengar tentang Amdahl’s Law, yang menyatakan bahwa potensi percepatan komputasi paralel bergantung pada proporsi kode yang dapat diparalelisasi. Setelah melakukan \textit{profiling} terhadap aplikasinya, Sarah menemukan bahwa 70% dari proses \textit{rendering} dapat dijalankan secara paralel, sementara 30% lainnya harus tetap berjalan secara \textit{sequential}.
+\par Perusahaan ini menggunakan mesin dengan CPU \textit{multi-core} yang memiliki 8 \textit{core} fisik, dan Sarah ingin mengetahui seberapa besar kecepatan yang bisa diperoleh dengan menggunakan 8 \textit{core} untuk bagian yang bisa diparalelisasi.
+\begin{enumerate}
+    \item Berapa maksimal percepatan (\textit{speedup}) teoritis yang bisa didapat Sarah jika ia menggunakan 8 \textit{core}, berdasarkan Amdahl’s Law?
+    \item Jika perusahaan ingin meningkatkan proporsi paralel dari 70% menjadi 90%, berapa percepatan teoritis yang bisa didapat dengan tetap menggunakan 8 \textit{core}?
+    \item Diskusikan secara umum, bagaimana Amdahl’s Law mempengaruhi strategi pengembangan perangkat lunak yang memanfaatkan \textit{multithreading}, khususnya dalam konteks aplikasi Sarah. Apakah ada batasan yang perlu diperhatikan meskipun jumlah \textit{core} CPU terus bertambah?
+\end{enumerate}
+\par \textbf{Jawaban:}
+\par \textbf{\textit{Output}:}
+\par \textbf{Kesimpulan:}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

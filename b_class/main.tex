@@ -62,9 +62,7 @@ Sistem komputer terdiri dari beberapa komponen dasar yang berfungsi bersama untu
     CPU adalah otak dari komputer yang menjalankan instruksi dari perangkat lunak (software). CPU terdiri dari dua komponen utama:
     \begin{itemize}
         \item 	Arithmetic Logic Unit (ALU): Menyelesaikan operasi aritmetika dan logika.
-	Control Unit (CU): Mengontrol aliran data dan instruksi antara            berbagai komponen komputer.
-        \item 	Control Unit (CU): Mengontrol aliran data, instruksi antara berbagai komponen komputer.
-
+        \item 	Control Unit (CU): Mengontrol aliran data dan instruksi antara berbagai komponen komputer.
     \end{itemize}
     \item Memory(Primary Storage):
     \par Memori, sering disebut sebagai RAM(Random Access Memory), menyimpan data sementara yang sedang digunakan oleh CPU. Memori bersifat volatil, artinya data akan hilang saat daya dimatikan.
@@ -163,7 +161,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
 \subsubsection{Group 1}
 \begin{python}
-    class Process:
+class Process:
     def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
@@ -189,7 +187,76 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods. Below is a simple Python simulation demonstrating a deadlock situation:
+
+\begin{python}
+import threading
+import time
+
+# Create two resources
+resource_a = threading.Lock()
+resource_b = threading.Lock()
+
+def process_1():
+    print("Process 1: Acquiring Resource A")
+    with resource_a:
+        time.sleep(1)  # Simulate work
+        print("Process 1: Acquiring Resource B")
+        with resource_b:
+            print("Process 1: Working with both resources")
+
+def process_2():
+    print("Process 2: Acquiring Resource B")
+    with resource_b:
+        time.sleep(1)  # Simulate work
+        print("Process 2: Acquiring Resource A")
+        with resource_a:
+            print("Process 2: Working with both resources")
+
+# Create threads
+t1 = threading.Thread(target=process_1)
+t2 = threading.Thread(target=process_2)
+
+# Start threads
+t1.start()
+t2.start()
+
+# Wait for threads to complete
+t1.join()
+t2.join()
+\end{python}
+
+To prevent deadlocks, we can ensure a consistent order of resource acquisition:
+
+\begin{python}
+def process_1():
+    print("Process 1: Acquiring Resource A")
+    with resource_a:
+        time.sleep(1)  # Simulate work
+        print("Process 1: Acquiring Resource B")
+        with resource_b:
+            print("Process 1: Working with both resources")
+
+def process_2():
+    print("Process 2: Acquiring Resource A")
+    with resource_a:
+        time.sleep(1)  # Simulate work
+        print("Process 2: Acquiring Resource B")
+        with resource_b:
+            print("Process 2: Working with both resources")
+
+# Create threads
+t1 = threading.Thread(target=process_1)
+t2 = threading.Thread(target=process_2)
+
+# Start threads
+t1.start()
+t2.start()
+
+# Wait for threads to complete
+t1.join()
+t2.join()
+\end{python}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

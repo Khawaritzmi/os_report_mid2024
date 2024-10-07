@@ -189,6 +189,70 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
+\begin{python}
+    import threading
+    import time
+    
+    resource_a = threading.Lock()
+    resource_b = threading.Lock()
+    
+    def process_1():
+        print("Process 1: Acquiring Resource A")
+        with resource_a:
+            time.sleep(1)  
+            print("Process 1: Acquiring Resource B")
+            with resource_b:
+                print("Process 1: Working with both resources")
+    
+    def process_2():
+        print("Process 2: Acquiring Resource B")
+        with resource_b:
+            time.sleep(1)  
+            print("Process 2: Acquiring Resource A")
+            with resource_a:
+                print("Process 2: Working with both resources")
+    
+    t1 = threading.Thread(target=process_1)
+    t2 = threading.Thread(target=process_2)
+    
+    t1.start()
+    t2.start()
+    
+    t1.join()
+    t2.join()
+    \end{python}
+    
+    To prevent deadlocks, we can ensure a consistent order of resource acquisition:
+    
+    \begin{python}
+    def process_1():
+        print("Process 1: Acquiring Resource A")
+        with resource_a:
+            time.sleep(1)  
+            print("Process 1: Acquiring Resource B")
+            with resource_b:
+                print("Process 1: Working with both resources")
+    
+    def process_2():
+        print("Process 2: Acquiring Resource A")
+        with resource_a:
+            time.sleep(1)  
+            print("Process 2: Acquiring Resource B")
+            with resource_b:
+                print("Process 2: Working with both resources")
+    
+    
+    t1 = threading.Thread(target=process_1)
+    t2 = threading.Thread(target=process_2)
+    
+    
+    t1.start()
+    t2.start()
+    
+    t1.join()
+    t2.join()
+    \end{python}
+
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 

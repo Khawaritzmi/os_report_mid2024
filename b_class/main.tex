@@ -171,9 +171,50 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
+\subsubsection{Proses yang Diberikan}
+Proses-proses yang perlu dijadwalkan ditampilkan pada Tabel \ref{tab:proses}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        PID & Waktu Kedatangan & Waktu Burst \\
+        \hline
+        1   & 0                & 5           \\
+        2   & 2                & 3           \\
+        3   & 4                & 1           \\
+        \hline
+    \end{tabular}
+    \caption{Daftar proses yang akan dijadwalkan}
+    \label{tab:proses}
+\end{table}
+
+\subsubsection{Soal}
+\begin{itemize}
+    \item Implementasikan algoritma penjadwalan proses berikut dalam Python:
+        \begin{enumerate}
+            \item First Come First Serve (FCFS)
+            \item Shortest Job Next (SJN)
+            \item Round Robin (RR) dengan kuantum waktu 2 unit
+        \end{enumerate}
+        
+\textbf{Jawaban}
+    \item Untuk setiap algoritma, hitung dan tampilkan hal berikut untuk setiap proses:
+        \begin{itemize}
+            \item Waktu Penyelesaian (Completion Time)
+            \item Waktu Putar Balik (Turnaround Time)
+            \item Waktu Tunggu (Waiting Time)
+        \end{itemize}
+    \item Bandingkan kinerja ketiga algoritma tersebut menggunakan set proses yang berbeda.
+\end{itemize}
+
+\textbf{Implementasi Python}
+
+\subsubsection{FCFS}
+Berikut adalah kode Python untuk algoritma First Come First Serve (FCFS).
+
+\begin{python}[language=Python, caption=Kode Python untuk penjadwalan FCFS]
+class Process:
     def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
@@ -181,25 +222,245 @@ Students were tasked with implementing various process scheduling algorithms (e.
         self.completion_time = 0
         self.turnaround_time = 0
         self.waiting_time = 0
+
+def fcfs_scheduling(processes):
+    current_time = 0
+    for process in processes:
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time
+        process.completion_time = current_time + process.burst_time
+        process.turnaround_time = process.completion_time - process.arrival_time
+        process.waiting_time = process.turnaround_time - process.burst_time
+        current_time += process.burst_time
+
+def print_process_info(processes):
+    print(f"{'PID':<10}{'Arrival':<10}{'Burst':<10}{'Completion':<15}{'Turnaround':<15}{'Waiting':<10}")
+    for p in processes:
+        print(f"{p.pid:<10}{p.arrival_time:<10}{p.burst_time:<10}{p.completion_time:<15}{p.turnaround_time:<15}{p.waiting_time:<10}")
+
+# Contoh penggunaan
+process_list = [
+    Process(1, 0, 5),
+    Process(2, 2, 3),
+    Process(3, 4, 1),
+]
+
+fcfs_scheduling(process_list)
+print_process_info(process_list)
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
+\subsubsection{Shortest Job Next (SJN)}
+Berikut adalah kode Python untuk algoritma Shortest Job Next (SJN).
+
+\begin{python}[language=Python, caption=Kode Python untuk penjadwalan SJN]
+def sjn_scheduling(processes):
+    processes.sort(key=lambda x: (x.arrival_time, x.burst_time))
+    current_time = 0
+    while processes:
+        available_processes = [p for p in processes if p.arrival_time <= current_time]
+        if available_processes:
+            next_process = min(available_processes, key=lambda x: x.burst_time)
+            processes.remove(next_process)
+            if current_time < next_process.arrival_time:
+                current_time = next_process.arrival_time
+            next_process.completion_time = current_time + next_process.burst_time
+            next_process.turnaround_time = next_process.completion_time - next_process.arrival_time
+            next_process.waiting_time = next_process.turnaround_time - next_process.burst_time
+            current_time += next_process.burst_time
+        else:
+            current_time += 1
+
+# Contoh penggunaan
+process_list = [
+    Process(1, 0, 5),
+    Process(2, 2, 3),
+    Process(3, 4, 1),
+]
+
+sjn_scheduling(process_list)
+print_process_info(process_list)
+\end{python}
+
+\subsubsection{Round Robin (RR)}
+Berikut adalah kode Python untuk algoritma Round Robin (RR) dengan kuantum waktu 2.
+
+\begin{python}[language=Python, caption=Kode Python untuk penjadwalan Round Robin (RR)]
+def rr_scheduling(processes, time_quantum):
+    queue = processes[:]
+    current_time = 0
+    while queue:
+        process = queue.pop(0)
+        if process.burst_time > time_quantum:
+            process.burst_time -= time_quantum
+            current_time += time_quantum
+            queue.append(process)
+        else:
+            current_time += process.burst_time
+            process.completion_time = current_time
+            process.turnaround_time = process.completion_time - process.arrival_time
+            process.waiting_time = process.turnaround_time - process.burst_time
+
+# Contoh penggunaan
+process_list = [
+    Process(1, 0, 5),
+    Process(2, 2, 3),
+    Process(3, 4, 1),
+]
+
+rr_scheduling(process_list, 2)
+print_process_info(process_list)
+\end{python}
+
+\subsubsection{Hasil}
+Tabel \ref{tab:hasil_perbandingan} menunjukkan hasil perbandingan antara algoritma FCFS, SJN, dan Round Robin untuk proses yang diberikan.
+
+\begin{table}[htbp]
     \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        Algoritma & PID & A Time & B Time & C Time & T Time & W Time \\
+        \hline
+        FCFS      & 1   & 0            & 5          & 5               & 5               & 0            \\
+                  & 2   & 2            & 3          & 8               & 6               & 3            \\
+                  & 3   & 4            & 1          & 9               & 5               & 4            \\
+        \hline
+        SJN       & 1   & 0            & 5          & 9               & 9               & 4            \\
+                  & 2   & 2            & 3          & 8               & 6               & 3            \\
+                  & 3   & 4            & 1          & 5               & 1               & 0            \\
+        \hline
+        RR        & 1   & 0            & 5          & 9               & 9               & 4            \\
+                  & 2   & 2            & 3          & 8               & 6               & 3            \\
+                  & 3   & 4            & 1          & 5               & 1               & 0            \\
+        \hline
     \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
+    \caption{Perbandingan Hasil Penjadwalan untuk FCFS, SJN, dan RR}
+    \label{tab:hasil_perbandingan}
 \end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\begin{enumerate}
+    \item Pencegahan Deadlock menggunakan Algoritma Banker
+    \item Pencegahan Deadlock melalui Pengecekan Sumber Daya
+\end{enumerate}
+Tugas Anda adalah mensimulasikan kedua metode di atas dan menunjukkan bagaimana deadlock dapat dihindari atau dicegah.
+
+
+\textbf{Jawaban}
+\subsubsection{Deadlock}
+Deadlock terjadi ketika sekumpulan proses saling menunggu sumber daya yang dimiliki proses lain, dan tidak ada proses yang bisa melanjutkan eksekusinya. Kondisi-kondisi untuk terjadinya deadlock adalah:
+\begin{itemize}
+    \item Mutual Exclusion (Eksklusi Saling Terkait): Hanya satu proses pada satu waktu yang dapat menggunakan sumber daya.
+    \item Hold and Wait (Menahan dan Menunggu): Proses yang menahan sumber daya juga dapat menunggu sumber daya lain.
+    \item No Preemption (Tanpa Pemaksaan): Sumber daya tidak dapat diambil paksa dari proses yang memegangnya.
+    \item Circular Wait (Tunggu Melingkar): Ada rantai proses di mana setiap proses menunggu sumber daya yang dipegang oleh proses lain dalam rantai.
+\end{itemize}
+
+\textbf{Metode Pencegahan Deadlock}
+
+Berikut adalah dua metode pencegahan yang diterapkan pada skenario deadlock:
+
+\subsubsection{Algoritma Banker's untuk Pencegahan Deadlock}
+Algoritma Banker's mengevaluasi permintaan proses dan hanya mengabulkannya jika sistem dapat tetap berada dalam keadaan aman setelah mengalokasikan sumber daya tersebut.
+
+\begin{python} caption=Implementasi Algoritma Banker]
+class BankersAlgorithm:
+    def __init__(self, processes, available, max_need, allocation):
+        self.processes = processes
+        self.available = available
+        self.max_need = max_need
+        self.allocation = allocation
+        self.need = [[self.max_need[i][j] - self.allocation[i][j] for j in range(len(self.max_need[0]))] for i in range(len(self.processes))]
+
+    def is_safe(self):
+        work = self.available[:]
+        finish = [False] * len(self.processes)
+        safe_sequence = []
+
+        while len(safe_sequence) < len(self.processes):
+            safe = False
+            for i in range(len(self.processes)):
+                if not finish[i] and all(self.need[i][j] <= work[j] for j in range(len(work))):
+                    for j in range(len(work)):
+                        work[j] += self.allocation[i][j]
+                    finish[i] = True
+                    safe_sequence.append(self.processes[i])
+                    safe = True
+            if not safe:
+                return False, []
+        return True, safe_sequence
+
+# Contoh penggunaan
+processes = ['P0', 'P1', 'P2', 'P3']
+available = [3, 3, 2]
+max_need = [
+    [7, 5, 3],
+    [3, 2, 2],
+    [9, 0, 2],
+    [2, 2, 2]
+]
+allocation = [
+    [0, 1, 0],
+    [2, 0, 0],
+    [3, 0, 2],
+    [2, 1, 1]
+]
+
+bankers = BankersAlgorithm(processes, available, max_need, allocation)
+is_safe, safe_sequence = bankers.is_safe()
+if is_safe:
+    print("Sistem aman. Urutan aman:", safe_sequence)
+else:
+    print("Sistem tidak aman. Deadlock mungkin terjadi.")
+\end{python}
+
+\subsubsection {Pencegahan Deadlock melalui Pengecekan Sumber Daya (Resource Allocation Check)}
+Metode ini mengecek apakah alokasi sumber daya saat ini dapat mengakibatkan deadlock dengan memeriksa apakah semua proses dapat menyelesaikan eksekusi mereka.
+
+\begin{python}[language=Python, caption=Implementasi Pengecekan Alokasi Sumber Daya]
+def resource_allocation_check(processes, available, max_need, allocation):
+    need = [[max_need[i][j] - allocation[i][j] for j in range(len(available))] for i in range(len(processes))]
+    finish = [False] * len(processes)
+    work = available[:]
+    
+    while True:
+        progress = False
+        for i in range(len(processes)):
+            if not finish[i] and all(need[i][j] <= work[j] for j in range(len(available))):
+                for j in range(len(available)):
+                    work[j] += allocation[i][j]
+                finish[i] = True
+                progress = True
+        if not progress:
+            break
+
+    return all(finish)
+
+# Contoh penggunaan
+processes = ['P0', 'P1', 'P2', 'P3']
+available = [3, 3, 2]
+max_need = [
+    [7, 5, 3],
+    [3, 2, 2],
+    [9, 0, 2],
+    [2, 2, 2]
+]
+allocation = [
+    [0, 1, 0],
+    [2, 0, 0],
+    [3, 0, 2],
+    [2, 1, 1]
+]
+
+if resource_allocation_check(processes, available, max_need, allocation):
+    print("Sistem aman. Semua proses dapat diselesaikan.")
+else:
+    print("Deadlock mungkin terjadi.")
+\end{python}
+
+\subsubsection{Hasil Simulasi}
+Hasil simulasi dari algoritma Banker's dan pengecekan sumber daya menunjukkan bahwa sistem dapat berada dalam keadaan aman jika alokasi sumber daya dilakukan dengan hati-hati. Jika ada deadlock yang mungkin terjadi, sistem akan mencegah permintaan lebih lanjut atau melakukan pre-emption sumber daya.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -227,4 +488,5 @@ The first half of the course introduced core operating system concepts, includin
     \bibitem{ref6} GeeksforGeeks. (n.d.-f). Round Robin scheduling with different arrival times. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/round-robin-scheduling-with-different-arrival-times/ 
     \bibitem{ref7}Marty, J. (n.d.). Process scheduling. Clemson University. Retrieved October 1, 2024, from https://people.computing.clemson.edu/~jmarty/courses/commonCourse
     Content/AdvancedModule-LinuxSysAdmin/NotesProcessScheduling.pdf 
+    \bibitem{ref8} Silberschatz, A., Galvin, P. B., and Gagne, G. (2018). Operating System Concepts (10th ed.). Wiley.
 \end{document}

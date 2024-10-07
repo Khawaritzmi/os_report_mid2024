@@ -287,6 +287,136 @@ This assignment involved designing a multithreading scenario to solve a
 computationally intensive problem. Students then applied *Amdahl's Law* to
 calculate the theoretical speedup of the program as the number of threads
 increased.
+\subsubsection{Kelompok 11}
+\subsubsection*{Soal : }
+Buatkan sebuah program \texttt{Python} yang menggunakan \textbf{multithreading} untuk menyelesaikan masalah komputasi intensif berupa perhitungan jumlah bilangan prima dalam suatu rentang bilangan. Setelah itu, terapkan \textbf{Amdahl's Law} untuk menghitung \textit{speedup} teoritis dari program ketika jumlah thread ditingkatkan.\\
+\\
+
+\subsection*{Jawaban}
+\begin{enumerate}
+    \item \textbf{Implementasi Multithreading}:
+    \begin{itemize}
+        \item Buatlah program yang menghitung jumlah bilangan prima dalam rentang bilangan dari 1 hingga 500.000 menggunakan \textbf{multithreading}.
+        \item Anda harus mengimplementasikan program dengan 1, 2, 4, dan 8 thread untuk membandingkan waktu eksekusi.
+    \end{itemize}
+
+    \item \textbf{Amdahl's Law}:
+    \begin{itemize}
+        \item Misalkan 20\% dari program tidak bisa diparalelkan (bersifat serial).
+        \item Gunakan rumus \textbf{Amdahl's Law} berikut untuk menghitung \textit{speedup} teoritis berdasarkan jumlah thread (\(N\)):
+        \[
+        S(N) = \frac{1}{(1 - P) + \frac{P}{N}}
+        \]
+        Di mana:
+        \begin{itemize}
+            \item \(P = 0.8\) adalah proporsi kode yang bisa diparalelkan (80\%).
+            \item \(N\) adalah jumlah thread (1, 2, 4, 8).
+        \end{itemize}
+    \end{itemize}
+
+    \begin{python}
+        import threading
+import time
+
+# Fungsi untuk memeriksa apakah sebuah bilangan prima
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+# Fungsi untuk menghitung bilangan prima dalam rentang tertentu
+def count_primes(start, end, result, index):
+    count = 0
+    for num in range(start, end):
+        if is_prime(num):
+            count += 1
+    result[index] = count
+
+# Fungsi untuk menjalankan perhitungan dengan multithreading
+def prime_counter_with_threads(range_start, range_end, num_threads):
+    threads = []
+    result = [0] * num_threads
+    segment_size = (range_end - range_start) // num_threads
+
+    for i in range(num_threads):
+        start = range_start + i * segment_size
+        end = start + segment_size if i != num_threads - 1 else range_end
+        t = threading.Thread(target=count_primes, args=(start, end, result, i))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    return sum(result)
+
+# Fungsi untuk menghitung waktu eksekusi
+def test_prime_counter(range_start, range_end, num_threads):
+    start_time = time.time()
+    prime_count = prime_counter_with_threads(range_start, range_end, num_threads)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Threads: {num_threads}, Waktu: {execution_time:.4f} detik, Bilangan Prima Ditemukan: {prime_count}")
+    return execution_time
+
+# Fungsi untuk menghitung speedup berdasarkan Amdahl's Law
+def amdahls_law(P, N):
+    return 1 / ((1 - P) + (P / N))
+
+# Main program untuk melakukan pengujian
+def main():
+    range_start = 1
+    range_end = 500000
+    serial_fraction = 0.2  # 20% dari kode adalah serial
+    parallel_fraction = 1 - serial_fraction  # 80% adalah paralel
+
+    # Menguji dengan berbagai jumlah thread
+    thread_counts = [1, 2, 4, 8]
+    execution_times = []
+
+    print("Menghitung bilangan prima dan mengukur waktu eksekusi:")
+    for num_threads in thread_counts:
+        execution_time = test_prime_counter(range_start, range_end, num_threads)
+        execution_times.append(execution_time)
+
+    print("\nMenghitung speedup teoritis berdasarkan Amdahl's Law:")
+    for num_threads in thread_counts:
+        theoretical_speedup = amdahls_law(parallel_fraction, num_threads)
+        print(f"Threads: {num_threads}, Speedup Teoritis: {theoretical_speedup:.4f}")
+
+    print("\nMembandingkan hasil eksekusi dan speedup teoritis:")
+    base_time = execution_times[0]  # Waktu eksekusi dengan 1 thread sebagai baseline
+    for i, num_threads in enumerate(thread_counts):
+        actual_speedup = base_time / execution_times[i]
+        theoretical_speedup = amdahls_law(parallel_fraction, num_threads)
+        print(f"Threads: {num_threads}, Speedup Aktual: {actual_speedup:.4f}, Speedup Teoritis: {theoretical_speedup:.4f}")
+
+if __name__ == "__main__":
+    main()
+
+    \end{python}
+
+
+\subsubsection*{Waktu Eksekusi dan Jumlah Bilangan Prima yang Ditemukan:}
+\begin{itemize}
+    \item \textbf{Threads: 1}, Waktu: 0.2519 detik, Bilangan Prima Ditemukan: 9592
+    \item \textbf{Threads: 2}, Waktu: 0.2355 detik, Bilangan Prima Ditemukan: 9592
+    \item \textbf{Threads: 4}, Waktu: 0.2352 detik, Bilangan Prima Ditemukan: 9592
+    \item \textbf{Threads: 8}, Waktu: 0.2536 detik, Bilangan Prima Ditemukan: 9592
+\end{itemize}
+
+\subsubsection*{Speedup Teoritis Berdasarkan Amdahl's Law:}
+\begin{itemize}
+    \item \textbf{Threads: 1}, Speedup Teoritis: 1.0000
+    \item \textbf{Threads: 2}, Speedup Teoritis: 1.6667
+    \item \textbf{Threads: 4}, Speedup Teoritis: 2.5000
+    \item \textbf{Threads: 8}, Speedup Teoritis: 3.3333
+\end{itemize}
+
+
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple *CLI* for user interface

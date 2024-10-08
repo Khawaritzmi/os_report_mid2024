@@ -154,17 +154,17 @@ This section discusses the role of the operating system in managing the user int
     \begin{itemize}
         \item \textbf{Contoh}
         \begin{itemize}
-            \item \textit{VMware ESX Server}: Menggunakan \textit{hypervisor} tipe 1 yang berjalan langsung di perangkat keras, memungkinkan banyak mesin virtual tanpa modifikasi pada sistem operasi tamu.
+            \item \textit{VMware ESX Server}: Menggunakan \textit{hypervisor} tipe satu yang berjalan langsung di perangkat keras, memungkinkan banyak mesin virtual tanpa modifikasi pada sistem operasi tamu.
     
             \item \textit{Microsoft Virtual Server}: Memungkinkan menjalankan sistem operasi tamu tanpa perubahan, meski kini lebih umum digunakan \textit{Hyper-V}.
         \end{itemize}
     \end{itemize}
-    Untuk mengurangi \textit{overhead} ini, beberapa produsen perangkat keras seperti Intel dan AMD telah memperkenalkan teknologi yang mendukung virtualisasi secara langsung pada level perangkat keras, seperti Intel VT (\textit{Virtualization Technology}) dan AMD-V. Teknologi ini membantu mengurangi \textit{overhead} yang disebabkan oleh \textit{hypervisor} dengan memungkinkan sistem operasi tamu untuk berinteraksi lebih langsung dengan perangkat keras, sehingga meningkatkan efisiensi dan kinerja keseluruhan dari virtualisasi penuh.
+    Untuk mengurangi \textit{overhead} ini, beberapa produsen perangkat keras seperti Intel dan AMD telah memperkenalkan teknologi yang mendukung virtualisasi secara langsung pada level perangkat keras, seperti Intel VT (Virtualization Technology) dan AMD-V. Teknologi ini membantu mengurangi \textit{overhead} yang disebabkan oleh \textit{hypervisor} dengan memungkinkan sistem operasi tamu untuk berinteraksi lebih langsung dengan perangkat keras, sehingga meningkatkan efisiensi dan kinerja keseluruhan dari virtualisasi penuh.
     
-    \par Dengan demikian, virtualisasi penuh menjadi salah satu pilihan yang sering digunakan dalam lingkungan server dan data center, karena kelebihannya dalam mendukung berbagai macam sistem operasi tanpa memerlukan perubahan pada kode sistem operasi tersebut, meskipun tetap ada beberapa batasan terkait performa dan kebutuhan perangkat keras khusus yang harus dipenuhi untuk memastikan virtualisasi berjalan secara optimal.
+    \par Dengan demikian, virtualisasi penuh menjadi salah satu pilihan yang sering digunakan dalam lingkungan \textit{server} dan \textit{data center}, karena kelebihannya dalam mendukung berbagai macam sistem operasi tanpa memerlukan perubahan pada kode sistem operasi tersebut, meskipun tetap ada beberapa batasan terkait performa dan kebutuhan perangkat keras khusus yang harus dipenuhi untuk memastikan virtualisasi berjalan secara optimal.
 
     \item \textbf{Para-Virtualization}
-    \newline \textit{Para-virtualisasi} adalah teknik virtualisasi yang mirip dengan virtualisasi penuh, namun dengan pendekatan yang sedikit berbeda. Pada metode ini, \textit{hypervisor} tetap digunakan untuk berbagi akses ke perangkat keras, tetapi sistem operasi tamu perlu dimodifikasi agar lebih sadar akan proses virtualisasi. Pendekatan ini menghilangkan kebutuhan untuk melakukan \textit{rekompilasi} atau pemerangkapan instruksi, karena sistem operasi bekerja sama dengan \textit{hypervisor} dalam proses virtualisasi.
+    \newline \textit{Para-virtualisasi} adalah teknik virtualisasi yang mirip dengan virtualisasi penuh, namun dengan pendekatan yang sedikit berbeda. Pada metode ini, \textit{hypervisor} tetap digunakan untuk berbagi akses ke perangkat keras, tetapi sistem operasi tamu perlu dimodifikasi agar lebih sadar akan proses virtualisasi. Pendekatan ini menghilangkan kebutuhan untuk melakukan rekompilasi atau pemerangkapan instruksi, karena sistem operasi bekerja sama dengan \textit{hypervisor} dalam proses virtualisasi.
 
     \par Salah satu kelemahan utama dari \textit{para-virtualisasi} adalah bahwa sistem operasi tamu harus dimodifikasi agar kompatibel dengan lingkungan virtualisasi. Hal ini bisa menjadi kerugian bagi sistem operasi yang tidak siap untuk diubah atau dimodifikasi. 
     
@@ -172,38 +172,38 @@ This section discusses the role of the operating system in managing the user int
     \begin{itemize}
         \item \textbf{Contoh}
         \begin{itemize}
-            \item \textit{VMware ESXi: Hypervisor} tipe 1 yang memanfaatkan Intel VT dan AMD-V untuk efisiensi mesin virtual.
+            \item VMware ESXi: \textit{Hypervisor} tipe satu yang memanfaatkan Intel VT dan AMD-V untuk efisiensi mesin virtual.
 
-            \item \textit{KVM (Kernel-based Virtual Machine): Hypervisor} di Linux yang menggunakan ekstensi virtualisasi prosesor modern untuk kinerja optimal.
+            \item KVM (Kernel-based Virtual Machine): \textit{Hypervisor} di Linux yang menggunakan ekstensi virtualisasi prosesor modern untuk kinerja optimal.
             
-            \item \textit{Microsoft Hyper-V}: Platform virtualisasi yang memanfaatkan dukungan hardware untuk menjalankan mesin virtual dengan overhead minimal.
+            \item Microsoft Hyper-V: Platform virtualisasi yang memanfaatkan dukungan \textit{hardware} untuk menjalankan mesin virtual dengan \textit{overhead} minimal.
             
-            \item \textit{Xen}: Meskipun menggunakan paravirtualisasi, \textit{Xen} juga memanfaatkan ekstensi hardware untuk meningkatkan performa.
+            \item Xen: Meskipun menggunakan \textit{para-virtualisasi}, \textit{Xen} juga memanfaatkan ekstensi \textit{hardware} untuk meningkatkan performa.
         \end{itemize}
     \end{itemize}
     
-    \par Keunggulan utama dari \textit{para-virtualisasi} adalah kemampuannya untuk memberikan performa yang mendekati sistem non-virtualisasi, karena \textit{overhead} yang lebih rendah dibandingkan dengan virtualisasi penuh. Mirip dengan virtualisasi penuh, beberapa sistem operasi dapat dijalankan secara bersamaan dalam lingkungan \textit{para-virtualisasi}. Namun, modifikasi pada sistem operasi menjadi persyaratan yang tidak dapat dihindari dalam metode ini.
+    \par Keunggulan utama dari \textit{para-virtualisasi} adalah kemampuannya untuk memberikan performa yang mendekati sistem \textit{non-virtualisasi}, karena \textit{overhead} yang lebih rendah dibandingkan dengan virtualisasi penuh. Mirip dengan virtualisasi penuh, beberapa sistem operasi dapat dijalankan secara bersamaan dalam lingkungan \textit{para-virtualisasi}. Namun, modifikasi pada sistem operasi menjadi persyaratan yang tidak dapat dihindari dalam metode ini.
     
-    \par Cara kerja \textit{para-virtualisasi} dimulai dengan modifikasi pada sistem operasi tamu agar dapat berinteraksi secara langsung dengan \textit{hypervisor.} Dengan adanya \textit{Application Programming Interface (API)} yang disediakan oleh \textit{hypervisor}, sistem operasi dapat melakukan panggilan untuk mendapatkan akses ke sumber daya perangkat keras, seperti CPU dan memori, tanpa melalui proses penjebakan yang kompleks. Proses ini memungkinkan komunikasi yang lebih cepat dan efisien antara sistem operasi dan \textit{hypervisor}, sehingga mengurangi \textit{overhead} yang biasanya terdapat dalam virtualisasi penuh. Karena sistem operasi sudah "sadar" akan lingkungan virtualisasi, banyak instruksi sensitif dapat dijalankan dengan lebih langsung, sehingga memberikan kinerja yang lebih baik dibandingkan dengan metode virtualisasi lainnya.
+    \par Cara kerja \textit{para-virtualisasi} dimulai dengan modifikasi pada sistem operasi tamu agar dapat berinteraksi secara langsung dengan \textit{hypervisor.} Dengan adanya \textit{Application Programming Interface (API)} yang disediakan oleh \textit{hypervisor}, sistem operasi dapat melakukan panggilan untuk mendapatkan akses ke sumber daya perangkat keras, seperti CPU dan memori, tanpa melalui proses penjebakan yang kompleks. Proses ini memungkinkan komunikasi yang lebih cepat dan efisien antara sistem operasi dan \textit{hypervisor}, sehingga mengurangi \textit{overhead} yang biasanya terdapat dalam virtualisasi penuh. Karena sistem operasi sudah sadar akan lingkungan virtualisasi, banyak instruksi sensitif dapat dijalankan dengan lebih langsung, sehingga memberikan kinerja yang lebih baik dibandingkan dengan metode virtualisasi lainnya.
     
     \item \textbf{Hardware-assisted Virtualization}
-    \newline Virtualisasi Berbasis Hardware (\textit{Hardware-Assisted Virtualization}) mirip dengan Virtualisasi Penuh dan \textit{Para-virtualisasi}, tetapi memiliki perbedaan mendasar karena bergantung pada ekstensi hardware khusus yang dirancang untuk mengurangi \textit{overhead} dan meningkatkan performa. Teknik ini memanfaatkan fitur yang ada dalam prosesor modern, seperti \textit{Intel VT} (Vanderpool) dan \textit{AMD-V}(Pacifica), untuk menangani tugas yang biasanya menyebabkan kemacetan dalam virtualisasi berbasis perangkat lunak, terutama operasi I/O dan instruksi istimewa pada sistem operasi tamu.
+    \newline Virtualisasi Berbasis Hardware (\textit{Hardware-Assisted Virtualization}) mirip dengan Virtualisasi Penuh dan \textit{Para-virtualisasi}, tetapi memiliki perbedaan mendasar karena bergantung pada ekstensi \textit{hardware} khusus yang dirancang untuk mengurangi \textit{overhead} dan meningkatkan performa. Teknik ini memanfaatkan fitur yang ada dalam prosesor modern, seperti \textit{Intel VT} (Vanderpool) dan \textit{AMD-V}(Pacifica), untuk menangani tugas yang biasanya menyebabkan kemacetan dalam virtualisasi berbasis perangkat lunak, terutama operasi I/O dan instruksi istimewa pada sistem operasi tamu.
 
     \par Beberapa contoh implementasi \textit{Hardware-Assisted Virtualization}:
     \begin{itemize}
         \item \textbf{Contoh}
         \begin{itemize}
-            \item \textit{VMware ESXi}: Platform virtualisasi yang populer, menggunakan virtualisasi berbasis hardware untuk meningkatkan performa dan efisiensi.
+            \item \textit{VMware ESXi}: Platform virtualisasi yang populer, menggunakan virtualisasi berbasis \textit{hardware} untuk meningkatkan performa dan efisiensi.
 
             \item \textit{KVM (Kernel-based Virtual Machine)}: Solusi virtualisasi yang dibangun di atas kernel Linux, mendukung banyak mesin virtual dengan \textit{overhead} yang minimal.
             
-            \item \textit{Microsoft Hyper-V}: Platform virtualisasi dari Microsoft yang memanfaatkan fitur virtualisasi berbasis hardware untuk menjalankan berbagai sistem operasi tamu secara efisien.
+            \item \textit{Microsoft Hyper-V}: Platform virtualisasi dari Microsoft yang memanfaatkan fitur virtualisasi berbasis \textit{hardware} untuk menjalankan berbagai sistem operasi tamu secara efisien.
         \end{itemize}
     \end{itemize}
 
-    \par Keunggulan utama dari virtualisasi berbasis hardware adalah kemampuannya untuk menjalankan sistem operasi tamu yang tidak dimodifikasi. Berbeda dengan \textit{Para-virtualisasi}, di mana sistem operasi tamu harus dimodifikasi agar bisa bekerja sama dengan \textit{hypervisor}, virtualisasi berbasis hardware memungkinkan sistem operasi tamu berinteraksi dengan perangkat keras seolah-olah ia berjalan langsung di mesin fisik. Perangkat keras memberikan dukungan untuk operasi terkawal dan terlindungi, sehingga meningkatkan efisiensi virtualisasi.
+    \par Keunggulan utama dari virtualisasi berbasis \textit{hardware} adalah kemampuannya untuk menjalankan sistem operasi tamu yang tidak dimodifikasi. Berbeda dengan \textit{Para-virtualisasi}, di mana sistem operasi tamu harus dimodifikasi agar bisa bekerja sama dengan \textit{hypervisor}, virtualisasi berbasis \textit{hardware} memungkinkan sistem operasi tamu berinteraksi dengan perangkat keras seolah-olah ia berjalan langsung di mesin fisik. Perangkat keras memberikan dukungan untuk operasi terkawal dan terlindungi, sehingga meningkatkan efisiensi virtualisasi.
     
-    \par Selain itu, virtualisasi berbasis hardware juga mengurangi kompleksitas dalam menangani instruksi sensitif. Dalam virtualisasi berbasis perangkat lunak, \textit{hypervisor} harus mencegat dan mengemulasikan instruksi terkawal, yang tidak efisien. Dengan fitur seperti \textit{Intel VT-x} dan \textit{AMD-V}, operasi sensitif ditangani langsung oleh prosesor, yang mempercepat manajemen mesin virtual dan eksekusi sistem operasi tamu.
+    \par Selain itu, virtualisasi berbasis \textit{hardware} juga mengurangi kompleksitas dalam menangani instruksi sensitif. Dalam virtualisasi berbasis perangkat lunak, \textit{hypervisor} harus mencegat dan mengemulasikan instruksi terkawal, yang tidak efisien. Dengan fitur seperti \textit{Intel VT-x} dan \textit{AMD-V}, operasi sensitif ditangani langsung oleh prosesor, yang mempercepat manajemen mesin virtual dan eksekusi sistem operasi tamu.
 
     \item \textbf{OS-level Virtualization (Containerization)}
     
@@ -213,11 +213,11 @@ This section discusses the role of the operating system in managing the user int
         \caption{Containerization}
     \end{figure}
     
-    \par \textit{OS-Level Virtualization}, atau lebih dikenal sebagai \textit{Containerization}, adalah teknologi yang memungkinkan pengembang untuk membungkus aplikasi beserta semua dependensinya ke dalam "kontainer" yang dapat dijalankan di berbagai lingkungan yang mendukung teknologi kontainer, seperti \textit{Docker} atau \textit{Kubernetes}. Kontainer ini berjalan di atas sistem operasi host yang sama, tetapi memberikan lingkungan runtime yang terisolasi dan konsisten untuk aplikasi. Hal ini memungkinkan pengembang untuk mengembangkan, menguji, dan menyebarluaskan aplikasi dengan lebih efisien dan konsisten.
+    \par \textit{OS-Level Virtualization}, atau lebih dikenal sebagai \textit{Containerization}, adalah teknologi yang memungkinkan pengembang untuk membungkus aplikasi beserta semua dependensinya ke dalam \textit{kontainer} yang dapat dijalankan di berbagai lingkungan yang mendukung teknologi \textit{kontainer}, seperti \textit{Docker} atau \textit{Kubernetes}. \textit{Kontainer} ini berjalan di atas sistem operasi host yang sama, tetapi memberikan lingkungan runtime yang terisolasi dan konsisten untuk aplikasi. Hal ini memungkinkan pengembang untuk mengembangkan, menguji, dan menyebarluaskan aplikasi dengan lebih efisien dan konsisten.
 
-    \par Keunggulan utama dari teknologi kontainerisasi adalah portabilitas dan efisiensi sumber daya. Kontainer dapat dengan mudah dipindahkan antar lingkungan, seperti dari pengembangan ke produksi, atau antara penyedia \textit{cloud} yang berbeda. Selain itu, kontainer lebih ringan dan menggunakan lebih sedikit sumber daya dibandingkan dengan mesin virtual tradisional. Namun, kontainer juga memiliki beberapa kerugian, seperti membutuhkan waktu lama untuk belajar dan memerlukan perhatian khusus dalam hal keamanan dan pengelolaan kompleksitas.
+    \par Keunggulan utama dari teknologi kontainerisasi adalah portabilitas dan efisiensi sumber daya. \textit{Kontainer} dapat dengan mudah dipindahkan antar lingkungan, seperti dari pengembangan ke produksi, atau antara penyedia \textit{cloud} yang berbeda. Selain itu, \textit{kontainer} lebih ringan dan menggunakan lebih sedikit sumber daya dibandingkan dengan mesin virtual tradisional. Namun, \textit{kontainer} juga memiliki beberapa kerugian, seperti membutuhkan waktu lama untuk belajar dan memerlukan perhatian khusus dalam hal keamanan dan pengelolaan kompleksitas.
     
-    \par Contoh yang paling populer dari teknologi kontainerisasi adalah \textit{Docker}. Dengan \textit{Docker}, pengembang dapat membuat versi aplikasi mereka dalam wadah yang dapat dijalankan di berbagai lingkungan. \textit{Docker} juga mendukung alat orkestrasi kontainer seperti \textit{Docker} \textit{Swarm} dan \textit{Kubernetes}, yang membantu mengelola klaster kontainer di beberapa host. Implementasi kontainerisasi biasanya dimulai dengan membuat image kontainer yang mencakup semua dependensi aplikasi, kemudian menjalankan image tersebut menggunakan \textit{Docker} atau alat lainnya.
+    \par Contoh yang paling populer dari teknologi kontainerisasi adalah \textit{Docker}. Dengan \textit{Docker}, pengembang dapat membuat versi aplikasi mereka dalam wadah yang dapat dijalankan di berbagai lingkungan. \textit{Docker} juga mendukung alat orkestrasi \textit{kontainer} seperti \textit{Docker} \textit{Swarm} dan \textit{Kubernetes}, yang membantu mengelola klaster \textit{kontainer} di beberapa host. Implementasi kontainerisasi biasanya dimulai dengan membuat image \textit{kontainer} yang mencakup semua dependensi aplikasi, kemudian menjalankan image tersebut menggunakan \textit{Docker} atau alat lainnya.
 \end{enumerate}
 
 \par Jenis penerapan spesifik virtualisasi yang dibangun di atas dasar virtualisasi sistem operasi:
@@ -255,7 +255,7 @@ This section discusses the role of the operating system in managing the user int
 \subsubsection{Komponen Virtualisasi Sistem Operasi}
 \begin{enumerate}
     \item \textbf{Host Machine (Host OS)}:
-        Sistem operasi fisik yang berjalan langsung di atas perangkat keras dan mengelola sumber daya seperti CPU, RAM, dan penyimpanan. Berfungsi sebagai platform untuk hypervisor.
+        Sistem operasi fisik yang berjalan langsung di atas perangkat keras dan mengelola sumber daya seperti CPU, RAM, dan penyimpanan. Berfungsi sebagai platform untuk \textit{hypervisor}.
     \begin{itemize}
         \item Contoh: Windows, Linux, macOS.
     \end{itemize}
@@ -274,14 +274,14 @@ This section discusses the role of the operating system in managing the user int
     \end{itemize}
     
     \item \textbf{Virtual Machine (VM)}:
-    Lingkungan perangkat lunak yang dibuat oleh hypervisor untuk menjalankan guest OS secara terisolasi dari perangkat keras fisik.
+    Lingkungan perangkat lunak yang dibuat oleh \textit{hypervisor} untuk menjalankan guest OS secara terisolasi dari perangkat keras fisik.
 \end{enumerate}
 
 \subsubsection{Hypervisor dan Virtual Machines}
 \subsubsection{Contoh Penerapan Virtualisasi pada Sistem Operasi}
 \subsubsection{Kelebihan dan Kekurangan Virtualisasi pada Sistem Operasi}
 \subsubsection{Kesimpulan}
-    \par Virtualisasi sistem operasi telah menjadi fondasi penting dalam pengelolaan infrastruktur TI modern. Dengan memungkinkan pembuatan dan pengelolaan lingkungan virtual yang meniru perangkat keras fisik, teknologi ini memberikan efisiensi sumber daya yang signifikan, isolasi antara aplikasi, dan kemampuan skalabilitas yang tinggi. Teknik-teknik seperti\textit{ full virtualization, para-virtualization, dan containerization}, serta penggunaan \textit{hypervisor} tipe 1 dan tipe 2, memberikan fleksibilitas dalam pengelolaan berbagai sistem operasi dan aplikasi. Implementasi luas teknologi ini, yang mencakup solusi seperti \textit{VMware, VirtualBox, KVM, dan Docker,} menunjukkan kemampuannya dalam mendukung berbagai kebutuhan, mulai dari pengembangan dan pengujian perangkat lunak hingga manajemen infrastruktur TI yang kompleks. Dengan demikian, virtualisasi tidak hanya meningkatkan efisiensi operasional, tetapi juga memberikan kemudahan dalam pengelolaan sumber daya yang beragam, menjadikannya solusi yang sangat diperlukan dalam dunia TI yang terus berkembang.
+    \par Virtualisasi sistem operasi telah menjadi fondasi penting dalam pengelolaan infrastruktur TI modern. Dengan memungkinkan pembuatan dan pengelolaan lingkungan virtual yang meniru perangkat keras fisik, teknologi ini memberikan efisiensi sumber daya yang signifikan, isolasi antara aplikasi, dan kemampuan skalabilitas yang tinggi. Teknik-teknik seperti\textit{ full virtualization, para-virtualization, dan containerization}, serta penggunaan \textit{hypervisor} tipe satu dan tipe dua, memberikan fleksibilitas dalam pengelolaan berbagai sistem operasi dan aplikasi. Implementasi luas teknologi ini, yang mencakup solusi seperti \textit{VMware, VirtualBox, KVM, dan Docker,} menunjukkan kemampuannya dalam mendukung berbagai kebutuhan, mulai dari pengembangan dan pengujian perangkat lunak hingga manajemen infrastruktur TI yang kompleks. Dengan demikian, virtualisasi tidak hanya meningkatkan efisiensi operasional, tetapi juga memberikan kemudahan dalam pengelolaan sumber daya yang beragam, menjadikannya solusi yang sangat diperlukan dalam dunia TI yang terus berkembang.
 
     \begin{thebibliography}{9}
         \bibitem{umar2013}
@@ -429,7 +429,7 @@ print("Turnaround Time:", turnaround)
         \par Turnaround Time: [(1, 4), (3, 3), (2, 6)]
         
     \item Implementasi RR (Round Robin)
-        \par  Implementasikan algoritma penjadwalan RR. Buatlah fungsi yang menerima daftar proses (dengan waktu tiba dan waktu eksekusi) serta kuota waktu, dan mengembalikan waktu penyelesaian, waktu tunggu, dan waktu respon untuk setiap proses. Gunakan daftar proses berikut sebagai contoh dan kuota waktu 2:
+        \par  Implementasikan algoritma penjadwalan RR. Buatlah fungsi yang menerima daftar proses (dengan waktu tiba dan waktu eksekusi) serta kuota waktu, dan mengembalikan waktu penyelesaian, waktu tunggu, dan waktu respon untuk setiap proses. Gunakan daftar proses berikut sebagai contoh dan kuota waktu dua:
         \begin{table}[h!]
         \centering
         \begin{tabular}{|c|c|c|}
@@ -505,7 +505,7 @@ print("Turnaround Time:", turnaround)
         \par Turnaround Time: {1: 4, 2: 5, 3: 5}
         
     \item Bandingkan Kinerja
-        \par  Bandingkan kinerja algoritma penjadwalan FCFS, SJN, dan RR menggunakan daftar proses yang sama dan kuota waktu RR 2. Hitung waktu rata-rata untuk waktu tunggu masing-masing algoritma.
+        \par  Bandingkan kinerja algoritma penjadwalan FCFS, SJN, dan RR menggunakan daftar proses yang sama dan kuota waktu RR dua. Hitung waktu rata-rata untuk waktu tunggu masing-masing algoritma.
         \begin{table}[h!]
         \centering
         \begin{tabular}{|c|c|c|}

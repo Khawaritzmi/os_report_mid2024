@@ -90,15 +90,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Benefits of multithreading
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
-
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
 \begin{itemize}
@@ -175,7 +166,6 @@ File systems provide a way for the operating system to store, retrieve, and mana
         \item Proteksi
     \end{enumerate}  
 \end{itemize}
-\end{itemize}
 
 \subsection{Input and Output Management}
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
@@ -210,34 +200,150 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
+ 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Group 8}
+\subsubsection{Tugas: Penanganan Deadlock di Perusahaan XYZ}
+Perusahaan XYZ adalah perusahaan manufaktur besar yang menggunakan beberapa sumber daya dalam proses produksinya. Dalam sistem ini, terdapat empat proses yang berjalan secara bersamaan, masing-masing memerlukan beberapa sumber daya yang terbatas. Perusahaan mengalami masalah deadlock, di mana proses-proses tersebut saling menunggu sumber daya yang sedang digunakan oleh proses lain. 
+
+Sumber daya yang digunakan perusahaan meliputi:
+\begin{itemize}
+    \item Sumber Daya R1 : Mesin produksi utama.
+    \item Sumber Daya R2 : Robot otomatis untuk perakitan.
+    \item Sumber Daya R3 : Gudang penyimpanan sementara.
+\end{itemize}
+
+Perusahaan meminta bantuan Anda sebagai seorang ahli IT untuk mengatasi masalah deadlock ini. Anda diberi data tentang alokasi sumber daya, kebutuhan maksimum, dan ketersediaan sumber daya saat ini seperti yang dijelaskan dalam tabel berikut:
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    Proses & Alokasi & Kebutuhan Maksimum & Ketersediaan Sumber Daya \\
+    \hline
+    P1 & [1, 0, 2] & [3, 2, 2] & [2, 1, 1] \\
+    \hline
+    P2 & [0, 1, 1] & [2, 1, 2] & \\
+    \hline
+    P3 & [1, 1, 0] & [2, 1, 1] & \\
+    \hline
+    P4 & [0, 0, 1] & [1, 1, 1] & \\
+    \hline
+    \end{tabular}
+    \caption{Detail proses dan sumber daya untuk simulasi penanganan deadlock}
+    \label{tab:comprehensive_deadlock}
+\end{table}
+
+Anda diminta untuk menyelesaikan tugas berikut:
+
+\subsubsection{Soal: Analisis dan Solusi Masalah Deadlock}
+
+\textbf{Bagian A: Deteksi Deadlock}
+
+Gunakan algoritma Deadlock Detection untuk mendeteksi apakah terjadi deadlock pada sistem ini. Implementasikan solusi tersebut dan laporkan hasilnya.
+
+\textbf{Bagian B: Pencegahan Deadlock dengan Pemesanan Sumber Daya}
+
+Untuk mencegah deadlock di masa depan, Anda diminta untuk menerapkan metode **Deadlock Prevention menggunakan pemesanan sumber daya. Jelaskan metode yang akan Anda gunakan dan bagaimana urutan pemesanan sumber daya dapat membantu menghindari deadlock.
+
+\textbf{Bagian C: Penghindaran Deadlock dengan Banker's Algorithm}
+
+Gunakan Banker's Algorithm untuk menghindari terjadinya deadlock dalam skenario di atas. Implementasikan solusi tersebut untuk memastikan bahwa alokasi sumber daya aman, dan laporkan apakah sistem dalam kondisi aman atau tidak.
+
+\subsubsection{Jawaban:}
+
+Bagian A: Deteksi Deadlock
+
+\textbf{Kode Python:}
+
+\begin{python}
+import numpy as np
+
+def deadlock_detection(allocation, need, available):
+    num_processes = len(allocation)
+    num_resources = len(available)
+    
+    work = available[:]
+    finish = [False] * num_processes
+    
+    while True:
+        found = False
+        for i in range(num_processes):
+            if not finish[i]:
+                if all(need[i][j] <= work[j] for j in range(num_resources)):
+                    for j in range(num_resources):
+                        work[j] += allocation[i][j]
+                    finish[i] = True
+                    found = True
+        if not found:
+            break
+    
+    if all(finish):
+        print("Tidak ada deadlock.")
+    else:
+        print("Deadlock terdeteksi.")
+
+allocation = [[1, 0, 2], [0, 1, 1], [1, 1, 0], [0, 0, 1]]
+need = [[3-1, 2-0, 2-2], [2-0, 1-1, 2-1], [2-1, 1-1, 1-0], [1-0, 1-0, 1-1]]
+available = [2, 1, 1]
+
+deadlock_detection(allocation, need, available)
+\end{python}
+
+\textbf{Hasil yang Diharapkan:} Dalam skenario ini, hasil yang diharapkan adalah "Tidak ada deadlock" atau "Deadlock terdeteksi" bergantung pada alokasi dan ketersediaan sumber daya.
+
+Bagian B: Pencegahan Deadlock dengan Pemesanan Sumber Daya
+
+\textbf{Penjelasan:}
+
+Untuk mencegah deadlock, semua proses harus meminta sumber daya dalam urutan tertentu, misalnya R1 → R2 → R3. Dengan memastikan bahwa semua proses mengikuti urutan ini, deadlock dapat dihindari.
+
+\textbf{Metode Pencegahan:}
+Jika P1 memesan sumber daya dalam urutan R1 → R2 → R3, maka P3 yang meminta R1 dan R2 dapat diproses setelah P1 selesai.
+
+\textbf{Hasil:}
+Dengan pemesanan sumber daya, deadlock dapat dihindari.
+
+Bagian C: Banker's Algorithm
+
+\textbf{Kode Python:}
+
+\begin{python}
+def is_safe(available, allocation, max_need):
+    num_processes = len(allocation)
+    num_resources = len(available)
+    
+    work = available[:]
+    finish = [False] * num_processes
+    safe_sequence = []
+
+    while len(safe_sequence) < num_processes:
+        found = False
+        for i in range(num_processes):
+            if not finish[i]:
+                if all(max_need[i][j] - allocation[i][j] <= work[j] for j in range(num_resources)):
+                    for j in range(num_resources):
+                        work[j] += allocation[i][j]
+                    finish[i] = True
+                    safe_sequence.append(i)
+                    found = True
+        if not found:
+            break
+
+    if len(safe_sequence) == num_processes:
+        print(f"Sistem aman, urutan aman: {safe_sequence}")
+    else:
+        print("Sistem tidak aman, deadlock mungkin terjadi.")
+
+available = [2, 1, 1]
+allocation = [[1, 0, 2], [0, 1, 1], [1, 1, 0], [0, 0, 1]]
+max_need = [[3, 2, 2], [2, 1, 2], [2, 1, 1], [1, 1, 1]]
+
+is_safe(available, allocation, max_need)
+\end{python}
+
+\textbf{Hasil yang Diharapkan:} Dalam skenario ini, hasil yang diharapkan adalah: "Sistem aman, urutan aman: [x, y, z]" atau "Sistem tidak aman, deadlock mungkin terjadi," bergantung pada alokasi dan kebutuhan maksimum.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -257,3 +363,4 @@ In this assignment, students implemented file system access routines, including:
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
 \end{document}
+

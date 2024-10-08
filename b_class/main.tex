@@ -290,8 +290,237 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
+\subsubsection{Group 9}
+\begin{enumerate}
+    \item Buatlah program multithreading sederhana dalam Python yang menghitung jumlah bilangan prima dalam rentang tertentu. Kemudian, terapkan Hukum Amdahl untuk menghitung percepatan teoretis berdasarkan proporsi bagian dari program yang dapat diparalelkan.
+
+\textit{JAWABAN : }
+\begin{lstlisting}[language=Python, caption={Skenario Multithreading dan Hukum Amdahl}, label={lst:cli_program}, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, commentstyle=\color{gray}]
+import threading
+import math
+import time
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def count_primes(start, end, results, index):
+    count = 0
+    for number in range(start, end):
+        if is_prime(number):
+            count += 1
+    results[index] = count
+
+def main():
+    start_range = 1
+    end_range = 100000
+    num_threads = 4
+    chunk_size = (end_range - start_range) // num_threads
+    threads = []
+    results = [0] * num_threads
+
+    for i in range(num_threads):
+        start = start_range + i * chunk_size
+        end = start_range + (i + 1) * chunk_size if i != num_threads - 1 else end_range
+        thread = threading.Thread(target=count_primes, args=(start, end, results, i))
+        threads.append(thread)
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    total_primes = sum(results)
+    print(f"Total bilangan prima antara {start_range} dan {end_range} adalah: {total_primes}")
+
+    # Menerapkan Hukum Amdahl
+    P = 0.75  # Misalnya 75% dari program dapat diparalelkan
+    speedup = 1 / ((1 - P) + (P / num_threads))
+    print(f"Percepatan teoretis menggunakan Hukum Amdahl dengan {num_threads} thread: {speedup}")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\textit{PENJELASAN: }
+\begin{itemize}
+    \item \textbf{Import Modul:}
+    \begin{itemize}
+        \item \texttt{import threading}: Mengimpor modul \texttt{threading} untuk membuat dan mengelola thread.
+        \item \texttt{import math}: Mengimpor modul \texttt{math} untuk fungsi matematika, seperti \texttt{sqrt()}.
+        \item \texttt{import time}: Modul ini dapat berguna untuk pengukuran waktu, meskipun tidak digunakan dalam kode ini.
+    \end{itemize}
+
+    \item \textbf{Fungsi \texttt{is\_prime(n)}:}
+    \begin{itemize}
+        \item Memeriksa apakah bilangan \texttt{n} adalah bilangan prima dengan cara mengecek faktor dari 2 hingga \texttt{sqrt(n)}. Jika \texttt{n} dapat dibagi oleh salah satu faktor ini, maka \texttt{n} bukan bilangan prima.
+    \end{itemize}
+
+    \item \textbf{Fungsi \texttt{count\_primes(start, end, results, index)}:}
+    \begin{itemize}
+        \item Fungsi ini menghitung jumlah bilangan prima dalam rentang dari \texttt{start} hingga \texttt{end} dan menyimpan hasilnya di \texttt{results} pada indeks \texttt{index}.
+    \end{itemize}
+
+    \item \textbf{Fungsi \texttt{main()}:}
+    \begin{itemize}
+        \item Menentukan rentang pencarian bilangan prima dan jumlah thread yang akan digunakan.
+        \item Menghitung \texttt{chunk\_size} untuk membagi rentang pencarian ke dalam bagian yang lebih kecil untuk setiap thread.
+        \item Menginisialisasi daftar untuk menyimpan objek thread dan hasil masing-masing thread.
+        \item Menggunakan loop untuk membuat dan memulai setiap thread berdasarkan rentang yang ditentukan.
+        \item Menunggu semua thread selesai dieksekusi dengan menggunakan \texttt{join()}.
+        \item Menghitung total bilangan prima dengan menjumlahkan hasil dari setiap thread dan menampilkannya.
+    \end{itemize}
+
+    \item \textbf{Menerapkan Hukum Amdahl:}
+    \begin{itemize}
+        \item Menerapkan Hukum Amdahl untuk menghitung percepatan teoretis berdasarkan proporsi bagian dari program yang dapat diparalelkan. Misalnya, jika 75\% dari program dapat diparalelkan, maka percepatan teoretis dapat dihitung dengan rumus yang sesuai.
+    \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Group 9}
+\begin{enumerate}
+    \item 
+
+Buatlah sebuah program CLI (Command Line Interface) sederhana menggunakan bahasa pemrograman Python. Program ini harus mendukung perintah-perintah berikut:
+\begin{itemize}
+    \item Manipulasi file:
+    \begin{itemize}
+        \item Membuat file baru.
+        \item Menampilkan daftar file dalam direktori saat ini.
+        \item Menghapus file.
+    \end{itemize}
+    \item Manajemen proses:
+    \begin{itemize}
+        \item Menampilkan daftar proses yang sedang berjalan pada sistem.
+    \end{itemize}
+    \item Pelaporan status sistem
+    \begin{itemize}
+        \item Menampilkan penggunaan CPU dan memori saat ini.
+    \end{itemize}
+\end{itemize}
+\newline 
+Berikut adalah contoh implementasi CLI sederhana menggunakan Python.
+
+\textit{JAWABAN : }
+\begin{lstlisting}[language=Python, caption={Program CLI Sederhana}, label={lst:cli_program}, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, commentstyle=\color{gray}]
+import os
+import psutil  # Untuk manajemen proses dan status sistem
+
+def create_file():
+    filename = input("Masukkan nama file yang ingin dibuat: ")
+    with open(filename, 'w') as f:
+        f.write("")  # Membuat file kosong
+    print(f"File '{filename}' berhasil dibuat.")
+
+def list_files():
+    files = os.listdir('.')  # Menampilkan daftar file dalam direktori saat ini
+    if files:
+        print("Daftar file dalam direktori saat ini:")
+        for file in files:
+            print(file)
+    else:
+        print("Tidak ada file dalam direktori ini.")
+
+def delete_file():
+    filename = input("Masukkan nama file yang ingin dihapus: ")
+    if os.path.exists(filename):  # Memeriksa apakah file ada
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+def list_processes():
+    print("Daftar proses yang sedang berjalan:")
+    for proc in psutil.process_iter(['pid', 'name']):
+        print(f"PID: {proc.info['pid']}, Nama: {proc.info['name']}")  # Menampilkan PID dan nama proses
+
+def system_status():
+    cpu_usage = psutil.cpu_percent(interval=1)  # Menghitung penggunaan CPU
+    memory_info = psutil.virtual_memory()  # Mendapatkan informasi memori
+    print(f"Penggunaan CPU saat ini: {cpu_usage}%")
+    print(f"Penggunaan Memori: {memory_info.percent}%")
+
+def main():
+    while True:
+        print("\nMenu CLI Sederhana:")
+        print("1. Membuat file baru")
+        print("2. Menampilkan daftar file")
+        print("3. Menghapus file")
+        print("4. Menampilkan daftar proses yang berjalan")
+        print("5. Menampilkan status sistem (CPU & Memori)")
+        print("6. Keluar")
+        
+        choice = input("Pilih perintah (1-6): ")
+
+        if choice == '1':
+            create_file()
+        elif choice == '2':
+            list_files()
+        elif choice == '3':
+            delete_file()
+        elif choice == '4':
+            list_processes()
+        elif choice == '5':
+            system_status()
+        elif choice == '6':
+            print("Keluar dari program.")
+            break
+        else:
+            print("Pilihan tidak valid, silakan coba lagi.")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\textit{PENJELASAN: }
+\begin{itemize}
+    \item \texttt{import os}: Digunakan untuk manipulasi file dan direktori.
+    \item \texttt{import psutil}: Digunakan untuk mendapatkan informasi mengenai proses yang sedang berjalan dan status sistem (penggunaan CPU dan memori).
+\end{itemize}
+
+\newline Fungsi \texttt{create\_file()}
+\begin{itemize}
+    \item Meminta pengguna untuk memasukkan nama file yang ingin dibuat.
+    \item Membuat file kosong dengan nama tersebut menggunakan \texttt{with open()}.
+\end{itemize}
+
+\newline Fungsi \texttt{list\_files()}
+\begin{itemize}
+    \item Menggunakan \texttt{os.listdir()} untuk mendapatkan daftar file dalam direktori saat ini.
+    \item Menampilkan daftar file kepada pengguna. Jika tidak ada file, mencetak pesan yang sesuai.
+\end{itemize}
+
+\newline Fungsi \texttt{delete\_file()}
+\begin{itemize}
+    \item Meminta pengguna untuk memasukkan nama file yang ingin dihapus.
+    \item Memeriksa keberadaan file tersebut dengan \texttt{os.path.exists()}.
+    \item Menghapus file jika ada, menggunakan \texttt{os.remove()}.
+\end{itemize}
+
+\newline Fungsi \texttt{list\_processes()}
+\begin{itemize}
+    \item Menggunakan \texttt{psutil.process\_iter()} untuk mendapatkan daftar proses yang sedang berjalan.
+    \item Menampilkan PID (Process ID) dan nama setiap proses.
+\end{itemize}
+
+\newline Fungsi \texttt{system\_status()}
+\begin{itemize}
+    \item Menggunakan \texttt{psutil.cpu\_percent()} untuk mendapatkan penggunaan CPU saat ini.
+    \item Menggunakan \texttt{psutil.virtual\_memory()} untuk mendapatkan informasi mengenai penggunaan memori.
+\end{itemize}
+
+\newline Fungsi \texttt{main()}
+\begin{itemize}
+    \item Menyediakan menu interaktif bagi pengguna untuk memilih perintah yang diinginkan.
+    \item Menggunakan loop \texttt{while True} untuk terus menampilkan menu hingga pengguna memilih untuk keluar dengan opsi 6.
+    \item Memproses input pengguna dan memanggil fungsi yang sesuai berdasarkan pilihan yang dibuat.
+\end{itemize}
+\end{enumerate}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

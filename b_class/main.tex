@@ -196,9 +196,93 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+\subsubsection{Group 2}
+\subsubsection{Group 3}
+Implementasikan algoritma First-Come, First-Served (FCFS), Shortest Job Next (SJN), dan Round Robin (RR) untuk proses scheduling. Bandingkan waktu eksekusi rata-rata (average waiting time) dari ketiga algoritma tersebut dengan jumlah proses yang berbeda.
+\begin{python}
+    # FCFS Scheduling
+def fcfs(processes):
+    n = len(processes)
+    wait_time = [0] * n
+    for i in range(1, n):
+        wait_time[i] = processes[i-1][1] + wait_time[i-1]
+    avg_wait_time = sum(wait_time) / n
+    return avg_wait_time
+
+# SJN Scheduling
+def sjn(processes):
+    processes.sort(key=lambda x: x[1])  # Sort by burst time
+    return fcfs(processes)
+
+# RR Scheduling
+def round_robin(processes, quantum):
+    wait_time = [0] * len(processes)
+    rem_burst_time = [p[1] for p in processes]
+    t = 0
+    while any(rem_burst_time):
+        for i in range(len(processes)):
+            if rem_burst_time[i] > 0:
+                if rem_burst_time[i] > quantum:
+                    t += quantum
+                    rem_burst_time[i] -= quantum
+                else:
+                    t += rem_burst_time[i]
+                    wait_time[i] = t - processes[i][1]
+                    rem_burst_time[i] = 0
+    avg_wait_time = sum(wait_time) / len(processes)
+    return avg_wait_time
+
+# Example usage
+processes = [(1, 5), (2, 9), (3, 6)]  # (process_id, burst_time)
+print("FCFS:", fcfs(processes))
+print("SJN:", sjn(processes))
+print("Round Robin:", round_robin(processes, 4))
+\end{python}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Group 1}
+\subsubsection{Group 2}
+\subsubsection{Group 3}
+Simulasikan kondisi deadlock pada sistem dengan 3 proses dan 2 resource. Jelaskan dan implementasikan metode pencegahan deadlock dengan metode "Banker’s Algorithm."
+
+\begin{python}
+    # Banker's Algorithm
+def is_safe(processes, available, max_demand, allocation):
+    n = len(processes)
+    m = len(available)
+    need = [[max_demand[i][j] - allocation[i][j] for j in range(m)] for i in range(n)]
+    finish = [False] * n
+    safe_seq = []
+    work = available[:]
+    
+    while len(safe_seq) < n:
+        allocated = False
+        for i in range(n):
+            if not finish[i] and all(need[i][j] <= work[j] for j in range(m)):
+                for j in range(m):
+                    work[j] += allocation[i][j]
+                safe_seq.append(i)
+                finish[i] = True
+                allocated = True
+        if not allocated:
+            return False, []
+    
+    return True, safe_seq
+
+# Example Usage
+processes = [0, 1, 2]
+available = [3, 3]  # Available resources
+max_demand = [[7, 5], [3, 2], [9, 0]]  # Maximum demand of each process
+allocation = [[0, 1], [2, 0], [3, 3]]  # Allocated resources
+
+safe, seq = is_safe(processes, available, max_demand, allocation)
+if safe:
+    print("Safe sequence exists:", seq)
+else:
+    print("System is in deadlock.")
+
+\end{python}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

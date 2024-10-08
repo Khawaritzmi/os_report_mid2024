@@ -70,7 +70,7 @@ Describes the architecture of modern computer systems, focusing on the interacti
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{asset/menejemen.jpg}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{assets/menejemen.jpg}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -137,7 +137,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{assets/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -216,7 +216,83 @@ Students were tasked with implementing various process scheduling algorithms (e.
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied \textbf{Amdahl's Law} to calculate the theoretical speedup of the program as the number of threads increased.
+
+\subsubsection{Group 4}
+Apa itu \textbf{Hukum Amdahl} dan bagaimana hukum ini diterapkan dalam skenario multithreading untuk menghitung peningkatan kecepatan teoritis dari sebuah program?
+
+\subsubsection{Jawaban}
+Amdahl's Law adalah prinsip dalam komputasi paralel yang digunakan untuk memperkirakan peningkatan kinerja (speedup) suatu program ketika dijalankan secara paralel menggunakan beberapa thread atau prosesor. Menurut Amdahl's Law, peningkatan kinerja maksimal yang dapat dicapai oleh suatu program menggunakan pemrosesan paralel dibatasi oleh bagian dari program yang tidak dapat diparalelkan.
+
+Amdahl's Law diwakili oleh rumus:
+
+\[
+S(N) = \frac{1}{(1 - P) + \frac{P}{N}}
+\]
+
+di mana:
+\begin{itemize}
+    \item $S(N)$ adalah speedup teoritis dengan $N$ thread.
+    \item $P$ adalah persentase bagian dari program yang dapat diparalelkan.
+    \item $N$ adalah jumlah thread atau prosesor yang digunakan.
+\end{itemize}
+
+Dalam skenario multithreading, Amdahl's Law membantu menghitung speedup teoritis dari program yang intensif secara komputasi seiring bertambahnya jumlah thread. Semakin besar bagian dari program yang dapat diparalelkan ($P$), semakin besar potensi peningkatan kinerja, tetapi peningkatan kinerja ini akan selalu dibatasi oleh bagian dari program yang tidak dapat diparalelkan.
+
+\begin{itemize}
+    \item {Python Code Implementation}
+\end{itemize}
+
+Kode Python berikut ini menunjukkan penerapan \textbf{Hukum Amdahl} untuk menghitung peningkatan kecepatan teoritis berdasarkan jumlah thread yang digunakan:
+
+\begin{python}
+def amdahls_law(P, N):
+    """
+    Menghitung speedup teoritis menggunakan Amdahl's Law.
+    
+    P : float : Persentase bagian yang bisa diparalelkan (0 <= P <= 1)
+    N : int : Jumlah thread atau prosesor
+    """
+    if N == 0:
+        return 1  # Tidak ada thread tambahan, jadi speedup tetap 1 (tidak ada paralelisme)
+    
+    return 1 / ((1 - P) + (P / N))
+
+# Bagian yang bisa diparalelkan (misalnya 70\% dari program bisa diparalelkan)
+P = 0.7
+
+# Daftar jumlah thread yang akan diuji
+threads = [1, 2, 4, 8, 16, 32]  
+
+# Menghitung dan menampilkan speedup untuk setiap jumlah thread
+for N in threads:
+    speedup = amdahls_law(P, N)
+    print(f"Jumlah thread: {N}, Speedup teoritis: {speedup:.2f}")
+\end{python}
+
+\begin{itemize}
+    \item {Example Output}
+\end{itemize}
+Menggunakan implementasi \textit{Python} dari \textbf{Hukum Amdahl} dengan \( P = 0.7 \) (yaitu, 70\% dari program dapat diparalelkan) dan menguji peningkatan kecepatan dengan jumlah thread yang berbeda, kami mendapatkan hasil berikut:
+
+\[
+\begin{array}{|c|c|}
+\hline
+\text{Number of Threads} & \text{Theoretical Speedup} \\
+\hline
+1 & 1.00 \\
+2 & 1.54 \\
+4 & 2.11 \\
+8 & 2.58 \\
+16 & 2.91 \\
+32 & 3.11 \\
+\hline
+\end{array}
+\]
+
+Seperti yang ditunjukkan oleh hasil, meningkatkan jumlah thread meningkatkan kecepatan, tetapi ada batasan pada peningkatan berdasarkan \textbf{Hukum Amdahl}. Bahkan dengan 32 thread, kecepatan maksimum yang dicapai adalah sekitar 3.11, karena 30\% dari program tidak dapat diparalelkan.
+
+
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
@@ -229,8 +305,9 @@ In this assignment, students implemented file system access routines, including:
     \item Navigating directories and managing file permissions
 \end{itemize}
 
-\section{Conclusion}
-The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+\section{Kesimpulan}
+Laporan ini mengulas dasar-dasar sistem operasi, meliputi arsitektur sistem, manajemen proses, penjadwalan CPU, dan penanganan \textit{deadlock}. Materi yang dipelajari memberikan wawasan mendalam tentang cara kerja sistem operasi dan pentingnya komunikasi antar-proses serta sinkronisasi untuk menghindari kondisi balapan dan \textit{deadlock}. Konsep multithreading dan penerapan Hukum Amdahl juga menyoroti keuntungan pemrograman paralel dalam meningkatkan kinerja. Secara keseluruhan, pemahaman ini mempersiapkan mahasiswa menghadapi tantangan di dunia nyata serta membangun fondasi yang kuat untuk pengembangan perangkat lunak dan penelitian di masa depan.
+
 
 %\section*{Daftar Pustaka}
 

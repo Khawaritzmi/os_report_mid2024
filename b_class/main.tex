@@ -5,6 +5,8 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{enumitem}
+\usepackage{pythonhighlight}
+\usepackage{xcolor}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -110,13 +112,13 @@ File systems provide a way for the operating system to store, retrieve, and mana
             \item Dua file dengan nama yang sama tidak bisa disimpan di direktori yang sama.
             \item Struktur yang kurang fleksibel untuk pengorganisasi file yang lebih kompleks dan banyak pengguna.
         \end{itemize}
-
-        \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.5\textwidth]{assets/gambar1.jpg}
-        \caption{Single Level Direktori.}
-        \label{fig:single-level-direktori}
-        \end{figure}
+        
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{asset/gambar1.jpg}
+    \caption{Single Level Direktori.}
+    \label{fig:single-level-direktori}
+    \end{figure}
 
         \textbf{Penjelasan Gambar 1:}
         \begin{itemize}
@@ -129,7 +131,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
 
         \begin{figure}[h]
         \centering
-        \includegraphics[width=0.5\textwidth]{assets/gambar2.jpg}
+        \includegraphics[width=0.5\textwidth]{asset/gambar2.jpg}
         \caption{Two-Level Direktori.}
         \label{fig:two-level-direktori}
         \end{figure}
@@ -151,7 +153,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
 
         \begin{figure}[h]
         \centering
-        \includegraphics[width=0.5\textwidth]{assets/gambar3.jpg}
+        \includegraphics[width=0.5\textwidth]{asset/gambar3.jpg}
         \caption{Tree-Structured Direktori.}
         \label{fig:tree-structured-direktori}
         \end{figure}
@@ -192,6 +194,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
         Struktur ini memecahkan masalah penyimpanan data secara efisien dengan mendukung penggunaan beberapa jalur untuk file yang sama, namun perlu manajemen yang baik untuk mencegah pointer gantung.
     \end{enumerate}
 \end{enumerate}
+        
 \end{itemize}
 
 \subsection{Input and Output Management}
@@ -227,9 +230,103 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+\subsubsection{Group 1}
+\begin{python}
+    class Process:
+    def _init_(self, pid, arrival_time, burst_time):
+        self.pid = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+        self.completion_time = 0
+        self.turnaround_time = 0
+        self.waiting_time = 0
+\end{python}
+
+\begin{table}[htbp] % Optional: For floating position
+    \centering
+    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \hline
+    Header 1 & Header 2 & Header 3 \\ % Column headers
+    \hline
+    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
+    \hline
+    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
+    \hline
+    \end{tabular}
+    \caption{Your table caption} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Group 8}
+\begin{enumerate}[label=\alph*.]
+\item  \textbf{Soal} \\
+Di sebuah bank, terdapat empat proses yang menangani berbagai layanan seperti transaksi penarikan, setoran, dan transfer. Masing-masing proses membutuhkan sumber daya seperti jaringan, basis data, dan API eksternal untuk menyelesaikan transaksi mereka.
+
+Kejadian deadlock mungkin terjadi jika proses saling menunggu sumber daya yang sudah dimiliki oleh proses lain. Tugasnya adalah membuat program Python untuk mendeteksi apakah terjadi deadlock dalam skenario ini menggunakan Wait-for Graph.
+
+\begin{itemize}
+    \item Proses 1 (P1) membutuhkan akses ke jaringan dan basis data.
+    \item Proses 2 (P2) membutuhkan akses ke API eksternal dan basis data.
+    \item Proses 3 (P3) membutuhkan akses ke basis data dan jaringan.
+    \item Proses 4 (P4) membutuhkan akses ke jaringan dan API eksternal.
+\end{itemize}
+
+
+    \item \textbf{Jawaban (Python)}
+\begin{lstlisting}[language=Python, caption=Deadlock Detection in Python, label=lst:pythoncode, frame=single, backgroundcolor=\color{lightgray}, basicstyle=\ttfamily\small, breaklines=true, xleftmargin=1em, xrightmargin=1em]
+# Fungsi untuk mendeteksi siklus (deadlock) menggunakan algoritma DFS
+def detect_cycle(wait_for_graph, visited, rec_stack, process):
+    visited[process] = True
+    rec_stack[process] = True
+
+    # Mengecek semua proses yang sedang menunggu proses ini
+    for neighbor in wait_for_graph[process]:
+        if not visited[neighbor]:
+            if detect_cycle(wait_for_graph, visited, rec_stack, neighbor):
+                return True
+        elif rec_stack[neighbor]:
+            return True
+
+    rec_stack[process] = False
+    return False
+
+# Fungsi utama untuk mendeteksi deadlock
+def deadlock_detection(processes, wait_for_graph):
+    visited = {p: False for p in processes}
+    rec_stack = {p: False for p in processes}
+
+    # Melakukan DFS dari setiap proses
+    for process in processes:
+        if not visited[process]:
+            if detect_cycle(wait_for_graph, visited, rec_stack, process):
+                return True
+    return False
+
+# Input: Proses dan Wait-for Graph
+processes = ['P1', 'P2', 'P3', 'P4']
+wait_for_graph = {
+    'P1': ['P3'],  # P1 menunggu P3
+    'P2': ['P1'],  # P2 menunggu P1
+    'P3': ['P4'],  # P3 menunggu P4
+    'P4': ['P2'],  # P4 menunggu P2 (membentuk siklus)
+}
+
+# Memeriksa apakah ada deadlock
+if deadlock_detection(processes, wait_for_graph):
+    print("Deadlock terdeteksi! Proses-proses yang terlibat: P1, P2, P3, P4")
+else:
+    print("Tidak ada deadlock.")
+\end{lstlisting}
+
+\item \textbf{Output} \\
+Berikut adalah output dari program deteksi deadlock yang dijalankan:
+\begin{verbatim}
+Deadlock terdeteksi! Proses-proses yang terlibat: P1, P2, P3, P4
+\end{verbatim}
+\end{enumerate}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -247,5 +344,13 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\section{Referensi}
+\sloppy
+\begin{itemize}
+    \item {Silberschatz, dkk. 2013. Chapter 10 : File System. Operating System Concepts - 9th Edition.}
+    \item {Yadav, Aakansha. 2024. File Systems in Operating System. https://www.geeksforgeeks.org/file-systems-in-operating-system/. Diakses : 08 September 2024.}
+\end{itemize}
+\fussy
 
 \end{document}

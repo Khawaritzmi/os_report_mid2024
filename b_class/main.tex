@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -89,7 +90,16 @@ This section introduces the concept of threads and their relation to processes, 
     \item Benefits of multithreading
 \end{itemize}
 
-\subsection{File System}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \caption{Ini adalah gambar contoh dari multithreading.}
+    \label{fig:contoh_gambar}
+\end{figure}
+
+Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+
+\subsection{File Systems}
 File adalah unit penyimpanan logika yang diabstraksi oleh sistem operasi dari perangkat penyimpanan. File berisi informasi yang disimpan pada penyimpanan sekunder (seperti \textit{magnetic disk}, \textit{magnetic tape}, dan \textit{optical disk}). Informasi dalam file didefinisikan oleh pembuatnya. Setiap file memiliki struktur tertentu tergantung pada isinya. File dapat terdiri dari data (baik berupa data numerik, karakter, maupun biner) serta program seperti \textit{source program}, \textit{object program}, dan \textit{executable program}.
 
 \subsubsection*{a. Ruang Alamat Logis yang Berdekatan}
@@ -132,7 +142,7 @@ File memiliki nama dan data. Selain itu, ia juga menyimpan informasi meta sepert
 
 \begin{enumerate}
     \item \textbf Nama: Ini adalah satu-satunya informasi yang disimpan dalam bentuk yang dapat dibaca manusia.
-    \item \textbf Pengidentifikasi: Setiap file diidentifikasi dengan nomor tag unik dalam sistem file yang dikenal sebagai pengidentifikasi.
+    \item \textbf	Pengidentifikasi: Setiap file diidentifikasi dengan nomor tag unik dalam sistem file yang dikenal sebagai pengidentifikasi.
     \item \textbf Tempat: Menunjuk ke lokasi file di perangkat.	
     \item \textbf Jenis: Atribut ini diperlukan untuk sistem yang mendukung berbagai jenis file.
     \item \textbf Ukuran: Atribut yang digunakan untuk menampilkan ukuran file saat ini.	
@@ -175,6 +185,7 @@ Atribut ini disimpan dalam struktur direktori sistem file, yang memungkinkan sis
 \subsubsection*{c. Open Files}
 
 
+
 Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem operasi modern, karena pada dasarnya, setiap proses yang berjalan sering kali berinteraksi dengan file untuk membaca data, menulis informasi, atau mengakses sumber daya tertentu. Oleh karena itu, manajemen \textit{open files} yang efektif akan berdampak langsung pada kinerja beberapa komponen utama yang dibutuhkan untuk mengelola file:
 
 \begin{enumerate}
@@ -192,13 +203,15 @@ Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem oper
 
     \item \textbf{Hak akses}: \\
     Izin yang dimiliki setiap proses terkait berkas tertentu. Misalnya, suatu proses mungkin memiliki hak baca, tulis, atau eksekusi berdasarkan mode aksesnya. Hak akses menegakkan keamanan dan memastikan bahwa proses hanya dapat berinteraksi dengan berkas sesuai dengan cara yang diizinkan, mencegah akses atau modifikasi yang tidak sah.
+
 \end{enumerate}
 
-\\subsubsection*{d. Tipe File}
 
-\begin{table}[htbp] 
+\subsubsection*{d. Tipe File}
+
+\begin{table}[htbp] % Optional: For floating position
     \centering
-    \begin{tabular}{|c|c|p{4cm}|p{7cm}|} 
+    \begin{tabular}{|c|c|p{4cm}|p{7cm}|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
     \hline
 \textbf{File Type}      & \textbf{Usual Extension}        & \textbf {Function}                                                      \\ \hline
 Executable              & exe, com, bin or none           & Read to run machine-language program                                    \\ \hline
@@ -215,12 +228,10 @@ Multimedia              & mpeg, mov, rm                   & Binary file containi
     \caption{File Type}
     \label{tab:your_label}
 \end{table}
-
+     
 Salah satu pertimbangan penting dalam merancang sistem file dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem file. Bila sistem operasi mengenali tipe suatu file, maka dapat dilakukan operasi terhadap file dengan lebih baik.
 
 \textit{UNIX} menggunakan \textit{magic number} yang disimpan pada awal file untuk mengindikasikan tipe file berupa program \textit{executable}, \textit{batch file} (shell script), file \textit{postscript}, dan lain-lain. Tidak semua file mempunyai \textit{magic number}, sehingga informasi tipe tidak dapat digambarkan. \textit{UNIX} tidak menyimpan nama dari program pembuatnya. \textit{UNIX} juga mengizinkan nama ekstensi dari file tersembunyi, sehingga pengguna dapat menentukan tipe file sendiri dan tidak tergantung pada sistem operasi.
-
-
     \item File access methods
     \item Directory management
 \end{itemize}
@@ -258,12 +269,249 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+\subsubsection{Group 1}
+\begin{python}
+    class Process:
+    def __init__(self, pid, arrival_time, burst_time):
+        self.pid = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+        self.completion_time = 0
+        self.turnaround_time = 0
+        self.waiting_time = 0
+\end{python}
+
+\begin{table}[htbp] % Optional: For floating position
+    \centering
+    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \hline
+    Header 1 & Header 2 & Header 3 \\ % Column headers
+    \hline
+    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
+    \hline
+    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
+    \hline
+    \end{tabular}
+    \caption{Your table caption} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
+
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{Group 8}
+Implementasikan algoritma penjadwalan proses First Come First Serve (FCFS). Ada 4 proses dengan arrival time dan burst time sebagai berikut:
+\begin{itemize}
+    \item P1: Arrival Time = 0, Burst Time = 5
+    \item P2: Arrival Time = 1, Burst Time = 3
+    \item P3: Arrival Time = 2, Burst Time = 8
+    \item P4: Arrival Time = 3, Burst Time = 6
+\end{itemize}
+Hitung waiting time dan turnaround time untuk setiap proses.
+\begin{table}[htbp] % Optional: For floating position
+    \centering
+    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \hline
+    Proses  & Arrival Time  & Burst Time  \\ % Column headers
+    \hline
+    1  & 0 & 5 \\ % First row of data
+    \hline
+    2 & 1 &3 \\
+    \hline
+    3 & 2 & 8 \\
+    \hline
+    4 & 3 & 6 \\
+    
+    \hline
+    \end{tabular}
+    \caption{Tabel Data Proses} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
+
+\begin{python}
+    
+# FCFS Scheduling
+def fcfs_scheduling(processes, burst_time, arrival_time):
+    n = len(processes)
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    
+    # Service time calculation
+    service_time = [0] * n
+    service_time[0] = arrival_time[0]
+    
+    for i in range(1, n):
+        service_time[i] = service_time[i - 1] + burst_time[i - 1]
+        waiting_time[i] = service_time[i] - arrival_time[i]
+        waiting_time[i] = max(waiting_time[i], 0)
+
+    # Turnaround time calculation
+    for i in range(n):
+        turnaround_time[i] = burst_time[i] + waiting_time[i]
+
+    avg_waiting_time = sum(waiting_time) / n
+    avg_turnaround_time = sum(turnaround_time) / n
+
+    return waiting_time, turnaround_time, avg_waiting_time, avg_turnaround_time
+
+# SJN Scheduling (non-preemptive)
+def sjn_scheduling(processes, burst_time, arrival_time):
+    n = len(processes)
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    completed = [False] * n
+    time = 0
+    completed_count = 0
+    
+    while completed_count < n:
+        min_bt = float('inf')
+        min_index = -1
+        
+        for i in range(n):
+            if arrival_time[i] <= time and not completed[i] and burst_time[i] < min_bt:
+                min_bt = burst_time[i]
+                min_index = i
+        
+        if min_index == -1:
+            time += 1
+            continue
+        
+        waiting_time[min_index] = time - arrival_time[min_index]
+        time += burst_time[min_index]
+        turnaround_time[min_index] = time - arrival_time[min_index]
+        completed[min_index] = True
+        completed_count += 1
+
+    avg_waiting_time = sum(waiting_time) / n
+    avg_turnaround_time = sum(turnaround_time) / n
+
+    return waiting_time, turnaround_time, avg_waiting_time, avg_turnaround_time
+
+# Round Robin Scheduling
+def rr_scheduling(processes, burst_time, arrival_time, time_quantum):
+    n = len(processes)
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+    remaining_bt = burst_time[:]
+    time = 0
+    complete = 0
+    
+    while complete < n:
+        for i in range(n):
+            if remaining_bt[i] > 0:
+                if remaining_bt[i] > time_quantum:
+                    time += time_quantum
+                    remaining_bt[i] -= time_quantum
+                else:
+                    time += remaining_bt[i]
+                    waiting_time[i] = time - burst_time[i] - arrival_time[i]
+                    turnaround_time[i] = time - arrival_time[i]
+                    remaining_bt[i] = 0
+                    complete += 1
+
+    avg_waiting_time = sum(waiting_time) / n
+    avg_turnaround_time = sum(turnaround_time) / n
+
+    return waiting_time, turnaround_time, avg_waiting_time, avg_turnaround_time
+
+# Fungsi untuk membandingkan algoritma
+def compare_algorithms(processes, burst_time, arrival_time, time_quantum):
+    print("== FCFS ==")
+    wt_fcfs, tat_fcfs, avg_wt_fcfs, avg_tat_fcfs = fcfs_scheduling(processes, burst_time, arrival_time)
+    print(f"Average Waiting Time: {avg_wt_fcfs:.2f}")
+    print(f"Average Turnaround Time: {avg_tat_fcfs:.2f}\n")
+
+    print("== SJN ==")
+    wt_sjn, tat_sjn, avg_wt_sjn, avg_tat_sjn = sjn_scheduling(processes, burst_time, arrival_time)
+    print(f"Average Waiting Time: {avg_wt_sjn:.2f}")
+    print(f"Average Turnaround Time: {avg_tat_sjn:.2f}\n")
+
+    print("== Round Robin ==")
+    wt_rr, tat_rr, avg_wt_rr, avg_tat_rr = rr_scheduling(processes, burst_time, arrival_time, time_quantum)
+    print(f"Average Waiting Time: {avg_wt_rr:.2f}")
+    print(f"Average Turnaround Time: {avg_tat_rr:.2f}\n")
+
+# Data proses
+processes = ['P1', 'P2', 'P3', 'P4']
+burst_time = [5, 3, 8, 6]
+arrival_time = [0, 1, 2, 3]
+time_quantum = 2
+
+compare_algorithms(processes, burst_time, arrival_time, time_quantum)
+
+\end{python}
+
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{Group 8}
+Buat sebuah skenario multithreading untuk menyelesaikan masalah komputasi intensif, seperti menghitung elemen terbesar dalam sebuah array besar. Implementasikan kode Python untuk menghitung elemen terbesar menggunakan multithreading dan hitung speedup teoritis menggunakan Amdahl’s Law saat jumlah thread meningkat.
+\begin{python}
+    import threading
+    import random
+    import time
+    
+    
+    def find_max(arr, result, index):
+        result[index] = max(arr)
+    
+    
+    def amdahls_law(serial_fraction, n_threads):
+        parallel_fraction = 1 - serial_fraction
+        speedup = 1 / (serial_fraction + (parallel_fraction / n_threads))
+        return speedup
+    
+    
+    def multithreaded_max(arr, num_threads):
+        chunk_size = len(arr) // num_threads
+        threads = []
+        results = [0] * num_threads
+    
+        for i in range(num_threads):
+            chunk = arr[i*chunk_size : (i+1)*chunk_size] if i != num_threads - 1 else arr[i*chunk_size:]
+            t = threading.Thread(target=find_max, args=(chunk, results, i))
+            threads.append(t)
+            t.start()
+    
+        for t in threads:
+            t.join()
+    
+        overall_max = max(results)
+        return overall_max
+    
+    
+    arr_size = 1000000
+    arr = [random.randint(1, 1000000) for _ in range(arr_size)]
+    
+    
+    n_threads_list = [1, 2, 4, 8]
+    serial_fraction = 0.1  # Assuming 10% of the code is not parallelizable
+    
+    print("Finding the maximum element in the array...")
+    for n_threads in n_threads_list:
+        start_time = time.time()
+        max_element = multithreaded_max(arr, n_threads)
+        end_time = time.time()
+    
+        elapsed_time = end_time - start_time
+        print(f"Number of threads: {n_threads}, Maximum element: {max_element}, Time taken: {elapsed_time:.4f} seconds")
+    
+        
+        theoretical_speedup = amdahls_law(serial_fraction, n_threads)
+        print(f"Theoretical Speedup with {n_threads} threads: {theoretical_speedup:.2f}\n")    
+\end{python}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

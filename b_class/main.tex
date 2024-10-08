@@ -68,11 +68,11 @@ The course is divided into two halves. This report focuses on the first half, wh
 This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
 
 \subsection{System Performance and Metrics}
-\subsubsection{\textit{Performance Metrics} Pada CPU}
-\hspace*{1cm}Kalau kita membahas kinerja matriks pada komputer, maka kita tidak lepas dari CPU. CPU atau \textit{Central Processing Unit} adalah komponen utama dari komputer yang bertanggung jawab untuk mengeksekusi instruksi-instruksi yang diberikan kepada komputer. Kinerja sebuah sistem sangat dipengaruhi oleh bagaimana CPU mengeksekusi instruksi. Jika kita ingin memaksimalkan kinerja sebuah sistem, kita tentu perlu meminimalkan waktu eksekusi karena kinerja berbanding terbalik dengan waktu eksekusi.
+\subsubsection{\textit{Performance Metrics} Pada \textit{CPU}}
+\hspace*{1cm} Jika kita membahas kinerja matriks pada komputer, maka kita tidak bisa lepas dari CPU. CPU atau \textit{Central Processing Unit} adalah komponen utama dari komputer yang bertanggung jawab mengeksekusi instruksi-instruksi yang diberikan kepada komputer. Kinerja suatu sistem sangat dipengaruhi oleh cara CPU mengeksekusi instruksi. Untuk memaksimalkan kinerja suatu sistem, kita tentu perlu meminimalkan waktu eksekusi, karena kinerja berbanding terbalik dengan waktu eksekusi.
 \newline
 \newline
-\hspace*{1cm}Untuk menentukan waktu eksekusi CPU untuk sebuah program, Anda dapat mencari tahu jumlah total siklus clock yang dibutuhkan program dan mengalikannya dengan waktu siklus clock. Setiap program terdiri dari sejumlah instruksi dan setiap instruksi membutuhkan sejumlah siklus clock untuk dieksekusi. Jika Anda mengetahui jumlah total siklus clock per program dan mengetahui waktu siklus clock untuk setiap siklus clock ini, maka waktu eksekusi CPU dapat dihitung sebagai hasil perkalian jumlah total siklus clock CPU per program dengan waktu siklus clock. Karena waktu siklus clock dan clock rate saling terkait, hal ini juga dapat ditulis sebagai jumlah siklus clock CPU untuk sebuah program dibagi dengan clock rate.
+\hspace*{1cm} Untuk menentukan waktu eksekusi CPU untuk suatu program, Anda dapat mencari tahu jumlah total \textit{\textit{clock} cycle} yang dibutuhkan program dan mengalikannya dengan waktu \textit{\textit{clock} cycle}. Setiap program terdiri dari sejumlah instruksi, dan setiap instruksi membutuhkan sejumlah \textit{\textit{clock} cycle} untuk dieksekusi. Jika Anda mengetahui jumlah total \textit{\textit{clock} cycle} per program serta mengetahui waktu \textit{\textit{clock} cycle} untuk setiap \textit{\textit{clock} cycle}, maka waktu eksekusi CPU dapat dihitung sebagai hasil perkalian jumlah total \textit{\textit{clock} cycle} CPU per program dengan waktu \textit{\textit{clock} cycle}. Karena waktu \textit{\textit{clock} cycle} dan \textit{\textit{clock} rate} saling terkait, hal ini juga dapat ditulis sebagai jumlah \textit{\textit{clock} cycle} CPU untuk suatu program dibagi dengan \textit{\textit{clock} rate}.
 
 \begin{figure}
     \centering
@@ -81,22 +81,27 @@ This section explains the fundamental components that make up a computer system,
 \end{figure}
 
 
-\hspace*{1cm}Karena waktu eksekusi CPU merupakan hasil dari kedua faktor ini, kita dapat meningkatkan kinerja dengan mengurangi durasi waktu siklus clock atau jumlah siklus clock yang diperlukan untuk suatu program. Kecepatan clock pada dasarnya bergantung pada organisasi CPU tertentu.
+\hspace*{1cm} Karena waktu eksekusi CPU merupakan hasil dari kedua faktor ini, kita dapat meningkatkan kinerja dengan mengurangi durasi waktu \textit{clock cycle} atau jumlah \textit{clock cycle} yang diperlukan untuk suatu program. Kecepatan \textit{clock} pada dasarnya bergantung pada organisasi CPU tertentu.
 
 \subsubsection{Mengapa \textit{Performance Metrics} Penting}
-\hspace*{1cm}Mengukur kinerja menggunakan data yang akurat sangat penting dalam sebuah sistem karena memberikan gambaran nyata tentang performa yang sedang berlangsung. Dengan data yang tepat, manajemen dapat mengambil keputusan yang lebih terinformasi, sehingga memperkecil risiko kesalahan strategi. Selain itu, pengukuran kinerja juga membantu mengidentifikasi area yang membutuhkan perbaikan, sehingga organisasi dapat berfokus pada peningkatan yang signifikan. Memantau perkembangan dan kemajuan kinerja secara berkala meningkatkan akuntabilitas, baik di tingkat individu maupun tim, sehingga setiap anggota lebih bertanggung jawab atas hasil kerjanya. Pada akhirnya, penggunaan  \textit{performance metrics} yang tepat dapat mendorong peningkatan berkelanjutan, dengan memberikan dasar yang kuat bagi evaluasi dan inovasi secara sistematis dalam mencapai tujuan jangka panjang.
+\hspace*{1cm} Mengukur kinerja menggunakan data yang akurat sangat penting dalam sebuah sistem karena memberikan gambaran nyata tentang performa yang sedang berlangsung. Dengan data yang tepat, manajemen dapat membuat keputusan yang lebih terinformasi, sehingga memperkecil risiko kesalahan dalam strategi. Selain itu, pengukuran kinerja juga membantu mengidentifikasi area yang memerlukan perbaikan, sehingga organisasi dapat berfokus pada peningkatan yang signifikan. Memantau perkembangan dan kemajuan kinerja secara berkala meningkatkan akuntabilitas, baik di tingkat individu maupun tim, sehingga setiap anggota lebih bertanggung jawab atas hasil kerjanya. Pada akhirnya, penggunaan \textit{performance metrics} yang tepat dapat mendorong peningkatan berkelanjutan dengan memberikan dasar yang kuat untuk evaluasi dan inovasi secara sistematis dalam mencapai tujuan jangka panjang.
 
-\subsubsection{Fungsi \textit{Performance Metrics} pada sistem}
-\hspace*{1cm} \textit{Metrics performance} berperan penting dalam berbagai aspek dalam sistem operasi. Berikut adalah beberapa area di mana metrics performance digunakan :
+\subsubsection{Fungsi \textit{Performance Metrics} pada Sistem}
+\hspace*{1cm} \textit{Performance metrics} berperan penting dalam berbagai aspek sistem operasi. Berikut adalah beberapa area di mana \textit{performance metrics} digunakan:
 \begin{itemize}
-    \item  \textit{\textbf{Benchmark}} \newline \hspace*{1cm} Benchmark biasanya menggunakan berbagai metrics performance untuk mengukur dan melaporkan hasil kinerjanya. Misalnya, sebuah benchmark untuk prosesor mungkin mengukur metrics seperti kecepatan clock, jumlah instruksi per detik (IPS), atau waktu komputasi untuk tugas tertentu.
-    \item  \textit{\textbf{Bandwidth}} \newline \hspace*{1cm} mengukur jumlah data yang dapat ditransmisikan melalui jaringan dalam waktu tertentu. Bandwidth yang terbatas membatasi kemampuan sistem untuk menangani banyak permintaan atau mentransfer data dalam jumlah besar, yang pada akhirnya memperlambat waktu muat atau respon. Pada sistem yang sangat bergantung pada transfer data, seperti aplikasi berbasis web atau layanan cloud, bandwidth adalah faktor penting yang mempengaruhi performa keseluruhan.
-    \item  \textit{\textbf{Error Rate}} \newline \hspace*{1cm} menghitung persentase permintaan yang gagal diproses atau menghasilkan kesalahan. Metrik ini penting untuk menilai stabilitas dan keandalan sistem. Tingkat kesalahan yang tinggi menunjukkan masalah pada sistem, seperti bug dalam perangkat lunak, kesalahan konfigurasi, atau keterbatasan sumber daya. Error rate yang tinggi dapat mengganggu pengguna dan menurunkan kepercayaan mereka terhadap sistem.
-    \item  \textbf{Pengaturan Kualitas Layanan (QoS)} \newline \hspace*{1cm} Dalam lingkungan yang membutuhkan kualitas layanan tertentu, metrics performance digunakan untuk memastikan bahwa aplikasi dan layanan memenuhi SLA (Service Level Agreement). Metrics seperti latensi, throughput, dan waktu respons digunakan untuk mengatur dan memantau QoS.
-    \item  \textbf{Optimasi dan Tuning} \newline \hspace*{1cm} Metrics performance digunakan untuk mengidentifikasi peluang optimasi dan tuning. Misalnya, dengan memantau penggunaan CPU dan memori, administrator sistem dapat menyesuaikan parameter kernel, konfigurasi aplikasi, dan pengaturan sistem lainnya untuk meningkatkan kinerja.
+    \item \textbf{\textit{Benchmark}} \newline
+    \hspace*{1cm} \textit{Benchmark} biasanya menggunakan berbagai \textit{performance metrics} untuk mengukur dan melaporkan hasil kinerjanya. Misalnya, sebuah \textit{benchmark} untuk prosesor mungkin mengukur metrik seperti kecepatan \textit{clock}, jumlah instruksi per detik (\textit{IPS}), atau waktu komputasi untuk tugas tertentu.
+    \item \textbf{\textit{Bandwidth}} \newline  
+    \hspace*{1cm} Mengukur jumlah data yang dapat ditransmisikan melalui jaringan dalam jangka waktu tertentu. \textit{Bandwidth} yang terbatas membatasi kemampuan sistem untuk menangani banyak permintaan atau mentransfer data dalam jumlah besar, yang pada akhirnya memperlambat waktu muat atau respons. Pada sistem yang sangat bergantung pada transfer data, seperti aplikasi berbasis web atau layanan \textit{cloud}, \textit{bandwidth} adalah faktor penting yang memengaruhi performa keseluruhan.
+    \item \textbf{\textit{Error Rate}} \newline  
+    \hspace*{1cm} Menghitung persentase permintaan yang gagal diproses atau menghasilkan kesalahan. Metrik ini penting untuk menilai stabilitas dan keandalan sistem. Tingkat kesalahan yang tinggi menunjukkan masalah pada sistem, seperti bug dalam perangkat lunak, kesalahan konfigurasi, atau keterbatasan sumber daya. Tingkat kesalahan yang tinggi dapat mengganggu pengguna dan menurunkan kepercayaan mereka terhadap sistem.
+    \item \textbf{Pengaturan Kualitas Layanan (\textit{QoS})} \newline  
+    \hspace*{1cm} Dalam lingkungan yang membutuhkan kualitas layanan tertentu, \textit{performance metrics} digunakan untuk memastikan bahwa aplikasi dan layanan memenuhi \textit{SLA} (\textit{Service Level Agreement}). Metrik seperti latensi, \textit{throughput}, dan waktu respons digunakan untuk mengatur dan memantau \textit{QoS}.
+    \item \textbf{Optimasi dan Tuning} \newline  
+    \hspace*{1cm} \textit{Performance metrics} digunakan untuk mengidentifikasi peluang optimasi dan tuning. Misalnya, dengan
 \end{itemize}
 
-\hspace*{1cm} Metrics performance berperan penting dalam berbagai aspek pengelolaan dan operasional sistem operasi. Dari monitoring dan manajemen sumber daya hingga optimasi, diagnosa, dan keamanan, metrics ini memberikan wawasan yang diperlukan untuk menjaga sistem tetap berjalan dengan efisien, aman, dan sesuai dengan kebutuhan kinerja yang diharapkan.
+\hspace*{1cm} \textit{Performance metrics} berperan penting dalam berbagai aspek pengelolaan dan operasional sistem operasi. Dari monitoring dan manajemen sumber daya hingga optimasi, diagnosis, dan keamanan, metrik ini memberikan wawasan yang diperlukan untuk menjaga sistem tetap berjalan dengan efisien, aman, dan sesuai dengan kebutuhan kinerja yang diharapkan.
 
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
@@ -173,7 +178,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-\hspace*{1cm} Implementasikan algoritma scheduling short job first dan round robin, dan bandingkan average waiting time dan average turnaround time kedua algortima tersebut, yang mana yang lebih baik dalam menangani proses.
+\hspace*{1cm} Implementasikan algoritma penjadwalan \textit{Shortest Job First} (SJF) dan \textit{Round Robin} (RR), lalu bandingkan rata-rata waktu tunggu (\textit{average waiting time}) dan rata-rata waktu penyelesaian (\textit{average turnaround time}) dari kedua algoritma tersebut. Manakah yang lebih baik dalam menangani proses? 
 \newline
 \newline
 
@@ -242,11 +247,11 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \end{figure}
 
 \paragraph{
-\hspace*{1cm} pada kedua output rata-rata waktu tunggu untuk kedua algoritma, bisa dilihat bahwa rata-rata waktu tunggu sjf lebih kecil dibanding round robin, salah satu alasannya karna sifat RR yang memberikan setiap proses sejumlah waktu yang sama (quantum) dan memaksa semua proses menunggu giliran mereka secara bergilir.
+    \hspace*{1cm} Dari hasil perbandingan rata-rata waktu tunggu pada kedua algoritma, dapat dilihat bahwa rata-rata waktu tunggu SJF lebih kecil dibandingkan dengan \textit{Round Robin}. Salah satu alasannya adalah karena sifat RR yang memberikan setiap proses sejumlah waktu yang sama (\textit{quantum}) dan memaksa semua proses menunggu giliran mereka secara bergantian. 
 }
 
 \paragraph{
-\hspace*{1cm} Kita dapat mengurangi kelemahan Round Robin dengan memilih quantum yang lebih besar, bisa terlihat pada visualisasi diatas bahwa waiting time RR sama dengan SJF. Tetapi tetap saja, SJF sering lebih baik dalam kasus banyak proses dengan burst time yang bervariasi.
+    \hspace*{1cm} Kita dapat mengurangi kelemahan \textit{Round Robin} dengan memilih \textit{quantum} yang lebih besar. Pada visualisasi di atas terlihat bahwa waktu tunggu RR dapat sama dengan SJF. Namun, tetap saja, SJF sering kali lebih baik dalam kasus dengan banyak proses yang memiliki \textit{burst time} yang bervariasi.
 }
 
 \begin{figure}[H]
@@ -257,7 +262,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 
 \subsection{Assignment 2: Deadlock Handling}
-\hspace*{1cm} Simulasikan bagaimana algoritma safety bekerja untuk mendeteksi deadlock.
+\hspace*{1cm} Simulasikan bagaimana \textit{algoritma safety} bekerja untuk mendeteksi \textit{deadlock}.
 \newline
 \newline
 
@@ -320,12 +325,12 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \end{figure}
 
 \paragraph{
-\hspace*{1cm} Dengan menggunakan metode banker's untuk algoritma safety kita bisa memastikan bahwa sistem aman jika melakukan proses-proses tertentu, dimana kita memeriksa setiap proses dan memastikan bahwa alokasi sumber daya untuk setiap proses aman dilakukan sehingga tidak akan menghasilkan deadlock. Pada output akan menampilkan status sistem apakah sistem aman atau tidak dan menampilkan urutan proses yang aman.
+    \hspace*{1cm} Dengan menggunakan metode \textit{Banker's} untuk algoritma \textit{Safety}, kita bisa memastikan bahwa sistem aman jika menjalankan proses-proses tertentu. Di sini, kita memeriksa setiap proses dan memastikan bahwa alokasi sumber daya untuk setiap proses dapat dilakukan dengan aman sehingga tidak akan menyebabkan \textit{deadlock}. Pada output, sistem akan menampilkan status apakah sistem aman atau tidak, dan menampilkan urutan proses yang aman.
 }
 
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-\hspace*{1cm} Simulasikan scenario multithreading untuk menghitung jumlah kuadrat dari rentang angka yang diberikan dan menjumlahkannya, dan terapkan Amdahl law untuk menghitung prediksi kecepatan seiring penambahan thread untuk mengetahui penggunaan jumlah thread yang optimal.
+\hspace*{1cm} Simulasikan skenario \textit{multithreading} untuk menghitung jumlah kuadrat dari rentang angka yang diberikan dan menjumlahkannya, dan terapkan \textit{Amdahl law} untuk menghitung prediksi kecepatan seiring penambahan \textit{thread} untuk mengetahui penggunaan jumlah \textit{thread} yang optimal.
 \newline
 \newline
 
@@ -400,7 +405,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \end{figure}
 
 \paragraph{
-\hspace*{1cm} pada algoritma diatas multithreading berfungsi untuk membagi proses berdasarkan jumlah thread yang digunakan sehingga kita bisa membuat waktu eksekusi lebih singkat, dengan menggunakan algoritma amdah's law kita bisa melihat rasio peningkatan kecepatan seiring meningkatnya jumlah thread yang digunakan. Bisa dilihat pada perbedaan output diatas, dengan meningkatkan jumlah thread dari 4 ke 8 waktu eksekusi juga meningkatkan. 
+    \hspace*{1cm} Pada algoritma di atas, \textit{multithreading} berfungsi untuk membagi proses berdasarkan jumlah \textit{thread} yang digunakan, sehingga kita bisa membuat waktu eksekusi menjadi lebih singkat. Dengan menggunakan algoritma \textit{Amdahl's Law}, kita bisa melihat rasio peningkatan kecepatan seiring meningkatnya jumlah \textit{thread} yang digunakan. Dapat dilihat pada perbedaan output di atas, bahwa dengan meningkatkan jumlah \textit{thread} dari 4 ke 8, waktu eksekusi juga meningkat.
 }
 
 
@@ -421,7 +426,11 @@ The first half of the course introduced core operating system concepts, includin
 
 \begin{thebibliography}{9}
     \bibitem{gfg2024}
+    TestingXperts. (2022, May 10). Performance testing metrics: A detailed guide for businesses. Digital Assurance. Retrieved October 8, 2024, from https://www.testingxperts.com
+    \bibitem{gfg2024}
     GeeksforGeeks. (n.d.). Computer organization: Performance of computer. GeeksforGeeks. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/computer-organization-performance-of-computer/
-    \end{thebibliography}
+    \bibitem{gfg2024}
+    GeeksforGeeks. (2024, August 20). Program for round robin scheduling for the same arrival time. GeeksforGeeks. Retrieved October 8, 2024, from https://www.geeksforgeeks.org/program-for-round-robin-scheduling-for-the-same-arrival-time/
+\end{thebibliography}
 
 \end{document}

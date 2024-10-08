@@ -233,7 +233,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \subsubsection{Group 1}
 \begin{python}
     class Process:
-    def _init_(self, pid, arrival_time, burst_time):
+    def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
         self.burst_time = burst_time
@@ -265,7 +265,7 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \item  \textbf{Soal} \\
 Di sebuah bank, terdapat empat proses yang menangani berbagai layanan seperti transaksi penarikan, setoran, dan transfer. Masing-masing proses membutuhkan sumber daya seperti jaringan, basis data, dan API eksternal untuk menyelesaikan transaksi mereka.
 
-Kejadian deadlock mungkin terjadi jika proses saling menunggu sumber daya yang sudah dimiliki oleh proses lain. Tugasnya adalah membuat program Python untuk mendeteksi apakah terjadi deadlock dalam skenario ini menggunakan Wait-for Graph.
+Kejadian \textit{deadlock} mungkin terjadi jika proses saling menunggu sumber daya yang sudah dimiliki oleh proses lain. Tugasnya adalah membuat program Python untuk mendeteksi apakah terjadi \textit{deadlock} dalam skenario ini menggunakan \textit{wait-for graph.}
 
 \begin{itemize}
     \item Proses 1 (P1) membutuhkan akses ke jaringan dan basis data.
@@ -322,9 +322,9 @@ else:
 \end{lstlisting}
 
 \item \textbf{Output} \\
-Berikut adalah output dari program deteksi deadlock yang dijalankan:
+Berikut adalah output dari program deteksi \textit{ deadlock} yang dijalankan:
 \begin{verbatim}
-Deadlock terdeteksi! Proses-proses yang terlibat: P1, P2, P3, P4
+\textit{Deadlock} terdeteksi! Proses-proses yang terlibat: P1, P2, P3, P4
 \end{verbatim}
 \end{enumerate}
 
@@ -348,8 +348,8 @@ The first half of the course introduced core operating system concepts, includin
 \section{Referensi}
 \sloppy
 \begin{itemize}
-    \item {Silberschatz, dkk. 2013. Chapter 10 : File System. Operating System Concepts - 9th Edition.}
-    \item {Yadav, Aakansha. 2024. File Systems in Operating System. https://www.geeksforgeeks.org/file-systems-in-operating-system/. Diakses : 08 September 2024.}
+    \item {Silberschatz, dkk. 2013. \textit{Chapter 10 : File System. Operating System Concepts - 9th Edition.}}
+    \item {Yadav, Aakansha. 2024. \textit{File Systems in Operating System}. https://www.geeksforgeeks.org/file-systems-in-operating-system/. Diakses pada 08 September 2024.}
 \end{itemize}
 \fussy
 

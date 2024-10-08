@@ -4,12 +4,10 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
 \date{\today}
-
 \begin{document}
 	
 	\maketitle
@@ -80,6 +78,12 @@
 	\subsubsection*{Input/Output}
 	Input/Output (I/O) merupakan bagian dari sebuah sistem mikroprosesor yang berfungsi untuk dapat berinteraksi dengan berbagai \textit{peripheral} perangkat luar. Unit input merupakan unit luar yang berfungsi sebagai unit yang dapat memberikan sebuah instruksi atau memasukan sebuah data dari perangkat eksternal ke dalam mikroprosesor, sebagai Contoh dari unit input adalah sebuah data yang bersumber dari perangkat input berupa \textit{keyboard} atau \textit{mouse}. Sedangkan unit output adalah sebuah unit yang berfungsi untuk dapat menampilkan sebuah data yang dikirimkan dari  mikroprosesor, sebagai Contoh dari unit output adalah sebuah hasil pengolahan data yang dapat diterjemahkan oleh pengguna baik berupa gambar, suara, visual atau hasil cetak yaitu berupa monitor, \textit{printer} atau \textit{sound audio}.
 	
+	\begin{thebibliography}{widestlabel}
+		\bibitem{Cahyaningrum2023}
+		Cahyaningrum, Y. Y. (2023). \textit{ARISTEKTUR DAN ORGANISASI KOMPUTER}. Yogyakarta: PT Penamuda Media.
+		\bibitem{Amrival2013}
+		Amrival, V. A. (2013). \textit{ARSITEKTUR KOMPUTER: Teori dan Perkembangannya}. Jakarta: Halaman Moeka Publishing.
+	\end{thebibliography}
 	
 	\subsection{Process Description and Control}
 	Processes are a central concept in operating systems. This section covers:
@@ -163,6 +167,93 @@
 	\subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 	Students were tasked with creating a simple *CLI* for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 	
+	Soal:
+	\par Buatlah program CLI sederhana yang memungkinkan pengguna untuk mengelola tampilan antarmuka pengguna (UI). Program ini harus memberikan opsi untuk menampilkan menu, menambahkan item ke UI, dan menghapus item dari UI.
+	Program harus memiliki opsi sebagai berikut:
+	\begin{itemize}
+		
+		\item Tampilkan item dalam UI
+		\item Tambah item ke UI
+		\item Hapus item dari UI
+		\item Keluar
+	\end{itemize}
+	\par Implementasikan program dalam Python menggunakan konsep CLI.
+	
+	\lstset{ 
+		language=Python, % Bahasa pemrograman
+		backgroundcolor=\color{white}, % Warna latar belakang
+		commentstyle=\color{gray}, % Warna komentar
+		keywordstyle=\color{blue}, % Warna string
+		basicstyle=\ttfamily\footnotesize, % Gaya dasar teks
+		breaklines=true,  % Otomatis break baris
+		frame=single, % Garis kotak di sekitar kode
+		showstringspaces=false, % Hilangkan spasi dalam string
+	}
+	
+	\begin{lstlisting}
+		def display_menu():
+		print("=== UI Management ===")
+		print("1. Tampilkan item dalam UI")
+		print("2. Tambah item ke UI")
+		print("3. Hapus item dari UI")
+		print("4. Keluar")
+		
+		def display_ui(ui_items):
+		if ui_items:
+		print("\nItem UI saat ini:")
+		for idx, item in enumerate(ui_items, start=1):
+		print(f"{idx}. {item}")
+		else:
+		print("\nUI masih kosong.")
+		print()
+		
+		def add_ui_item(ui_items):
+		item = input("Masukkan nama item yang ingin ditambahkan ke UI: ")
+		ui_items.append(item)
+		print(f"'{item}' berhasil ditambahkan ke UI.\n")
+		
+		def remove_ui_item(ui_items):
+		if not ui_items:
+		print("\nUI kosong, tidak ada item yang bisa dihapus.\n")
+		return
+		display_ui(ui_items)
+		try:
+		idx = int(input("Masukkan nomor item yang ingin dihapus: "))
+		if 1 <= idx <= len(ui_items):
+		removed_item = ui_items.pop(idx - 1)
+		print(f"'{removed_item}' berhasil dihapus dari UI.\n")
+		else:
+		print("Nomor item tidak valid.\n")
+		except ValueError:
+		print("Input tidak valid, masukkan angka.\n")
+		
+		def cli_ui_management():
+		ui_items = []
+		while True:
+		display_menu()
+		try:
+		choice = int(input("Pilih opsi: "))
+		if choice == 1:
+		display_ui(ui_items)
+		elif choice == 2:
+		add_ui_item(ui_items)
+		elif choice == 3:
+		remove_ui_item(ui_items)
+		elif choice == 4:
+		print("Keluar dari program.")
+		break
+		else:
+		print("Pilihan tidak valid, coba lagi.\n")
+		except ValueError:
+		print("Input tidak valid, masukkan angka.\n")
+		
+		
+		if __name__ == "__main__":
+		cli_ui_management()
+		
+	\end{lstlisting}
+	
+	
 	\subsection{Assignment 5: File System Access}
 	In this assignment, students implemented file system access routines, including:
 	\begin{itemize}
@@ -170,6 +261,91 @@
 		\item Reading from and writing to files
 		\item Navigating directories and managing file permissions
 	\end{itemize}
+	
+	Soal: 
+	\par Buatlah program Python yang melakukan operasi dasar pada sistem file. Program ini harus:
+	\begin{itemize}
+		\item Membaca isi dari file tertentu
+		\item Menambahkan teks ke dalam file
+		\item Menampilkan daftar file dalam direktori
+	\end{itemize}
+	 Implementasikan program dalam Python menggunakan konsep CLI.
+	 
+	 \lstset{ 
+	 	language=Python, % Bahasa pemrograman
+	 	backgroundcolor=\color{white}, % Warna latar belakang
+	 	commentstyle=\color{gray}, % Warna komentar
+	 	keywordstyle=\color{blue}, % Warna string
+	 	basicstyle=\ttfamily\footnotesize, % Gaya dasar teks
+	 	breaklines=true,  % Otomatis break baris
+	 	frame=single, % Garis kotak di sekitar kode
+	 	showstringspaces=false, % Hilangkan spasi dalam string
+	 }
+	 
+	 \begin{lstlisting}
+	 	import os
+	 	
+	 	def list_files_in_directory(directory):
+	 	try:
+	 	files = os.listdir(directory)
+	 	print(f"\nDaftar file dalam direktori '{directory}':")
+	 	for file in files:
+	 	print(file)
+	 	print()
+	 	except FileNotFoundError:
+	 	print(f"Direktori '{directory}' tidak ditemukan.\n")
+	 	
+	 	def read_file(file_path):
+	 	try:
+	 	with open(file_path, 'r') as file:
+	 	content = file.read()
+	 	print(f"\nIsi file '{file_path}':")
+	 	print(content)
+	 	print()
+	 	except FileNotFoundError:
+	 	print(f"File '{file_path}' tidak ditemukan.\n")
+	 	except IOError:
+	 	print(f"Tidak dapat membaca file '{file_path}'.\n")
+	 	
+	 	def write_to_file(file_path, text):
+	 	try:
+	 	with open(file_path, 'a') as file:
+	 	file.write(text + "\n")
+	 	print(f"Teks berhasil ditambahkan ke file '{file_path}'.\n")
+	 	except IOError:
+	 	print(f"Tidak dapat menulis ke file '{file_path}'.\n")
+	 	
+	 	def file_system_access():
+	 	while True:
+	 	print("=== File System Access ===")
+	 	print("1. Tampilkan daftar file dalam direktori")
+	 	print("2. Baca file")
+	 	print("3. Tambah teks ke file")
+	 	print("4. Keluar")
+	 	
+	 	try:
+	 	choice = int(input("Pilih opsi: "))
+	 	if choice == 1:
+	 	directory = input("Masukkan direktori: ")
+	 	list_files_in_directory(directory)
+	 	elif choice == 2:
+	 	file_path = input("Masukkan path file: ")
+	 	read_file(file_path)
+	 	elif choice == 3:
+	 	file_path = input("Masukkan path file: ")
+	 	text = input("Masukkan teks yang ingin ditambahkan: ")
+	 	write_to_file(file_path, text)
+	 	elif choice == 4:
+	 	print("Keluar dari program.")
+	 	break
+	 	else:
+	 	print("Pilihan tidak valid, coba lagi.\n")
+	 	except ValueError:
+	 	print("Input tidak valid, masukkan angka.\n")
+	 	
+	 	if __name__ == "__main__":
+	 	file_system_access()
+	 \end{lstlisting}
 	
 	\section{Conclusion}
 	The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

@@ -106,11 +106,11 @@ Metode akses file mengacu pada cara file dibaca, ditulis, atau dimodifikasi dala
 \begin{enumerate}
     \item Akses Berurutan \textit{(Sequential Access)}
     
-    \textit{Sequential Access} adalah metode akses file di mana data diakses secara berurutan, dari awal hingga akhir. Ini mirip dengan cara kita membaca sebuah buku, satu halaman per satu secara berurutan.
+    \textit{Sequential Access} adalah  metode akses berkas di mana data diakses secara berurutan, dari awal hingga akhir. Ini mirip dengan cara kita membaca buku, satu halaman demi halaman secara berurutan.
 
     {Deskripsi:}
     \begin{itemize}
-        \item Dalam metode akses ini, file diakses dalam urutan linier tertentu, dari awal hingga akhir. Data dibaca atau ditulis secara berurutan, mirip dengan cara kerja kaset magnetik, di mana untuk membaca bagian tertentu dari data, seluruh file harus dilalui dari awal hingga posisi data tersebut ditemukan.
+        \item Dalam metode akses ini, file diakses dalam urutan linier tertentu, dari awal hingga akhir. Data dibaca atau ditulis secara berurutan, mirip dengan cara kerja kaset magnetik. Untuk membaca bagian tertentu dari data, seluruh file harus dilalui dari awal hingga posisi data tersebut ditemukan
         \item Ini adalah metode akses yang paling sederhana dan sering digunakan untuk aplikasi yang memerlukan pemrosesan data dalam urutan tetap.
     \end{itemize}
 
@@ -123,9 +123,9 @@ Metode akses file mengacu pada cara file dibaca, ditulis, atau dimodifikasi dala
 
     {Deskripsi gambar:}
      \begin{itemize}
-        \item Current Position: Menunjukkan posisi saat ini dalam file di mana data akan dibaca atau ditulis. Posisi ini akan bergerak maju setiap kali data dibaca atau ditulis.
+        \item \textit{Current Position}: Menunjukkan posisi saat ini dalam file yang akan dibaca atau ditulis. Posisi ini akan bergerak maju setiap kali data dibaca atau ditulis
 
-        \item \textit{Rewind}: Jika ingin kembali ke bagian sebelumnya dari file, perlu dilakukan \textit{"rewind"} atau mundur dari posisi saat ini untuk kembali ke posisi sebelumnya (atau bahkan ke awal file).
+        \item \textit{Rewind}: Jika ingin kembali ke bagian sebelumnya dari file, perlu dilakukan \textit{rewind} atau mundur dari posisi saat ini untuk kembali ke posisi sebelumnya (atau bahkan ke awal file).
 
         \item \textit{Read and write}: File dibaca atau ditulis secara linier dari posisi saat ini menuju ke akhir file. Data diproses satu per satu dalam urutan dari kiri ke kanan
 
@@ -143,7 +143,7 @@ Metode akses file mengacu pada cara file dibaca, ditulis, atau dimodifikasi dala
 
     {Kelebihan:}
      \begin{itemize}
-        \item Sederhana: Metode ini mudah diimplementasikan dan ideal untuk penggunaan di mana urutan data penting.
+        \item Sederhana: Metode ini mudah diimplementasikan dan ideal untuk penggunaan saat urutan data penting.
 
 
         \item Kinerja: Dapat memberikan kinerja yang baik untuk aplikasi yang membaca atau menulis seluruh file dari awal hingga akhir.
@@ -160,13 +160,13 @@ Metode akses file mengacu pada cara file dibaca, ditulis, atau dimodifikasi dala
     
 \item  Akses Langsung atau Acak \textit{(Direct or Random Access)}
 
-Direct access adalah metode akses file di mana kita dapat langsung mengakses data pada posisi tertentu tanpa harus membaca seluruh file dari awal. Ini memungkinkan akses yang lebih cepat dan efisien.
+\textit{Direct Access} adalah metode akses file yang dapat langsung mengakses data pada posisi tertentu tanpa harus membaca seluruh file dari awal. Ini memungkinkan akses yang lebih cepat dan efisien.
 
     {Deskripsi:}
     \begin{itemize}
         \item Dalam metode akses langsung, setiap bagian file dapat diakses secara langsung tanpa perlu membaca data secara berurutan. Sistem dapat melompat ke posisi mana pun dalam file, memungkinkan pengguna untuk membaca atau menulis data di bagian tertentu tanpa harus memproses seluruh file.
 
-        \item Akses langsung dimungkinkan karena perangkat penyimpanan modern seperti hard disk drive (HDD) dan solid-state drive (SSD) mendukung lompatan ke lokasi byte atau blok tertentu.
+        \item Akses langsung dimungkinkan karena perangkat penyimpanan modern seperti \textit{hard disk drive} (HDD) dan \textit{solid-state drive} (SSD) mendukung lompatan ke lokasi \textit{byte} atau blok tertentu.
     \end{itemize}
 
     \begin{figure}[h]
@@ -180,9 +180,9 @@ Direct access adalah metode akses file di mana kita dapat langsung mengakses dat
      \begin{itemize}
         \item \textit{Reset}
         \begin{itemize}
-            \item \textit{Sequential Access}: Reset berarti mengembalikan posisi file ke awal, agar dapat diakses dari posisi pertama.
+            \item \textit{Sequential Access}: Reset berarti mengembalikan posisi file ke awal agar dapat diakses dari posisi pertama.
             
-            \item \textit{Direct Access}: Pada akses langsung, ini diimplementasikan dengan mengatur variabel cp (current position) menjadi 0 (), yang berarti mengarahkan penunjuk file ke posisi pertama
+            \item \textit{Direct Access}: Pada akses langsung, ini diimplementasikan dengan mengatur variabel cp \textit{(current position)} menjadi 0, yang berarti mengarahkan penunjuk file ke posisi pertama
         
         \end{itemize}
 
@@ -190,16 +190,16 @@ Direct access adalah metode akses file di mana kita dapat langsung mengakses dat
         \begin{itemize}
         \item \textit{Sequential Access}: Membaca file berikutnya berarti membaca data secara berurutan, satu per satu.
 
-        \item \textit{Direct Access}: Dalam akses langsung, membaca data dilakukan dari posisi yang ditunjukkan oleh cp (). Setelah membaca data, posisi file kemudian ditingkatkan dengan 1 (), sehingga penunjuk siap membaca data berikutnya
+        \item \textit{Direct Access}: Dalam akses langsung, data dibaca dari posisi yang ditunjukkan oleh cp \textit{(current position)}, yang merupakan penunjuk atau variabel yang menunjukkan posisi saat ini dalam file. Ketika data dibaca, cp \textit{(current position)} menunjukkan di mana data berada dalam file. Setelah data dibaca, posisi penunjuk file \textit{(current position)} diperbarui atau ditingkatkan secara otomatis dengan satu yang berarti penunjuk sekarang berpindah ke posisi berikutnya dalam file. Dengan begitu, penunjuk siap untuk membaca data berikutnya pada posisi baru.
         
         \end{itemize}
 
         \item \textit{Write Next}: File dibaca atau ditulis secara linier dari posisi saat ini menuju ke akhir file. Data diproses satu per satu dalam urutan dari kiri ke kanan
          \begin{itemize}
-        \item \textit{Sequential Access} : Menulis data berikutnya dilakukan secara berurutan, setelah data yang sudah ada.
+        \item \textit{Sequential Access} : Menulis data berikutnya dilakukan secara berurutan setelah data yang sudah ada.
 
             
-        \item \textit{Direct Access}: Dalam akses langsung, menulis dilakukan pada posisi cp saat ini (). Setelah menulis data, posisi penunjuk juga ditingkatkan dengan 1 (), sehingga siap untuk menulis data selanjutnya.
+        \item \textit{Direct Access}: Dalam akses langsung, menulis dilakukan pada posisi cp \textit{(current position)} saat ini. Setelah menulis data, posisi penunjuk juga ditingkatkan dengan satu, sehingga siap untuk menulis data selanjutnya.
         
         \end{itemize}
 
@@ -207,7 +207,7 @@ Direct access adalah metode akses file di mana kita dapat langsung mengakses dat
 
     {Kasus penggunaan:}
      \begin{itemize}
-        \item Basis data (Database): Akses langsung memungkinkan pengambilan catatan individu dalam database tanpa perlu membaca seluruh file.
+        \item Basis data \textit{(Database)}: Akses langsung memungkinkan pengambilan catatan individu dalam  \textit{database} tanpa perlu membaca seluruh file.
 
         \item File indeks: Dalam file indeks, posisi tertentu di dalam file dapat diakses dengan cepat berdasarkan nilai kunci.
 
@@ -227,7 +227,7 @@ Direct access adalah metode akses file di mana kita dapat langsung mengakses dat
      \begin{itemize}
         \item Lebih rumit: Implementasi akses langsung membutuhkan manajemen lebih kompleks untuk melacak lokasi fisik data pada media penyimpanan.
 
-        \item Overhead: Mengelola dan memelihara indeks atau metadata untuk mendukung akses langsung bisa menambah overhead.
+        \item \textit{Overhead}: Mengelola dan memelihara indeks atau metadata untuk mendukung akses langsung bisa menambah overhead.
 
     \end{itemize}
 
@@ -252,7 +252,7 @@ Direct access adalah metode akses file di mana kita dapat langsung mengakses dat
 
     {Kelebihan:}
      \begin{itemize}
-        \item Pencarian cepat: Akses ke data sangat cepat, bahkan dalam file yang sangat besar, karena pencarian langsung dilakukan melalui indeks tanpa membaca file secara keseluruhan.
+        \item Pencarian cepat: Akses ke data sangat cepat, bahkan dalam file yang sangat besar karena pencarian langsung dilakukan melalui indeks tanpa membaca file secara keseluruhan.
 
         \item Skalabilitas: Dapat diimplementasikan dalam sistem besar dengan banyak data.
 
@@ -260,9 +260,9 @@ Direct access adalah metode akses file di mana kita dapat langsung mengakses dat
 
     {Kekurangan:}
      \begin{itemize}
-        \item Overhead penyimpanan: Indeks memerlukan ruang tambahan untuk menyimpan informasi indeks.
+        \item \textit{Overhead} penyimpanan: Indeks memerlukan ruang tambahan untuk menyimpan informasi indeks.
         
-        \item Overhead pemeliharaan: Indeks harus diperbarui setiap kali ada perubahan pada file (misalnya, penambahan atau penghapusan data), yang dapat menyebabkan peningkatan beban kerja.
+        \item \textit{Overhead} pemeliharaan: Indeks harus diperbarui setiap kali ada perubahan pada file (misalnya, penambahan atau penghapusan data), yang dapat menyebabkan peningkatan beban kerja.
 
     \end{itemize}
 

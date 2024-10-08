@@ -227,9 +227,21 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+\subsubsection{Group 10}
+
+\begin{enumerate}
+    \item No 1
+
+Sebuah sistem memiliki tiga proses dengan waktu kedatangan (arrival time) dan waktu eksekusi (burst time) sebagai berikut:  
+\[P1: arrival\_time = 0, burst\_time = 8\]  
+\[P2: arrival\_time = 1, burst\_time = 4\]  
+\[P3: arrival\_time = 2, burst\_time = 9\]  
+
+Implementasikan algoritma penjadwalan First-Come, First-Served (FCFS) dan hitung waktu penyelesaian (completion time), waktu turnaround (turnaround time), dan waktu tunggu (waiting time) untuk setiap proses.
+
+\textit{JAWABAN : }
 \begin{python}
-    class Process:
+class Process:
     def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
@@ -237,31 +249,336 @@ Students were tasked with implementing various process scheduling algorithms (e.
         self.completion_time = 0
         self.turnaround_time = 0
         self.waiting_time = 0
+
+def fcfs_scheduling(processes):
+    current_time = 0
+    
+    # Sorting processes based on arrival time
+    processes.sort(key=lambda x: x.arrival_time)
+    
+    for process in processes:
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time  # Adjust the current time if no process has arrived yet
+        process.completion_time = current_time + process.burst_time
+        process.turnaround_time = process.completion_time - process.arrival_time
+        process.waiting_time = process.turnaround_time - process.burst_time
+        current_time = process.completion_time  # Update current time
+
+    return processes
+
+# Problem data
+processes = [
+    Process("P1", 0, 8),
+    Process("P2", 1, 4),
+    Process("P3", 2, 9)
+]
+
+# FCFS scheduling
+scheduled_processes = fcfs_scheduling(processes)
+
+print("PID\tArrival\tBurst\tCompletion\tTurnaround\tWaiting")
+for process in scheduled_processes:
+    print(f"{process.pid}\t{process.arrival_time}\t{process.burst_time}\t{process.completion_time}\t{process.turnaround_time}\t{process.waiting_time}")
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
+\textit{PENJELASAN : }
+\begin{enumerate}
+    \item Membuat kelas \textit{Process} yang menyimpan informasi mengenai \textit{pid} (ID proses), \textit{arrival\_time} (waktu kedatangan), \textit{burst\_time} (waktu eksekusi), \textit{completion\_time} (waktu penyelesaian), \textit{turnaround\_time} (waktu turnaround), dan \textit{waiting\_time} (waktu tunggu).
+    \item Fungsi \textit{fcfs\_scheduling} melakukan penjadwalan berdasarkan algoritma FCFS. Algoritma ini berjalan sesuai urutan kedatangan proses, dengan langkah-langkah:
+        \begin{enumerate}
+            \item Mengurutkan proses berdasarkan waktu kedatangan (\textit{arrival\_time}).
+            \item Memeriksa apakah \textit{current\_time} kurang dari waktu kedatangan proses, jika ya, memperbarui \textit{current\_time}.
+            \item Menghitung \textit{completion\_time}, \textit{turnaround\_time}, dan \textit{waiting\_time}.
+        \end{enumerate}
+    \item Memasukkan daftar proses dengan waktu kedatangan dan waktu eksekusi sesuai soal, dan menjalankan algoritma FCFS.
+    \item Menampilkan hasil dalam format tabel dengan informasi PID, waktu kedatangan, waktu eksekusi, waktu penyelesaian, waktu turnaround, dan waktu tunggu.
+\end{enumerate}
+\end{enumerate}
+
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
+\subsubsection{Group 10}
+\begin{enumerate}
+
+
+
+    \item No 1
+
+
+    
+    Sebuah sistem memiliki 5 proses (P1, P2, P3, P4, P5) dan 3 jenis sumber daya (R1, R2, R3). Jumlah setiap sumber daya adalah:  
+\[R1: 10 unit, R2: 5 unit, R3: 7 unit\]
+
+Setiap proses membutuhkan berbagai unit dari setiap sumber daya untuk menjalankan tugasnya. Tugas Anda adalah mensimulasikan skenario deadlock dan mengimplementasikan Banker's Algorithm untuk mencegah deadlock dalam sistem ini.
+
+\textit{JAWABAN : }
+\begin{python}
+import numpy as np
+
+# Function to check if the system is in a safe state
+def is_safe(available, allocation, max_need):
+    n_processes = len(allocation)
+    n_resources = len(available)
+    
+    work = available.copy()
+    finish = [False] * n_processes
+    safe_sequence = []
+    
+    while len(safe_sequence) < n_processes:
+        found_process = False
+        for i in range(n_processes):
+            if not finish[i]:
+                # Check if process can proceed
+                if all(max_need[i][j] - allocation[i][j] <= work[j] for j in range(n_resources)):
+                    work = [work[j] + allocation[i][j] for j in range(n_resources)]
+                    finish[i] = True
+                    safe_sequence.append(f"P{i+1}")
+                    found_process = True
+                    break
+        if not found_process:
+            return False, []
+    return True, safe_sequence
+
+# Problem data: allocation and maximum needs for each process
+allocation = np.array([[0, 1, 0], [2, 0, 0], [3, 0, 2], [2, 1, 1], [0, 0, 2]])
+max_need = np.array([[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]])
+available = np.array([3, 3, 2])  # Available resources (R1, R2, R3)
+
+# Check if the system is in a safe state
+safe, sequence = is_safe(available, allocation, max_need)
+
+if safe:
+    print("Sistem dalam keadaan aman.")
+    print("Urutan aman: ", " -> ".join(sequence))
+else:
+    print("Sistem dalam keadaan deadlock.")
+\end{python}
+
+\textit{PENJELASAN : }
+\begin{enumerate}
+    \item Fungsi \textit{is\_safe} digunakan untuk memeriksa apakah sistem dalam keadaan aman atau tidak. Ini adalah implementasi dari Algoritma Bankir untuk mencegah deadlock.
+        \begin{enumerate}
+            \item \textit{work} menyimpan jumlah sumber daya yang tersedia pada awalnya.
+            \item \textit{finish} adalah array boolean yang menunjukkan apakah suatu proses sudah selesai atau belum.
+            \item Algoritma memeriksa apakah setiap proses dapat dilanjutkan berdasarkan alokasi sumber daya yang ada dan kebutuhan maksimum. Jika proses dapat dilanjutkan, alokasinya ditambahkan kembali ke \textit{work}.
+            \item Jika tidak ada proses yang dapat dilanjutkan dan urutan aman tidak ditemukan, sistem dianggap berada dalam keadaan deadlock.
+        \end{enumerate}
+    \item Data masalah terdiri dari:
+        \begin{enumerate}
+            \item \textit{allocation}: Matriks alokasi saat ini untuk setiap proses.
+            \item \textit{max\_need}: Matriks kebutuhan maksimum setiap proses.
+            \item \textit{available}: Sumber daya yang tersedia untuk digunakan.
+        \end{enumerate}
+    \item Algoritma memeriksa apakah keadaan sistem aman, dan jika aman, menampilkan urutan proses yang bisa dijalankan tanpa deadlock.
+\end{enumerate}
+\end{enumerate}
+
+
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
+\subsubsection{Group 10}
+\begin{enumerate}
+    \item No 1
+
+    Sebuah program memiliki 60\% bagian yang dapat diparalelkan. Jika program ini dijalankan pada sistem dengan 8 core prosesor, berapakah speedup maksimum yang dapat dicapai menurut Hukum Amdahl?
+
+\textit{JAWABAN : }
+\begin{python}
+import math
+
+def calculate_speedup(parallel_fraction, num_processors):
+    serial_fraction = 1 - parallel_fraction
+    return 1 / (serial_fraction + (parallel_fraction / num_processors))
+
+# Problem parameters
+parallel_percentage = 60  # 60% can be parallelized
+num_cores = 8
+
+# Convert percentage to fraction
+parallel_fraction = parallel_percentage / 100
+
+# Calculate speedup
+speedup = calculate_speedup(parallel_fraction, num_cores)
+
+print(f"Untuk program dengan {parallel_percentage}% kode yang dapat diparalelkan berjalan pada {num_cores} cores:")
+print(f"Kecepatan maksimum menurut Amdahl's Law adalah: {speedup:.2f}x")
+
+# Calculate theoretical maximum speedup (with infinite cores)
+max_theoretical_speedup = calculate_speedup(parallel_fraction, math.inf)
+print(f"Kecepatan maksimum teoritis (dengan cores tak terbatas) adalah: {max_theoretical_speedup:.2f}x")
+\end{python}
+
+\textit{PENJELASAN : }
+\begin{enumerate}
+    \item Kita mengimpor modul \textit{math} untuk menggunakan konstanta inf (tak terhingga) nanti.
+    \item Membuat fungsi \textit{calculate\_speedup} yang menerima dua parameter:
+        \begin{enumerate}
+            \item \textit{parallel\_fraction}: Bagian program yang dapat diparalelkan (0 sampai 1)
+            \item \textit{num\_processors}: Jumlah prosesor atau \textit{thread} yang digunakan
+        \end{enumerate}
+    \item Implementasi Hukum Amdahl:
+        \begin{enumerate}
+            \item Ini adalah implementasi langsung dari rumus Hukum Amdahl: \textit{Speedup} = 1 / ((1 - P) + (P / N))
+            \item \textit{serial\_fraction} adalah bagian yang tidak dapat diparalelkan (1 - P)
+            \item Rumus menghitung \textit{speedup} berdasarkan fraksi paralel dan jumlah prosesor
+        \end{enumerate}
+    \item Pengaturan parameter masalah :
+        \begin{enumerate}
+            \item Sesuai soal, 60\% program dapat diparalelkan dan menggunakan 8 \textit{core}
+        \end{enumerate}
+    \item Konversi persentase ke fraksi :
+        \begin{enumerate}
+            \item Mengubah 60\% menjadi 0.60 untuk perhitungan
+        \end{enumerate}
+    \item Perhitungan \textit{speedup} :
+        \begin{enumerate}
+            \item Memanggil fungsi dengan parameter yang telah ditentukan
+        \end{enumerate}
+    \item  Mencetak hasil :
+        \begin{enumerate}
+            \item Menampilkan hasil perhitungan dengan format yang mudah dibaca
+            \item .2f memformat angka dengan 2 desimal
+        \end{enumerate}
+    \item  Perhitungan \textit{speedup} teoritis maksimum :
+        \begin{enumerate}
+            \item Menghitung \textit{speedup} dengan jumlah prosesor tak terbatas (\textit{math.inf})
+            \item Ini menunjukkan batas atas teoritis dari \textit{speedup} yang mungkin dicapai
+        \end{enumerate}
+    \item Mencetak \textit{speedup} teoritis maksimum :
+        \begin{enumerate}
+            \item Menampilkan batas atas teoritis \textit{speedup}
+        \end{enumerate}
+
+
+\end{enumerate}
+
+\end{enumerate}
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Group 10}
+
+
+\begin{enumerate}
+
+
+    \item No 1
+
+    
+    Buatlah sebuah **Command-Line Interface (CLI)** sederhana untuk manajemen antarmuka pengguna yang mendukung perintah dasar seperti manipulasi file (membuat, menampilkan daftar, dan menghapus file), manajemen proses, dan pelaporan status sistem.
+
+Berikut adalah contoh implementasi CLI sederhana menggunakan Python.
+
+\textit{JAWABAN : }
+\begin{python}
+import os
+import sys
+import psutil
+
+def create_file(filename):
+    with open(filename, 'w') as file:
+        file.write("")  # Create an empty file
+    print(f"File '{filename}' created successfully.")
+
+def list_files():
+    files = os.listdir()
+    if files:
+        print("Files in the current directory:")
+        for file in files:
+            print(file)
+    else:
+        print("No files found in the current directory.")
+
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"File '{filename}' deleted successfully.")
+    else:
+        print(f"File '{filename}' not found.")
+
+def list_processes():
+    processes = psutil.pids()
+    print(f"Listing {len(processes)} processes running on the system:")
+    for pid in processes[:10]:  # List only the first 10 processes for brevity
+        process = psutil.Process(pid)
+        print(f"PID: {pid}, Name: {process.name()}")
+
+def system_status():
+    print("System Status Report:")
+    print(f"CPU Usage: {psutil.cpu_percent()}%")
+    print(f"Memory Usage: {psutil.virtual_memory().percent}%")
+    print(f"Disk Usage: {psutil.disk_usage('/').percent}%")
+
+def cli_interface():
+    while True:
+        print("\n--- CLI Menu ---")
+        print("1. Create File")
+        print("2. List Files")
+        print("3. Delete File")
+        print("4. List Processes")
+        print("5. System Status")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            filename = input("Enter the name of the file to create: ")
+            create_file(filename)
+        elif choice == "2":
+            list_files()
+        elif choice == "3":
+            filename = input("Enter the name of the file to delete: ")
+            delete_file(filename)
+        elif choice == "4":
+            list_processes()
+        elif choice == "5":
+            system_status()
+        elif choice == "6":
+            print("Exiting CLI.")
+            sys.exit()
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    cli_interface()
+\end{python}
+
+\textit{PENJELASAN : }
+\begin{enumerate}
+    \item Modul yang digunakan:
+        \begin{enumerate}
+            \item \textit{os}: Untuk operasi file dan direktori.
+            \item \textit{sys}: Untuk mengontrol eksekusi program (seperti keluar dari program).
+            \item \textit{psutil}: Untuk manajemen proses dan pelaporan status sistem.
+        \end{enumerate}
+    \item Fungsi-fungsi CLI:
+        \begin{enumerate}
+            \item \textbf{create\_file}: Membuat file baru dengan nama yang ditentukan.
+            \item \textbf{list\_files}: Menampilkan daftar semua file di direktori saat ini.
+            \item \textbf{delete\_file}: Menghapus file yang ditentukan.
+            \item \textbf{list\_processes}: Menampilkan daftar proses yang berjalan di sistem, menggunakan modul \textit{psutil}.
+            \item \textbf{system\_status}: Menampilkan laporan status sistem, termasuk penggunaan CPU, memori, dan disk.
+        \end{enumerate}
+    \item Fungsi utama, \textbf{cli\_interface}, menampilkan menu dan memungkinkan pengguna untuk memilih opsi yang diinginkan. Pengguna dapat:
+        \begin{enumerate}
+            \item Membuat file baru.
+            \item Menampilkan daftar file yang ada di direktori.
+            \item Menghapus file tertentu.
+            \item Menampilkan daftar proses sistem.
+            \item Melihat status sistem (CPU, memori, disk).
+            \item Keluar dari program.
+        \end{enumerate}
+    \item Pengguna akan diberikan prompt untuk memasukkan perintah, dan CLI akan menangani perintah sesuai pilihan.
+\end{enumerate}
+\end{enumerate}
+
+
+
+
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -270,6 +587,94 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+\subsubsection{Group 10}
+
+
+
+\textbf{No 1}
+
+
+    Gunakan Python dan modul bawaan seperti `os` dan `shutil` untuk mengimplementasikan operasi ini. Tulis kode yang akan melakukan hal berikut:
+\begin{enumerate}
+    \item Membuat sebuah direktori baru bernama \texttt{test\_dir}.
+    \item Membuat file baru di dalam direktori tersebut bernama \texttt{example.txt} dan menulis teks ke file itu.
+    \item Membaca konten dari file \texttt{example.txt}.
+    \item Menghapus file \texttt{example.txt}.
+    \item Mengatur izin file dalam direktori \texttt{test\_dir} untuk membuat file hanya dapat dibaca.
+\end{enumerate}
+\textit{JAWABAN :}
+\begin{python}
+import os
+import shutil
+
+def create_directory(directory_name):
+    if not os.path.exists(directory_name):
+        os.makedirs(directory_name)
+        print(f"Directory '{directory_name}' created.")
+    else:
+        print(f"Directory '{directory_name}' already exists.")
+
+def create_file(file_path, content):
+    with open(file_path, 'w') as file:
+        file.write(content)
+        print(f"File '{file_path}' created and written.")
+
+def read_file(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as file:
+            content = file.read()
+            print(f"Reading from '{file_path}':\n{content}")
+    else:
+        print(f"File '{file_path}' does not exist.")
+
+def delete_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"File '{file_path}' deleted.")
+    else:
+        print(f"File '{file_path}' does not exist.")
+
+def change_permissions(directory_path):
+    if os.path.exists(directory_path):
+        # Set read-only permission to the directory and its contents
+        os.chmod(directory_path, 0o444)
+        print(f"Permissions for directory '{directory_path}' set to read-only.")
+    else:
+        print(f"Directory '{directory_path}' does not exist.")
+
+# Assignment steps implementation
+dir_name = 'test_dir'
+file_name = 'example.txt'
+file_path = os.path.join(dir_name, file_name)
+
+# Step 1: Create a directory
+create_directory(dir_name)
+
+# Step 2: Create a file and write to it
+create_file(file_path, "This is a test file for file system access assignment.")
+
+# Step 3: Read the file
+read_file(file_path)
+
+# Step 4: Delete the file
+delete_file(file_path)
+
+# Step 5: Change permissions of the directory to read-only
+change_permissions(dir_name)
+\end{python}
+
+\textit{PENJELASAN :}
+\begin{enumerate}
+    \item Fungsi \textit{create\_directory} digunakan untuk membuat direktori baru dengan nama yang ditentukan jika direktori tersebut belum ada.
+    \item Fungsi \textit{create\_file} membuka file dalam mode tulis dan menulis teks yang diberikan ke file. Jika file belum ada, maka akan dibuat.
+    \item Fungsi \textit{read\_file} membaca dan menampilkan isi file jika file ada. Ini menggunakan metode pembacaan standar dalam Python.
+    \item Fungsi \textit{delete\_file} digunakan untuk menghapus file jika file tersebut ada di sistem.
+    \item Fungsi \textit{change\_permissions} mengatur izin file atau direktori menjadi hanya-baca (\textit{read-only}) menggunakan `os.chmod()`.
+
+\end{enumerate}
+    Program di atas menciptakan direktori baru bernama `test\_dir`, membuat file `example.txt` di dalamnya, menulis teks ke dalam file, membaca isi file, menghapus file, dan mengatur izin direktori agar menjadi hanya-baca.
+
+
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

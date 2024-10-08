@@ -211,6 +211,10 @@ Penjelasan :
     Pada dasarnya DMA mempunyai dua metode yang berbeda dalam mentransfer data, Metode yang pertama ialah metode yang sangat baku dan sederhana disebut HALT, atau BurstMode DMA, karena pengendali DMA memegang control dari system bus dan mentransfer semua blok data atau dari memori pada single burst. Selagi transfer masih dalam proses, system mikroprosessor di-setidle, tidak melakukan intruksi operasi untuk menjaga internal register. Tipe operasi DMA seperti ini ada pada kebanyakan komputer. Metode yang kedua adalah mengikut sertakan pengendali DMA untuk memegang control dari system bus untuk jangka waktu yang lebih pendek pada periode dimana mikroprosessor sibuk dengan operasi internal dan tidak membutuhkan akses ke system bus. Metode DMA ini disebut dengan cycle stealing mode. Cycle stealing mode DMA lebih kompleks untuk diimplementasikan dibandingkan HALT DMA, karena pengendali DMA harus mempunyai kepintaran untuk merasakan waktu pada saat sistem bus terbuka.
 \end{itemize}
 
+\subsubsection{Referensi}
+\begin{itemize}
+    \item Dancok, D. C. (2024, Mei 23). manajemen I-O. Retrieved from scribd.com: https://www.scribd.com/document/735310900/3-Manajemen-I-O 
+\end{itemize}
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
@@ -281,6 +285,189 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+\subsubsection{Group 9}
+\subsubsection*{Soal 1: File creation and deletion}
+Di sebuah perusahaan teknologi, Imam adalah seorang programmer yang diminta untuk membuat sebuah program yang dapat \textbf{membuat dan menghapus file}. Manager meminta agar Imam membuat sebuah file bernama \texttt{report.txt} yang berisi teks ``Laporan Bulanan'' dan kemudian menghapus file tersebut setelah manager membaca laporannya.
+
+\textbf{Tugas:} Buatlah sebuah program dalam Python yang dapat:
+\begin{enumerate}
+    \item Membuat file \texttt{report.txt} dan menuliskan teks ``Laporan Bulanan''.
+    \item Menghapus file tersebut setelah selesai.
+\end{enumerate}
+
+\textbf{Jawaban:}
+\begin{python}
+import os
+
+def create_file(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
+    print(f"File '{filename}' telah dibuat.")
+
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"File '{filename}' telah dihapus.")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+# Implementasi
+create_file("report.txt", "Laporan Bulanan")
+delete_file("report.txt")
+\end{python}
+
+\textbf{Output:}
+\begin{python}
+File 'report.txt' telah dibuat.
+File 'report.txt' telah dihapus.
+\end{python}
+
+\subsubsection{Group 9}
+\subsubsection*{Soal 2: Reading from and writing to files}
+Joy adalah pengembang di departemen dokumentasi perusahaan. Direktur meminta Joy untuk menambahkan catatan ke dalam file \texttt{log.txt} tanpa menghapus isinya yang lama. Setiap hari, Joy harus menambah catatan baru di akhir file tersebut.
+
+\textbf{Tugas:} Buatlah program Python yang dapat:
+\begin{enumerate}
+    \item Membaca isi dari file \texttt{log.txt}.
+    \item Menambahkan catatan baru berisi teks ``Catatan baru ditambahkan'' tanpa menghapus isi sebelumnya.
+\end{enumerate}
+
+\textbf{Jawaban:}
+\begin{python}
+def read_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            content = file.read()
+            print(f"Isi file '{filename}':\n{content}")
+    except FileNotFoundError:
+        print(f"File '{filename}' tidak ditemukan.")
+
+def append_to_file(filename, new_content):
+    with open(filename, 'a') as file:
+        file.write(new_content + "\n")
+    print(f"Teks '{new_content}' telah ditambahkan ke file '{filename}'.")
+
+# Implementasi
+append_to_file("log.txt", "Catatan baru ditambahkan")
+read_file("log.txt")
+\end{python}
+
+\textbf{Output:}
+\begin{python}
+Teks 'Catatan baru ditambahkan' telah ditambahkan ke file 'log.txt'.
+Isi file 'log.txt':
+Catatan baru ditambahkan
+\end{python}
+
+\subsubsection{Group 9}
+\subsubsection*{Soal 3: Mencari Folder yang Hilang}
+Di sebuah perusahaan, ada banyak folder yang sering berpindah-pindah. Kepala Divisi Anda meminta Anda untuk menemukan sebuah folder bernama \texttt{important\_docs}. Jika folder tersebut tidak ada, Anda harus membuatnya. Setelah itu, Anda perlu masuk ke dalam folder tersebut dan memeriksa apa saja isi di dalamnya.
+
+\textbf{Tugas:} Buatlah program Python yang dapat:
+\begin{enumerate}
+    \item Membuat folder \texttt{important\_docs} jika belum ada.
+    \item Berpindah ke folder tersebut.
+    \item Menampilkan daftar file atau folder yang ada di dalamnya.
+\end{enumerate}
+
+\textbf{Jawaban:}
+\begin{python}
+import os
+
+def list_directory(path='.'):
+    print(f"Isi direktori '{path}':")
+    for item in os.listdir(path):
+        print(item)
+
+def create_and_change_directory(new_dir):
+    if not os.path.exists(new_dir):
+        os.makedirs(new_dir)
+        print(f"Direktori '{new_dir}' telah dibuat.")
+    os.chdir(new_dir)
+    print(f"Berpindah ke direktori '{new_dir}'.")
+
+# Implementasi
+create_and_change_directory("important_docs")
+list_directory()
+\end{python}
+
+\textbf{Output:}
+\begin{python}
+Direktori 'important_docs' telah dibuat.
+Berpindah ke direktori 'important_docs'.
+Isi direktori 'important_docs':
+\end{python}
+
+\subsubsection{Group 9}
+\subsubsection*{Soal 4: Managing file permissions}
+Di perusahaan Anda, ada file rahasia bernama \texttt{secret.txt} yang hanya boleh dibaca oleh anggota tim keamanan. Anda diminta untuk membuat program yang dapat mengubah hak akses file tersebut menjadi hanya bisa dibaca (read-only). Setelah beberapa waktu, file tersebut perlu dimodifikasi lagi, jadi hak aksesnya harus diubah kembali menjadi bisa ditulis (writeable).
+
+\textbf{Tugas:} Buatlah program Python yang dapat:
+\begin{enumerate}
+    \item Mengubah hak akses file \texttt{secret.txt} menjadi hanya bisa dibaca.
+    \item Mengembalikan hak akses file \texttt{secret.txt} menjadi bisa ditulis.
+\end{enumerate}
+
+\textbf{Jawaban:}
+\begin{python}
+import os
+
+def set_read_only(filename):
+    os.chmod(filename, 0o444)  # Read-only
+    print(f"File '{filename}' sekarang hanya bisa dibaca.")
+
+def set_writeable(filename):
+    os.chmod(filename, 0o666)  # Read-write
+    print(f"File '{filename}' sekarang bisa dibaca dan ditulis.")
+
+# Implementasi
+set_read_only("secret.txt")
+set_writeable("secret.txt")
+\end{python}
+
+\textbf{Output:}
+\begin{python}
+File 'secret.txt' sekarang hanya bisa dibaca.
+File 'secret.txt' sekarang bisa dibaca dan ditulis.
+\end{python}
+
+\subsubsection{Group 9}
+\subsubsection*{Soal 5: Navigating directories}
+Anda sedang bekerja di dalam sebuah sub-folder untuk menyelesaikan beberapa tugas. Setelah menyelesaikan pekerjaan di sub-folder tersebut, Anda perlu kembali ke \textbf{folder induk (parent directory)} untuk mengatur file-file lain.
+
+\textbf{Tugas:} Buatlah program Python yang dapat:
+\begin{enumerate}
+    \item Berpindah dari folder saat ini ke \textbf{parent directory}.
+    \item Menampilkan isi dari parent directory setelah berpindah.
+\end{enumerate}
+
+\textbf{Jawaban:}
+\begin{python}
+import os
+
+def list_directory(path='.'):
+    print(f"Isi direktori '{path}':")
+    for item in os.listdir(path):
+        print(item)
+
+def change_to_parent_directory():
+    parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+    os.chdir(parent_dir)
+    print(f"Berpindah ke direktori parent: {parent_dir}")
+    list_directory()
+
+# Implementasi
+change_to_parent_directory()
+\end{python}
+
+\textbf{Output:}
+\begin{python}
+Berpindah ke direktori parent: /path/to/parent/folder
+Isi direktori '/path/to/parent/folder':
+file1.txt
+file2.txt
+subfolder
+\end{python}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

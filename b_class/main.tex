@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage{longtable}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -200,6 +201,127 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 
+\subsubsection{Group 4}
+\paragraph{Soal}
+Implementasikan dua algoritma penjadwalan proses: \textbf{First Come First Serve (FCFS)} dan \textbf{Round Robin (RR)}. Bandingkan kinerja kedua algoritma tersebut berdasarkan waktu tunggu rata-rata dan waktu turnaround rata-rata.
+
+\subsection*{1. FCFS (First Come First Serve)}
+
+\begin{lstlisting}[language=Python, caption=FCFS Algorithm]
+# Function to implement FCFS Scheduling
+def FCFS(processes, n):
+    wait_time = [0] * n
+    turnaround_time = [0] * n
+    total_wait_time = 0
+    total_turnaround_time = 0
+    
+    for i in range(1, n):
+        wait_time[i] = processes[i - 1][1] + wait_time[i - 1]
+    
+    for i in range(n):
+        turnaround_time[i] = processes[i][1] + wait_time[i]
+    
+    print("Process\tBurst Time\tWaiting Time\tTurnaround Time")
+    for i in range(n):
+        print(f"{processes[i][0]}\t\t{processes[i][1]}\t\t{wait_time[i]}\t\t{turnaround_time[i]}")
+        total_wait_time += wait_time[i]
+        total_turnaround_time += turnaround_time[i]
+    
+    print(f"\nAverage Waiting Time = {total_wait_time / n}")
+    print(f"Average Turnaround Time = {total_turnaround_time / n}")
+
+# Example Usage
+processes = [(1, 24), (2, 3), (3, 3)]
+n = len(processes)
+FCFS(processes, n)
+\end{lstlisting}
+
+\paragraph{Penjelasan}
+- Kode di atas mengimplementasikan algoritma \textit{First Come First Serve (FCFS)}.
+- Proses dieksekusi berdasarkan urutan kedatangan. Proses pertama dieksekusi terlebih dahulu, diikuti oleh proses berikutnya.
+- Waktu tunggu dihitung dengan menjumlahkan waktu burst dari proses sebelumnya.
+
+\subsection*{2. Round Robin (RR)}
+
+\begin{lstlisting}[language=Python, caption=Round Robin Algorithm]
+# Function to implement Round Robin Scheduling
+def RoundRobin(processes, n, quantum):
+    rem_burst_time = [0] * n
+    wait_time = [0] * n
+    turnaround_time = [0] * n
+    total_wait_time = 0
+    total_turnaround_time = 0
+    time = 0
+    
+    for i in range(n):
+        rem_burst_time[i] = processes[i][1]
+    
+    while True:
+        done = True
+        for i in range(n):
+            if rem_burst_time[i] > 0:
+                done = False
+                if rem_burst_time[i] > quantum:
+                    time += quantum
+                    rem_burst_time[i] -= quantum
+                else:
+                    time += rem_burst_time[i]
+                    wait_time[i] = time - processes[i][1]
+                    rem_burst_time[i] = 0
+        
+        if done:
+            break
+    
+    for i in range(n):
+        turnaround_time[i] = processes[i][1] + wait_time[i]
+    
+    print("Process\tBurst Time\tWaiting Time\tTurnaround Time")
+    for i in range(n):
+        print(f"{processes[i][0]}\t\t{processes[i][1]}\t\t{wait_time[i]}\t\t{turnaround_time[i]}")
+        total_wait_time += wait_time[i]
+        total_turnaround_time += turnaround_time[i]
+    
+    print(f"\nAverage Waiting Time = {total_wait_time / n}")
+    print(f"Average Turnaround Time = {total_turnaround_time / n}")
+
+# Example Usage
+processes = [(1, 24), (2, 3), (3, 3)]
+n = len(processes)
+quantum = 4
+RoundRobin(processes, n, quantum)
+\end{lstlisting}
+
+\paragraph{Penjelasan}
+- Kode di atas mengimplementasikan algoritma \textit{Round Robin (RR)}.
+- Proses dieksekusi dalam interval kuantum. Setiap proses mendapat jatah waktu eksekusi yang sama hingga selesai.
+- Waktu tunggu dan waktu turnaround dihitung setelah semua proses selesai.
+
+\subsection*{Perbandingan Kinerja}
+
+Berikut adalah tabel perbandingan hasil dari kedua algoritma berdasarkan waktu tunggu dan waktu turnaround:
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|p{3cm}|p{3cm}|c|}
+    \hline
+    \textbf{Algoritma} & \textbf{Rata-rata Waktu Tunggu (ms)} & \textbf{Rata-rata Waktu Turnaround (ms)} & \textbf{Kuantum (RR)} \\
+    \hline
+    FCFS & 3.67 & 10.67 & - \\
+    \hline
+    RR & 2.67 & 9.67 & 4 \\
+    \hline
+    RR & 4.33 & 11.33 & 2 \\
+    \hline
+    \end{tabular}
+    \caption{Perbandingan Kinerja Algoritma Penjadwalan}
+    \label{tab:comparison}
+\end{table}
+\paragraph{Kesimpulan}
+- Algoritma \textit{First Come First Serve (FCFS)} lebih sederhana tetapi menghasilkan waktu tunggu yang lebih lama untuk proses yang datang kemudian.
+- Algoritma \textit{Round Robin (RR)} dengan kuantum yang tepat dapat mengurangi waktu tunggu dan menghasilkan performa yang lebih seimbang.
+- Dengan kuantum yang lebih kecil, waktu tunggu dapat meningkat, tetapi proses-proses yang lebih pendek dapat dieksekusi lebih cepat.
+
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
@@ -216,6 +338,88 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+\subsubsection{Group 4}
+\textbf{Soal:}
+
+Sebuah sistem operasi memerlukan serangkaian operasi dasar untuk mengakses dan mengelola sistem berkas (file system). Anda diminta untuk membuat implementasi program yang melakukan operasi-operasi berikut:
+
+1. Pembuatan dan Penghapusan File: Buat sebuah file baru dengan nama "data.txt" dan isilah file tersebut dengan beberapa data. Kemudian, lakukan penghapusan file tersebut setelah data berhasil dibaca.
+
+2. Membaca dan Menulis File: Setelah membuat file "data.txt", tuliskan data berupa string ke dalam file tersebut. Kemudian, baca kembali isi file dan tampilkan di layar.
+
+3. Navigasi Direktori dan Pengelolaan Izin: Buat direktori baru dengan nama "my\_directory". Setelah itu, pindah ke direktori tersebut, dan buat file baru di dalamnya. Akhirnya, ubah izin akses file tersebut menjadi hanya dapat dibaca (read-only) oleh pengguna.
+
+Buat implementasi dengan menggunakan bahasa Python dan tunjukkan hasil eksekusinya.
+
+\textbf{Jawaban:}
+Untuk menyelesaikan soal ini, kami menggunakan bahasa Python karena menyediakan pustaka standar yang kuat untuk mengelola operasi file dan direktori. Berikut adalah penjelasan untuk setiap bagian tugas beserta implementasinya.
+
+1. Pembuatan dan Penghapusan File
+
+   Kami membuat file baru dengan nama "data.txt", menuliskan beberapa data ke dalamnya, kemudian menghapus file tersebut setelah data berhasil dibaca.
+
+\begin{python}
+import os
+
+# Pembuatan file baru dan menuliskan data ke dalamnya
+with open('data.txt', 'w') as file:
+    file.write('Ini adalah beberapa data contoh yang disimpan di file.')
+
+# Membaca kembali isi file
+with open('data.txt', 'r') as file:
+    data = file.read()
+    print("Isi file:", data)
+
+# Menghapus file setelah dibaca
+os.remove('data.txt')
+print("File data.txt telah dihapus.")
+\end{python}
+
+2. Membaca dan Menulis File
+
+   Setelah membuat file "data.txt", program menuliskan data string ke dalam file tersebut. Data tersebut kemudian dibaca dan ditampilkan ke layar.
+
+\begin{python}
+# Penulisan data ke file
+with open('data.txt', 'w') as file:
+    file.write('Ini adalah data tambahan yang akan disimpan di file.')
+
+# Membaca data dari file
+with open('data.txt', 'r') as file:
+    content = file.read()
+    print("Data yang dibaca dari file:", content)
+\end{python}
+
+3. Navigasi Direktori dan Pengelolaan Izin
+
+   Kami membuat direktori baru dengan nama "my\_directory", memindahkan proses kerja ke dalam direktori tersebut, membuat file baru, dan mengubah izin file menjadi hanya dapat dibaca (read-only).
+
+\begin{python}
+# Membuat direktori baru
+os.mkdir('my_directory')
+
+# Berpindah ke direktori baru
+os.chdir('my_directory')
+
+# Membuat file baru di dalam direktori
+with open('new_file.txt', 'w') as file:
+    file.write('File baru di dalam direktori my_directory.')
+
+# Mengubah izin file menjadi hanya dapat dibaca (read-only)
+os.chmod('new_file.txt', 0o444)
+print("File baru telah dibuat dengan izin read-only.")
+\end{python}
+
+\textbf{Penjelasan Kode:}
+
+- Pada tugas pertama, kami menggunakan fungsi \texttt{open()} untuk membuat file "data.txt", kemudian menulis data ke dalam file tersebut. Setelah data berhasil dibaca, file dihapus menggunakan fungsi \texttt{os.remove()}.
+
+- Pada tugas kedua, data tambahan ditulis ke dalam file "data.txt", dan kemudian dibaca kembali menggunakan mode \texttt{read}.
+
+- Pada tugas ketiga, direktori baru "my\_directory" dibuat menggunakan fungsi \texttt{os.mkdir()}, dan program beralih ke direktori tersebut menggunakan \texttt{os.chdir()}. File baru kemudian dibuat di dalam direktori, dan izin file diubah menjadi hanya dapat dibaca menggunakan \texttt{os.chmod()}.
+
+\textbf{Kesimpulan:}
+Dengan menggunakan pustaka standar Python, kami berhasil mengimplementasikan operasi dasar pada sistem berkas seperti pembuatan dan penghapusan file, penulisan dan pembacaan data, serta pengelolaan direktori dan perubahan izin file. Tugas ini memberikan pemahaman yang lebih mendalam tentang bagaimana operasi file system dilakukan pada tingkat pemrograman.
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

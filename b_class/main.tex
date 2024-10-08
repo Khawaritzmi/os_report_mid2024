@@ -82,115 +82,108 @@ Details how processes are created and terminated by the operating system, includ
     \item Process spawning
     \item Process termination conditions
     
-    \subsubsection{Process Normal Termination}
+    \subsubsection{Terminasi Normal Proses}
     
+    \begin{itemize}
+        Proses terminasi normal adalah kondisi di mana suatu proses menyelesaikan fungsinya dengan baik tanpa mengalami kesalahan atau pengecualian. Ini adalah akhir eksekusi proses yang terkontrol dan disengaja. Dalam kode program, biasanya terdapat instruksi atau pernyataan yang menunjukkan akhir dari proses, seperti \textit{`return`} di fungsi utama dalam bahasa C atau Java. Proses ini merupakan bagian dari siklus hidup normal sebuah proses.
+    \end{itemize}
+
     \begin{figure}
         \centering
-        \includegraphics[width=0.2\linewidth]{Normal.png}
-        \caption{Normal Termination}
+        \includegraphics[width=0.2\linewidth]{asset/Normal.png}
+        \caption{Terminasi Normal}
         \label{fig:enter-label}
     \end{figure}
     
-        \begin{itemize}
-            Proses Normal Termination adalah suatu kondisi di mana sebuah proses menyelesaikan fungsinya yang dimaksudkan tanpa mengalami kesalahan atau pengecualian. Ini adalah akhir eksekusi proses yang terkontrol dan disengaja. Dalam kode program, biasanya ada instruksi atau statement yang menunjukkan akhir dari proses, seperti return di fungsi main dalam bahasa C atau Java. Proses ini adalah bagian dari siklus hidup normal sebuah proses.
-        \end{itemize}
+    Skenario umum untuk terminasi normal:
+    \begin{itemize} 
+        \item Penyelesaian proses: Proses telah menyelesaikan semua tugasnya dan mencapai titik akhir secara alami.
+        \item Terminasi yang diinisiasi oleh pengguna: Pengguna secara eksplisit meminta proses untuk berhenti, biasanya melalui perintah atau antarmuka.
+        \item Pengembalian dari fungsi: Sebuah proses dapat berhenti ketika sebuah fungsi yang dijalankan mengembalikan nilai yang menandakan penyelesaian.
+    \end{itemize}
     
-        Skenario umum untuk terminasi normal:
-        \begin{itemize} 
-            \item Penyelesaian proses: Proses telah menyelesaikan semua tugasnya dan mencapai titik akhir alami.
-            \item Terminasi yang diinisiasi oleh pengguna: Pengguna telah secara eksplisit meminta proses untuk berhenti, biasanya melalui perintah atau antarmuka.
-            \item Pengembalian dari fungsi: Sebuah proses dapat terminasi ketika sebuah fungsi yang dijalankan mengembalikan nilai yang mengindikasikan penyelesaian.
-        \end{itemize}
+    Karakteristik terminasi normal:
+    \begin{itemize} 
+        \item Proses berakhir secara teratur dan dapat diprediksi.
+        \item Tidak ada kesalahan atau pengecualian yang tidak terduga yang menyebabkan proses berhenti sebelum waktunya.
+        \item Proses melepaskan semua sumber daya yang digunakannya (misalnya, memori, file, koneksi jaringan) sebelum terminasi.
+    \end{itemize}
     
-        Karakteristik terminasi normal:
-        \begin{itemize} 
-            \item Proses terminasi dengan cara yang dapat diprediksi dan teratur.
-            \item Tidak ada masalah atau pengecualian yang tidak terduga yang menyebabkan proses berakhir sebelum waktunya.
-            \item Proses melepaskan semua sumber daya yang digunakannya (misalnya, memori, file, koneksi jaringan) sebelum terminasi.
-        \end{itemize}
-        
-        Contoh terminasi normal:
-        \begin{itemize}
-            \item Sebuah proses browser web menyelesaikan pemuatan halaman web.
-            \item Sebuah proses editor teks menyimpan dokumen dan kemudian keluar.
-            \item Sebuah tugas latar belakang menyelesaikan pekerjaannya yang dijadwalkan dan terminasi.
-        \end{itemize} 
+    Contoh terminasi normal:
+    \begin{itemize}
+        \item Sebuah proses peramban web menyelesaikan pemuatan halaman web.
+        \item Sebuah proses editor teks menyimpan dokumen dan kemudian keluar.
+        \item Sebuah tugas latar belakang menyelesaikan pekerjaan yang dijadwalkan dan berakhir.
+    \end{itemize}
     
+    \subsubsection{Terminasi Tidak Normal Proses}
     
-    \item 
-    \subsubsection {Abnormal Termination}
-    
-    \item Abnormal Termination adalah Proses berakhir tidak normal akibat adanya kesalahan yang tidak dapat ditangani dengan benar. Hal ini sering kali disebabkan oleh kondisi yang tidak diharapkan yang membuat proses tidak dapat melanjutkan eksekusi
+    Terminasi tidak normal terjadi ketika sebuah proses berhenti secara tidak teratur akibat adanya kesalahan yang tidak dapat ditangani dengan baik. Hal ini sering kali disebabkan oleh kondisi tak terduga yang membuat proses tidak dapat melanjutkan eksekusi.
     
         \begin{figure}
             \centering
-            \includegraphics[width=0.5\linewidth]{Abnormal.png}
-            \caption{Abnormal Termination}
+            \includegraphics[width=0.5\linewidth]{asset/Abnormal.png}
+            \caption{Terminasi Tidak Normal}
             \label{Abnormal}
         \end{figure}
     
-    
-    Penyebab Terminasi Abnormal:
+    Penyebab terminasi tidak normal:
     \begin{itemize}
-        \item Kesalahan Logika: Kesalahan dalam kode program, seperti pembagian dengan nol, akses array di luar batas, atau penggunaan pointer yang tidak valid.
-        \item Kehabisan Sumber Daya: Proses kehabisan sumber daya yang dibutuhkan untuk beroperasi, seperti memori, file descriptor, atau waktu CPU.
-        \item Sinyal: Proses menerima sinyal yang memaksanya untuk berhenti, seperti sinyal SIGKILL (terminate immediately) atau SIGSEGV (segmentation fault).
-        \item Kesalahan Perangkat Keras: Kerusakan perangkat keras dapat menyebabkan proses berhenti secara tiba-tiba.
-        \item Deadlock: Dua atau lebih proses saling menunggu satu sama lain, sehingga tidak ada yang dapat melanjutkan eksekusi.
+        \item Kesalahan logika: Kesalahan dalam kode program, seperti pembagian dengan nol, akses array di luar batas, atau penggunaan pointer yang tidak valid.
+        \item Kehabisan sumber daya: Proses kehabisan sumber daya yang dibutuhkan untuk beroperasi, seperti memori, deskriptor file, atau waktu CPU.
+        \item Sinyal: Proses menerima sinyal yang memaksanya untuk berhenti, seperti sinyal\textit{ SIGKILL} (berhenti segera) atau \textit{SIGSEGV} (kesalahan segmentasi).
+        \item Kesalahan perangkat keras: Kerusakan perangkat keras dapat menyebabkan proses berhenti secara tiba-tiba.
+        \item \textit{Deadlock}: Dua atau lebih proses saling menunggu satu sama lain, sehingga tidak ada yang dapat melanjutkan eksekusi.
         \item Interupsi: Terjadinya interupsi yang tidak dapat ditangani oleh sistem operasi.
     \end{itemize}
     
-        Kontras dengan terminasi abnormal:
-        \begin{itemize}
-            \item Terminasi abnormal terjadi ketika sebuah proses berakhir secara tidak terduga karena kesalahan, pengecualian, atau keadaan tak terduga lainnya. Hal ini dapat menyebabkan perilaku yang tidak terkendali, kebocoran sumber daya, atau ketidakstabilan sistem.
-        \end{itemize}
-    
-    Dampak Terminasi Abnormal :
+    Kontras dengan terminasi tidak normal:
     \begin{itemize}
-        \item Kehilangan Data: Data yang sedang diproses oleh proses yang terminasi secara abnormal mungkin hilang atau rusak.
-        \item Ketidakstabilan Sistem: Terminasi abnormal dapat menyebabkan sistem menjadi tidak stabil atau bahkan crash.
-        \item Kerusakan Data: Data yang disimpan di disk atau memori dapat rusak jika proses tidak sempat menyimpan data dengan benar sebelum terminasi.
-        \item Gangguan Proses Lain: Terminasi abnormal suatu proses dapat mempengaruhi proses lain yang berinteraksi dengannya.
+        \item Terminasi tidak normal terjadi ketika sebuah proses berhenti secara tak terduga karena kesalahan, pengecualian, atau keadaan tak terduga lainnya. Hal ini dapat menyebabkan perilaku tidak terkendali, kebocoran sumber daya, atau ketidakstabilan sistem.
     \end{itemize}
     
-    
-    Mekanisme Penanganan Terminasi Abnormal:
+    Dampak terminasi tidak normal:
     \begin{itemize}
-        Sistem Operasi: Sistem operasi akan berusaha untuk mendeteksi dan menangani terminasi abnormal. Ini melibatkan mekanisme seperti:
+        \item Kehilangan data: Data yang sedang diproses oleh proses yang berhenti secara tidak normal mungkin hilang atau rusak.
+        \item Ketidakstabilan sistem: Terminasi tidak normal dapat menyebabkan sistem menjadi tidak stabil atau bahkan \textit{ crash.}
+        \item Kerusakan data: Data yang disimpan di disk atau memori dapat rusak jika proses tidak sempat menyimpan data dengan benar sebelum berhenti.
+        \item Gangguan proses lain: Terminasi tidak normal suatu proses dapat mempengaruhi proses lain yang berinteraksi dengannya.
     \end{itemize}
     
-    
-        \begin{itemize}
-            \item Penanganan Pengecualian: Sistem operasi akan menangkap pengecualian yang terjadi selama eksekusi proses dan mengambil tindakan yang sesuai, seperti menghentikan proses atau menampilkan pesan kesalahan.
-            \item Pengawasan Memori: Sistem operasi akan memantau penggunaan memori oleh proses untuk mencegah terjadinya akses memori yang tidak sah.
-            \item Pengawasan Waktu: Sistem operasi akan membatasi waktu eksekusi suatu proses untuk mencegah proses berjalan terlalu lama dan menghabiskan sumber daya sistem.
-            \item     Debugging: Pengembang dapat menggunakan debugger untuk melacak kesalahan yang menyebabkan terminasi abnormal dan memperbaiki kode program.
-        \end{itemize}
-    
-    
-    Contoh Terminasi Abnormal
+    Mekanisme penanganan terminasi tidak normal:
     \begin{itemize}
-        \item Program crash: Sebuah program tiba-tiba berhenti bekerja dan menampilkan pesan kesalahan.
-        \item Blue Screen of Death (BSOD): Sistem operasi Windows mengalami kegagalan fatal dan menampilkan layar biru.
-        \item Kernel panic: Sistem operasi Linux mengalami kegagalan yang sangat serius dan tidak dapat melanjutkan operasi.
+        Sistem operasi: Sistem operasi berusaha mendeteksi dan menangani terminasi tidak normal. Ini melibatkan mekanisme seperti:
     \end{itemize}
     
-    
-    
-    Pencegahan Terminasi Abnormal:
     \begin{itemize}
-        \item Pengujian yang Memadai: Melakukan pengujian yang menyeluruh pada perangkat lunak untuk menemukan dan memperbaiki bug sebelum di-deploy.
-        \item Penanganan Pengecualian: Menulis kode yang dapat menangani berbagai jenis pengecualian yang mungkin terjadi.
-        \item Manajemen Memori yang Baik: Memastikan alokasi dan dealokasi memori dilakukan dengan benar untuk mencegah kebocoran memori.
-        \item Validasi Input: Memeriksa semua input pengguna untuk memastikan bahwa input tersebut valid dan tidak akan menyebabkan kesalahan.
+        \item Penanganan pengecualian: Sistem operasi menangkap pengecualian yang terjadi selama eksekusi proses dan mengambil tindakan yang sesuai, seperti menghentikan proses atau menampilkan pesan kesalahan.
+        \item Pengawasan memori: Sistem operasi memantau penggunaan memori oleh proses untuk mencegah akses memori yang tidak sah.
+        \item Pengawasan waktu: Sistem operasi membatasi waktu eksekusi suatu proses untuk mencegah proses berjalan terlalu lama dan menghabiskan sumber daya sistem.
+        \item \textit{Debugging}: Pengembang dapat menggunakan debugger untuk melacak kesalahan yang menyebabkan terminasi tidak normal dan memperbaiki kode program.
     \end{itemize}
+    
+    Contoh terminasi tidak normal:
+    \begin{itemize}
+        \item Program \textit{crash}: Sebuah program tiba-tiba berhenti bekerja dan menampilkan pesan kesalahan.
+        \item \textit{Blue Screen of Death (BSOD)}: Sistem operasi Windows mengalami kegagalan fatal dan menampilkan layar biru.
+        \item \textit{Kernel panic}: Sistem operasi Linux mengalami kegagalan yang sangat serius dan tidak dapat melanjutkan operasi.
+    \end{itemize}
+    
+    Pencegahan terminasi tidak normal:
+    \begin{itemize}
+        \item Pengujian yang memadai: Melakukan pengujian menyeluruh pada perangkat lunak untuk menemukan dan memperbaiki \textit{bug} sebelum di-deploy.
+        \item Penanganan pengecualian: Menulis kode yang dapat menangani berbagai jenis pengecualian yang mungkin terjadi.
+        \item Manajemen memori yang baik: Memastikan alokasi dan dealokasi memori dilakukan dengan benar untuk mencegah kebocoran memori.
+        \item Validasi input: Memeriksa semua input pengguna untuk memastikan bahwa input tersebut valid dan tidak menyebabkan kesalahan.
+    \end{itemize}
+    
+\end{itemize}
     
     \begin{itemize}
     \item {Wahab, A., & Mubarok, R. (2019). Pengenalan Sistem Operasi (Edisi Revisi). Penerbit Andi.}
     \item {Hidayat, M., & Santoso, A. (2018). "Analisis Penanganan Error dan Exception Handling Pada Bahasa Pemrograman Java." Jurnal Ilmu Komputer dan Teknologi Informasi, 5(1), 55-62.}
     \end{itemize}
 
-\end{itemize}
 
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
@@ -292,6 +285,82 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
+\subsubsection{Group 6}
+
+\begin{itemize}
+    \item File creation and deletion
+\end{itemize}
+
+
+Tulis sebuah program Python yang membuat file bernama \textit{example.txt}, menuliskan string \textit{"Hello, World!"} ke dalam file tersebut, kemudian membaca isinya dan menghapus file tersebut.
+
+\begin{python}
+    import os
+
+    # Membuat file dan menulis ke dalamnya
+    with open("example.txt", "w") as file:
+        file.write("Hello, World!")
+
+    # Membaca isi file
+    with open("example.txt", "r") as file:
+        content = file.read()
+
+        print("Isi file:", content)
+
+    # Menghapus file
+    if os.path.exists("example.txt"):
+        os.remove("example.txt")
+        print("File berhasil dihapus.")
+    else:
+        print("File tidak ditemukan.")
+\end{python}
+
+
+\begin{itemize}
+    \item Reading from and writing to files
+\end{itemize}
+Tulis sebuah program Python yang membaca data dari file input.txt dan menuliskan data tersebut ke file baru bernama output.txt.
+
+\begin{python}
+    # Membuat file input.txt dan menulis data ke dalamnya
+    with open("input.txt", "w") as infile:
+        infile.write("Ini adalah data yang akan disalin ke output.txt.")
+
+    # Membaca isi file input.txt
+    with open("input.txt", "r") as infile:
+        data = infile.read()
+
+    # Menulis data ke file output.txt
+    with open("output.txt", "w") as outfile:
+        outfile.write(data)
+
+    print("Data berhasil dipindahkan dari 'input.txt' ke 'output.txt'.")
+\end{python}
+
+\begin{itemize}
+    \item Navigating directories and managing file permissions
+\end{itemize}
+
+Tulis sebuah program Python yang membuat sebuah direktori bernama \textit{new directory}, kemudian mengatur izin file dari example.txt menjadi hanya dapat dibaca \textit{(read-only)}.
+
+\begin{python}
+    import os
+
+    # Membuat direktori baru
+    os.makedirs("new_directory", exist_ok=True)
+        print("Direktori 'new_directory' berhasil dibuat.")
+
+    # Membuat file example.txt di dalam direktori baru
+    file_path = os.path.join("new_directory", "example.txt")
+    with open(file_path, "w") as file:
+        file.write("This is a test file.")
+
+    # Mengatur izin file menjadi read-only
+    os.chmod(file_path, 0o444)  # 0o444 adalah izin untuk read-only
+        print(f"Izin file '{file_path}' diatur menjadi read-only.")
+\end{python}
+
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

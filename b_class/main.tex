@@ -6,6 +6,7 @@
 \usepackage{color}
 \usepackage{pythonhighlight}
 
+
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
 \date{\today}
@@ -120,6 +121,11 @@ Processes are a central concept in operating systems. This section covers:
         \item Setelah proses tersebut selesai, buat kumpulan proses (\textit{pool}) yang tiba setelahnya hingga proses sebelumnya selesai.
         \item Dari kumpulan tersebut, pilih proses yang memiliki \textit{burst time} terkecil untuk dieksekusi selanjutnya.
     \end{enumerate}
+    Referensi:\\
+    GeeksforGeeks. (n.d.-c). Shortest Job Next (SJN) in Operating System. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/shortest-job-next-sjn-in-operating-system/
+
+    GeeksforGeeks. (n.d.-d). Program for Shortest Job First (SJF) CPU scheduling | Set 1 (non-preemptive). Retrieved October 1, 2024, from https://www.geeksforgeeks.org/program-for-shortest-job-first-or-sjf-cpu-scheduling-set-1-non-preemptive/
+
     \subsubsection{Round Robin (RR)} 
 
 
@@ -136,15 +142,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Single-threaded vs. multi-threaded processes
     \item Benefits of multithreading
 \end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -187,32 +184,6 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
@@ -221,7 +192,79 @@ In this assignment, students were asked to simulate different deadlock scenarios
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.\\\\
+soal:\\
+Buatlah program Command-Line Interface (CLI) sederhana dalam Python dengan fitur-fitur berikut:
+\begin{itemize}
+    \item list files: Menampilkan semua file yang ada di direktori saat ini.
+    \item create file: membuat file baru dengan nama yang ditentukan
+    \item delete file: Menghapus file berdasarkan nama yang diberikan, jika file tersebut ada.
+    \item process list: Menampilkan daftar proses yang sedang berjalan beserta PID dan nama proses.
+    \item system status: Menampilkan status sistem saat ini, termasuk penggunaan CPU dan memori.
+    \item exit: Menghentikan program CLI.
+\end{itemize}
+\begin{python}
+import os
+import psutil
+
+def create_file(filename):
+    with open(filename, 'w') as file:
+        file.write(input("Masukkan teks untuk file baru: "))
+    print(f"File '{filename}' berhasil dibuat.")
+
+def list_files():
+    files = os.listdir()
+    print("Daftar file dalam direktori saat ini:")
+    for file in files:
+        print(file)
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    except FileNotFoundError:
+        print(f"File '{filename}' tidak ditemukan.")
+
+def list_processes():
+    for proc in psutil.process_iter(['pid', 'name']):
+        print(f"PID: {proc.info['pid']}, Nama: {proc.info['name']}")
+
+def kill_process(pid):
+    try:
+        p = psutil.Process(pid)
+        p.terminate()
+        print(f"Proses dengan PID {pid} berhasil dihentikan.")
+    except psutil.NoSuchProcess:
+        print(f"Tidak ada proses dengan PID {pid}.")
+
+def system_status():
+    cpu_usage = psutil.cpu_percent(interval=1)
+    memory_info = psutil.virtual_memory()
+    print(f"Penggunaan CPU: {cpu_usage}%")
+    print(f"Penggunaan Memori: {memory_info.percent}%")
+
+# Main CLI
+while True:
+    print("Masukkan Perintah:\n1. create_files\n2. list_files\n3. delete_file\n4. list_process\n5. kill_process\n6. system_status\n6. exit\n")
+    command = input("Masukkan perintah: ").split()
+    if command[0] == "create_file":
+        create_file(command[1])
+    elif command[0] == "list_files":
+        list_files()
+    elif command[0] == "delete_file":
+        delete_file(command[1])
+    elif command[0] == "list_processes":
+        list_processes()
+    elif command[0] == "kill_process":
+        kill_process(int(command[1]))
+    elif command[0] == "system_status":
+        system_status()
+    elif command[0] == "exit":
+        print("Keluar dari CLI")
+        break
+    else:
+        print("Perintah tidak dikenal.")
+\end{python}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -230,6 +273,97 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
+Soal:\\
+Buatlah sebuah program manajemen file sederhana dengan Python yang memiliki fitur sebagai berikut:
+\begin{itemize}
+    \item Create file: Meminta pengguna memasukkan nama file dan kontennya untuk dibuat.
+    \item Read file: Membaca dan menampilkan isi dari file berdasarkan nama yang diberikan pengguna.
+    \item Delete file: Menghapus file yang namanya diberikan oleh pengguna.
+    \item List files: Menampilkan semua file dalam direktori saat ini tanpa meminta input tambahan.
+    \item Exit: Menghentikan program.
+\end{itemize}
+Program harus terus berjalan hingga pengguna memilih opsi Exit. Buat menu interaktif dengan pilihan 1-5 untuk setiap operasi di atas, dan tampilkan pesan yang sesuai jika file tidak ditemukan atau format input salah.
+\begin{python}
+    import os
+
+# 1. Fungsi untuk membuat file dan menulis konten ke dalamnya
+def create_file(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
+    print(f"File '{filename}' berhasil dibuat.")
+
+# 2. Fungsi untuk membaca konten file
+def read_file(filename):
+    if os.path.exists(filename):
+        with open(filename, 'r') as file:
+            content = file.read()
+            print(f"Isi file '{filename}':\n{content}")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+# 3. Fungsi untuk menghapus file
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+# 4. Fungsi untuk menampilkan daftar file di direktori tertentu
+def list_files(directory):
+    if os.path.isdir(directory):
+        files = os.listdir(directory)
+        print(f"Daftar file di '{directory}':")
+        for file in files:
+            print(f"- {file}")
+    else:
+        print(f"Direktori '{directory}' tidak ditemukan.")
+
+# Menu utama untuk menerima input dari pengguna
+while True:
+    print("\nPilih operasi yang ingin dilakukan:")
+    print("1. Create file")
+    print("2. Read file")
+    print("3. Delete file")
+    print("4. List files")
+    print("5. Exit")
+    choice = input("Masukkan pilihan (1-5): ")
+
+    if choice == "1":
+    #     # Operasi create file
+        file_data = input("Masukkan nama file dan isi konten (format: 'nama_file,konten_file'): ")
+         # Memisahkan nama file dan konten
+        if ',' in file_data:
+            filename, content = file_data.split(',', 1)  # Split at the first comma only
+            filename = filename.strip()
+            content = content.strip()
+            create_file(filename, content)
+        else:
+            print("Input tidak valid. Pastikan menggunakan format: 'nama_file,konten_file' tanpa spasi atau dengan spasi.")
+        
+    elif choice == "2":
+        # Operasi read file
+        filename = input("Masukkan nama file yang ingin dibaca: ")
+        read_file(filename.strip())
+        
+    elif choice == "3":
+        # Operasi delete file
+        filename = input("Masukkan nama file yang ingin dihapus: ")
+        delete_file(filename.strip())
+        
+    elif choice == "4":
+        # Operasi list files
+        list_files(".")
+        
+    elif choice == "5":
+        # Keluar dari program
+        print("Terima kasih! Program dihentikan.")
+        break
+        
+    else:
+        print("Pilihan tidak valid, silakan coba lagi.")
+\end{python}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

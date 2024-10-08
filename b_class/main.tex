@@ -215,10 +215,97 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}
-    \item File creation and deletion
+     \item File creation and deletion
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+\subsubsection{Group 10}
+
+
+
+\textbf{No 1}
+
+
+    Gunakan Python dan modul bawaan seperti ⁠ os ⁠ dan ⁠ shutil ⁠ untuk mengimplementasikan operasi ini. Tulis kode yang akan melakukan hal berikut:
+\begin{enumerate}
+    \item Membuat sebuah direktori baru bernama \texttt{test\_dir}.
+    \item Membuat file baru di dalam direktori tersebut bernama \texttt{example.txt} dan menulis teks ke file itu.
+    \item Membaca konten dari file \texttt{example.txt}.
+    \item Menghapus file \texttt{example.txt}.
+    \item Mengatur izin file dalam direktori \texttt{test\_dir} untuk membuat file hanya dapat dibaca.
+\end{enumerate}
+\textit{JAWABAN :}
+\begin{python}
+import os
+import shutil
+
+def create_directory(directory_name):
+    if not os.path.exists(directory_name):
+        os.makedirs(directory_name)
+        print(f"Directory '{directory_name}' created.")
+    else:
+        print(f"Directory '{directory_name}' already exists.")
+
+def create_file(file_path, content):
+    with open(file_path, 'w') as file:
+        file.write(content)
+        print(f"File '{file_path}' created and written.")
+
+def read_file(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as file:
+            content = file.read()
+            print(f"Reading from '{file_path}':\n{content}")
+    else:
+        print(f"File '{file_path}' does not exist.")
+
+def delete_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"File '{file_path}' deleted.")
+    else:
+        print(f"File '{file_path}' does not exist.")
+
+def change_permissions(directory_path):
+    if os.path.exists(directory_path):
+        # Set read-only permission to the directory and its contents
+        os.chmod(directory_path, 0o444)
+        print(f"Permissions for directory '{directory_path}' set to read-only.")
+    else:
+        print(f"Directory '{directory_path}' does not exist.")
+
+# Assignment steps implementation
+dir_name = 'test_dir'
+file_name = 'example.txt'
+file_path = os.path.join(dir_name, file_name)
+
+# Step 1: Create a directory
+create_directory(dir_name)
+
+# Step 2: Create a file and write to it
+create_file(file_path, "This is a test file for file system access assignment.")
+
+# Step 3: Read the file
+read_file(file_path)
+
+# Step 4: Delete the file
+delete_file(file_path)
+
+# Step 5: Change permissions of the directory to read-only
+change_permissions(dir_name)
+\end{python}
+
+\textit{PENJELASAN :}
+\begin{enumerate}
+    \item Fungsi \textit{create\_directory} digunakan untuk membuat direktori baru dengan nama yang ditentukan jika direktori tersebut belum ada.
+    \item Fungsi \textit{create\_file} membuka file dalam mode tulis dan menulis teks yang diberikan ke file. Jika file belum ada, maka akan dibuat.
+    \item Fungsi \textit{read\_file} membaca dan menampilkan isi file jika file ada. Ini menggunakan metode pembacaan standar dalam Python.
+    \item Fungsi \textit{delete\_file} digunakan untuk menghapus file jika file tersebut ada di sistem.
+    \item Fungsi \textit{change\_permissions} mengatur izin file atau direktori menjadi hanya-baca (\textit{read-only}) menggunakan ⁠ os.chmod() ⁠.
+
+\end{enumerate}
+    Program di atas menciptakan direktori baru bernama ⁠ test\_dir ⁠, membuat file ⁠ example.txt ⁠ di dalamnya, menulis teks ke dalam file, membaca isi file, menghapus file, dan mengatur izin direktori agar menjadi hanya-baca.
+\end{enumerate}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

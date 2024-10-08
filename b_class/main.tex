@@ -77,33 +77,33 @@ Processes are a central concept in operating systems. This section covers:
         \includegraphics[width=0.75\textwidth]{assets/Round Robin diagram.jpg}
         \label{fig:diagram}
         \end{figure}
-		Round robin scheduling adalah versi preemptive dari first-come, first-served scheduling. Proses-proses dijalankan dalam urutan first-in-first-out, tetapi setiap proses hanya diizinkan berjalan dalam jangka waktu yang terbatas. Interval waktu ini dikenal sebagai time-slice atau quantum. Jika suatu proses tidak selesai atau tidak diblokir karena operasi I/O dalam jangka waktu tersebut, maka time-slice akan habis, dan proses tersebut akan dipreempt. Proses yang dipreempt ini ditempatkan di bagian belakang antrian dan harus menunggu semua proses yang sudah ada di dalam antrian untuk berputar melalui CPU
+		\textit{Round robin scheduling} adalah versi \textit{preemptive} dari \textit{first-come}, \textit{first-served scheduling}. Proses-proses dijalankan dalam urutan \textit{first-in-first-out}, tetapi setiap proses hanya diizinkan berjalan dalam jangka waktu yang terbatas. Interval waktu ini dikenal sebagai time-slice atau quantum. Jika suatu proses tidak selesai atau tidak diblokir karena operasi I/O dalam jangka waktu tersebut, maka \textit{time-slice} akan habis, dan proses tersebut akan \textit{dipreempt}. Proses yang dipreempt ini ditempatkan di bagian belakang antrian dan harus menunggu semua proses yang sudah ada di dalam antrian untuk berputar melalui CPU
 		\par Jika suatu proses diblokir karena operasi I/O sebelum time-slice habis, maka tentu saja proses tersebut masuk ke dalam keadaan terblokir karena operasi I/O tersebut. Setelah operasi tersebut selesai, proses ini akan ditempatkan di akhir antrian dan menunggu gilirannya.
-		\par Dalam round robin scheduling, kinerja interaktif tergantung pada panjang quantum dan jumlah proses dalam antrian. Quantum yang terlalu panjang membuat algoritma ini berperilaku seperti first come, first served scheduling, karena sangat mungkin bahwa suatu proses akan diblokir atau selesai sebelum time-slice habis. Quantum yang kecil memungkinkan sistem berputar melalui proses dengan cepat, yang bagus untuk proses interaktif. Sayangnya, ada overhead dalam context switching, dan melakukan hal ini terlalu sering meningkatkan persentase waktu sistem yang digunakan untuk context switching dibandingkan dengan pekerjaan nyata.
+		\par Dalam \textit{round robin scheduling}, kinerja interaktif tergantung pada panjang quantum dan jumlah proses dalam antrian. \textit{Quantum} yang terlalu panjang membuat algoritma ini berperilaku seperti \textit{first come}, \textit{first served scheduling,} karena sangat mungkin bahwa suatu proses akan diblokir atau selesai sebelum time-slice habis. Quantum yang kecil memungkinkan sistem berputar melalui proses dengan cepat, yang bagus untuk proses interaktif. Sayangnya, ada overhead dalam context switching, dan melakukan hal ini terlalu sering meningkatkan persentase waktu sistem yang digunakan untuk context switching dibandingkan dengan pekerjaan nyata.
 		
 		\subsubsection*{Karakteristik Algoritma Penjadwalan CPU Round Robin}
 		\begin{itemize}
 			\item Sederhana, mudah diimplementasikan, dan bebas dari kekurangan sumber daya karena semua proses mendapat porsi CPU yang adil.
-			\item Salah satu teknik yang paling umum digunakan dalam penjadwalan CPU adalah round robin.
-			\item Hal ini bersifat preemptif karena proses hanya ditugaskan ke CPU untuk jangka waktu tertentu saja maksimal.
-			\item Kerugiannya adalah lebih besarnya biaya overhead pelestarian konteks.
+			\item Salah satu teknik yang paling umum digunakan dalam penjadwalan CPU adalah \textit{round robin}.
+			\item Hal ini bersifat \textit{preemptif} karena proses hanya ditugaskan ke CPU untuk jangka waktu tertentu saja maksimal.
+			\item Kerugiannya adalah lebih besarnya biaya \textit{overhead} pelestarian konteks.
 		\end{itemize}
 		
 		\subsubsection*{Keuntungan Algoritma Penjadwalan CPU Round Robin}
 		\begin{itemize}
 			\item Ada keadilan karena setiap proses mendapat bagian yang sama dari CPU.
 			\item Proses yang baru dibuat ditambahkan ke akhir antrean siap.
-			\item Penjadwalan round-robin umumnya menggunakan Pembagian waktu, yang memberikan setiap slot pekerjaan waktu atau quantum. 
-			\item Saat melakukan penjadwalan round-robin, penempatan waktu tertentu dialokasikan untuk pekerjaan yang berbeda-beda. 
+			\item Penjadwalan \textit{round-robin} umumnya menggunakan Pembagian waktu, yang memberikan setiap slot pekerjaan waktu. 
+			\item Saat melakukan penjadwalan \textit{round-robin}, penempatan waktu tertentu dialokasikan untuk pekerjaan yang berbeda-beda. 
 			\item Setiap proses mendapat kesempatan untuk menjadwalkan ulang setelah waktu tertentu tertentu dalam penjadwalan ini. 
 		\end{itemize}
 		
 		\subsubsection*{Kekurangan Algoritma Penjadwalan CPU Round Robin}
 		\begin{itemize}
 			\item Ada waktu tunggu dan waktu respon yang lebih besar.
-			\item Throughputnya rendah.
+			\item \textit{Throughput}nya rendah.
 			\item Ada Peralihan Konteks.
-			\item Bagan Gantt tampaknya terlalu besar (jika waktu penempatan lebih sedikit untuk penjadwalan. Misalnya: 1 ms untuk penjadwalan besar.)
+			\item Bagan \textit{Gantt} tampaknya terlalu besar (jika waktu penempatan lebih sedikit untuk penjadwalan. Misalnya: 1 ms untuk penjadwalan besar.)
 			\item Penjadwalan yang memakan waktu untuk ukuran kecil.
 		\end{itemize}
 
@@ -344,25 +344,25 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \subsubsection{Group 5}
 
 \begin{enumerate}
-    \item Pencegahan Deadlock menggunakan Algoritma Banker
-    \item Pencegahan Deadlock melalui Pengecekan Sumber Daya
+    \item Pencegahan \textit{Deadlock} menggunakan Algoritma Banker
+    \item Pencegahan \textit{Deadlock} melalui Pengecekan Sumber Daya
 \end{enumerate}
-Tugas Anda adalah mensimulasikan kedua metode di atas dan menunjukkan bagaimana deadlock dapat dihindari atau dicegah.
+Tugas Anda adalah mensimulasikan kedua metode di atas dan menunjukkan bagaimana \textit{deadlock} dapat dihindari atau dicegah.
 
 
 \textbf{Jawaban}
 \subsubsection{Deadlock}
-Deadlock terjadi ketika sekumpulan proses saling menunggu sumber daya yang dimiliki proses lain, dan tidak ada proses yang bisa melanjutkan eksekusinya. Kondisi-kondisi untuk terjadinya deadlock adalah:
+Deadlock terjadi ketika sekumpulan proses saling menunggu sumber daya yang dimiliki proses lain, dan tidak ada proses yang bisa melanjutkan eksekusinya. Kondisi-kondisi untuk terjadinya \textit{deadlock} adalah:
 \begin{itemize}
-    \item Mutual Exclusion (Eksklusi Saling Terkait): Hanya satu proses pada satu waktu yang dapat menggunakan sumber daya.
-    \item Hold and Wait (Menahan dan Menunggu): Proses yang menahan sumber daya juga dapat menunggu sumber daya lain.
-    \item No Preemption (Tanpa Pemaksaan): Sumber daya tidak dapat diambil paksa dari proses yang memegangnya.
-    \item Circular Wait (Tunggu Melingkar): Ada rantai proses di mana setiap proses menunggu sumber daya yang dipegang oleh proses lain dalam rantai.
+    \item Eksklusi Saling Terkait: Hanya satu proses pada satu waktu yang dapat menggunakan sumber daya.
+    \item Menahan dan Menunggu: Proses yang menahan sumber daya juga dapat menunggu sumber daya lain.
+    \item Tanpa Pemaksaan: Sumber daya tidak dapat diambil paksa dari proses yang memegangnya.
+    \item Tunggu Melingkar: Ada rantai proses di mana setiap proses menunggu sumber daya yang dipegang oleh proses lain dalam rantai.
 \end{itemize}
 
 \textbf{Metode Pencegahan Deadlock}
 
-Berikut adalah dua metode pencegahan yang diterapkan pada skenario deadlock:
+Berikut adalah dua metode pencegahan yang diterapkan pada skenario \textit{deadlock}:
 
 \subsubsection{Algoritma Banker's untuk Pencegahan Deadlock}
 Algoritma Banker's mengevaluasi permintaan proses dan hanya mengabulkannya jika sistem dapat tetap berada dalam keadaan aman setelah mengalokasikan sumber daya tersebut.
@@ -463,7 +463,7 @@ else:
 \end{python}
 
 \subsubsection{Hasil Simulasi}
-Hasil simulasi dari algoritma Banker's dan pengecekan sumber daya menunjukkan bahwa sistem dapat berada dalam keadaan aman jika alokasi sumber daya dilakukan dengan hati-hati. Jika ada deadlock yang mungkin terjadi, sistem akan mencegah permintaan lebih lanjut atau melakukan pre-emption sumber daya.
+Hasil simulasi dari \textit{algoritma Banker's} dan pengecekan sumber daya menunjukkan bahwa sistem dapat berada dalam keadaan aman jika alokasi sumber daya dilakukan dengan hati-hati. Jika ada deadlock yang mungkin terjadi, sistem akan mencegah permintaan lebih lanjut atau melakukan pre-emption sumber daya.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

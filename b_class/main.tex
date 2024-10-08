@@ -171,12 +171,105 @@ Students were tasked with implementing various process scheduling algorithms (e.
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{kelompok 7}
+\begin{itemize}
+    \item\textbf{soal}
+    \par\hspace{2em}Sebuah sistem memiliki total 3 unit resource yang melayani dua proses. Masing-masing proses membutuhkan 2 unit resource dan telah dialokasikan 1 unit resource. Tentukan apakah sistem dalam keadaan aman atau berpotensi mengalami deadlock!
+    
+    \item\textbf{jawaban}
+    \par\hspace{2em}Total resource yang tersedia adalah 3 unit, dan resource yang sudah dialokasikan untuk kedua proses adalah 2 unit. Ini berarti resource yang tersisa di sistem adalah 1 unit.
+    \par\hspace{2em}Kedua proses masing-masing masih membutuhkan 1 unit resource lagi untuk menyelesaikan eksekusi. Karena resource yang tersedia cukup untuk memenuhi kebutuhan salah satu proses, maka proses tersebut dapat selesai. Setelah proses pertama selesai, resource yang dialokasikan dikembalikan, sehingga tersedia 2 unit resource. Dengan resource ini, proses kedua juga dapat diselesaikan.
+    \par Sistem dalam keadaan aman.
 
+     \item\textbf{Implementasi Kode Python}
+    \lstdefinestyle{ystyle}{
+        basicstyle=\ttfamily\footnotesize,
+        breakatwhitespace=false,         
+        breaklines=true,                 
+        captionpos=b,                    
+        keepspaces=true,                                    
+        numbersep=5pt,                  
+        showspaces=false,                
+        showstringspaces=false,
+        showtabs=false,                  
+        tabsize=2,
+        frame=single                   
+    }
+         \lstset{style=ystyle}
+    \begin{lstlisting}def is_safe(total_resources, max_demand, allocated):
+    available = total_resources - sum(allocated)
+    need = [max_demand[i] - allocated[i] for i in range(len(max_demand))]
+
+    for i in range(len(need)):
+        if need[i] <= available:
+            available += allocated[i]
+        else:
+            return False
+    return True
+
+    # Data
+    total_resources = 3
+    max_demand = [2, 2]  # Kedua proses membutuhkan 2 unit
+    allocated = [1, 1]   # Kedua proses sudah dialokasikan 1 unit
+
+    # Cek apakah aman
+    if is_safe(total_resources, max_demand, allocated):
+        print("Sistem dalam keadaan aman.")
+    else:
+        print("Sistem dalam keadaan deadlock.")
+    \end{lstlisting}
+    
+\end{itemize}
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsubsection{kelompok 7}
+\begin{itemize}
+    \item\textbf{soal}
+\par\hspace{2em}Buat sebuah program Command-Line Interface (CLI) sederhana untuk mengelola daftar pengguna. Program harus memiliki menu dengan opsi untuk menambahkan pengguna baru, menghapus pengguna, menampilkan semua pengguna, dan keluar dari program. Program akan terus berjalan hingga pengguna memilih untuk keluar.
+
+    \item\textbf{Jawaban}
+\par\hspace{2em}Program ini memungkinkan pengguna untuk mengelola daftar pengguna melalui antarmuka baris perintah. Pengguna dapat memilih untuk membuat pengguna baru, menghapus pengguna, menampilkan semua pengguna, atau keluar dari program. Program akan terus berjalan hingga pengguna memilih untuk keluar.
+
+    \item\textbf{Implementasi Kode Python}
+    \lstdefinestyle{mystyle}{
+        basicstyle=\ttfamily\footnotesize,
+        breakatwhitespace=false,         
+        breaklines=true,                 
+        captionpos=b,                    
+        keepspaces=true,                                    
+        numbersep=5pt,                  
+        showspaces=false,                
+        showstringspaces=false,
+        showtabs=false,                  
+        tabsize=2,
+        frame=single                   
+    }
+
+        \lstset{style=mystyle}
+    \begin{lstlisting}def display_menu():
+    print("1. Create User\n2. Delete User\n3. List Users\n4. Exit")
+    return input("Choose an option: ")
+
+    users = []
+    while True:
+        choice = display_menu()
+        if choice == '1':
+            user = input("Enter new username: ")
+            users.append(user) if user not in users else print("User already exists.")
+        elif choice == '2':
+            user = input("Enter username to delete: ")
+            users.remove(user) if user in users else print("User not found.")
+        elif choice == '3':
+            print("\n".join(users) if users else "No users available.")
+        elif choice == '4':
+            break
+        else:
+            print("Invalid choice.")
+         \end{lstlisting}
+\end{itemize}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

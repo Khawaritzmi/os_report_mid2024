@@ -205,6 +205,116 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\lstset{
+    backgroundcolor=\color{white},   
+    basicstyle=\footnotesize\ttfamily,  
+    breaklines=true,                
+    frame=single,                     
+    keywordstyle=\color{blue},      
+    commentstyle=\color{green},       
+    stringstyle=\color{red},         
+}
+
+\begin{document}
+
+\subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
+Students were tasked with creating a simple \textbf{CLI} for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\textbf{Deskripsi:} 
+Buatlah sebuah program CLI yang dapat melakukan manipulasi file. Program ini harus mampu:
+\begin{enumerate}
+    \item Membuat file baru dengan nama yang ditentukan oleh pengguna.
+    \item Menampilkan daftar semua file yang ada dalam direktori saat ini.
+    \item Menghapus file berdasarkan nama yang diberikan oleh pengguna.
+\end{enumerate}
+
+\textbf{Kriteria Penilaian:}
+\begin{itemize}
+    \item Fungsi Pembuat File: Program harus berhasil membuat file dengan nama yang valid.
+    \item Fungsi Daftar File: Program harus menampilkan semua file yang ada di direktori saat ini.
+    \item Fungsi Penghapusan File: Program harus dapat menghapus file yang ada dan memberikan pesan kesalahan jika file tidak ditemukan.
+    \item Antarmuka Pengguna: CLI harus mudah digunakan dan responsif terhadap input pengguna.
+\end{itemize}
+
+\paragraph{ANSWER}
+
+\begin{verbatim}
+import os
+import psutil
+
+
+def create_file(file_name):
+    with open(file_name, 'w') as f:
+        f.write('')  # Create an empty file
+    print(f"File '{file_name}' created successfully.")
+
+def list_files():
+    files = os.listdir()
+    if files:
+        print("List of files in the current directory:")
+        for f in files:
+            print(f)
+    else:
+        print("No files found in the current directory.")
+
+
+def delete_file(file_name):
+    if os.path.exists(file_name):
+        os.remove(file_name)
+        print(f"File '{file_name}' deleted successfully.")
+    else:
+        print(f"File '{file_name}' does not exist.")
+
+
+def list_processes():
+    print("List of running processes:")
+    for proc in psutil.process_iter(['pid', 'name', 'cpu_percent']):
+        print(f"PID: {proc.info['pid']}, Name: {proc.info['name']}, CPU: {proc.info['cpu_percent']}%")
+
+def system_status():
+    print("System Status:")
+    print(f"CPU usage: {psutil.cpu_percent()}%")
+    memory = psutil.virtual_memory()
+    print(f"Memory usage: {memory.percent}% ({memory.used / (1024 ** 3):.2f} GB used of {memory.total / (1024 ** 3):.2f} GB)")
+
+
+def cli():
+    while True:
+        print("\nSimple CLI Menu:")
+        print("1. Create file")
+        print("2. List files")
+        print("3. Delete file")
+        print("4. List processes")
+        print("5. System status")
+        print("6. Exit")
+        
+        choice = input("Enter your choice (1-6): ").strip()
+        
+        if choice == '1':
+            file_name = input("Enter the file name to create: ").strip()
+            create_file(file_name)
+        elif choice == '2':
+            list_files()
+        elif choice == '3':
+            file_name = input("Enter the file name to delete: ").strip()
+            delete_file(file_name)
+        elif choice == '4':
+            list_processes()
+        elif choice == '5':
+            system_status()
+        elif choice == '6':
+            print("Exiting CLI...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    cli()
+\end{verbatim}
+
+
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}

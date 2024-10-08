@@ -109,43 +109,43 @@ File systems provide a way for the operating system to store, retrieve, and mana
 
 \subsection{Input and Output Management}
 
-\subsubsection{Interrupt Driven I/O}
+\subsubsection{\textit{Interrupt Driven} I/O}
    \begin{itemize}
     \item Metode di mana perangkat I/O mengirimkan sinyal interupsi ke CPU
-    saat siap melakukan transfer data. Berbeda dengan polled I/O yang mengharuskan CPU secara terus-menerus memeriksa status perangkat, dalam interrupt-driven I/O, CPU dapat fokus pada tugas lain hingga diinterupsi oleh perangkat I/O.
-    \item Prinsip mekanisme transfer data pada interrupt-driven I/O sama dengan programmed I/O, yaitu CPU tetap mempertukarkan data dengan device I/O melalui beberapa register CPU. Maka antarmuka I/O menyediakan control, status, dan port data. Perbedaan yang prinsip adalah siapa yang bertanggung jawab untuk berinisiatif melakukan transfer data. Pada programmed I/O tanggung jawabnya ada pada CPU. Dengan kata lain, program I/O harus sering melakukan pemeriksaan (scan) status device I/O untuk menentukan apakah device siap melakukan transfer data.Pada interrupt-driven I/O, data transfer dimulai (atasinisiatif) device I/O, yang menggunakan mekanisme interupsi untuk memberitahukan CPU tentang kesiapannya. Mekanisme ini menghilangkan beban scanning status. Device I/O juga dapat menggunakan mekanisme interupsi untuk keperluan yang lain. Sebagai contoh untuk menarik perhatian CPU pada saat terjadi kesalahan/ kerusakkan, atau untuk menunjukkan selesainya operasi lokal.\\
+    saat siap melakukan transfer data. Berbeda dengan \textit{polled} I/O yang mengharuskan CPU secara terus-menerus memeriksa status perangkat, dalam \textit{interrupt-driven} I/O, CPU dapat fokus pada tugas lain hingga diinterupsi oleh perangkat I/O.
+    \item Prinsip mekanisme transfer data pada \textit{interrupt-driven} I/O sama dengan \textit{programmed} I/O, yaitu CPU tetap mempertukarkan data dengan \textit{device} I/O melalui beberapa register CPU. Maka antarmuka I/O menyediakan \textit{control}, status, dan \textit{port} data. Perbedaan yang prinsip adalah siapa yang bertanggung jawab untuk berinisiatif melakukan transfer data. Pada\textit{ programmed }I/O tanggung jawabnya ada pada CPU. Dengan kata lain, program I/O harus sering melakukan pemeriksaan \textit{(scan)} status\textit{ device }I/O untuk menentukan apakah \textit{device} siap melakukan transfer data. Pada \textit{interrupt-driven} I/O, data transfer dimulai (atas inisiatif) \textit{device }I/O, yang menggunakan mekanisme interupsi untuk memberitahukan CPU tentang kesiapannya. Mekanisme ini menghilangkan beban \textit{scanning} status. \textit{Device} I/O juga dapat menggunakan mekanisme interupsi untuk keperluan yang lain. Sebagai contoh untuk menarik perhatian CPU pada saat terjadi kesalahan/ kerusakkan, atau untuk menunjukkan selesainya operasi lokal.\\
     Tanpa memperhatikan tipenya, apabila menerima interupsi, CPU akan:
 \begin{enumerate}
     \item Menagguhkan eksekusi program yang sedang berlangsung.
     \item Menyimpan statusnya.
-    \item Melompat ke interrupt service routine (ISR).
+    \item Melompat ke \textit{interrupt service routine }(ISR).
     \item Kembali untuk melanjutkan eksekusi program yang diinterupsi.
 \end{enumerate}
 \end{itemize}
 \subsubsection{Jenis Interupsi}
 \begin{enumerate}
-    \item Maskable interupts.
-    \item Non-Maskable interrupts.
+    \item \textit{Maskable interupts.}
+    \item \textit{Non-Maskable interrupts.}
 \end{enumerate}
 \subsubsection{Struktur interupsi pada prosesor}
 \begin{enumerate}
-    \item Interupsi maskable dan nonmaskable dengan jalur terpisah.
-\item Interupsi maskable dan nonmaskable dengan jalur bersama.\\
-    Pola pertama berbasis pada dua jalur permintaan interupsi (interrupt request) yang terpisah, satu untuk interupsi maskable (INTREQ) dan satu lagi untuk nonmaskable (NMINT). Jalur INTERQ biasanya berpasangan dengan jalur interrupt acknowledge (INTACK). Melalui jalur ini CPU menjawab penerimaan permintaan interupsi dan menginstrusksikan device I/O untuk meletakkan kode alamat ke bus data. Kode alamat menunjukkan CPU ke ISR yang mentransfer data atau melakukan pelayanan yang lainya atas nama device I/O. INTERQ dan INTACK dapat dipandang sebagai pasangan jalur jabat tangan (handshaking).Beberapa CPU tidak menyediakan sinyal jawaban interupsi pada jalur yang terpisah, tetapi melakukan endcode siklus ini pada jalur status. Dalam kasus ini sinyal INTACK diperoleh dengan cara mengkode jalur status CPU. Interupsi non maskable tidak memerlukan acknowledge karena interupsi ini selalu diterima dan karena tidak ada kode alamat yang diberikan secara eksternal. Dengan demikian tidak diperlukan jalur acknowledge untuk interupsi ini. Contoh prosesor yang menggunakan pola ini adalah 8086 dan 8088.
+    \item Interupsi \textit{maskable} dan \textit{nonmaskable} dengan jalur terpisah.
+\item Interupsi \textit{maskable} dan \textit{nonmaskable} dengan jalur bersama.\\
+    Pola pertama berbasis pada dua jalur permintaan interupsi\textit{ (interrupt request)} yang terpisah, satu untuk interupsi\textit{ maskable} (INTREQ) dan satu lagi untuk \textit{nonmaskable} (NMINT). Jalur INTERQ biasanya berpasangan dengan jalur \textit{interrupt acknowledge }(INTACK). Melalui jalur ini CPU menjawab penerimaan permintaan interupsi dan menginstrusksikan \textit{device} I/O untuk meletakkan kode alamat ke bus data. Kode alamat menunjukkan CPU ke ISR yang mentransfer data atau melakukan pelayanan yang lainya atas nama \textit{device} I/O. INTERQ dan INTACK dapat dipandang sebagai pasangan jalur jabat tangan \textit{(handshaking)}. Beberapa CPU tidak menyediakan sinyal jawaban interupsi pada jalur yang terpisah, tetapi melakukan \textit{encode} siklus ini pada jalur status. Dalam kasus ini, sinyal INTACK diperoleh dengan cara mengkode jalur status CPU. Interupsi \textit{non maskable} tidak memerlukan \textit{acknowledge }karena interupsi ini selalu diterima dan karena tidak ada kode alamat yang diberikan secara eksternal. Dengan demikian tidak diperlukan jalur \textit{acknowledge} untuk interupsi ini. Contoh prosesor yang menggunakan pola ini adalah 8086 dan 8088.
 \end{enumerate}
 \subsubsection{Pemrosesan Interupsi}
 \begin{enumerate}
     \item Menangguhkan eksekusi program.
-    \item Menyimpan status program (context).
-    \item Melompat ke Interrupt Service Routine (ISR).
-    \item embali ke program yang diinterupsi.
+    \item Menyimpan status program \textit{(context)}.
+    \item Melompat ke \textit{Interrupt Service Routine} (ISR).
+    \item Kembali ke program yang diinterupsi.
 \end{enumerate}
 \subsubsection{Klasifikasi Perangkat I/O}
 \begin{itemize}
     \item Sifat aliran datanya
 \begin{enumerate}
     \item Perangkat berorientasi blok \\
-    Yaitu menyimpan, menerima, dan mengirim informasi sebagai blok-blok berukuran tetap yang berukuran 128 sampai 1024 byte dan memiliki alamat tersendiri, sehingga memungkinkan membaca atau menulis blok-blok secara independen (mandiri), yaitu dapat membaca atau menulis sembarang blok tanpa harus melewati blok-blok lain. Contoh : disk,tape,CD ROM,optical disk.
+    Yaitu menyimpan, menerima, dan mengirim informasi sebagai blok-blok berukuran tetap yang berukuran 128 sampai 1024 byte dan memiliki alamat tersendiri, sehingga memungkinkan membaca atau menulis blok-blok secara \textit{independen} (mandiri), yaitu dapat membaca atau menulis sembarang blok tanpa harus melewati blok-blok lain. Contoh : disk,tape,CD ROM,optical disk.
     \item Perangkat berorientasi aliran karakter \\
     Perangkat yang menerima, dan mengirimkan aliran karakter tanpa membentuk suatu struktur blok. Contoh : terminal, line printer, pita kertas, kartu-kartu berlubang, interface jaringan, mouse.
 \end{enumerate}
@@ -155,11 +155,11 @@ File systems provide a way for the operating system to store, retrieve, and mana
 \begin{enumerate}
     \item Perangkat yang terbaca oleh manusia \\
     Perangkat yang digunakan untuk berkomunikasi dengan manusia. 
-    Contoh : VDT (video display terminal) : monitor, keyboard, mouse.
+    Contoh : VDT \textit{(video display terminal)} : monitor, keyboard, mouse.
     \item Perangkat yang terbaca oleh mesin 
     Perangkat yang digunakan untuk berkomunikasi dengan perangkat elektronik. Contoh : Disk dan tape, sensor, controller.
     \item perangkat komunikasi\\
-    Perangkat yang digunakan untuk komunikasi dengan perangkat jarak jauh. Contoh : Modem
+    Perangkat yang digunakan untuk komunikasi dengan perangkat jarak jauh. Contoh : Modem.
 \end{enumerate}
 \end{itemize}
 \subsubsection{Prinsip Manajemen Perangkat I/O}
@@ -167,24 +167,24 @@ File systems provide a way for the operating system to store, retrieve, and mana
     \item Terdapat dua sasaran perancangan I/O
 \begin{enumerate}
     \item Efisiensi \\
-    Aspek penting karena operasi I/O sering menimbulkan bottleneck.
-    \item Generalitas(device independence) \\
+    Aspek penting karena operasi I/O sering menimbulkan \textit{bottleneck}.
+    \item Generalitas\textit{(device independence)} \\
     Manajemen perangkat I/O selain berkaitan dengan simplisitas dan bebas kesalahan, juga menangani perangkat secara seragam baik dari cara proses memandang maupun cara sistem operasi mengelola perangkat dan operasi I/O.
 \end{enumerate}
 \end{itemize}
 \subsubsection{Masalah-Masalah Manajemen I/O}
 \begin{itemize}
-    \item Penamaan yang seragam (uniform naming) \\
-    Nama berkas atau perangkat adalah string atau integer, tidak bergantung pada perangkat sama sekali. 
-    \item Penanganan kesalahan(errorhandling)\\
+    \item Penamaan yang seragam \textit{(uniform naming)} \\
+    Nama berkas atau perangkat adalah \textit{string} atau \textit{integer}, tidak bergantung pada perangkat sama sekali. 
+    \item Penanganan kesalahan\textit{(errorhandling)}\\
     Umumnya penanganan kesalahan ditangani sedekat mungkin dengan perangkat keras.
-    \item Transfer sinkron vs asinkron \\
-    Kebanyakan I/O adalah asinkron. Pemroses memulai transfer serta mengabaikan untuk melakukan kerja lain sampai interupsi tiba. Program pemakai sangat lebih mudah ditulis jika operasi I/O berorientasi blok. Setelah perintah read, program kemudian ditunda secara otomatis sampai data tersedia di buffer.
-    \item Sharable vs dedicated \\
-    Beberapa perangkat dapat dipakai bersama seperti disk, tapi ada juga perangkat yang hanya satu pemakai yang dibolehkan memakai pada satu saat. Contoh : printer
+    \item \textit{Transfer sinkron vs asinkron} \\
+    Kebanyakan I/O adalah asinkron. Pemroses memulai transfer serta mengabaikan untuk melakukan kerja lain sampai interupsi tiba. Program pemakai sangat lebih mudah ditulis jika operasi I/O berorientasi blok. Setelah perintah \textit{read}, program kemudian ditunda secara otomatis sampai data tersedia di \textit{buffer}.
+    \item \textit{Sharable vs dedicated} \\
+    Beberapa perangkat dapat dipakai bersama seperti \textit{disk}, tapi ada juga perangkat yang hanya satu pemakai yang dibolehkan memakai pada satu saat. Contoh : printer.
 \end{itemize}
 \subsubsection{Direct Memory Access}
-Dirrect Memory Acces atau DMA merupakan suatu alat pengendali khusus yang disediakan untuk memungkinkan transfer blok data langsung antar perangkat eksternal dan memori utama, tanpa interversi terus menerus dari prosesor. \\
+\textit{Dirrect Memory Acces} atau DMA merupakan suatu alat pengendali khusus yang disediakan untuk memungkinkan transfer blok data langsung antar perangkat eksternal dan memori utama, tanpa interversi terus menerus dari prosesor. \\
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.80\linewidth]{b_class/asset/I_O.jpg}
@@ -194,21 +194,21 @@ Dirrect Memory Acces atau DMA merupakan suatu alat pengendali khusus yang disedi
 Penjelasan :
 \begin{itemize}
     \item CPU Mengatur Pekerjaan
-    Saat CPU memulai pekerjaan, CPU ingin memindahkan data dari disk (penyimpanan) ke RAM (memori). Untuk melakukan ini, CPU akan memberi perintah ke DMA Controller. DMA berfungsi membantu CPU agar tidak terlalu sibuk.
+    Saat CPU memulai pekerjaan, CPU ingin memindahkan data dari disk (penyimpanan) ke RAM (memori). Untuk melakukan ini, CPU akan memberi perintah ke DMA \textit{Controller}. DMA berfungsi membantu CPU agar tidak terlalu sibuk.
     \item DMA Controller Beraksi
-    Setelah mendapat perintah, DMA controller mengambil alih pekerjaan untuk sementara. Dia akan membuat jalur khusus agar data dari disk bisa langsung masuk ke memori tanpa harus melalui CPU. Hal ini dilakukan agar CPU bisa tetap fokus pada tugas lain dan tidak perlu bolak-balik mengurus transfer data.
+    Setelah mendapat perintah, DMA \textit{controller} mengambil alih pekerjaan untuk sementara. Dia akan membuat jalur khusus agar data dari disk bisa langsung masuk ke memori tanpa harus melalui CPU. Hal ini dilakukan agar CPU bisa tetap fokus pada tugas lain dan tidak perlu bolak-balik mengurus transfer data.
     \item Transfer Data
-    DMA controller menggunakan PCI bus untuk memindahkan data dari disk ke RAM dengan menggunakan bantuan jalur-jalur khusus yang sudah ada. Dalam perjalanan ini, pada transfer data terdapat buffer yang berfungsi sebagai tempat persinggahan sementara. Buffer menampung data sementara sebelum data benar-benar sampai ke RAM.
+    DMA controller menggunakan PCI bus untuk memindahkan data dari disk ke RAM dengan menggunakan bantuan jalur-jalur khusus yang sudah ada. Dalam perjalanan ini, pada transfer data terdapat \textit{buffer} yang berfungsi sebagai tempat persinggahan sementara. \textit{Buffer} menampung data sementara sebelum data benar-benar sampai ke RAM.
     \item Pemberitahuan ke CPU
-    Setelah semua data berhasil dipindahkan ke RAM, DMA controller akan memberi tahu CPU dengan "sinyal interupsi." \\
-    Inti dari diagram ini adalah menunjukkan bagaimana sistem komputer bisa bekerja lebih efisien menggunakan DMA. Dengan menggunakan DMA controller, CPU tidak perlu sibuk mengurus transfer data. CPU cukup memberi perintah sekali, lalu DMA yang akan menangani semua proses transfer. Hasilnya, komputer bekerja lebih cepat dan efisien karena CPU bisa mengerjakan tugas lain tanpa terhambat.
+    Setelah semua data berhasil dipindahkan ke RAM, DMA \textit{controller} akan memberi tahu CPU dengan "sinyal interupsi." \\
+    Inti dari diagram ini adalah menunjukkan bagaimana sistem komputer bisa bekerja lebih efisien menggunakan DMA. Dengan menggunakan DMA \textit{controller}, CPU tidak perlu sibuk mengurus transfer data. CPU cukup memberi perintah sekali, lalu DMA yang akan menangani semua proses transfer. Hasilnya, komputer bekerja lebih cepat dan efisien karena CPU bisa mengerjakan tugas lain tanpa terhambat.
 \end{itemize}
 
 \subsubsection{Metode DMA Dalam Mentransfer Data}
 \begin{itemize}
-    \item Metode HALT atau \textit{BurstMode} DMA
+    \item Metode \textit{HALT} atau \textit{BurstMode} DMA
     \item Mengikut sertakan pengendali DMA \\
-    Pada dasarnya DMA mempunyai dua metode yang berbeda dalam mentransfer data, metode yang pertama ialah metode yang sangat baku dan sederhana disebut HALT, atau \textit{BurstMode} DMA, karena pengendali DMA memegang control dari system bus dan mentransfer semua blok data atau dari memori pada single burst. Selagi transfer masih dalam proses, system mikroprosessor di-setidle, tidak melakukan intruksi operasi untuk menjaga internal register. Tipe operasi DMA seperti ini ada pada kebanyakan komputer. Metode yang kedua adalah mengikut sertakan pengendali DMA untuk memegang control dari system bus untuk jangka waktu yang lebih pendek pada periode dimana mikroprosessor sibuk dengan operasi internal dan tidak membutuhkan akses ke system bus. Metode DMA ini disebut dengan \textit{cycle} stealing mode. \textit{Cycle} stealing mode DMA lebih kompleks untuk diimplementasikan dibandingkan HALT DMA, karena pengendali DMA harus mempunyai kepintaran untuk merasakan waktu pada saat sistem bus terbuka.
+    Pada dasarnya DMA mempunyai dua metode yang berbeda dalam mentransfer data, metode yang pertama ialah metode yang sangat baku dan sederhana disebut\textit{ HALT}, atau \textit{BurstMode} DMA, karena pengendali DMA memegang \textit{control} dari \textit{system} bus dan mentransfer semua blok data atau dari memori pada \textit{single burst}. Selagi transfer masih dalam proses, system mikroprosessor di-\textit{setidle}, tidak melakukan intruksi operasi untuk menjaga internal \textit{register}. Tipe operasi DMA seperti ini ada pada kebanyakan komputer. Metode yang kedua adalah mengikut sertakan pengendali DMA untuk memegang \textit{control} dari \textit{system }bus untuk jangka waktu yang lebih pendek pada periode dimana mikroprosessor sibuk dengan operasi internal dan tidak membutuhkan akses ke\textit{ system }bus. Metode DMA ini disebut dengan \textit{cycle stealing mode}.\textit{ Cycle stealing mode} DMA lebih kompleks untuk diimplementasikan dibandingkan \textit{HALT} DMA, karena pengendali DMA harus mempunyai kepintaran untuk merasakan waktu pada saat sistem bus terbuka.
 \end{itemize}
 
 \subsubsection{Referensi}
@@ -287,7 +287,7 @@ In this assignment, students implemented file system access routines, including:
 \end{itemize}
 \subsubsection{Group 9}
 \subsubsection*{Soal 1: File creation and deletion}
-Di sebuah perusahaan teknologi, Imam adalah seorang programmer yang diminta untuk membuat sebuah program yang dapat \textbf{membuat dan menghapus file}. Manager meminta agar Imam membuat sebuah file bernama \texttt{report.txt} yang berisi teks ``Laporan Bulanan'' dan kemudian menghapus file tersebut setelah manager membaca laporannya.
+Di sebuah perusahaan teknologi, Imam adalah seorang \textit{programmer} yang diminta untuk membuat sebuah program yang dapat \textbf{membuat dan menghapus file}. Manager meminta agar Imam membuat sebuah file bernama \texttt{report.txt} yang berisi teks ``Laporan Bulanan'' dan kemudian menghapus file tersebut setelah manager membaca laporannya.
 
 \textbf{Tugas:} Buatlah sebuah program dalam Python yang dapat:
 \begin{enumerate}
@@ -324,7 +324,7 @@ File 'report.txt' telah dihapus.
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 2: Reading from and writing to files}
-Joy adalah pengembang di departemen dokumentasi perusahaan. Direktur meminta Joy untuk menambahkan catatan ke dalam file \texttt{log.txt} tanpa menghapus isinya yang lama. Setiap hari, joy harus menambah catatan baru di akhir file tersebut.
+Joy adalah pengembang di departemen dokumentasi perusahaan. Direktur meminta Joy untuk menambahkan catatan ke dalam file \texttt{log.txt} tanpa menghapus isinya yang lama. Setiap hari, Joy harus menambah catatan baru di akhir file tersebut.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
@@ -361,7 +361,7 @@ Catatan baru ditambahkan
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 3: Mencari Folder yang Hilang}
-Di sebuah perusahaan, ada banyak folder yang sering berpindah-pindah. Kepala Divisi anda meminta anda untuk menemukan sebuah folder bernama \texttt{important\_docs}. Jika folder tersebut tidak ada, anda harus membuatnya. Setelah itu, anda perlu masuk ke dalam folder tersebut dan memeriksa apa saja isi di dalamnya.
+Di sebuah perusahaan, ada banyak folder yang sering berpindah-pindah. Kepala Divisi Anda meminta Anda untuk menemukan sebuah folder bernama \texttt{important\_docs}. Jika folder tersebut tidak ada, Anda harus membuatnya. Setelah itu, Anda perlu masuk ke dalam folder tersebut dan memeriksa apa saja isi di dalamnya.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
@@ -400,7 +400,7 @@ Isi direktori 'important_docs':
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 4: Managing file permissions}
-Di perusahaan anda, ada file rahasia bernama \texttt{secret.txt} yang hanya boleh dibaca oleh anggota tim keamanan. Anda diminta untuk membuat program yang dapat mengubah hak akses file tersebut menjadi hanya bisa dibaca \textit{(read-only)}. Setelah beberapa waktu, file tersebut perlu dimodifikasi lagi, jadi hak aksesnya harus diubah kembali menjadi bisa ditulis \textit{(writeable)}.
+Di perusahaan Anda, ada file rahasia bernama \texttt{secret.txt} yang hanya boleh dibaca oleh anggota tim keamanan. Anda diminta untuk membuat program yang dapat mengubah hak akses file tersebut menjadi hanya bisa dibaca \textit{(read-only)}. Setelah beberapa waktu, file tersebut perlu dimodifikasi lagi, jadi hak aksesnya harus diubah kembali menjadi bisa ditulis. \textit{(writeable)}.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
@@ -433,12 +433,12 @@ File 'secret.txt' sekarang bisa dibaca dan ditulis.
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 5: Navigating directories}
-Anda sedang bekerja di dalam sebuah sub-folder untuk menyelesaikan beberapa tugas. Setelah menyelesaikan pekerjaan di sub-folder tersebut, anda perlu kembali ke \textbf{folder induk (parent directory)} untuk mengatur file-file lain.
+Anda sedang bekerja di dalam sebuah sub-folder untuk menyelesaikan beberapa tugas. Setelah menyelesaikan pekerjaan di sub-folder tersebut, Anda perlu kembali ke \textbf{folder induk (parent directory)} untuk mengatur file-file lain.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
     \item Berpindah dari folder saat ini ke \textbf{parent directory}.
-    \item Menampilkan isi dari parent directory setelah berpindah.
+    \item Menampilkan isi dari \textit{parent directory} setelah berpindah.
 \end{enumerate}
 
 \textbf{Jawaban:}

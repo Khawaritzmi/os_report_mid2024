@@ -58,11 +58,12 @@ This section introduces various system performance metrics used to measure the e
 
 \subsection{System Architecture of Computer Systems}
 \subsubsection{Sistem Operasi}
-Sistem operasi merupakan sebuah penghubung antara pengguna komputer dengan perangkat keras komputer. Pengertian sistem operasi secara umum ialah pengelola seluruh sumber daya yang terdapat pada sistem komputer dan menyediakan sekumpulan layanan \textit{(sistem calls)} ke pemakai sehingga mempermudah dan menyamankan penggunaan serta pemanfaatan sumber daya sistem komputer.Sistem operasi atau dalam bahasa Inggris disebut dengan \textit{operating sistem} (OS) adalah perangkat lunak sistem yang bertugas melakukan kontrol dan manajemen terhadap perangkat keras, serta operasi-operasi dasar sistem, termasuk menjalankan aplikasi seperti program-program pengolah kata, desain animasi, pengolah kata, \textit{database} dan browser web. 
+\subsubsection *{Definisi Sistem Operasi:}
+Sistem operasi merupakan sebuah penghubung antara pengguna komputer dengan perangkat keras komputer. Pengertian sistem operasi secara umum ialah pengelola seluruh sumber daya yang terdapat pada sistem komputer dan menyediakan sekumpulan layanan \textit{(sistem calls)} kepada pemakai sehingga mempermudah dan membuat penggunaan lebih nyaman. Sistem operasi atau dalam bahasa Inggris disebut dengan \textit{operating system} (OS) adalah perangkat lunak sistem yang bertugas melakukan kontrol dan manajemen terhadap perangkat keras, serta operasi-operasi dasar sistem, termasuk menjalankan aplikasi seperti program-program pengolah kata, desain animasi, pengolah kata, \textit{database} dan \textit{browser web}. 
 \\[12pt]
-Secara umum, sistem operasi adalah \textit{software} lapisan pertama yang diletakkan pada memori komputer pada saat komputer dinyalakan, sedangkan \textit{software} lainnya dijalankan setelah sistem operasi bekerja. Sistem operasi akan melakukan layanan inti umum untuk semua \textit{software} aplikasi itu. Layanan inti umum tersebut seperti akses ke disk, manajemen memori, \textit{skeduling task}, dan antarmuka \textit{user} sehingga masing-masing \textit{software} tidak perlu lagi melakukan tugas-tugas inti umum tersebut, karena dapat dilayani dan dilakukan oleh sistem operasi. 
+Secara umum, sistem operasi adalah \textit{software} lapisan pertama yang diletakkan pada memori komputer pada saat komputer dinyalakan, sedangkan \textit{software} lainnya dijalankan setelah sistem operasi bekerja. Sistem operasi akan melakukan layanan inti umum untuk semua \textit{software} aplikasi itu. Layanan inti umum tersebut seperti akses ke \textit{disk}, manajemen memori, \textit{skeduling task}, dan antarmuka \textit{user} sehingga masing-masing \textit{software} tidak perlu lagi melakukan tugas-tugas inti umum tersebut, karena dapat dilayani dan dilakukan oleh sistem operasi. 
 \\[12pt]
-Sebuah Komputer yang \textit{modern} pada saat ini terdiri dari satu atau lebih \textit{prosesor}, \textit{harddisk}, \textit{memori}, \textit{printer}, \textit{keyboard}, \textit{monitor}, kartu jaringan, dan beberapa \textit{input/ouput} yang ada di komputer tersebut. Semua itu menjadi sebuah kesatuan dalam suatu sistem yang lengkap.
+Sebuah Komputer yang \textit{modern} pada saat ini terdiri dari satu atau lebih prosesor, \textit{harddisk}, memori, \textit{printer}, \textit{keyboard}, \textit{monitor}, kartu jaringan, dan beberapa \textit{input/ouput} yang ada di komputer tersebut. Semua itu menjadi sebuah kesatuan dalam suatu sistem yang lengkap.
 \\[12pt]
 Dalam banyak kasus, sistem operasi menyediakan suatu pustaka dari fungsi-fungsi standar di mana aplikasi lain dapat memanggil fungsi-fungsi itu sehingga dalam setiap pembuatan program baru tidak perlu membuat fungsi-fungsi tersebut dari awal.
 \subsubsection *{Secara umum, Sistem operasi terdiri dari beberapa bagian:}
@@ -79,7 +80,7 @@ Sistem operasi merupakan program yang mengontrol eksekusi program- program aplik
     \item Sistem operasi memungkinkan sumber daya sistem komputer untuk digunakan dengan cara yang efisien.
     \item Sistem operasi harus disusun sedemikian rupa sehingga memungkinkan pengembangan yang efektif, pengujian dan penerapan fungsi-fungsi sistem yang baru tanpa mengganggu layanan yang telah ada.
 \end{itemize}
-Dalam \textit{software} sistem operasi, terdapat istilah seperti \textit{platform}, serta CLI \textit{(Command Line Interfaces)} dan GUI \textit{(Graphical User Interfaces)}. Platform yaitu \textit{software} sistem operasi yang digunakan pada sebuah komputer. CLI dan GUI mempunyai perbedaan. CLI adalah sistem operasi yang menggunakan perintah-perintah yang ditulis dalam baris teks. GUI adalah sistem operasi Macintosh yang hanya bisa dihasilkan oleh perusahaan komputer, Apple.
+Dalam \textit{software} sistem operasi, terdapat istilah seperti \textit{platform}, serta CLI \textit{(Command Line Interfaces)} dan GUI \textit{(Graphical User Interfaces)}. Platform yaitu \textit{software} sistem operasi yang digunakan pada sebuah komputer. CLI dan GUI mempunyai perbedaan. CLI adalah sistem operasi yang menggunakan perintah-perintah yang ditulis dalam baris teks. GUI adalah sistem operasi \textit{macintosh} yang hanya bisa dihasilkan oleh perusahaan komputer, \textit{Apple}.
 \begin{figure}[h]
 		\centering
 		\includegraphics[width=1\textwidth]{asset/sistemoperasi.png}
@@ -198,7 +199,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \end{table}
 \subsubsection{Group 2}
 \subsubsection{Group 3}
-Implementasikan algoritma First-Come, First-Served (FCFS), Shortest Job Next (SJN), dan Round Robin (RR) untuk proses scheduling. Bandingkan waktu eksekusi rata-rata (average waiting time) dari ketiga algoritma tersebut dengan jumlah proses yang berbeda.
+Implementasikan algoritma \textit{First-Come}, \textit{First-Served} (FCFS), \textit{Shortest Job Next} (SJN), dan \textit{Round Robin} (RR) untuk proses \textit{scheduling}. Bandingkan waktu eksekusi rata-rata \textit{(average waiting time)} dari ketiga algoritma tersebut dengan jumlah proses yang berbeda.
 \begin{python}
     # FCFS Scheduling
 def fcfs(processes):
@@ -237,6 +238,7 @@ processes = [(1, 5), (2, 9), (3, 6)]  # (process_id, burst_time)
 print("FCFS:", fcfs(processes))
 print("SJN:", sjn(processes))
 print("Round Robin:", round_robin(processes, 4))
+
 \end{python}
 
 \subsection{Assignment 2: Deadlock Handling}
@@ -244,7 +246,7 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \subsubsection{Group 1}
 \subsubsection{Group 2}
 \subsubsection{Group 3}
-Simulasikan kondisi deadlock pada sistem dengan 3 proses dan 2 resource. Jelaskan dan implementasikan metode pencegahan deadlock dengan metode "Banker’s Algorithm."
+Simulasikan kondisi \textit{deadlock} pada sistem dengan 3 proses dan 2 \textit{resource}. Jelaskan dan implementasikan metode pencegahan \textit{deadlock} dengan metode \textit{"Banker’s Algorithm"}
 
 \begin{python}
     # Banker's Algorithm

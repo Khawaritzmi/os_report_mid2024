@@ -227,19 +227,19 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 10}
+\subsubsection{Kelompok 10}
 
 \begin{enumerate}
-    \item No 1
+    \item Soal 1
 
-Sebuah sistem memiliki tiga proses dengan waktu kedatangan (arrival time) dan waktu eksekusi (burst time) sebagai berikut:  
+Sebuah sistem memiliki tiga proses dengan waktu kedatangan (\textit{arrival time}) dan waktu eksekusi (\textit{burst time}) sebagai berikut:  
 \[P1: arrival\_time = 0, burst\_time = 8\]  
 \[P2: arrival\_time = 1, burst\_time = 4\]  
 \[P3: arrival\_time = 2, burst\_time = 9\]  
 
-Implementasikan algoritma penjadwalan First-Come, First-Served (FCFS) dan hitung waktu penyelesaian (completion time), waktu turnaround (turnaround time), dan waktu tunggu (waiting time) untuk setiap proses.
+Implementasikan algoritma penjadwalan \textit{First-Come, First-Served} (FCFS) dan hitung waktu penyelesaian (\textit{completion time}), waktu penyelesaian penuh (\textit{turnaround time}), dan waktu tunggu (\textit{waiting time}) untuk setiap proses.
 
-\textit{JAWABAN : }
+\textit{Jawaban:}
 \begin{python}
 class Process:
     def __init__(self, pid, arrival_time, burst_time):
@@ -253,27 +253,27 @@ class Process:
 def fcfs_scheduling(processes):
     current_time = 0
     
-    # Sorting processes based on arrival time
+    # Mengurutkan proses berdasarkan waktu kedatangan
     processes.sort(key=lambda x: x.arrival_time)
     
     for process in processes:
         if current_time < process.arrival_time:
-            current_time = process.arrival_time  # Adjust the current time if no process has arrived yet
+            current_time = process.arrival_time  # Mengatur waktu jika tidak ada proses yang tiba
         process.completion_time = current_time + process.burst_time
         process.turnaround_time = process.completion_time - process.arrival_time
         process.waiting_time = process.turnaround_time - process.burst_time
-        current_time = process.completion_time  # Update current time
+        current_time = process.completion_time  # Memperbarui waktu saat ini
 
     return processes
 
-# Problem data
+# Data masalah
 processes = [
     Process("P1", 0, 8),
     Process("P2", 1, 4),
     Process("P3", 2, 9)
 ]
 
-# FCFS scheduling
+# Penjadwalan FCFS
 scheduled_processes = fcfs_scheduling(processes)
 
 print("PID\tArrival\tBurst\tCompletion\tTurnaround\tWaiting")
@@ -281,17 +281,16 @@ for process in scheduled_processes:
     print(f"{process.pid}\t{process.arrival_time}\t{process.burst_time}\t{process.completion_time}\t{process.turnaround_time}\t{process.waiting_time}")
 \end{python}
 
-\textit{PENJELASAN : }
+\textit{Penjelasan:}
 \begin{enumerate}
-    \item Membuat kelas \textit{Process} yang menyimpan informasi mengenai \textit{pid} (ID proses), \textit{arrival\_time} (waktu kedatangan), \textit{burst\_time} (waktu eksekusi), \textit{completion\_time} (waktu penyelesaian), \textit{turnaround\_time} (waktu turnaround), dan \textit{waiting\_time} (waktu tunggu).
-    \item Fungsi \textit{fcfs\_scheduling} melakukan penjadwalan berdasarkan algoritma FCFS. Algoritma ini berjalan sesuai urutan kedatangan proses, dengan langkah-langkah:
+    \item Membuat kelas \textit{Process} yang menyimpan informasi terkait \textit{pid} (ID proses), \textit{arrival\_time} (waktu kedatangan), \textit{burst\_time} (waktu eksekusi), \textit{completion\_time} (waktu penyelesaian), \textit{turnaround\_time} (waktu penyelesaian penuh), dan \textit{waiting\_time} (waktu tunggu).
+    \item Fungsi \textit{fcfs\_scheduling} menjalankan penjadwalan menggunakan algoritma FCFS. Langkah-langkahnya adalah:
         \begin{enumerate}
             \item Mengurutkan proses berdasarkan waktu kedatangan (\textit{arrival\_time}).
-            \item Memeriksa apakah \textit{current\_time} kurang dari waktu kedatangan proses, jika ya, memperbarui \textit{current\_time}.
+            \item Memeriksa apakah waktu saat ini (\textit{current\_time}) kurang dari waktu kedatangan proses, dan memperbaruinya jika diperlukan.
             \item Menghitung \textit{completion\_time}, \textit{turnaround\_time}, dan \textit{waiting\_time}.
         \end{enumerate}
-    \item Memasukkan daftar proses dengan waktu kedatangan dan waktu eksekusi sesuai soal, dan menjalankan algoritma FCFS.
-    \item Menampilkan hasil dalam format tabel dengan informasi PID, waktu kedatangan, waktu eksekusi, waktu penyelesaian, waktu turnaround, dan waktu tunggu.
+    \item Memasukkan data proses sesuai soal, menjalankan algoritma FCFS, dan menampilkan hasil dalam bentuk tabel.
 \end{enumerate}
 \end{enumerate}
 
@@ -299,25 +298,20 @@ for process in scheduled_processes:
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
-\subsubsection{Group 10}
+\subsubsection{Kelompok 10}
 \begin{enumerate}
+    \item Soal 1
 
-
-
-    \item No 1
-
-
-    
-    Sebuah sistem memiliki 5 proses (P1, P2, P3, P4, P5) dan 3 jenis sumber daya (R1, R2, R3). Jumlah setiap sumber daya adalah:  
+Sebuah sistem memiliki 5 proses (P1, P2, P3, P4, P5) dan 3 jenis sumber daya (R1, R2, R3). Jumlah setiap sumber daya adalah:  
 \[R1: 10 unit, R2: 5 unit, R3: 7 unit\]
 
-Setiap proses membutuhkan berbagai unit dari setiap sumber daya untuk menjalankan tugasnya. Tugas Anda adalah mensimulasikan skenario deadlock dan mengimplementasikan Banker's Algorithm untuk mencegah deadlock dalam sistem ini.
+Setiap proses membutuhkan sejumlah unit dari setiap sumber daya untuk menjalankan tugasnya. Tugas Anda adalah mensimulasikan skenario deadlock dan mengimplementasikan Algoritma Bankir untuk mencegah deadlock dalam sistem ini.
 
-\textit{JAWABAN : }
+\textit{Jawaban:}
 \begin{python}
 import numpy as np
 
-# Function to check if the system is in a safe state
+# Fungsi untuk memeriksa apakah sistem berada dalam keadaan aman
 def is_safe(available, allocation, max_need):
     n_processes = len(allocation)
     n_resources = len(available)
@@ -330,7 +324,7 @@ def is_safe(available, allocation, max_need):
         found_process = False
         for i in range(n_processes):
             if not finish[i]:
-                # Check if process can proceed
+                # Memeriksa apakah proses bisa dilanjutkan
                 if all(max_need[i][j] - allocation[i][j] <= work[j] for j in range(n_resources)):
                     work = [work[j] + allocation[i][j] for j in range(n_resources)]
                     finish[i] = True
@@ -341,12 +335,12 @@ def is_safe(available, allocation, max_need):
             return False, []
     return True, safe_sequence
 
-# Problem data: allocation and maximum needs for each process
+# Data masalah: alokasi dan kebutuhan maksimum untuk setiap proses
 allocation = np.array([[0, 1, 0], [2, 0, 0], [3, 0, 2], [2, 1, 1], [0, 0, 2]])
 max_need = np.array([[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]])
-available = np.array([3, 3, 2])  # Available resources (R1, R2, R3)
+available = np.array([3, 3, 2])  # Sumber daya yang tersedia (R1, R2, R3)
 
-# Check if the system is in a safe state
+# Memeriksa apakah sistem dalam keadaan aman
 safe, sequence = is_safe(available, allocation, max_need)
 
 if safe:
@@ -356,22 +350,22 @@ else:
     print("Sistem dalam keadaan deadlock.")
 \end{python}
 
-\textit{PENJELASAN : }
+\textit{Penjelasan:}
 \begin{enumerate}
-    \item Fungsi \textit{is\_safe} digunakan untuk memeriksa apakah sistem dalam keadaan aman atau tidak. Ini adalah implementasi dari Algoritma Bankir untuk mencegah deadlock.
+    \item Fungsi \textit{is\_safe} digunakan untuk memeriksa apakah sistem dalam keadaan aman menggunakan Algoritma Bankir.
         \begin{enumerate}
-            \item \textit{work} menyimpan jumlah sumber daya yang tersedia pada awalnya.
-            \item \textit{finish} adalah array boolean yang menunjukkan apakah suatu proses sudah selesai atau belum.
-            \item Algoritma memeriksa apakah setiap proses dapat dilanjutkan berdasarkan alokasi sumber daya yang ada dan kebutuhan maksimum. Jika proses dapat dilanjutkan, alokasinya ditambahkan kembali ke \textit{work}.
-            \item Jika tidak ada proses yang dapat dilanjutkan dan urutan aman tidak ditemukan, sistem dianggap berada dalam keadaan deadlock.
+            \item \textit{work} menyimpan jumlah sumber daya yang tersedia.
+            \item \textit{finish} adalah array boolean yang menandakan apakah suatu proses sudah selesai atau belum.
+            \item Algoritma memeriksa apakah proses dapat dilanjutkan berdasarkan alokasi sumber daya yang tersedia dan kebutuhan maksimum. Jika proses dapat dilanjutkan, alokasinya ditambahkan kembali ke \textit{work}.
+            \item Jika tidak ada proses yang dapat dilanjutkan, sistem dianggap berada dalam keadaan deadlock.
         \end{enumerate}
     \item Data masalah terdiri dari:
         \begin{enumerate}
             \item \textit{allocation}: Matriks alokasi saat ini untuk setiap proses.
             \item \textit{max\_need}: Matriks kebutuhan maksimum setiap proses.
-            \item \textit{available}: Sumber daya yang tersedia untuk digunakan.
+            \item \textit{available}: Sumber daya yang tersedia.
         \end{enumerate}
-    \item Algoritma memeriksa apakah keadaan sistem aman, dan jika aman, menampilkan urutan proses yang bisa dijalankan tanpa deadlock.
+    \item Algoritma memeriksa apakah keadaan sistem aman dan menampilkan urutan aman jika memungkinkan.
 \end{enumerate}
 \end{enumerate}
 
@@ -391,5 +385,21 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\subsection{References}
+\begin{thebibliography}{9}
+
+\bibitem{silberschatz}
+A. Silberschatz, G. Gagne, and P. B. Galvin, 
+\textit{Operating System Concepts}, 9th ed. 
+John Wiley \& Sons, 2012.
+
+\bibitem{tanenbaum}
+A. S. Tanenbaum and H. Bos, 
+\textit{Modern Operating Systems}, 4th ed. 
+Pearson, 2014.
+
+\end{thebibliography}
+
 
 \end{document}

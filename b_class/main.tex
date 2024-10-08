@@ -283,9 +283,9 @@ print_process_info(process_list)
 \end{python}
 
 \subsubsection{Round Robin (RR)}
-Berikut adalah kode Python untuk algoritma Round Robin (RR) dengan kuantum waktu 2.
+Berikut adalah kode Python untuk algoritma \textit{Round Robin} dengan kuantum waktu 2.
 
-\begin{python}[language=Python, caption=Kode Python untuk penjadwalan Round Robin (RR)]
+\begin{python}[caption=Kode Python untuk penjadwalan \textit{Round Robin (RR)}]
 def rr_scheduling(processes, time_quantum):
     queue = processes[:]
     current_time = 0
@@ -313,7 +313,7 @@ print_process_info(process_list)
 \end{python}
 
 \subsubsection{Hasil}
-Tabel \ref{tab:hasil_perbandingan} menunjukkan hasil perbandingan antara algoritma FCFS, SJN, dan Round Robin untuk proses yang diberikan.
+Tabel \ref{tab:hasil_perbandingan} menunjukkan hasil perbandingan antara algoritma \textit{FCFS, SJN,} dan \textit{Round Robin} untuk proses yang diberikan.
 
 \begin{table}[htbp]
     \centering
@@ -365,7 +365,7 @@ Deadlock terjadi ketika sekumpulan proses saling menunggu sumber daya yang dimil
 Berikut adalah dua metode pencegahan yang diterapkan pada skenario \textit{deadlock}:
 
 \subsubsection{Algoritma Banker's untuk Pencegahan Deadlock}
-Algoritma Banker's mengevaluasi permintaan proses dan hanya mengabulkannya jika sistem dapat tetap berada dalam keadaan aman setelah mengalokasikan sumber daya tersebut.
+Algoritma \textit{Banker's} mengevaluasi permintaan proses dan hanya mengabulkannya jika sistem dapat tetap berada dalam keadaan aman setelah mengalokasikan sumber daya tersebut.
 
 \begin{python} caption=Implementasi Algoritma Banker]
 class BankersAlgorithm:

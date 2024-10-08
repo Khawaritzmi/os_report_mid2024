@@ -165,33 +165,70 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+Buatlah sebuah program Python untuk menghitung Average Waiting Time dan Turnaround Time menggunakan algoritma penjadwalan First Come First Serve (FCFS). Input adalah waktu kedatangan (arrival time) dan waktu burst (burst time) dari sejumlah proses.
+
+Input
+Berikan daftar proses berikut:
+
+Proses 1: Arrival Time = 0, Burst Time = 5
+Proses 2: Arrival Time = 1, Burst Time = 3
+Proses 3: Arrival Time = 2, Burst Time = 8
+Proses 4: Arrival Time = 3, Burst Time = 6
+Output
+
+Hitung Average Waiting Time dan Turnaround Time.
+
 \subsubsection{Group 1}
 \begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
+# Algoritma Penjadwalan FCFS
+
+def hitung_waktu_tunggu(proses, n, waktu_burst, waktu_tunggu):
+    # Waktu tunggu untuk proses pertama adalah 0
+    waktu_tunggu[0] = 0
+
+    # Menghitung waktu tunggu untuk setiap proses
+    for i in range(1, n):
+        waktu_tunggu[i] = waktu_burst[i-1] + waktu_tunggu[i-1]
+
+def hitung_turnaround_time(proses, n, waktu_burst, waktu_tunggu, turnaround_time):
+    # Menghitung turnaround time untuk setiap proses
+    for i in range(n):
+        turnaround_time[i] = waktu_burst[i] + waktu_tunggu[i]
+
+def hitung_rata_rata(proses, n, waktu_burst):
+    waktu_tunggu = [0] * n
+    turnaround_time = [0] * n
+
+    # Menghitung waktu tunggu semua proses
+    hitung_waktu_tunggu(proses, n, waktu_burst, waktu_tunggu)
+
+    # Menghitung turnaround time semua proses
+    hitung_turnaround_time(proses, n, waktu_burst, waktu_tunggu, turnaround_time)
+
+    # Menghitung total waktu tunggu dan turnaround time
+    total_waktu_tunggu = 0
+    total_turnaround_time = 0
+    for i in range(n):
+        total_waktu_tunggu += waktu_tunggu[i]
+        total_turnaround_time += turnaround_time[i]
+
+    print(f"Waktu Tunggu Rata-Rata: {total_waktu_tunggu / n}")
+    print(f"Waktu Penyelesaian Rata-Rata: {total_turnaround_time / n}")
+
+# Input
+proses = [1, 2, 3, 4]
+n = len(proses)
+waktu_burst = [5, 3, 8, 6]
+
+# Panggil fungsi
+hitung_rata_rata(proses, n, waktu_burst)
+
+#output
+Waktu Tunggu Rata-Rata: 5.666666666666667
+Turnaround Time Rata-Rata: 15.666666666666666
+   
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.

@@ -219,6 +219,105 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\subsubsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
+
+\textbf{Soal:}
+
+Buatlah sebuah program Command-Line Interface (CLI) sederhana yang mendukung operasi berikut:
+\begin{itemize}
+    \item Menampilkan daftar file di direktori saat ini.
+    \item Membuat file baru.
+    \item Menghapus file yang ada.
+    \item Menampilkan bantuan (help) yang mencantumkan daftar perintah yang didukung oleh CLI.
+\end{itemize}
+
+\textbf{Petunjuk}:
+\begin{itemize}
+    \item Gunakan modul Python \texttt{os} untuk menangani operasi file dan direktori.
+    \item Implementasikan perintah-perintah berikut:
+        \begin{itemize}
+            \item \texttt{list} untuk menampilkan file di direktori saat ini.
+            \item \texttt{create <filename>} untuk membuat file baru dengan nama yang diberikan.
+            \item \texttt{delete <filename>} untuk menghapus file dengan nama yang diberikan.
+            \item \texttt{help} untuk menampilkan daftar perintah yang tersedia.
+            \item \texttt{exit} untuk keluar dari CLI.
+        \end{itemize}
+\end{itemize}
+
+\textbf{Jawaban:}
+
+Berikut adalah implementasi Python untuk Command-Line Interface (CLI) sederhana tersebut:
+
+\begin{python}
+import os
+
+def list_files():
+    """Menampilkan daftar file di direktori saat ini."""
+    files = os.listdir('.')
+    if files:
+        print("Daftar file di direktori saat ini:")
+        for file in files:
+            print(file)
+    else:
+        print("Direktori kosong.")
+
+def create_file(filename):
+    """Membuat file baru."""
+    if os.path.exists(filename):
+        print(f"File '{filename}' sudah ada.")
+    else:
+        with open(filename, 'w') as f:
+            f.write("")  # Membuat file kosong
+        print(f"File '{filename}' berhasil dibuat.")
+
+def delete_file(filename):
+    """Menghapus file."""
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+def display_help():
+    """Menampilkan daftar perintah yang tersedia."""
+    print("Daftar perintah yang didukung:")
+    print("1. list                - Menampilkan daftar file di direktori saat ini.")
+    print("2. create <filename>    - Membuat file baru.")
+    print("3. delete <filename>    - Menghapus file.")
+    print("4. help                - Menampilkan bantuan.")
+    print("5. exit                - Keluar dari CLI.")
+
+def cli():
+    """Fungsi utama untuk menjalankan Command-Line Interface (CLI)."""
+    print("Selamat datang di Simple CLI!")
+    display_help()
+    
+    while True:
+        command = input(">>> ").strip().split()
+        if not command:
+            continue
+        
+        if command[0] == "list":
+            list_files()
+        elif command[0] == "create" and len(command) > 1:
+            create_file(command[1])
+        elif command[0] == "delete" and len(command) > 1:
+            delete_file(command[1])
+        elif command[0] == "help":
+            display_help()
+        elif command[0] == "exit":
+            print("Keluar dari CLI.")
+            break
+        else:
+            print("Perintah tidak valid. Ketik 'help' untuk bantuan.")
+
+# Menjalankan CLI
+if __name__ == "__main__":
+    cli()
+\end{python}
+
+Program di atas akan menyediakan fungsi dasar CLI yang bisa melakukan beberapa operasi manajemen file, seperti menampilkan daftar file, membuat file, menghapus file, menampilkan bantuan, dan keluar dari CLI. Program ini juga menggunakan modul Python \texttt{os} untuk menangani operasi yang berhubungan dengan file dan direktori.
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}

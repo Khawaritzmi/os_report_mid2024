@@ -331,14 +331,260 @@ This assignment involved designing a multithreading scenario to solve a computat
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsubsection{Group 8}
+Buatlah sebuah program Python yang menyediakan antarmuka pengguna berbasis teks (CLI) untuk manajemen file dan proses. Buatlah beberapa \textit{function} dalam python
+\begin{itemize}
+    \item Membuat file baru dengan nama yang ditentukan.
+    \item Menampilkan daftar file yang ada di direktori saat ini.
+    \item Menghapus file dengan nama yang ditentukan
+    \item Menampilkan daftar proses yang sedang berjalan di sistem.
+    \item Menampilkan status sistem, termasuk penggunaan memori dan ruang disk.
+    \item Keluar dari program.
+\end{itemize}
+\begin{python}
+import os
+import psutil
+
+# Fungsi untuk membuat file baru
+def create_file(file_name):
+    try:
+        # Membuka file dalam mode tulis ('w'), akan membuat file baru jika tidak ada
+        with open(file_name, 'w') as f:
+            f.write("")  # Membuat file kosong
+        print(f"File '{file_name}' berhasil dibuat.")
+    except Exception as e:
+        print(f"Error saat membuat file: {e}")
+
+# Fungsi untuk menampilkan daftar file di direktori saat ini
+def list_files():
+    try:
+        # Mengambil daftar file di direktori saat ini
+        files = os.listdir(".")
+        if files:
+            print("Daftar file:")
+            for file in files:
+                print(f" - {file}")  # Menampilkan nama file
+        else:
+            print("Tidak ada file di direktori saat ini.")
+    except Exception as e:
+        print(f"Error saat menampilkan file: {e}")
+
+# Fungsi untuk menghapus file
+def delete_file(file_name):
+    try:
+        # Mengecek apakah file ada sebelum menghapus
+        if os.path.exists(file_name):
+            os.remove(file_name)  # Menghapus file
+            print(f"File '{file_name}' berhasil dihapus.")
+        else:
+            print(f"File '{file_name}' tidak ditemukan.")
+    except Exception as e:
+        print(f"Error saat menghapus file: {e}")
+
+# Fungsi untuk menampilkan proses yang berjalan
+def list_processes():
+    try:
+        print("Daftar proses yang sedang berjalan:")
+        # Iterasi melalui proses yang sedang berjalan
+        for proc in psutil.process_iter(['pid', 'name']):
+            print(f"PID: {proc.info['pid']} - Nama Proses: {proc.info['name']}")
+    except Exception as e:
+        print(f"Error saat menampilkan proses: {e}")
+
+# Fungsi untuk menampilkan status sistem (memori dan disk)
+def system_status():
+    try:
+        # Mengambil informasi memori dan disk
+        mem = psutil.virtual_memory()
+        disk = psutil.disk_usage('/')
+        print("Status Sistem:")
+        print(f"Memori yang Digunakan: {mem.percent}%")
+        print(f"Ruang Disk yang Digunakan: {disk.percent}%")
+    except Exception as e:
+        print(f"Error saat menampilkan status sistem: {e}")
+
+# Fungsi untuk menjalankan perintah CLI
+def run_cli():
+    print("Simple CLI untuk Manajemen Antarmuka Pengguna")
+    print("Perintah yang tersedia: create <file_name>, list, delete <file_name>, process, status, exit")
+
+    while True:
+        # Menerima input perintah dari pengguna
+        command = input("Masukkan perintah: ").split()
+
+        # Jika tidak ada perintah yang dimasukkan, lanjutkan ke input berikutnya
+        if len(command) == 0:
+            continue
+
+        cmd = command[0]  # Mengambil perintah pertama
+
+        if cmd == "create":
+            # Memastikan nama file diberikan
+            if len(command) > 1:
+                create_file(command[1])
+            else:
+                print("Nama file tidak diberikan.")
+
+        elif cmd == "list":
+            list_files()  # Menampilkan daftar file
+
+        elif cmd == "delete":
+            # Memastikan nama file diberikan
+            if len(command) > 1:
+                delete_file(command[1])
+            else:
+                print("Nama file tidak diberikan.")
+
+        elif cmd == "process":
+            list_processes()  # Menampilkan daftar proses yang sedang berjalan
+
+        elif cmd == "status":
+            system_status()  # Menampilkan status sistem
+
+        elif cmd == "exit":
+            print("Keluar dari CLI.")  # Menyatakan keluar dari CLI
+            break
+
+        else:
+            print(f"Perintah '{cmd}' tidak dikenal.")  # Menyatakan perintah tidak dikenal
+
+# Jalankan CLI
+if __name__ == "__main__":
+    run_cli()
+
+\end{python}
 
 \subsection{Assignment 5: File System Access}
-In this assignment, students implemented file system access routines, including:
+In this assignment, students implemented file system access routines, includ
+ing: 
 \begin{itemize}
     \item File creation and deletion
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+\subsubsection{Group 8}
+Buatlah program Python sebagai sistem manajamen file yang sederhana serta lakukan beberapa memiliki fitur-fitur seperti ini:
+\begin{itemize}
+    \item Membuat File: Program harus dapat membuat file baru dengan nama yang diberikan oleh pengguna.
+    \item Menghapus File: Program harus dapat menghapus file yang sudah ada berdasarkan nama file yang diberikan oleh pengguna.
+    \item Menulis ke File: Program harus dapat menulis data ke file yang ditentukan, dengan opsi untuk menggunakan mode
+    \textit{append} (menambah di akhir) atau \textit{overwrite} (mengganti isi).
+    \item Berpindah Direktori: Program harus dapat berpindah ke direktori yang ditentukan oleh pengguna.
+    \item Cek Izin Akses File: Program harus dapat memeriksa dan menampilkan izin akses dari file yang diberikan.
+    \item Keluar dari Program: Program harus dapat berhenti berjalan ketika pengguna memilih untuk keluar.
+\end{itemize}
+Program harus terus meminta perintah dari pengguna hingga pengguna memilih untuk keluar, dan memberikan umpan balik sesuai dengan hasil setiap operasi. Gunakan \textit{try} dan \textit{except} untuk menangani kemungkinan kesalahan, seperti file yang tidak ditemukan atau direktori yang tidak ada.
+\begin{python}
+import os
+
+# Fungsi untuk membuat file baru
+def create_file(nama_file):
+    try:
+        with open(nama_file, 'x') as f:
+            print(f"File '{nama_file}' berhasil dibuat.")
+    except FileExistsError:
+        print(f"File '{nama_file}' sudah ada.")
+
+# Fungsi untuk menghapus file
+def delete_file(nama_file):
+    try:
+        os.remove(nama_file)
+        print(f"File '{nama_file}' berhasil dihapus.")
+    except FileNotFoundError:
+        print(f"File '{nama_file}' tidak ditemukan.")
+
+# Fungsi untuk membaca file
+def read_file(nama_file):
+    try:
+        with open(nama_file, 'r') as f:
+            print(f"Isi file '{nama_file}':")
+            print(f.read())
+    except FileNotFoundError:
+        print(f"File '{nama_file}' tidak ditemukan.")
+
+# Fungsi untuk menulis ke file
+def write_file(nama_file, data, mode='a'):
+    try:
+        with open(nama_file, mode) as f:
+            f.write(data + "\n")
+            print(f"Data berhasil ditulis ke file '{nama_file}' dalam mode '{mode}'.")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat menulis ke file: {e}")
+
+# Fungsi untuk berpindah direktori
+def change_directory(path):
+    try:
+        os.chdir(path)
+        print(f"Berhasil berpindah ke direktori: {os.getcwd()}")
+    except FileNotFoundError:
+        print(f"Direktori '{path}' tidak ditemukan.")
+    except Exception as e:
+        print(f"Terjadi kesalahan: {e}")
+
+# Fungsi untuk memeriksa izin akses file
+def check_permissions(nama_file):
+    try:
+        permissions = os.stat(nama_file)
+        print(f"Izin akses untuk file '{nama_file}':")
+        print(f"Readable: {'Ya' if os.access(nama_file, os.R_OK) else 'Tidak'}")
+        print(f"Writable: {'Ya' if os.access(nama_file, os.W_OK) else 'Tidak'}")
+        print(f"Executable: {'Ya' if os.access(nama_file, os.X_OK) else 'Tidak'}")
+    except FileNotFoundError:
+        print(f"File '{nama_file}' tidak ditemukan.")
+
+# Fungsi utama untuk menjalankan CLI
+def main():
+    while True:
+        print("\nAkses Sistem Berkas CLI")
+        print("1. create <nama_file> : Membuat file baru")
+        print("2. delete <nama_file> : Menghapus file")
+        print("3. read <nama_file>   : Membaca isi file")
+        print("4. write <nama_file> <mode> : Menulis ke file (mode 'a' untuk append, 'w' untuk overwrite)")
+        print("5. cd <path>          : Berpindah direktori")
+        print("6. permissions <nama_file> : Cek izin akses file")
+        print("7. exit               : Keluar dari program")
+
+        user_input = input("\nMasukkan perintah: ").split()
+
+        if len(user_input) == 0:
+            print("Perintah tidak valid. Silakan coba lagi.")
+            continue
+
+        command = user_input[0]
+
+        if command == 'create' and len(user_input) == 2:
+            create_file(user_input[1])
+
+        elif command == 'delete' and len(user_input) == 2:
+            delete_file(user_input[1])
+
+        elif command == 'read' and len(user_input) == 2:
+            read_file(user_input[1])
+
+        elif command == 'write' and len(user_input) >= 3:
+            nama_file = user_input[1]
+            mode = user_input[2]
+            data = input("Masukkan data untuk ditulis: ")
+            write_file(nama_file, data, mode)
+
+        elif command == 'cd' and len(user_input) == 2:
+            change_directory(user_input[1])
+
+        elif command == 'permissions' and len(user_input) == 2:
+            check_permissions(user_input[1])
+
+        elif command == 'exit':
+            print("Keluar dari program.")
+            break
+
+        else:
+            print("Perintah tidak valid. Silakan coba lagi.")
+
+# Menjalankan program
+if __name__ == "__main__":
+    main()
+
+\end{python}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

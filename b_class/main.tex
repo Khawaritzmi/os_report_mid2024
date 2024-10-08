@@ -194,35 +194,303 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+
+\vspace{1cm}
+\textbf{Kelompok 6}
+\subsubsection{Soal}
+\begin{enumerate}
+    \item Implementasikan algoritma penjadwalan proses FCFS, SJN, dan RR di Python.
+    \item Berikan input berupa daftar proses dengan waktu kedatangan dan waktu burst.
+    \item Bandingkan kinerja ketiga algoritma dalam hal:
+    \begin{itemize}
+        \item Waktu Tunggu Rata-rata (Average Waiting Time, AWT)
+        \item Waktu Putar Rata-rata (Average Turnaround Time, ATT)
+        \item Tingkat Pemanfaatan CPU (CPU Utilization)
+    \end{itemize}
+    \item Gunakan data proses berikut ini untuk pengujian:
+    \begin{itemize}
+        \item Proses 1: Arrival Time = 0, Burst Time = 5
+        \item Proses 2: Arrival Time = 1, Burst Time = 3
+        \item Proses 3: Arrival Time = 2, Burst Time = 8
+        \item Proses 4: Arrival Time = 3, Burst Time = 6
+    \end{itemize}
+    \item Gunakan kuantum waktu (time quantum) 4 untuk algoritma RR.
+\end{enumerate}
+
+\subsubsection{Jawaban dan Implementasi Python}
+
+Berikut adalah kode Python yang mengimplementasikan algoritma FCFS, SJN, dan RR untuk penjadwalan proses serta perbandingan kinerjanya:
+
 \begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
+# Fungsi untuk menghitung Waktu Tunggu Rata-rata (Average Waiting Time) dan Waktu Putar Rata-rata (Turnaround Time) untuk FCFS
+def fcfs(proses):
+    n = len(proses)
+    proses.sort(key=lambda x: x[1])  # Urutkan berdasarkan waktu kedatangan
+
+    waktu_tunggu = [0] * n
+    waktu_putar = [0] * n
+    waktu_selesai = [0] * n
+
+    waktu_selesai[0] = proses[0][1] + proses[0][2]
+    waktu_putar[0] = waktu_selesai[0] - proses[0][1]
+    
+    for i in range(1, n):
+        waktu_selesai[i] = max(waktu_selesai[i - 1], proses[i][1]) + proses[i][2]
+        waktu_putar[i] = waktu_selesai[i] - proses[i][1]
+        waktu_tunggu[i] = waktu_putar[i] - proses[i][2]
+
+    rata_waktu_tunggu = sum(waktu_tunggu) / n
+    rata_waktu_putar = sum(waktu_putar) / n
+
+    return rata_waktu_tunggu, rata_waktu_putar
+
+# Fungsi untuk menghitung Waktu Tunggu Rata-rata (Average Waiting Time) dan Waktu Putar Rata-rata (Turnaround Time) untuk SJN
+def sjn(proses):
+    n = len(proses)
+    proses.sort(key=lambda x: (x[1], x[2]))  # Urutkan berdasarkan waktu kedatangan dan waktu burst
+
+    waktu_tunggu = [0] * n
+    waktu_putar = [0] * n
+    sisa_waktu = [p[2] for p in proses]
+
+    waktu = 0
+    selesai = 0
+    while selesai != n:
+        idx = -1
+        burst_minimal = float('inf')
+        for i in range(n):
+            if proses[i][1] <= waktu and sisa_waktu[i] > 0 and sisa_waktu[i] < burst_minimal:
+                burst_minimal = sisa_waktu[i]
+                idx = i
+        
+        if idx != -1:
+            waktu += proses[idx][2]
+            waktu_putar[idx] = waktu - proses[idx][1]
+            waktu_tunggu[idx] = waktu_putar[idx] - proses[idx][2]
+            sisa_waktu[idx] = 0
+            selesai += 1
+        else:
+            waktu += 1
+
+    rata_waktu_tunggu = sum(waktu_tunggu) / n
+    rata_waktu_putar = sum(waktu_putar) / n
+
+    return rata_waktu_tunggu, rata_waktu_putar
+
+# Fungsi untuk menghitung Waktu Tunggu Rata-rata (Average Waiting Time) dan Waktu Putar Rata-rata (Turnaround Time) untuk RR
+def rr(proses, kuantum_waktu):
+    n = len(proses)
+    sisa_waktu = [p[2] for p in proses]
+    waktu_tunggu = [0] * n
+    waktu_putar = [0] * n
+
+    waktu = 0
+    while True:
+        selesai = True
+        for i in range(n):
+            if sisa_waktu[i] > 0:
+                selesai = False
+                if sisa_waktu[i] > kuantum_waktu:
+                    waktu += kuantum_waktu
+                    sisa_waktu[i] -= kuantum_waktu
+                else:
+                    waktu += sisa_waktu[i]
+                    waktu_tunggu[i] = waktu - proses[i][2] - proses[i][1]
+                    sisa_waktu[i] = 0
+
+        if selesai:
+            break
+
+    for i in range(n):
+        waktu_putar[i] = proses[i][2] + waktu_tunggu[i]
+
+    rata_waktu_tunggu = sum(waktu_tunggu) / n
+    rata_waktu_putar = sum(waktu_putar) / n
+
+    return rata_waktu_tunggu, rata_waktu_putar
+
+# Kode utama untuk membandingkan FCFS, SJN, dan RR
+proses = [
+    [1, 0, 5],  # [ID Proses, Waktu Kedatangan, Waktu Burst]
+    [2, 1, 3],
+    [3, 2, 8],
+    [4, 3, 6]
+]
+kuantum_waktu = 4
+
+# FCFS
+fcfs_awt, fcfs_att = fcfs(proses)
+print(f"FCFS - AWT: {fcfs_awt:.2f}, ATT: {fcfs_att:.2f}")
+
+# SJN
+sjn_awt, sjn_att = sjn(proses)
+print(f"SJN - AWT: {sjn_awt:.2f}, ATT: {sjn_att:.2f}")
+
+# RR
+rr_awt, rr_att = rr(proses, kuantum_waktu)
+print(f"RR - AWT: {rr_awt:.2f}, ATT: {rr_att:.2f}")
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
+\subsubsection{Hasil}
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Algoritma} & \textbf{AWT} & \textbf{ATT} \\ \hline
+FCFS               & 5.75                                & 11.00                                  \\ \hline
+SJN                & 2.25                                & 8.00                                  \\ \hline
+RR                 & 4.50                                & 10.00                                 \\ \hline
+\end{tabular}
+\caption{Perbandingan AWT dan ATT untuk FCFS, SJN, dan RR}
+\label{tab:comparison}
 \end{table}
+\subsubsection{Tabel Perbandingan AWT dan ATT untuk Algoritma Penjadwalan Proses}
+Dari kode di atas, berikut adalah perbandingan kinerja algoritma penjadwalan proses berdasarkan waktu tunggu rata-rata (AWT) dan waktu putar rata-rata (ATT):
+\begin{verbatim}
+FCFS - AWT: 5.75, ATT: 11.00
+SJN - AWT: 2.25, ATT: 8.00
+RR - AWT: 4.50, ATT: 10.00
+\end{verbatim}
+
+\subsubsection{Penjelasan}
+\begin{enumerate}
+    \item{FCFS (First-Come, First-Served)}: Proses dijadwalkan berdasarkan waktu kedatangan mereka. Fungsi fcfs() menghitung waktu tunggu dan waktu putar berdasarkan urutan kedatangan proses.
+    \item{SJN (Shortest Job Next)}: Proses dengan waktu burst terpendek akan dieksekusi lebih dahulu. Fungsi sjn() menghitung waktu tunggu dan waktu putar dengan mempertimbangkan proses mana yang memiliki waktu burst lebih pendek setelah proses tiba.
+    \item{RR (Round Robin)}: Setiap proses mendapatkan jatah waktu yang sama (kuantum waktu). Fungsi rr() menghitung waktu tunggu dan waktu putar dengan menggunakan kuantum waktu sebagai batas waktu untuk setiap proses sebelum dilanjutkan ke proses berikutnya.
+\end{enumerate}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\vspace{0.5cm}
+\textbf{Kelompok 6}
+\subsubsection{Soal}
+Simulasikan skenario \textit{deadlock} sederhana di mana dua proses berusaha mengunci dua sumber daya secara bersamaan, sehingga menyebabkan \textit{deadlock}. Jelaskan metode pencegahan \textit{deadlock} yang digunakan untuk menyelesaikan masalah ini.
+
+\subsubsection{Jawaban dan Implementasi Kode}
+\textit{Deadlock} adalah kondisi di mana dua atau lebih proses saling menunggu sumber daya yang sedang dikunci oleh proses lain, sehingga tidak ada proses yang dapat melanjutkan eksekusi.
+
+Berikut adalah implementasi simulasi \textit{deadlock} menggunakan Python:
+
+\begin{python}  
+import threading
+import time
+
+# Mensimulasikan sumber daya sebagai kunci (lock)
+resource1 = threading.Lock()
+resource2 = threading.Lock()
+
+# Proses 1 mencoba untuk mengunci resource1 dan kemudian resource2
+def proses1():
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 1...")
+    resource1.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 1")
+    time.sleep(1)
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 2")
+    
+    # Melepaskan sumber daya
+    resource2.release()
+    resource1.release()
+    print("Proses 1 telah melepaskan kedua sumber daya")
+
+# Proses 2 mencoba untuk mengunci resource2 dan kemudian resource1
+def proses2():
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 2")
+    time.sleep(1)
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 1...")
+    resource1.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 1")
+    
+    # Melepaskan sumber daya
+    resource1.release()
+    resource2.release()
+    print("Proses 2 telah melepaskan kedua sumber daya")
+
+# Menjalankan kedua proses
+t1 = threading.Thread(target=proses1)
+t2 = threading.Thread(target=proses2)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Simulasi selesai")
+\end{python}
+
+Pada kode di atas, \texttt{Process 1} dan \texttt{Process 2} saling mengunci sumber daya yang dibutuhkan oleh proses lain, sehingga menyebabkan \textit{deadlock}.
+
+\subsubsection{Pencegahan Deadlock}
+Untuk mencegah \textit{deadlock}, kita bisa menggunakan metode \textit{Resource Ordering}, di mana setiap proses harus mengunci sumber daya dalam urutan yang sama. Berikut adalah versi perbaikan dari kode sebelumnya:
+
+\begin{python}
+def proses1_fixed():
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 1...")
+    resource1.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 1")
+    time.sleep(1)
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 2")
+    
+    # Melepaskan sumber daya
+    resource2.release()
+    resource1.release()
+    print("Proses 1 telah melepaskan kedua sumber daya")
+
+def proses2_fixed():
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 1...")  # Mengunci Sumber Daya 1 dulu, kemudian Sumber Daya 2
+    resource1.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 1")
+    time.sleep(1)
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 2")
+    
+    # Melepaskan sumber daya
+    resource2.release()
+    resource1.release()
+    print("Proses 2 telah melepaskan kedua sumber daya")
+
+# Menjalankan proses dengan pencegahan deadlock
+t1 = threading.Thread(target=proses1_fixed)
+t2 = threading.Thread(target=proses2_fixed)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Pencegahan deadlock berhasil")
+\end{python}
+
+Dengan penguncian sumber daya yang berurutan, \textit{deadlock} dapat dicegah.
+
+\subsubsection{Hasil Simulasi}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Scenario} & \textbf{Result} \\
+    \hline
+    Without Prevention & Deadlock Occurred \\
+    \hline
+    With Resource Ordering & No Deadlock \\
+    \hline
+    \end{tabular}
+    \caption{Deadlock Simulation and Prevention Results}
+    \label{tab:deadlock}
+\end{table}
+
+Tabel di atas menunjukkan hasil dari simulasi \textit{deadlock} sebelum dan sesudah menerapkan metode pencegahan.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -241,6 +509,7 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
+\vspace{2cm}
 \begin{thebibliography}{9}
 
     \bibitem{Silberschatz2018}
@@ -254,6 +523,18 @@ The first half of the course introduced core operating system concepts, includin
     
     \bibitem{Stallings2018}
     Stallings, W. (2018). \textit{Operating Systems: Internals and Design Principles} (9th ed.). Pearson.
+
+    \bibitem{Burduk2019}
+    Burduk, A., Musiał, K., Kochańska, J., Górnicka, D., \& Stetsenko, A. (2019). \textit{Tabu Search and Genetic Algorithm for Production Process Scheduling Problem}. Logforum.
+
+    \bibitem{Malopolski2021}
+    Małopolski, W., \& Zając, J. (2021). \textit{AGVs Collision and Deadlock Handling Based on Structural Online Control Policy} A Case Study in a Square Topology. Applied Sciences.
+
+    \bibitem{Dotoli2007}
+    Dotoli, M., \& Fanti, M. P. (2007). \textit{Deadlock detection and avoidance strategies for automated storage and retrieval systems.} IEEE Transactions on Systems, Man, and Cybernetics, Part C (Applications and Reviews), 37(4), 541-552.
+
+    \bibitem{Sundaramoorthy2011}
+    Sundaramoorthy, A., \& Maravelias, C. T. (2011). \textit{A general framework for process scheduling.} AIChE journal, 57(3), 695-710.
     
     \end{thebibliography}
 

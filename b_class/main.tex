@@ -144,7 +144,7 @@ This section discusses the role of the operating system in managing the user int
 
 \begin{enumerate}
     \item \textbf{Full Virtualization}
-    \par Virtualisasi Penuh (\textit{Full Virtualization}), atau yang juga dikenal sebagai \textit{Native Virtualization}, adalah metode virtualisasi di mana mesin virtual (VM) digunakan untuk menjembatani sistem operasi tamu dengan perangkat keras fisik yang ada di bawahnya. Proses menjembatani ini sangat penting dalam teknik ini karena VM bertindak sebagai perantara antara sistem operasi tamu dan perangkat keras. Beberapa instruksi istimewa yang sensitif tidak dapat dijalankan langsung oleh sistem operasi tamu dan perlu diperangkap oleh \textit{hypervisor}, yang kemudian menangani instruksi tersebut, karena perangkat keras diakses melalui \textit{hypervisor}, bukan secara langsung oleh sistem operasi tamu.
+    \par Virtualisasi Penuh (\textit{Full Virtualization}), atau yang juga dikenal sebagai \textit{Native Virtualization}, adalah metode virtualisasi yang mesin virtual (VM) digunakan untuk menjembatani sistem operasi tamu dengan perangkat keras fisik yang ada di bawahnya. Proses menjembatani ini sangat penting dalam teknik ini karena VM bertindak sebagai perantara antara sistem operasi tamu dan perangkat keras. Beberapa instruksi istimewa yang sensitif tidak dapat dijalankan langsung oleh sistem operasi tamu dan perlu diperangkap oleh \textit{hypervisor}, yang kemudian menangani instruksi tersebut, karena perangkat keras diakses melalui \textit{hypervisor}, bukan secara langsung oleh sistem operasi tamu.
     
     \par Kinerja Virtualisasi Penuh lebih cepat dibandingkan dengan metode emulasi perangkat keras, namun tetap lebih lambat dibandingkan dengan akses langsung ke perangkat keras fisik. Hal ini terjadi karena \textit{hypervisor} harus berfungsi sebagai media penghubung yang menyebabkan adanya \textit{overhead} dalam komunikasi antara sistem operasi tamu dan perangkat keras. Namun, keuntungan terbesar dari virtualisasi penuh adalah tidak memerlukan modifikasi pada sistem operasi tamu. Artinya, sistem operasi yang berjalan di atas virtualisasi penuh dapat berjalan sebagaimana adanya tanpa memerlukan perubahan atau penyesuaian khusus.
     
@@ -163,12 +163,12 @@ This section discusses the role of the operating system in managing the user int
     
     \par Dengan demikian, virtualisasi penuh menjadi salah satu pilihan yang sering digunakan dalam lingkungan \textit{server} dan \textit{data center}, karena kelebihannya dalam mendukung berbagai macam sistem operasi tanpa memerlukan perubahan pada kode sistem operasi tersebut, meskipun tetap ada beberapa batasan terkait performa dan kebutuhan perangkat keras khusus yang harus dipenuhi untuk memastikan virtualisasi berjalan secara optimal.
 
-    \item \textbf{Para-Virtualization}
-    \newline \textit{Para-virtualisasi} adalah teknik virtualisasi yang mirip dengan virtualisasi penuh, namun dengan pendekatan yang sedikit berbeda. Pada metode ini, \textit{hypervisor} tetap digunakan untuk berbagi akses ke perangkat keras, tetapi sistem operasi tamu perlu dimodifikasi agar lebih sadar akan proses virtualisasi. Pendekatan ini menghilangkan kebutuhan untuk melakukan rekompilasi atau pemerangkapan instruksi, karena sistem operasi bekerja sama dengan \textit{hypervisor} dalam proses virtualisasi.
+    \item \textbf{Paravirtualization}
+    \newline Paravirtualisasi adalah teknik virtualisasi yang mirip dengan virtualisasi penuh, namun dengan pendekatan yang sedikit berbeda. Pada metode ini, \textit{hypervisor} tetap digunakan untuk berbagi akses ke perangkat keras, tetapi sistem operasi tamu perlu dimodifikasi agar lebih sadar akan proses virtualisasi. Pendekatan ini menghilangkan kebutuhan untuk melakukan rekompilasi atau pemerangkapan instruksi, karena sistem operasi bekerja sama dengan \textit{hypervisor} dalam proses virtualisasi.
 
-    \par Salah satu kelemahan utama dari \textit{para-virtualisasi} adalah bahwa sistem operasi tamu harus dimodifikasi agar kompatibel dengan lingkungan virtualisasi. Hal ini bisa menjadi kerugian bagi sistem operasi yang tidak siap untuk diubah atau dimodifikasi. 
+    \par Salah satu kelemahan utama dari paravirtualisasi adalah bahwa sistem operasi tamu harus dimodifikasi agar kompatibel dengan lingkungan virtualisasi. Hal ini bisa menjadi kerugian bagi sistem operasi yang tidak siap untuk diubah atau dimodifikasi. 
     
-    \par Beberapa contoh implementasi \textit{para-virtualisasi}:
+    \par Beberapa contoh implementasi paravirtualisasi:
     \begin{itemize}
         \item \textbf{Contoh}
         \begin{itemize}
@@ -178,16 +178,16 @@ This section discusses the role of the operating system in managing the user int
             
             \item Microsoft Hyper-V: Platform virtualisasi yang memanfaatkan dukungan \textit{hardware} untuk menjalankan mesin virtual dengan \textit{overhead} minimal.
             
-            \item Xen: Meskipun menggunakan \textit{para-virtualisasi}, \textit{Xen} juga memanfaatkan ekstensi \textit{hardware} untuk meningkatkan performa.
+            \item Xen: Meskipun menggunakan paravirtualisasi, \textit{Xen} juga memanfaatkan ekstensi \textit{hardware} untuk meningkatkan performa.
         \end{itemize}
     \end{itemize}
     
-    \par Keunggulan utama dari \textit{para-virtualisasi} adalah kemampuannya untuk memberikan performa yang mendekati sistem \textit{non-virtualisasi}, karena \textit{overhead} yang lebih rendah dibandingkan dengan virtualisasi penuh. Mirip dengan virtualisasi penuh, beberapa sistem operasi dapat dijalankan secara bersamaan dalam lingkungan \textit{para-virtualisasi}. Namun, modifikasi pada sistem operasi menjadi persyaratan yang tidak dapat dihindari dalam metode ini.
+    \par Keunggulan utama dari paravirtualisasi adalah kemampuannya untuk memberikan performa yang mendekati sistem \textit{non-virtualization}, karena \textit{overhead} yang lebih rendah dibandingkan dengan virtualisasi penuh. Mirip dengan virtualisasi penuh, beberapa sistem operasi dapat dijalankan secara bersamaan dalam lingkungan \textit{para-virtualisasi}. Namun, modifikasi pada sistem operasi menjadi persyaratan yang tidak dapat dihindari dalam metode ini.
     
-    \par Cara kerja \textit{para-virtualisasi} dimulai dengan modifikasi pada sistem operasi tamu agar dapat berinteraksi secara langsung dengan \textit{hypervisor.} Dengan adanya \textit{Application Programming Interface (API)} yang disediakan oleh \textit{hypervisor}, sistem operasi dapat melakukan panggilan untuk mendapatkan akses ke sumber daya perangkat keras, seperti CPU dan memori, tanpa melalui proses penjebakan yang kompleks. Proses ini memungkinkan komunikasi yang lebih cepat dan efisien antara sistem operasi dan \textit{hypervisor}, sehingga mengurangi \textit{overhead} yang biasanya terdapat dalam virtualisasi penuh. Karena sistem operasi sudah sadar akan lingkungan virtualisasi, banyak instruksi sensitif dapat dijalankan dengan lebih langsung, sehingga memberikan kinerja yang lebih baik dibandingkan dengan metode virtualisasi lainnya.
+    \par Cara kerja paravirtualisasi dimulai dengan modifikasi pada sistem operasi tamu agar dapat berinteraksi secara langsung dengan \textit{hypervisor.} Dengan adanya \textit{Application Programming Interface (API)} yang disediakan oleh \textit{hypervisor}, sistem operasi dapat melakukan panggilan untuk mendapatkan akses ke sumber daya perangkat keras, seperti CPU dan memori, tanpa melalui proses penjebakan yang kompleks. Proses ini memungkinkan komunikasi yang lebih cepat dan efisien antara sistem operasi dan \textit{hypervisor}, sehingga mengurangi \textit{overhead} yang biasanya terdapat dalam virtualisasi penuh. Karena sistem operasi sudah sadar akan lingkungan virtualisasi, banyak instruksi sensitif dapat dijalankan dengan lebih langsung, sehingga memberikan kinerja yang lebih baik dibandingkan dengan metode virtualisasi lainnya.
     
     \item \textbf{Hardware-assisted Virtualization}
-    \newline Virtualisasi Berbasis Hardware (\textit{Hardware-Assisted Virtualization}) mirip dengan Virtualisasi Penuh dan \textit{Para-virtualisasi}, tetapi memiliki perbedaan mendasar karena bergantung pada ekstensi \textit{hardware} khusus yang dirancang untuk mengurangi \textit{overhead} dan meningkatkan performa. Teknik ini memanfaatkan fitur yang ada dalam prosesor modern, seperti \textit{Intel VT} (Vanderpool) dan \textit{AMD-V}(Pacifica), untuk menangani tugas yang biasanya menyebabkan kemacetan dalam virtualisasi berbasis perangkat lunak, terutama operasi I/O dan instruksi istimewa pada sistem operasi tamu.
+    \newline Virtualisasi Berbasis Hardware (\textit{Hardware-Assisted Virtualization}) mirip dengan Virtualisasi Penuh dan Paravirtualisasi, tetapi memiliki perbedaan mendasar karena bergantung pada ekstensi \textit{hardware} khusus yang dirancang untuk mengurangi \textit{overhead} dan meningkatkan performa. Teknik ini memanfaatkan fitur yang ada dalam prosesor modern, seperti \textit{Intel VT} (Vanderpool) dan \textit{AMD-V}(Pacifica), untuk menangani tugas yang biasanya menyebabkan kemacetan dalam virtualisasi berbasis perangkat lunak, terutama operasi I/O dan instruksi terkawal pada sistem operasi tamu.
 
     \par Beberapa contoh implementasi \textit{Hardware-Assisted Virtualization}:
     \begin{itemize}
@@ -201,7 +201,7 @@ This section discusses the role of the operating system in managing the user int
         \end{itemize}
     \end{itemize}
 
-    \par Keunggulan utama dari virtualisasi berbasis \textit{hardware} adalah kemampuannya untuk menjalankan sistem operasi tamu yang tidak dimodifikasi. Berbeda dengan \textit{Para-virtualisasi}, di mana sistem operasi tamu harus dimodifikasi agar bisa bekerja sama dengan \textit{hypervisor}, virtualisasi berbasis \textit{hardware} memungkinkan sistem operasi tamu berinteraksi dengan perangkat keras seolah-olah ia berjalan langsung di mesin fisik. Perangkat keras memberikan dukungan untuk operasi terkawal dan terlindungi, sehingga meningkatkan efisiensi virtualisasi.
+    \par Keunggulan utama dari virtualisasi berbasis \textit{hardware} adalah kemampuannya untuk menjalankan sistem operasi tamu yang tidak dimodifikasi. Berbeda dengan paravirtualisasi, yang sistem operasi tamu harus dimodifikasi agar bisa bekerja sama dengan \textit{hypervisor}, virtualisasi berbasis \textit{hardware} memungkinkan sistem operasi tamu berinteraksi dengan perangkat keras seolah-olah ia berjalan langsung di mesin fisik. Perangkat keras memberikan dukungan untuk operasi terkawal dan terlindungi, sehingga meningkatkan efisiensi virtualisasi.
     
     \par Selain itu, virtualisasi berbasis \textit{hardware} juga mengurangi kompleksitas dalam menangani instruksi sensitif. Dalam virtualisasi berbasis perangkat lunak, \textit{hypervisor} harus mencegat dan mengemulasikan instruksi terkawal, yang tidak efisien. Dengan fitur seperti \textit{Intel VT-x} dan \textit{AMD-V}, operasi sensitif ditangani langsung oleh prosesor, yang mempercepat manajemen mesin virtual dan eksekusi sistem operasi tamu.
 
@@ -362,12 +362,13 @@ print("FCFS:")
 print("Completion Time:", completion)
 print("Waiting Time:", waiting)
 print("Turnaround Time:", turnaround)
+
+Output : 
+# FCFS:
+# Completion Time: [(1, 4), (2, 6), (3, 7)] 
+# Waiting Time: [(1, 0), (2, 3), (3, 4)]
+# Turnaround Time: [(1, 4), (2, 5), (3, 5)]
 \end{python}
-        Output : 
-        \par FCFS:
-        \par Completion Time: [(1, 4), (2, 6), (3, 7)] 
-        \par Waiting Time: [(1, 0), (2, 3), (3, 4)]
-        \par Turnaround Time: [(1, 4), (2, 5), (3, 5)]
         
     \item Implementasi SJN (Shortest Job Next)
         \par  Implementasikan algoritma penjadwalan SJN. Buatlah fungsi yang menerima daftar proses (dengan waktu tiba dan waktu eksekusi) dan mengembalikan waktu penyelesaian, waktu tunggu, dan waktu respon untuk setiap proses. Gunakan daftar proses berikut sebagai contoh:
@@ -421,12 +422,12 @@ print("\nSJN (Shortest Job Next):")
 print("Completion Time:", completion)
 print("Waiting Time:", waiting)
 print("Turnaround Time:", turnaround)
+# Output : 
+# SJN (Shortest Job Next):
+# Completion Time: [(1, 4), (3, 5), (2, 7)]
+# Waiting Time: [(1, 0), (3, 2), (2, 4)]
+# Turnaround Time: [(1, 4), (3, 3), (2, 6)]
 \end{python}
-        Output : 
-        \par SJN (Shortest Job Next):
-        \par Completion Time: [(1, 4), (3, 5), (2, 7)]
-        \par Waiting Time: [(1, 0), (3, 2), (2, 4)]
-        \par Turnaround Time: [(1, 4), (3, 3), (2, 6)]
         
     \item Implementasi RR (Round Robin)
         \par  Implementasikan algoritma penjadwalan RR. Buatlah fungsi yang menerima daftar proses (dengan waktu tiba dan waktu eksekusi) serta kuota waktu, dan mengembalikan waktu penyelesaian, waktu tunggu, dan waktu respon untuk setiap proses. Gunakan daftar proses berikut sebagai contoh dan kuota waktu dua:
@@ -497,12 +498,13 @@ print("\nRR:")
 print("Completion Time:", completion)
 print("Waiting Time:", waiting)
 print("Turnaround Time:", turnaround)
+
+Output : 
+# RR:
+# Completion Time: {1: 4, 2: 6, 3: 7}
+# Waiting Time: {1: 0, 2: 3, 3: 4}
+# Turnaround Time: {1: 4, 2: 5, 3: 5}
 \end{python}
-        Output : 
-        \par RR:
-        \par Completion Time: {1: 4, 2: 6, 3: 7}
-        \par Waiting Time: {1: 0, 2: 3, 3: 4}
-        \par Turnaround Time: {1: 4, 2: 5, 3: 5}
         
     \item Bandingkan Kinerja
         \par  Bandingkan kinerja algoritma penjadwalan FCFS, SJN, dan RR menggunakan daftar proses yang sama dan kuota waktu RR dua. Hitung waktu rata-rata untuk waktu tunggu masing-masing algoritma.
@@ -543,12 +545,13 @@ print(f"\nRata-rata Waktu Tunggu:")
 print(f"FCFS: {avg_fcfs_waiting}")
 print(f"SJN: {avg_sjn_waiting}")
 print(f"RR: {avg_rr_waiting}")
+
+# Output : 
+# RR:
+# Completion Time: {1: 4, 2: 6, 3: 7}
+# Waiting Time: {1: 0, 2: 3, 3: 4}
+# Turnaround Time: {1: 4, 2: 5, 3: 5}
 \end{python}
-        Output : 
-        \par Rata-rata Waktu Tunggu:
-        \par FCFS: 2.3333333333333335
-        \par SJN: 2.0
-        \par RR: 0
 \end{enumerate}
 
 \subsection{Assignment 2: Deadlock Handling}

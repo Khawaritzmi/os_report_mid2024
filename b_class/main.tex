@@ -79,10 +79,9 @@ It explains how these algorithms are used to allocate CPU time to processes.
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:
 \begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
-    \begin{itemize}
-        \item Sumber Daya Proses
+    \item \textit{Process spawning}
+    \item \textit{Process termination conditions}
+    \subsubsection{Sumber Daya Proses}
     \begin{itemize}
         \item Alokasi Memori
         
@@ -109,24 +108,22 @@ Details how processes are created and terminated by the operating system, includ
                 \end{itemize}
         \end{itemize}
         
-        \item Pengaturan File Descriptors
+        \item Pengaturan File \textit{Descriptors}
         
         File descriptor adalah integer unik yang diberikan oleh sistem operasi untuk merujuk ke file, socket, atau perangkat yang dibuka oleh proses. Proses menggunakan file descriptors untuk melakukan operasi I/O seperti membaca, menulis, atau mengelola file.
         
         \begin{itemize}
-            \item Fungsi File Descriptor:
+            \item Fungsi File \textit{Descriptor}:
                 \begin{itemize}
-                    \item \textbf{Akses File:} File descriptors digunakan oleh proses untuk membaca, menulis, atau melakukan operasi lainnya pada file.
-                    \item \textbf{Komunikasi Antar-Proses (IPC):} File descriptors digunakan dalam komunikasi antar-proses seperti socket atau pipe untuk mentransfer data antar proses.
-                    \item \textbf{Manajemen Sumber Daya:} File descriptors membantu sistem operasi melacak dan mengelola sumber daya seperti file terbuka, socket, atau perangkat yang digunakan oleh suatu proses.
+                    \item \textbf{Akses File:} File \textit{descriptors} digunakan oleh proses untuk membaca, menulis, atau melakukan operasi lainnya pada file.
+                    \item \textbf{Komunikasi Antar-Proses (IPC):} File \textit{descriptors} digunakan dalam komunikasi antar-proses seperti socket atau pipe untuk mentransfer data antar proses.
+                    \item \textbf{Manajemen Sumber Daya:} File \textit{descriptors} membantu sistem operasi melacak dan mengelola sumber daya seperti file terbuka, socket, atau perangkat yang digunakan oleh suatu proses.
                 \end{itemize}
         \end{itemize}
         
     \end{itemize}
 
-    \end{itemize}
-    \begin{itemize}
-    \item \textbf{Terminasi Paksa oleh Proses Lain (Tidak Sukarela)}
+    \subsubsection{Terminasi Paksa oleh Proses Lain (Tidak Sukarela)}
     \begin{itemize}
         \item \textbf{Sinyal Kill}
         \begin{itemize}
@@ -149,12 +146,12 @@ Details how processes are created and terminated by the operating system, includ
         \end{itemize}
     \end{itemize}
 
-    \item \textbf{Proses Orphan atau Zombie}
-    \begin{figure} [h]
-        \centering
-        \includegraphics[width=0.75\textwidth]{assets/orphan dan zombie.png}
-        \label{fig:diagram}
-        \end{figure}
+    \subsubsection{Proses Orphan atau Proses Zombie}
+    \begin{figure}[h]
+		\centering
+		\includegraphics[width=1\textwidth]{asset/Process.png}
+		\label{fig:gambar}
+    \end{figure}
     \begin{itemize}
         \item \textbf{Proses Orphan}
         \begin{itemize}
@@ -284,6 +281,62 @@ In this assignment, students were asked to simulate different deadlock scenarios
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+
+\subsubsection{group 1}
+\subsubsection{group 2}
+\subsubsection{group 3}
+\subsubsection{group 4}
+\subsubsection{group 5}
+\subsubsection{group 6}
+Buatlah sebuah program Python untuk menghitung nilai Fibonacci ke-40 menggunakan multithreading. Setelah itu, implementasikan Amdahl's Law untuk menghitung speedup teoretis dengan berbagai jumlah thread.
+Jawaban:
+
+\begin{python}
+import threading
+import time
+
+# Fungsi untuk menghitung Fibonacci secara rekursif
+def hitung_fibonacci(angka):
+    if angka <= 1:
+        return angka
+    else:
+        return hitung_fibonacci(angka-1) + hitung_fibonacci(angka-2)
+
+# Fungsi untuk mengukur waktu eksekusi
+def jalankan_threads(jumlah_threads, angka_fibonacci):
+    threads = []
+    
+    waktu_mulai = time.time()
+    
+    for i in range(jumlah_threads):
+        thread = threading.Thread(target=hitung_fibonacci, args=(angka_fibonacci,))
+        threads.append(thread)
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+    
+    waktu_selesai = time.time()
+    return waktu_selesai - waktu_mulai
+
+# Implementasi Amdahl's Law
+def hitung_speedup_amdahl(persentase_paralel, jumlah_threads):
+    return 1 / ((1 - persentase_paralel) + (persentase_paralel / jumlah_threads))
+
+# Main program
+if __name__ == "__main__":
+    angka_fibonacci = 40  # Fibonacci ke-40
+    persentase_paralel = 0.95  # Estimasi paralelisme
+    daftar_threads = [1, 2, 4, 8]  # Daftar jumlah thread yang akan diuji
+    
+    for jumlah_threads in daftar_threads:
+        waktu_eksekusi = jalankan_threads(jumlah_threads, angka_fibonacci)
+        speedup_teoretis = hitung_speedup_amdahl(persentase_paralel, jumlah_threads)
+        
+        print(f"\nJumlah Threads: {jumlah_threads}")
+        print(f"Waktu Eksekusi: {waktu_eksekusi:.4f} detik")
+        print(f"Speedup Teoretis (Amdahl's Law): {speedup_teoretis:.4f}")
+\end{python}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

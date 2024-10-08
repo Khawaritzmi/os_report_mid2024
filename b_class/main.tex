@@ -104,6 +104,10 @@ The course is divided into two halves. This report focuses on the first half, wh
         \par
        \textit{ Brainware } mencakup pengguna atau orang yang berinteraksi dengan komputer, baik itu sebagai pengguna akhir, pengembang, maupun administrator. \textit{Brainware }berperan dalam merancang, mengoperasikan, dan memanfaatkan teknologi komputer secara optimal.
     \end{itemize}
+    \begin{bibliography}
+    Agus Tri Haryanto,M.CS., Taufiq Lilo Adi Sucipto, M.T. 2014. Sistem Komputer.Jakarta. Politeknik Negeri Media Kreatif.
+\end{bibliography}
+
    
 
 \subsection{System Performance and Metrics}
@@ -236,6 +240,129 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+\subsubsection{Group 1}
+Soal:
+\par Buatlah program Python yang melakukan operasi sederhana pada file teks dan folder dengan fitur-fitur berikut:
+\begin{itemize}
+    \item Membuat folder baru : program meminta pengguna memasukkan nama folder yang ingin di buat
+    \item Menulis dan Membaca File Teks: program meminta pengguna memasukkan nama file teks (.txt) dan menampilkan isinya jika sudah ada. jika file belum ada, program meminta pengguna untuk memasukkan teks yang ingin ditulis ke dalam file tersebut.
+    \item Menghitung Konten dalam File Teks: program meminta pengguna memasukkan nama file dan program harus membaca file dan menghitung jumlah baris, jumlah kata, jumlah karakter yang ada di dalam file
+    \item Menghapus File Teks: program meminta pengguna memasukkan file yang ingin dihapus
+    \item Menampilkan Daftar File Teks dalam Folder: program meminta pengguna memasukkan nama folder dan program menampilkan daftar semua file teks (.txt) yang ada di dalam folder tersebut.
+\end{itemize}
+Jawaban:
+\lstset{ 
+		language=Python, % Bahasa pemrograman
+		backgroundcolor=\color{white}, % Warna latar belakang
+		commentstyle=\color{gray}, % Warna komentar
+		keywordstyle=\color{blue}, % Warna string
+		basicstyle=\ttfamily\footnotesize, % Gaya dasar teks
+		breaklines=true,  % Otomatis break baris
+		frame=single, % Garis kotak di sekitar kode
+		showstringspaces=false, % Hilangkan spasi dalam string
+	}
+
+\begin{python}
+     import os
+
+# Fungsi 1: Membuat Folder Baru
+
+def create_folder():
+    folder_name = input("Masukkan nama folder yang ingin dibuat: ")
+    if os.path.exists(folder_name):
+        print(f"Folder '{folder_name}' sudah ada.")
+    else:
+        os.makedirs(folder_name)
+        print(f"Folder '{folder_name}' berhasil dibuat.")
+
+# Fungsi 2: Menulis dan Membaca File Teks
+def write_read_file():
+    file_name = input("Masukkan nama file teks (misal: catatan.txt): ")
+    if os.path.isfile(file_name):
+        with open(file_name, 'r') as file:
+            content = file.read()
+            print(f"Isi file '{file_name}':\n{content}")
+    else:
+        content = input("File tidak ditemukan. Masukkan teks yang ingin disimpan ke dalam file: ")
+        with open(file_name, 'w') as file:
+            file.write(content)
+            print(f"Isi file '{file_name}' berhasil disimpan.")
+
+# Fungsi 3: Menghitung Jumlah Baris, Kata, dan Karakter dalam File Teks
+def count_file_content():
+    file_name = input("Masukkan nama file teks: ")
+    if not os.path.isfile(file_name):
+        print(f"File '{file_name}' tidak ditemukan.")
+        return
+
+    with open(file_name, 'r') as file:
+        content = file.readlines()
+        num_lines = len(content)
+        num_words = sum(len(line.split()) for line in content)
+        num_characters = sum(len(line) for line in content)
+
+    print(f"Jumlah baris: {num_lines}")
+    print(f"Jumlah kata: {num_words}")
+    print(f"Jumlah karakter: {num_characters}")
+
+# Fungsi 4: Menghapus File Teks
+def delete_file():
+    file_name = input("Masukkan nama file yang ingin dihapus: ")
+    if os.path.isfile(file_name):
+        os.remove(file_name)
+        print(f"File '{file_name}' berhasil dihapus.")
+    else:
+        print(f"File '{file_name}' tidak ditemukan.")
+
+# Fungsi 5: Menampilkan Daftar Semua File Teks dalam Folder
+def list_text_files():
+    folder_name = input("Masukkan nama folder: ")
+    if not os.path.exists(folder_name):
+        print(f"Folder '{folder_name}' tidak ditemukan.")
+        return
+
+    text_files = [f for f in os.listdir(folder_name) if f.endswith('.txt')]
+    
+    if text_files:
+        print(f"Daftar file teks dalam folder '{folder_name}':")
+        for file in text_files:
+            print(file)
+    else:
+        print(f"Tidak ada file teks dalam folder '{folder_name}'.")
+
+# Menu Interaktif
+def main_menu():
+    while True:
+        print("\nPilih opsi yang ingin dijalankan:")
+        print("1. Membuat folder baru")
+        print("2. Menulis dan membaca file teks")
+        print("3. Menghitung jumlah baris, kata, dan karakter dalam file teks")
+        print("4. Menghapus file teks")
+        print("5. Menampilkan daftar semua file teks dalam folder")
+        print("0. Keluar")
+        
+        choice = input("Pilihan Anda: ")
+        if choice == '1':
+            create_folder()
+        elif choice == '2':
+            write_read_file()
+        elif choice == '3':
+            count_file_content()
+        elif choice == '4':
+            delete_file()
+        elif choice == '5':
+            list_text_files()
+        elif choice == '0':
+            print("Keluar dari program.")
+            break
+        else:
+            print("Pilihan tidak valid! Silakan coba lagi.")
+
+if __name__ == "__main__":
+    main_menu()
+
+\end{python}
+
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

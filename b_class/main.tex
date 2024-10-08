@@ -57,7 +57,38 @@ This section explains the fundamental components that make up a computer system,
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
 \subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+\subsubsection{Sistem Operasi}
+\subsubsection *{Definisi Sistem Operasi:}
+Sistem operasi merupakan sebuah penghubung antara pengguna komputer dengan perangkat keras komputer. Pengertian sistem operasi secara umum ialah pengelola seluruh sumber daya yang terdapat pada sistem komputer dan menyediakan sekumpulan layanan \textit{(sistem calls)} kepada pemakai sehingga mempermudah dan membuat penggunaan lebih nyaman. Sistem operasi atau dalam bahasa Inggris disebut dengan \textit{operating system} (OS) adalah perangkat lunak sistem yang bertugas melakukan kontrol dan manajemen terhadap perangkat keras, serta operasi-operasi dasar sistem, termasuk menjalankan aplikasi seperti program-program pengolah kata, desain animasi, pengolah kata, \textit{database} dan \textit{browser web}. 
+\\[12pt]
+Secara umum, sistem operasi adalah \textit{software} lapisan pertama yang diletakkan pada memori komputer pada saat komputer dinyalakan, sedangkan \textit{software} lainnya dijalankan setelah sistem operasi bekerja. Sistem operasi akan melakukan layanan inti umum untuk semua \textit{software} aplikasi itu. Layanan inti umum tersebut seperti akses ke \textit{disk}, manajemen memori, \textit{skeduling task}, dan antarmuka \textit{user} sehingga masing-masing \textit{software} tidak perlu lagi melakukan tugas-tugas inti umum tersebut, karena dapat dilayani dan dilakukan oleh sistem operasi. 
+\\[12pt]
+Sebuah Komputer yang \textit{modern} pada saat ini terdiri dari satu atau lebih prosesor, \textit{harddisk}, memori, \textit{printer}, \textit{keyboard}, \textit{monitor}, kartu jaringan, dan beberapa \textit{input/ouput} yang ada di komputer tersebut. Semua itu menjadi sebuah kesatuan dalam suatu sistem yang lengkap.
+\\[12pt]
+Dalam banyak kasus, sistem operasi menyediakan suatu pustaka dari fungsi-fungsi standar di mana aplikasi lain dapat memanggil fungsi-fungsi itu sehingga dalam setiap pembuatan program baru tidak perlu membuat fungsi-fungsi tersebut dari awal.
+\subsubsection *{Secara umum, Sistem operasi terdiri dari beberapa bagian:}
+\begin{itemize}
+    \item Mekanisme \textit{boot}, yaitu meletakkan kernel ke dalam memori.
+    \item Kernel, yaitu inti dari sebuah sistem operasi.
+    \item \textit{Command interpreter} atau \textit{shell}, yang bertugas membaca \textit{input} dari pengguna.
+    \item Pustaka-pustaka, yaitu yang menyediakan kumpulan fungsi dasar dan standar yang dapat dipanggil oleh aplikasi lain.
+\end{itemize}
+\subsubsection *{Tujuan adanya sistem operasi:}
+Sistem operasi merupakan program yang mengontrol eksekusi program- program aplikasi dan berfungsi sebagai \textit{interface} antara \textit{user} dengan \textit{hardware}. Sistem operasi memiliki tujuan :
+\begin{itemize}
+    \item Sistem operasi membuat komputer menjadi lebih mudah dan nyaman untuk digunakan.
+    \item Sistem operasi memungkinkan sumber daya sistem komputer untuk digunakan dengan cara yang efisien.
+    \item Sistem operasi harus disusun sedemikian rupa sehingga memungkinkan pengembangan yang efektif, pengujian dan penerapan fungsi-fungsi sistem yang baru tanpa mengganggu layanan yang telah ada.
+\end{itemize}
+Dalam \textit{software} sistem operasi, terdapat istilah seperti \textit{platform}, serta CLI \textit{(Command Line Interfaces)} dan GUI \textit{(Graphical User Interfaces)}. Platform yaitu \textit{software} sistem operasi yang digunakan pada sebuah komputer. CLI dan GUI mempunyai perbedaan. CLI adalah sistem operasi yang menggunakan perintah-perintah yang ditulis dalam baris teks. GUI adalah sistem operasi \textit{macintosh} yang hanya bisa dihasilkan oleh perusahaan komputer, \textit{Apple}.
+\begin{figure}[h]
+		\centering
+		\includegraphics[width=1\textwidth]{asset/sistemoperasi.png}
+		\caption{Sebuah komputer yang terdiri dari perangkat keras, sistem operasi, dan program aplikasi} 
+		\label{fig:contoh_gambar}
+	\end{figure}
+    \item Referensi :
+    \item Haryanto,E.V.(2012).\textit{Sistem Operasi Konsep dan Teori}.CV Andi Offset
 
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:
@@ -166,9 +197,94 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+\subsubsection{Group 2}
+\subsubsection{Group 3}
+Implementasikan algoritma \textit{First-Come}, \textit{First-Served} (FCFS), \textit{Shortest Job Next} (SJN), dan \textit{Round Robin} (RR) untuk proses \textit{scheduling}. Bandingkan waktu eksekusi rata-rata \textit{(average waiting time)} dari ketiga algoritma tersebut dengan jumlah proses yang berbeda.
+\begin{python}
+    # FCFS Scheduling
+def fcfs(processes):
+    n = len(processes)
+    wait_time = [0] * n
+    for i in range(1, n):
+        wait_time[i] = processes[i-1][1] + wait_time[i-1]
+    avg_wait_time = sum(wait_time) / n
+    return avg_wait_time
+
+# SJN Scheduling
+def sjn(processes):
+    processes.sort(key=lambda x: x[1])  # Sort by burst time
+    return fcfs(processes)
+
+# RR Scheduling
+def round_robin(processes, quantum):
+    wait_time = [0] * len(processes)
+    rem_burst_time = [p[1] for p in processes]
+    t = 0
+    while any(rem_burst_time):
+        for i in range(len(processes)):
+            if rem_burst_time[i] > 0:
+                if rem_burst_time[i] > quantum:
+                    t += quantum
+                    rem_burst_time[i] -= quantum
+                else:
+                    t += rem_burst_time[i]
+                    wait_time[i] = t - processes[i][1]
+                    rem_burst_time[i] = 0
+    avg_wait_time = sum(wait_time) / len(processes)
+    return avg_wait_time
+
+# Example usage
+processes = [(1, 5), (2, 9), (3, 6)]  # (process_id, burst_time)
+print("FCFS:", fcfs(processes))
+print("SJN:", sjn(processes))
+print("Round Robin:", round_robin(processes, 4))
+
+\end{python}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Group 1}
+\subsubsection{Group 2}
+\subsubsection{Group 3}
+Simulasikan kondisi \textit{deadlock} pada sistem dengan 3 proses dan 2 \textit{resource}. Jelaskan dan implementasikan metode pencegahan \textit{deadlock} dengan metode \textit{"Banker’s Algorithm"}
+
+\begin{python}
+    # Banker's Algorithm
+def is_safe(processes, available, max_demand, allocation):
+    n = len(processes)
+    m = len(available)
+    need = [[max_demand[i][j] - allocation[i][j] for j in range(m)] for i in range(n)]
+    finish = [False] * n
+    safe_seq = []
+    work = available[:]
+    
+    while len(safe_seq) < n:
+        allocated = False
+        for i in range(n):
+            if not finish[i] and all(need[i][j] <= work[j] for j in range(m)):
+                for j in range(m):
+                    work[j] += allocation[i][j]
+                safe_seq.append(i)
+                finish[i] = True
+                allocated = True
+        if not allocated:
+            return False, []
+    
+    return True, safe_seq
+
+# Example Usage
+processes = [0, 1, 2]
+available = [3, 3]  # Available resources
+max_demand = [[7, 5], [3, 2], [9, 0]]  # Maximum demand of each process
+allocation = [[0, 1], [2, 0], [3, 3]]  # Allocated resources
+
+safe, seq = is_safe(processes, available, max_demand, allocation)
+if safe:
+    print("Safe sequence exists:", seq)
+else:
+    print("System is in deadlock.")
+
+\end{python}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

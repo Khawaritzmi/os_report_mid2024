@@ -104,7 +104,7 @@ Process Spawning, Parent and Child Process
     \item {Komunikasi Antarproses (IPC):} Dalam sistem operasi, parent dan child process dapat berkomunikasi satu sama lain melalui berbagai mekanisme Inter-Process Communication (IPC). Mekanisme ini memungkinkan pertukaran data atau sinyal antarproses. Beberapa metode umum IPC meliputi:
 
     
-    {Pipe :} Sebuah saluran komunikasi satu arah di mana data dikirim dari satu proses ke proses lain dalam bentuk aliran byte. Ini memungkinkan parent process untuk mengirimkan data ke child process atau sebaliknya.
+    {Pipe :} Sebuah saluran komunikasi satu arah saat data dikirim dari satu proses ke proses lain dalam bentuk aliran byte. Ini memungkinkan parent process untuk mengirimkan data ke child process atau sebaliknya.
     
     {Shared Memory :} Parent dan child process dapat berbagi segmen memori yang memungkinkan mereka untuk membaca dan menulis data secara bersama-sama tanpa harus melakukan penyalinan data yang berlebihan.
     
@@ -124,7 +124,7 @@ Process Spawning, Parent and Child Process
 \subsubsection{Contoh di Unix/Linux}
 
 \begin{itemize}
-    \item Fungsi fork(): Pada sistem operasi berbasis Unix atau Linux, pembuatan child process dilakukan menggunakan fungsi fork(). Fungsi ini sangat penting dalam sistem operasi karena memungkinkan parent process untuk membuat salinan dirinya dalam bentuk child process. Ketika fork() dipanggil, sistem operasi membuat duplikat dari parent process, di mana child process baru mendapatkan salinan dari semua data yang dimiliki parent process, termasuk variabel, file descriptor, dan status eksekusi. Namun, meskipun child process merupakan duplikat, ia memiliki Process ID (PID) yang unik dan berbeda dari parent process. Dengan demikian, setelah fork(), kedua proses tersebut akan berjalan secara paralel atau bergantian, tergantung pada algoritma penjadwalan yang digunakan oleh sistem operasi.
+    \item Fungsi fork(): Pada sistem operasi berbasis Unix atau Linux, pembuatan child process dilakukan menggunakan fungsi fork(). Fungsi ini sangat penting dalam sistem operasi karena memungkinkan parent process untuk membuat salinan dirinya dalam bentuk child process. Ketika fork() dipanggil, sistem operasi membuat duplikat dari parent process, Jadi child process baru mendapatkan salinan dari semua data yang dimiliki parent process, termasuk variabel, file descriptor, dan status eksekusi. Namun, meskipun child process merupakan duplikat, ia memiliki Process ID (PID) yang unik dan berbeda dari parent process. Dengan demikian, setelah fork(), kedua proses tersebut akan berjalan secara paralel atau bergantian, tergantung pada algoritma penjadwalan yang digunakan oleh sistem operasi.
     
     \item Status Child Process: Parent process memiliki kemampuan untuk melacak status eksekusi child process. Salah satu cara untuk melakukan ini adalah dengan menggunakan panggilan sistem seperti wait() di Unix/Linux. Panggilan ini membuat parent process menunggu hingga child process selesai menjalankan tugasnya. Selama child process berjalan, parent process dapat memantau kapan child process selesai, apakah child process berakhir secara normal atau melalui penghentian yang tidak terduga. Setelah child process selesai, parent process dapat mengambil exit status dari child process, yang dapat memberikan informasi tentang bagaimana child process diselesaikan, apakah ada kesalahan atau tugas yang berhasil dijalankan.
 \end{itemize}
@@ -132,7 +132,7 @@ Process Spawning, Parent and Child Process
 \subsubsection{Manfaat dan Penggunaan}
 
 \begin{itemize}
-    \item Keterpisahan tugas: Memisahkan tugas-tugas menjadi child process memungkinkan sistem operasi untuk mendistribusikan pekerjaan secara lebih efektif. Setiap child process dapat menangani tugas tertentu secara mandiri tanpa mengganggu eksekusi tugas lainnya. Hal ini memungkinkan sistem untuk menjalankan banyak proses secara bersamaan (multi-tasking), yang sangat penting dalam lingkungan yang sibuk atau intensif komputasi, seperti server web atau aplikasi pengolahan data skala besar. Dengan menggunakan banyak child process, beban kerja dapat dibagi sehingga mempercepat waktu respon dan meningkatkan efisiensi keseluruhan sistem. Selain itu, pembagian tugas ini membuat sistem lebih fleksibel dalam hal manajemen beban, di mana satu proses dapat dialihkan atau dihentikan tanpa memengaruhi proses lainnya, sehingga meningkatkan ketahanan sistem terhadap kegagalan.
+    \item Keterpisahan tugas: Memisahkan tugas-tugas menjadi child process memungkinkan sistem operasi untuk mendistribusikan pekerjaan secara lebih efektif. Setiap child process dapat menangani tugas tertentu secara mandiri tanpa mengganggu eksekusi tugas lainnya. Hal ini memungkinkan sistem untuk menjalankan banyak proses secara bersamaan (multi-tasking), yang sangat penting dalam lingkungan yang sibuk atau intensif komputasi, seperti server web atau aplikasi pengolahan data skala besar. Dengan menggunakan banyak child process, beban kerja dapat dibagi sehingga mempercepat waktu respon dan meningkatkan efisiensi keseluruhan sistem. Selain itu, pembagian tugas ini membuat sistem lebih fleksibel dalam hal manajemen beban, saat satu proses dapat dialihkan atau dihentikan tanpa memengaruhi proses lainnya, sehingga meningkatkan ketahanan sistem terhadap kegagalan.
 
     \item Keamanan: Dalam konteks keamanan, child process sering kali dijalankan dengan hak akses yang lebih terbatas dibandingkan dengan parent process-nya. Ini berarti child process tidak memiliki akses penuh ke seluruh sistem, tetapi hanya dapat mengakses sumber daya yang diizinkan oleh parent process atau sistem operasi. Pendekatan ini mengurangi risiko jika terjadi kesalahan atau kerentanan di dalam child process, karena dampaknya akan terbatas pada child process itu sendiri dan tidak akan menyebar ke seluruh sistem. Dengan isolasi yang ketat ini, child process yang rentan atau bermasalah tidak dapat merusak proses lain atau mengakses informasi yang tidak diizinkan, sehingga meningkatkan keamanan sistem secara keseluruhan, terutama dalam aplikasi yang melibatkan data sensitif atau akses jaringan yang luas, seperti perbankan online atau cloud computing.
 \end{itemize}
@@ -372,11 +372,11 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \textbf{Soal}
 \vspace{0.5cm}
 
-Simulasikan skenario \textit{deadlock} sederhana di mana dua proses berusaha mengunci dua sumber daya secara bersamaan, sehingga menyebabkan \textit{deadlock}. Jelaskan metode pencegahan \textit{deadlock} yang digunakan untuk menyelesaikan masalah ini.
+Simulasikan skenario \textit{deadlock} sederhana saat dua proses berusaha mengunci dua sumber daya secara bersamaan, sehingga menyebabkan \textit{deadlock}. Jelaskan metode pencegahan \textit{deadlock} yang digunakan untuk menyelesaikan masalah ini.
 
 \textbf{Jawaban dan Implementasi Kode}
 \vspace{0.5cm}
-\textit{Deadlock} adalah kondisi di mana dua atau lebih proses saling menunggu sumber daya yang sedang dikunci oleh proses lain, sehingga tidak ada proses yang dapat melanjutkan eksekusi.
+\textit{Deadlock} adalah kondisi apabia dua atau lebih proses saling menunggu sumber daya yang sedang dikunci oleh proses lain, sehingga tidak ada proses yang dapat melanjutkan eksekusi.
 
 Berikut adalah implementasi simulasi \textit{deadlock} menggunakan Python:
 
@@ -435,7 +435,7 @@ Pada kode di atas, \texttt{Process 1} dan \texttt{Process 2} saling mengunci sum
 
 \textbf{Pencegahan Deadlock}
 
-Untuk mencegah \textit{deadlock}, kita bisa menggunakan metode \textit{Resource Ordering}, di mana setiap proses harus mengunci sumber daya dalam urutan yang sama. Berikut adalah versi perbaikan dari kode sebelumnya:
+Untuk mencegah \textit{deadlock}, kita bisa menggunakan metode \textit{Resource Ordering}, Apabila setiap proses harus mengunci sumber daya dalam urutan yang sama. Berikut adalah versi perbaikan dari kode sebelumnya:
 
 \begin{python}
 def proses1_fixed():

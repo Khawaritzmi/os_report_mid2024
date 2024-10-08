@@ -131,7 +131,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
 \begin{enumerate}
     \item Interupsi maskable dan nonmaskable dengan jalur terpisah.
 \item Interupsi maskable dan nonmaskable dengan jalur bersama.\\
-    Pola pertama berbasis pada dua jalur permintaan interupsi (interrupt request) yang terpisah, satu untuk interupsi maskable (INTREQ) dan satu lagi untuk nonmaskable (NMINT). Jalur INTERQ biasanya berpasangan dengan jalur interrupt acknowledge (INTACK). Melalui jalur ini CPU menjawab penerimaan permintaan nterupsi dan menginstrusksikan device I/O untuk meletakkan kode alamat ke bus data. Kode alamat menunjukkan CPU ke ISR yang mentansfer data atau melakukan pelayanan yang lainya atas nama device I/O. INTERQ dan INTACK dapat dipandang sebagai pasangan jalurjabat tangan (handshaking).Beberapa CPU tidak menyediakan sinyal jawanan interupsi pada jalur yang terpisah, tetapi melakukan enscodesiklus ini pada jalur status. Dalam kasus ini sinyal INTACKdiperoleh dengan cara mengkode jalur status CPU. Interupsi non maskable tidak memerlukan acknowledge karena interupsi ini selalu diterima dan karena tidak ada kode alamat yang diberikan secara eksternal. Dengan demikian tidak diperlukan jalur acknowledge untuk interupsi ini. Contoh prosesor yang menggunakan pola ini adalah 8086 dan 8088.
+    Pola pertama berbasis pada dua jalur permintaan interupsi (interrupt request) yang terpisah, satu untuk interupsi maskable (INTREQ) dan satu lagi untuk nonmaskable (NMINT). Jalur INTERQ biasanya berpasangan dengan jalur interrupt acknowledge (INTACK). Melalui jalur ini CPU menjawab penerimaan permintaan interupsi dan menginstrusksikan device I/O untuk meletakkan kode alamat ke bus data. Kode alamat menunjukkan CPU ke ISR yang mentransfer data atau melakukan pelayanan yang lainya atas nama device I/O. INTERQ dan INTACK dapat dipandang sebagai pasangan jalur jabat tangan (handshaking).Beberapa CPU tidak menyediakan sinyal jawaban interupsi pada jalur yang terpisah, tetapi melakukan endcode siklus ini pada jalur status. Dalam kasus ini sinyal INTACK diperoleh dengan cara mengkode jalur status CPU. Interupsi non maskable tidak memerlukan acknowledge karena interupsi ini selalu diterima dan karena tidak ada kode alamat yang diberikan secara eksternal. Dengan demikian tidak diperlukan jalur acknowledge untuk interupsi ini. Contoh prosesor yang menggunakan pola ini adalah 8086 dan 8088.
 \end{enumerate}
 \subsubsection{Pemrosesan Interupsi}
 \begin{enumerate}
@@ -198,17 +198,17 @@ Penjelasan :
     \item DMA Controller Beraksi
     Setelah mendapat perintah, DMA controller mengambil alih pekerjaan untuk sementara. Dia akan membuat jalur khusus agar data dari disk bisa langsung masuk ke memori tanpa harus melalui CPU. Hal ini dilakukan agar CPU bisa tetap fokus pada tugas lain dan tidak perlu bolak-balik mengurus transfer data.
     \item Transfer Data
-    DMA controller menggunakan PCI bus untuk memindahkan data dari disk ke RAM dengan menggunakan bantuan jalur-jalur khusus yang sudah ada. Dalam perjalanan ini, Pada transfer data terdapat buffer yang berfungsi sebagai tempat persinggahan sementara. Buffer menampung data sementara sebelum data benar-benar sampai ke RAM.
+    DMA controller menggunakan PCI bus untuk memindahkan data dari disk ke RAM dengan menggunakan bantuan jalur-jalur khusus yang sudah ada. Dalam perjalanan ini, pada transfer data terdapat buffer yang berfungsi sebagai tempat persinggahan sementara. Buffer menampung data sementara sebelum data benar-benar sampai ke RAM.
     \item Pemberitahuan ke CPU
     Setelah semua data berhasil dipindahkan ke RAM, DMA controller akan memberi tahu CPU dengan "sinyal interupsi." \\
-    Inti dari diagram ini adalah menunjukkan bagaimana sistem komputer bisa bekerja lebih efisien menggunakan DMA. Dengan menggunakan DMA controller, CPU tidak perlu sibuk mengurus transfer data. CPU cukup memberi perintah sekali, lalu DMA yang akan menangani semua proses transfer. Hasilnya, Komputer bekerja lebih cepat dan efisien karena CPU bisa mengerjakan tugas lain tanpa terhambat.
+    Inti dari diagram ini adalah menunjukkan bagaimana sistem komputer bisa bekerja lebih efisien menggunakan DMA. Dengan menggunakan DMA controller, CPU tidak perlu sibuk mengurus transfer data. CPU cukup memberi perintah sekali, lalu DMA yang akan menangani semua proses transfer. Hasilnya, komputer bekerja lebih cepat dan efisien karena CPU bisa mengerjakan tugas lain tanpa terhambat.
 \end{itemize}
 
 \subsubsection{Metode DMA Dalam Mentransfer Data}
 \begin{itemize}
-    \item Metode HALT atau BurstMode DMA
+    \item Metode HALT atau \textit{BurstMode} DMA
     \item Mengikut sertakan pengendali DMA \\
-    Pada dasarnya DMA mempunyai dua metode yang berbeda dalam mentransfer data, Metode yang pertama ialah metode yang sangat baku dan sederhana disebut HALT, atau BurstMode DMA, karena pengendali DMA memegang control dari system bus dan mentransfer semua blok data atau dari memori pada single burst. Selagi transfer masih dalam proses, system mikroprosessor di-setidle, tidak melakukan intruksi operasi untuk menjaga internal register. Tipe operasi DMA seperti ini ada pada kebanyakan komputer. Metode yang kedua adalah mengikut sertakan pengendali DMA untuk memegang control dari system bus untuk jangka waktu yang lebih pendek pada periode dimana mikroprosessor sibuk dengan operasi internal dan tidak membutuhkan akses ke system bus. Metode DMA ini disebut dengan cycle stealing mode. Cycle stealing mode DMA lebih kompleks untuk diimplementasikan dibandingkan HALT DMA, karena pengendali DMA harus mempunyai kepintaran untuk merasakan waktu pada saat sistem bus terbuka.
+    Pada dasarnya DMA mempunyai dua metode yang berbeda dalam mentransfer data, metode yang pertama ialah metode yang sangat baku dan sederhana disebut HALT, atau \textit{BurstMode} DMA, karena pengendali DMA memegang control dari system bus dan mentransfer semua blok data atau dari memori pada single burst. Selagi transfer masih dalam proses, system mikroprosessor di-setidle, tidak melakukan intruksi operasi untuk menjaga internal register. Tipe operasi DMA seperti ini ada pada kebanyakan komputer. Metode yang kedua adalah mengikut sertakan pengendali DMA untuk memegang control dari system bus untuk jangka waktu yang lebih pendek pada periode dimana mikroprosessor sibuk dengan operasi internal dan tidak membutuhkan akses ke system bus. Metode DMA ini disebut dengan \textit{cycle} stealing mode. \textit{Cycle} stealing mode DMA lebih kompleks untuk diimplementasikan dibandingkan HALT DMA, karena pengendali DMA harus mempunyai kepintaran untuk merasakan waktu pada saat sistem bus terbuka.
 \end{itemize}
 
 \subsubsection{Referensi}
@@ -324,7 +324,7 @@ File 'report.txt' telah dihapus.
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 2: Reading from and writing to files}
-Joy adalah pengembang di departemen dokumentasi perusahaan. Direktur meminta Joy untuk menambahkan catatan ke dalam file \texttt{log.txt} tanpa menghapus isinya yang lama. Setiap hari, Joy harus menambah catatan baru di akhir file tersebut.
+Joy adalah pengembang di departemen dokumentasi perusahaan. Direktur meminta Joy untuk menambahkan catatan ke dalam file \texttt{log.txt} tanpa menghapus isinya yang lama. Setiap hari, joy harus menambah catatan baru di akhir file tersebut.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
@@ -361,7 +361,7 @@ Catatan baru ditambahkan
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 3: Mencari Folder yang Hilang}
-Di sebuah perusahaan, ada banyak folder yang sering berpindah-pindah. Kepala Divisi Anda meminta Anda untuk menemukan sebuah folder bernama \texttt{important\_docs}. Jika folder tersebut tidak ada, Anda harus membuatnya. Setelah itu, Anda perlu masuk ke dalam folder tersebut dan memeriksa apa saja isi di dalamnya.
+Di sebuah perusahaan, ada banyak folder yang sering berpindah-pindah. Kepala Divisi anda meminta anda untuk menemukan sebuah folder bernama \texttt{important\_docs}. Jika folder tersebut tidak ada, anda harus membuatnya. Setelah itu, anda perlu masuk ke dalam folder tersebut dan memeriksa apa saja isi di dalamnya.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
@@ -400,7 +400,7 @@ Isi direktori 'important_docs':
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 4: Managing file permissions}
-Di perusahaan Anda, ada file rahasia bernama \texttt{secret.txt} yang hanya boleh dibaca oleh anggota tim keamanan. Anda diminta untuk membuat program yang dapat mengubah hak akses file tersebut menjadi hanya bisa dibaca (read-only). Setelah beberapa waktu, file tersebut perlu dimodifikasi lagi, jadi hak aksesnya harus diubah kembali menjadi bisa ditulis (writeable).
+Di perusahaan anda, ada file rahasia bernama \texttt{secret.txt} yang hanya boleh dibaca oleh anggota tim keamanan. Anda diminta untuk membuat program yang dapat mengubah hak akses file tersebut menjadi hanya bisa dibaca \textit{(read-only)}. Setelah beberapa waktu, file tersebut perlu dimodifikasi lagi, jadi hak aksesnya harus diubah kembali menjadi bisa ditulis \textit{(writeable)}.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}
@@ -433,7 +433,7 @@ File 'secret.txt' sekarang bisa dibaca dan ditulis.
 
 \subsubsection{Group 9}
 \subsubsection*{Soal 5: Navigating directories}
-Anda sedang bekerja di dalam sebuah sub-folder untuk menyelesaikan beberapa tugas. Setelah menyelesaikan pekerjaan di sub-folder tersebut, Anda perlu kembali ke \textbf{folder induk (parent directory)} untuk mengatur file-file lain.
+Anda sedang bekerja di dalam sebuah sub-folder untuk menyelesaikan beberapa tugas. Setelah menyelesaikan pekerjaan di sub-folder tersebut, anda perlu kembali ke \textbf{folder induk (parent directory)} untuk mengatur file-file lain.
 
 \textbf{Tugas:} Buatlah program Python yang dapat:
 \begin{enumerate}

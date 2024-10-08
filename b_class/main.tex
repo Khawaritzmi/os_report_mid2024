@@ -193,25 +193,8 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
-
+ 
 \subsection{Assignment 2: Deadlock Handling}
-\subsubsection{Pengertian Deadlock}
-Deadlock adalah kondisi di mana dua atau lebih proses saling menunggu sumber daya yang sedang dipegang oleh proses lain, sehingga tidak ada satu pun proses yang dapat melanjutkan eksekusinya. Deadlock dapat terjadi jika keempat kondisi berikut terpenuhi secara bersamaan:
-\begin{enumerate}
-    \item \textbf{Mutual Exclusion (Eksklusi Mutual)}: Sumber daya hanya dapat digunakan oleh satu proses pada satu waktu.
-    \item \textbf{Hold and Wait (Menahan dan Menunggu)}: Proses yang sudah memiliki sumber daya dapat meminta sumber daya tambahan tanpa melepaskan sumber daya yang sedang dipegangnya.
-    \item \textbf{No Preemption (Tanpa Preempesi)}: Sumber daya yang dimiliki oleh suatu proses tidak dapat diambil secara paksa.
-    \item \textbf{Circular Wait (Menunggu Melingkar)}: Proses-proses membentuk siklus di mana setiap proses menunggu sumber daya yang sedang dipegang oleh proses berikutnya dalam siklus tersebut.
-\end{enumerate}
-
-\subsubsection{Metode Pencegahan Deadlock}
-Untuk mengatasi deadlock, terdapat beberapa metode yang dapat digunakan:
-\begin{enumerate}
-    \item \textbf{Avoidance (Penghindaran)}: Menggunakan algoritma seperti Algoritma Bankir untuk menghindari sistem memasuki kondisi deadlock.
-    \item \textbf{Prevention (Pencegahan)}: Mengubah salah satu dari empat kondisi deadlock agar deadlock tidak terjadi.
-    \item \textbf{Detection and Recovery (Deteksi dan Pemulihan)}: Membiarkan deadlock terjadi, kemudian mendeteksi dan mengambil tindakan pemulihan seperti menghentikan salah satu proses.
-\end{enumerate}
-
 \subsubsection{Contoh Kasus Deadlock}
 Misalkan terdapat tiga proses yang bersaing untuk mendapatkan tiga jenis sumber daya: A, B, dan C. Setiap jenis sumber daya memiliki 10 unit. Proses-proses tersebut adalah sebagai berikut:
 
@@ -221,13 +204,14 @@ Misalkan terdapat tiga proses yang bersaing untuk mendapatkan tiga jenis sumber 
     \item P3 memiliki 1 unit A, 2 unit B, dan 2 unit C, serta membutuhkan tambahan 4 unit A, 2 unit B, dan 2 unit C.
 \end{itemize}
 
-Apakah sistem ini dalam kondisi deadlock? Jika iya, bagaimana cara menghindarinya menggunakan Algoritma Bankir?
+
+Apakah sistem ini dalam kondisi deadlock? Jika iya, bagaimana cara menghindarinya menggunakan Algoritma Bankir? (Silberschatz, 2018) \cite{silberschatz2018operating}
 
 \subsubsection{Implementasi Algoritma Bankir}
 Berikut adalah contoh kode Python untuk mensimulasikan Algoritma Bankir:
 
 \begin{python}
-    
+
     # Algoritma Bankir dalam Python
     
     # Jumlah proses dan sumber daya
@@ -301,74 +285,67 @@ Berikut adalah contoh kode Python untuk mensimulasikan Algoritma Bankir:
 \end{itemize}
 
 Jika sistem berada dalam kondisi aman, program akan menampilkan pesan:
-\begin{python}
-    
-Sistem berada dalam keadaan aman.
-Urutan aman: [0, 2, 1]
-\end{python}
+\begin{verbatim}
+    Sistem berada dalam keadaan aman.
+    Urutan aman: [0, 2, 1]
+\end{verbatim}
+
 
 Jika sistem berada dalam kondisi deadlock, program akan menampilkan pesan:
-\begin{python}
-    System is in a deadlock.
-\end{python}
-
+\begin{verbatim}
+    Sistem berada dalam kondisi deadlock.
+\end{verbatim}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Pada tugas ini, diminta untuk membuat Command-Line Interface (CLI) sederhana yang digunakan untuk manajemen antarmuka pengguna. Tujuan utama dari CLI ini adalah untuk memberikan kontrol dasar bagi pengguna dalam mengelola file, proses, serta memantau status sistem melalui serangkaian perintah yang mudah digunakan. Dengan CLI ini, pengguna akan dapat melakukan operasi-operasi seperti pembuatan, penghapusan, dan penampilan file, serta manajemen proses yang berjalan di sistem operasi.
+Tugas ini bertujuan untuk membuat Command-Line Interface (CLI) sederhana yang memfasilitasi manajemen antarmuka pengguna. CLI ini memungkinkan pengguna untuk melakukan operasi dasar terkait pengelolaan file dan proses, serta memantau status sistem melalui perintah yang mudah.
 
-\subsubsection{Tujuan}
-Untuk membuat sebuah CLI sederhana yang dapat menangani pengelolaan file, manajemen proses, dan pelaporan status sistem. Fitur utama yang harus disediakan meliputi:
+\subsubsection{Tujuan Membuat CLI }
+
+Membuat CLI yang mampu menangani:
 
 \begin{itemize}
-    \item Manipulasi file: membuat, menampilkan, dan menghapus file.
-    \item Manajemen proses: menampilkan proses yang berjalan dan menghentikan proses berdasarkan PID (Process ID).
-    \item Pelaporan status sistem: menampilkan informasi tentang memori dan ruang penyimpanan yang digunakan.
+    \item \textbf{Manipulasi file}: membuat, menampilkan, dan menghapus file.
+    \item \textbf{Manajemen proses}: menampilkan dan menghentikan proses berdasarkan PID (Process ID).
+    \item \textbf{Pelaporan status sistem}: menampilkan informasi memori dan ruang penyimpanan yang digunakan.
 \end{itemize}
 
+\subsubsection{Fitur CLI}
 
-\subsubsection{\textbf{Fitur CLI}}
-
-\textbf{CLI} harus mampu menerima perintah pengguna dan menjalankan fungsi yang sesuai, seperti:
+CLI harus mampu menerima perintah pengguna untuk:
 
 \begin{itemize}
     \item Membuat file baru.
     \item Menampilkan daftar file dalam direktori saat ini.
     \item Menghapus file yang ada.
-    \item Menampilkan daftar proses yang sedang berjalan.
-    \item Menghentikan proses berdasarkan \textbf{PID}.
+    \item Menampilkan daftar proses yang berjalan.
+    \item Menghentikan proses berdasarkan PID.
     \item Menampilkan status memori dan ruang penyimpanan sistem.
 \end{itemize}
 
 \subsubsection{Penjelasan Fitur}
 
-Berikut adalah penjelasan dari setiap fitur CLI yang harus dibuat:
-
-\paragraph{a. \textbf{Manipulasi File}}
-
 \begin{enumerate}
-    \item \textbf{Membuat File}: Mengizinkan pengguna membuat file teks dengan isi yang diinginkan.
-    \item \textbf{Menampilkan Daftar File}: Menampilkan semua file yang ada dalam direktori saat ini.
-    \item \textbf{Menghapus File}: Menghapus file berdasarkan nama yang diberikan pengguna.
+    \item \textbf{Manipulasi File}
+    \begin{itemize}
+        \item \textbf{Membuat File}: Membuat file teks sesuai keinginan pengguna.
+        \item \textbf{Menampilkan Daftar File}: Menampilkan semua file dalam direktori saat ini.
+        \item \textbf{Menghapus File}: Menghapus file berdasarkan nama yang diberikan.
+    \end{itemize}
+    \item \textbf{Manajemen Proses}
+    \begin{itemize}
+        \item \textbf{Menampilkan Daftar Proses}: Menampilkan semua proses berjalan, lengkap dengan PID dan nama proses.
+        \item \textbf{Menghentikan Proses}: Menghentikan proses berdasarkan PID yang diberikan.
+    \end{itemize}
+    \item \textbf{Pelaporan Status Sistem}
+    \begin{itemize}
+        \item \textbf{Status Memori}: Menampilkan penggunaan memori sistem.
+        \item \textbf{Ruang Penyimpanan}: Menampilkan status penggunaan ruang penyimpanan
+    \end{itemize}
 \end{enumerate}
-
-\paragraph{b. \textbf{Manajemen Proses}}
-
-\begin{enumerate}
-    \item \textbf{Menampilkan Daftar Proses}: Menampilkan semua proses yang sedang berjalan di sistem, beserta PID dan nama proses.
-    \item \textbf{Menghentikan Proses}: Menghentikan proses yang dipilih pengguna berdasarkan \textbf{PID} yang diberikan.
-\end{enumerate}
-
-\paragraph{c. \textbf{Pelaporan Status Sistem}}
-
-\begin{enumerate}
-    \item \textbf{Status Memori}: Menampilkan informasi tentang penggunaan memori sistem (seberapa besar memori yang digunakan).
-    \item \textbf{Ruang Penyimpanan}: Menampilkan status penggunaan ruang penyimpanan pada sistem.
-\end{enumerate}
-
-
+ 
 \subsubsection{\textbf{Contoh Soal}}
 
 \textbf{Soal:} Buatlah sebuah program Python yang berfungsi sebagai CLI sederhana untuk melakukan:
@@ -486,9 +463,118 @@ Berikut adalah implementasi Python untuk menjawab soal tersebut
     \item \textbf{system\_status}: Menampilkan informasi penggunaan memori dan ruang penyimpanan sistem.
 \end{itemize}
 
-\subsubsection{Kesimpulan}
+ 
+\subsubsection{\textbf{Output Program CLI Sederhana}}
 
-Program ini memungkinkan  untuk mengelola file, mengawasi proses, dan memantau status sistem melalui antarmuka baris perintah (CLI). Ini membantu memahami dasar-dasar manajemen file dan proses dalam lingkungan berbasis teks.
+Berikut adalah contoh output dari program CLI sederhana:
+
+\begin{enumerate}
+    \item \textbf{Membuat File}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 1
+    Masukkan nama file: contoh.txt
+    Masukkan isi file: Ini adalah contoh isi file.
+    File 'contoh.txt' berhasil dibuat.
+    \end{verbatim}
+
+    \item \textbf{Menampilkan Daftar File}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 2
+    Daftar file di direktori saat ini:
+    - contoh.txt
+    \end{verbatim}
+
+    \item \textbf{Menghapus File}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 3
+    Masukkan nama file yang ingin dihapus: contoh.txt
+    File 'contoh.txt' berhasil dihapus.
+    \end{verbatim}
+
+    \item \textbf{Menampilkan Daftar Proses}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 4
+    Proses yang sedang berjalan:
+    PID: 1234, Nama: python
+    PID: 5678, Nama: bash
+    \end{verbatim}
+
+    \item \textbf{Menghentikan Proses}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 5
+    Masukkan PID proses yang ingin dihentikan: 1234
+    Proses dengan PID 1234 berhasil dihentikan.
+    \end{verbatim}
+
+    \item \textbf{Menampilkan Status Sistem}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 6
+    Status Memori: 45.0% digunakan
+    Ruang Penyimpanan: 60.0% digunakan
+    \end{verbatim}
+
+    \item \textbf{Keluar dari CLI}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 7
+    Keluar dari CLI.
+    \end{verbatim}
+\end{enumerate}
 
  
 \subsection{Assignment 5: File System Access}
@@ -515,6 +601,10 @@ Tutorialspoint. (n.d.). \textit{Operating system - Process control block}. Diaks
 \bibitem{}
 Wikipedia contributors. (n.d.). Context switch. Dalam \textit{Wikipedia, The Free Encyclopedia}. Diakses pada 30 September 2024, dari \url{https://en.wikipedia.org/wiki/Context_switch}
 
+\bibitem{silberschatz2018operating}
+Silberschatz, A., Galvin, P. B., \& Gagne, G. (2018). \textit{Operating System Concepts} (10th ed.). Wiley. Diakses pada 30 September 2024, dari \url{https://www.wiley.com/en-us/Operating+System+Concepts%2C+10th+Edition-p-9781119471158}
+
 \end{thebibliography}
+
 
 \end{document}

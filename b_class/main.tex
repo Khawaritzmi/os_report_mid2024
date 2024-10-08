@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{float}
 
 \lstset{
     language=Python,                      % Set bahasa ke Python
@@ -85,6 +86,18 @@ This section explains the fundamental components that make up a computer system,
 \subsubsection{Mengapa \textit{Performance Metrics} Penting}
 \hspace*{1cm}Mengukur kinerja menggunakan data yang akurat sangat penting dalam sebuah sistem karena memberikan gambaran nyata tentang performa yang sedang berlangsung. Dengan data yang tepat, manajemen dapat mengambil keputusan yang lebih terinformasi, sehingga memperkecil risiko kesalahan strategi. Selain itu, pengukuran kinerja juga membantu mengidentifikasi area yang membutuhkan perbaikan, sehingga organisasi dapat berfokus pada peningkatan yang signifikan. Memantau perkembangan dan kemajuan kinerja secara berkala meningkatkan akuntabilitas, baik di tingkat individu maupun tim, sehingga setiap anggota lebih bertanggung jawab atas hasil kerjanya. Pada akhirnya, penggunaan  \textit{performance metrics} yang tepat dapat mendorong peningkatan berkelanjutan, dengan memberikan dasar yang kuat bagi evaluasi dan inovasi secara sistematis dalam mencapai tujuan jangka panjang.
 
+\subsubsection{Fungsi \textit{Performance Metrics} pada sistem}
+\hspace*{1cm} \textit{Metrics performance} berperan penting dalam berbagai aspek dalam sistem operasi. Berikut adalah beberapa area di mana metrics performance digunakan :
+\begin{itemize}
+    \item  \textit{\textbf{Benchmark}} \newline \hspace*{1cm} Benchmark biasanya menggunakan berbagai metrics performance untuk mengukur dan melaporkan hasil kinerjanya. Misalnya, sebuah benchmark untuk prosesor mungkin mengukur metrics seperti kecepatan clock, jumlah instruksi per detik (IPS), atau waktu komputasi untuk tugas tertentu.
+    \item  \textit{\textbf{Bandwidth}} \newline \hspace*{1cm} mengukur jumlah data yang dapat ditransmisikan melalui jaringan dalam waktu tertentu. Bandwidth yang terbatas membatasi kemampuan sistem untuk menangani banyak permintaan atau mentransfer data dalam jumlah besar, yang pada akhirnya memperlambat waktu muat atau respon. Pada sistem yang sangat bergantung pada transfer data, seperti aplikasi berbasis web atau layanan cloud, bandwidth adalah faktor penting yang mempengaruhi performa keseluruhan.
+    \item  \textit{\textbf{Error Rate}} \newline \hspace*{1cm} menghitung persentase permintaan yang gagal diproses atau menghasilkan kesalahan. Metrik ini penting untuk menilai stabilitas dan keandalan sistem. Tingkat kesalahan yang tinggi menunjukkan masalah pada sistem, seperti bug dalam perangkat lunak, kesalahan konfigurasi, atau keterbatasan sumber daya. Error rate yang tinggi dapat mengganggu pengguna dan menurunkan kepercayaan mereka terhadap sistem.
+    \item  \textbf{Pengaturan Kualitas Layanan (QoS)} \newline \hspace*{1cm} Dalam lingkungan yang membutuhkan kualitas layanan tertentu, metrics performance digunakan untuk memastikan bahwa aplikasi dan layanan memenuhi SLA (Service Level Agreement). Metrics seperti latensi, throughput, dan waktu respons digunakan untuk mengatur dan memantau QoS.
+    \item  \textbf{Optimasi dan Tuning} \newline \hspace*{1cm} Metrics performance digunakan untuk mengidentifikasi peluang optimasi dan tuning. Misalnya, dengan memantau penggunaan CPU dan memori, administrator sistem dapat menyesuaikan parameter kernel, konfigurasi aplikasi, dan pengaturan sistem lainnya untuk meningkatkan kinerja.
+\end{itemize}
+
+\hspace*{1cm} Metrics performance berperan penting dalam berbagai aspek pengelolaan dan operasional sistem operasi. Dari monitoring dan manajemen sumber daya hingga optimasi, diagnosa, dan keamanan, metrics ini memberikan wawasan yang diperlukan untuk menjaga sistem tetap berjalan dengan efisien, aman, dan sesuai dengan kebutuhan kinerja yang diharapkan.
+
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
@@ -157,15 +170,240 @@ Virtualization allows multiple operating systems to run concurrently on a single
     \item Benefits of virtualization in modern computing
 \end{itemize}
 
+
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+\hspace*{1cm} Implementasikan algoritma scheduling short job first dan round robin, dan bandingkan average waiting time dan average turnaround time kedua algortima tersebut, yang mana yang lebih baik dalam menangani proses.
+\newline
+\newline
+
+\begin{center}
+    \underline{JAWABAN}
+\end{center}
+
+\textit{Short Job First (SJF) algorithms}
+\begin{lstlisting}[language=Python]
+    def sjf_non_preemptive(Jumlah_proses):
+        Jumlah_proses.sort(key=lambda x: x[1])
+    
+        waktu_tunggu = 0
+        total_waktu_tunggu = 0
+    
+        for pid, burst_time in Jumlah_proses:
+            total_waktu_tunggu += waktu_tunggu
+            waktu_tunggu += burst_time
+    
+        n = len(Jumlah_proses)
+        avg_waktu_tunggu = total_waktu_tunggu / n
+    
+        print(total_waktu_tunggu)
+        print(f"\nAverage Waiting Time: {avg_waktu_tunggu}")    
+    
+\end{lstlisting}
+
+\textit{Round Robin (RR) algorithms}
+\begin{lstlisting}[language=Python]
+    def round_robin(jumlah_proses, quantum):
+        n = len(jumlah_proses)
+        remaining_time = [bt for _, bt in jumlah_proses]
+        waktu_tunggu = [0] * n
+        time = 0
+    
+        while True:
+            done = True
+            for i in range(n):
+                if remaining_time[i] > 0:
+                    done = False
+                    if remaining_time[i] > quantum:
+                        time += quantum
+                        remaining_time[i] -= quantum
+                    else:
+                        time += remaining_time[i]
+                        waktu_tunggu[i] = time - jumlah_proses[i][1]
+                        remaining_time[i] = 0
+            if done:
+                break
+    
+        avg_waktu_tunggu = sum(waktu_tunggu) / n
+        print(f"\nAverage Waiting Time: {avg_waktu_tunggu:.2f}")
+    
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{asset/41.png}
+    \caption{Output}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{asset/411.png}
+    \caption{Perbandingan SJF dan RR(quantum = 2)}
+\end{figure}
+
+\paragraph{
+\hspace*{1cm} pada kedua output rata-rata waktu tunggu untuk kedua algoritma, bisa dilihat bahwa rata-rata waktu tunggu sjf lebih kecil dibanding round robin, salah satu alasannya karna sifat RR yang memberikan setiap proses sejumlah waktu yang sama (quantum) dan memaksa semua proses menunggu giliran mereka secara bergilir.
+}
+
+\paragraph{
+\hspace*{1cm} Kita dapat mengurangi kelemahan Round Robin dengan memilih quantum yang lebih besar, bisa terlihat pada visualisasi diatas bahwa waiting time RR sama dengan SJF. Tetapi tetap saja, SJF sering lebih baik dalam kasus banyak proses dengan burst time yang bervariasi.
+}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{asset/412.png}
+    \caption{Perbandingan SJF dan RR(quantum = 8)}
+\end{figure}
+
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\hspace*{1cm} Simulasikan bagaimana algoritma safety bekerja untuk mendeteksi deadlock.
+\newline
+\newline
+
+\begin{center}
+    \underline{JAWABAN}
+\end{center}
+
+\begin{lstlisting}[language=Python]
+
+    import numpy as np
+    
+    def is_safe(Jumlah_proses, avail, max_need, allocation):
+        P, R = len(Jumlah_proses), len(avail) 
+        need = max_need - allocation 
+        finish = [False] * P 
+        safe_sequence = []  
+        work = avail.copy() 
+    
+        for _ in range(P):
+            for p in range(P):
+                if not finish[p] and all(need[p] <= work): 
+                    work += allocation[p]
+                    finish[p] = True
+                    safe_sequence.append(p)
+                    break
+            else:
+                print("Sistem tidak dalam keadaan aman.")
+                return False, []
+    
+        print("Sistem dalam keadaan aman.")
+        return True, safe_sequence
+    
+    
+    Jumlah_proses = [0, 1, 2, 3, 4]
+    avail = np.array([3, 3, 2]) 
+    max_need = np.array([[7, 5, 3],
+                         [3, 2, 2],
+                         [9, 0, 2],
+                         [2, 2, 2],
+                         [4, 3, 3]]) 
+    allocation = np.array([[0, 1, 0],
+                           [2, 0, 0],
+                           [3, 0, 2],
+                           [2, 1, 1],
+                           [0, 0, 2]]) 
+    
+    is_safe_state, safe_sequence = is_safe(Jumlah_proses, avail, max_need, allocation)
+    
+    if is_safe_state:
+        print("Sistem dalam urutan aman:", safe_sequence)
+    else:
+        print("Tidak ada urutan aman, sistem dalam keadaan deadlock.")
+    
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{asset/421.png}
+    \caption{Output dan Penjelasannya}
+\end{figure}
+
+\paragraph{
+\hspace*{1cm} Dengan menggunakan metode banker's untuk algoritma safety kita bisa memastikan bahwa sistem aman jika melakukan proses-proses tertentu, dimana kita memeriksa setiap proses dan memastikan bahwa alokasi sumber daya untuk setiap proses aman dilakukan sehingga tidak akan menghasilkan deadlock. Pada output akan menampilkan status sistem apakah sistem aman atau tidak dan menampilkan urutan proses yang aman.
+}
+
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\hspace*{1cm} Simulasikan scenario multithreading untuk menghitung jumlah kuadrat dari rentang angka yang diberikan dan menjumlahkannya, dan terapkan Amdahl law untuk menghitung prediksi kecepatan seiring penambahan thread untuk mengetahui penggunaan jumlah thread yang optimal.
+\newline
+\newline
+
+\begin{center}
+    \underline{JAWABAN}
+\end{center}
+
+\begin{lstlisting}[language=Python]
+
+    import threading
+    import time
+    
+    def compute_squares(start, end, results, index, execution_times):
+        start_time = time.time()
+        print(f"Thread {index} mulai menghitung dari {start} hingga {end}...")
+        result = 0
+        for number in range(start, end):
+            time.sleep(0.0001) 
+            result += number * number
+        results[index] = result
+        end_time = time.time()
+        execution_times[index] = end_time - start_time
+        print(f"Thread {index} selesai menghitung dalam {execution_times[index]:.4f} detik.")
+    
+    total_range = 10000
+    num_threads = 4  
+    step = total_range // num_threads
+    
+    
+    results = [0] * num_threads
+    execution_times = [0] * num_threads
+    
+    threads = []
+    
+    start_time = time.time()
+    for i in range(num_threads):
+        start = i * step
+        end = (i + 1) * step if i != num_threads - 1 else total_range
+        thread = threading.Thread(target=compute_squares, args=(start, end, results, i, execution_times))
+        threads.append(thread)
+        thread.start()
+    
+    for thread in threads:
+        thread.join()
+    end_time = time.time()
+    
+    total_execution_time = end_time - start_time
+    total_result = sum(results)
+    
+    def amdahl_law(P, N):
+        return 1 / ((1 - P) + (P / N))
+    
+    
+    sequential_fraction = 0.1  
+    P = 1 - sequential_fraction
+    
+    print("Semua thread selesai.")
+    print(f"Hasil perhitungan: {total_result}")
+    print(f"Waktu eksekusi total: {total_execution_time:.4f} detik")
+    
+    print("Speedup teoretis menurut Hukum Amdahl:")
+    for N in range(1, num_threads + 1):  
+        speedup = amdahl_law(P, N)
+        print(f"Speedup teoretis dengan {N} thread: {speedup:.2f}x")
+    
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{asset/31.png}
+    \caption{Eksekusi dengan 4 threads (kiri) dan eksekusi dengan 8 threads (kanan)}
+\end{figure}
+
+\paragraph{
+\hspace*{1cm} pada algoritma diatas multithreading berfungsi untuk membagi proses berdasarkan jumlah thread yang digunakan sehingga kita bisa membuat waktu eksekusi lebih singkat, dengan menggunakan algoritma amdah's law kita bisa melihat rasio peningkatan kecepatan seiring meningkatnya jumlah thread yang digunakan. Bisa dilihat pada perbedaan output diatas, dengan meningkatkan jumlah thread dari 4 ke 8 waktu eksekusi juga meningkatkan. 
+}
+
+
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

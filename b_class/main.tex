@@ -229,6 +229,53 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\subsubsection{Soal}
+
+Jelaskan bagaimana Anda mengimplementasikan fungsi untuk membaca dan menulis file pada sistem berkas. Sebutkan langkah-langkah yang diperlukan untuk memastikan akses file dilakukan dengan aman dan efisien, serta bagaimana Anda menangani situasi ketika file tidak tersedia atau terjadi kesalahan dalam proses akses.
+
+\subsubsection{Jawaban}
+
+Untuk mengimplementasikan fungsi membaca dan menulis file pada sistem berkas, saya menggunakan Python dengan dua fungsi utama: \texttt{baca\_file} dan \texttt{tulis\_file}. Berikut adalah kode lengkapnya:
+
+\begin{verbatim}
+def baca_file(jalur_berkas):
+    try:
+        with open(jalur_berkas, 'r') as berkas:
+            isi = berkas.read()
+            return isi
+    except FileNotFoundError:
+        print(f"Berkas {jalur_berkas} tidak ditemukan.")
+    except IOError:
+        print("Terjadi kesalahan saat membaca berkas.")
+
+def tulis_file(jalur_berkas, konten):
+    try:
+        with open(jalur_berkas, 'w') as berkas:
+            berkas.write(konten)
+            print(f"Berhasil menulis ke berkas {jalur_berkas}.")
+    except IOError:
+        print("Terjadi kesalahan saat menulis ke berkas.")
+
+# Contoh penggunaan
+jalur_berkas = 'contoh.txt'
+konten = 'Ini adalah contoh isi berkas.'
+
+# Menulis ke berkas
+tulis_file(jalur_berkas, konten)
+
+# Membaca dari berkas
+isi_berkas = baca_file(jalur_berkas)
+if isi_berkas:
+    print("Isi berkas:", isi_berkas)
+\end{verbatim}
+
+Kode di atas terdiri dari dua fungsi utama: \texttt{baca\_file} dan \texttt{tulis\_file}. Fungsi \texttt{baca\_file} digunakan untuk membaca isi dari sebuah berkas yang ditentukan dalam variabel \texttt{jalur\_berkas}. Dengan membuka berkas dalam mode baca menggunakan \texttt{with open}, berkas akan secara otomatis ditutup setelah operasi selesai. Fungsi ini juga menangkap kesalahan jika berkas tidak ditemukan atau jika ada masalah I/O lainnya.
+
+Di sisi lain, \texttt{tulis\_file} bertujuan untuk menulis teks yang terdapat dalam variabel \texttt{konten} ke berkas yang juga ditentukan dalam \texttt{jalur\_berkas}. Fungsi ini membuka berkas dalam mode tulis, yang secara otomatis akan membuat berkas baru jika berkas yang dituju belum ada. Seperti fungsi sebelumnya, \texttt{tulis\_file} juga menangkap dan menampilkan pesan jika terjadi kesalahan saat menulis.
+
+Terakhir, terdapat contoh penggunaan fungsi-fungsi tersebut, di mana \texttt{tulis\_file} digunakan untuk menyimpan teks ke dalam berkas, kemudian \texttt{baca\_file} digunakan untuk membaca kembali isi berkas tersebut dan menampilkannya jika berhasil. Kode ini memberikan pengelolaan berkas yang aman serta responsif terhadap kesalahan.
+
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}

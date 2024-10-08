@@ -195,9 +195,9 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
 
-\vspace{1cm}
-\textbf{Kelompok 6}
-\subsubsection{Soal}
+\subsubsection{Group 6}
+\vspace{0.5cm}
+\textbf{Soal}
 \begin{enumerate}
     \item Implementasikan algoritma penjadwalan proses FCFS, SJN, dan RR di Python.
     \item Berikan input berupa daftar proses dengan waktu kedatangan dan waktu burst.
@@ -217,7 +217,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \item Gunakan kuantum waktu (time quantum) 4 untuk algoritma RR.
 \end{enumerate}
 
-\subsubsection{Jawaban dan Implementasi Python}
+\textbf{Jawaban dan Implementasi Python}
 
 Berikut adalah kode Python yang mengimplementasikan algoritma FCFS, SJN, dan RR untuk penjadwalan proses serta perbandingan kinerjanya:
 
@@ -331,7 +331,19 @@ rr_awt, rr_att = rr(proses, kuantum_waktu)
 print(f"RR - AWT: {rr_awt:.2f}, ATT: {rr_att:.2f}")
 \end{python}
 
-\subsubsection{Hasil}
+\textbf{Hasil}
+
+\vspace{0.5cm}
+\begin{verbatim}
+FCFS - AWT: 5.75, ATT: 11.00
+SJN - AWT: 2.25, ATT: 8.00
+RR - AWT: 4.50, ATT: 10.00
+\end{verbatim}
+
+\textbf{Tabel Perbandingan AWT dan ATT untuk Algoritma Penjadwalan Proses}
+
+Dari kode di atas, berikut adalah perbandingan kinerja algoritma penjadwalan proses berdasarkan waktu tunggu rata-rata (AWT) dan waktu putar rata-rata (ATT):
+
 
 \begin{table}
 \centering
@@ -345,15 +357,7 @@ RR                 & 4.50                                & 10.00                
 \caption{Perbandingan AWT dan ATT untuk FCFS, SJN, dan RR}
 \label{tab:comparison}
 \end{table}
-\subsubsection{Tabel Perbandingan AWT dan ATT untuk Algoritma Penjadwalan Proses}
-Dari kode di atas, berikut adalah perbandingan kinerja algoritma penjadwalan proses berdasarkan waktu tunggu rata-rata (AWT) dan waktu putar rata-rata (ATT):
-\begin{verbatim}
-FCFS - AWT: 5.75, ATT: 11.00
-SJN - AWT: 2.25, ATT: 8.00
-RR - AWT: 4.50, ATT: 10.00
-\end{verbatim}
-
-\subsubsection{Penjelasan}
+\textbf{Penjelasan}
 \begin{enumerate}
     \item{FCFS (First-Come, First-Served)}: Proses dijadwalkan berdasarkan waktu kedatangan mereka. Fungsi fcfs() menghitung waktu tunggu dan waktu putar berdasarkan urutan kedatangan proses.
     \item{SJN (Shortest Job Next)}: Proses dengan waktu burst terpendek akan dieksekusi lebih dahulu. Fungsi sjn() menghitung waktu tunggu dan waktu putar dengan mempertimbangkan proses mana yang memiliki waktu burst lebih pendek setelah proses tiba.
@@ -363,12 +367,15 @@ RR - AWT: 4.50, ATT: 10.00
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
+\subsubsection{Group 6}
 \vspace{0.5cm}
-\textbf{Kelompok 6}
-\subsubsection{Soal}
+\textbf{Soal}
+\vspace{0.5cm}
+
 Simulasikan skenario \textit{deadlock} sederhana di mana dua proses berusaha mengunci dua sumber daya secara bersamaan, sehingga menyebabkan \textit{deadlock}. Jelaskan metode pencegahan \textit{deadlock} yang digunakan untuk menyelesaikan masalah ini.
 
-\subsubsection{Jawaban dan Implementasi Kode}
+\textbf{Jawaban dan Implementasi Kode}
+\vspace{0.5cm}
 \textit{Deadlock} adalah kondisi di mana dua atau lebih proses saling menunggu sumber daya yang sedang dikunci oleh proses lain, sehingga tidak ada proses yang dapat melanjutkan eksekusi.
 
 Berikut adalah implementasi simulasi \textit{deadlock} menggunakan Python:
@@ -426,7 +433,8 @@ print("Simulasi selesai")
 
 Pada kode di atas, \texttt{Process 1} dan \texttt{Process 2} saling mengunci sumber daya yang dibutuhkan oleh proses lain, sehingga menyebabkan \textit{deadlock}.
 
-\subsubsection{Pencegahan Deadlock}
+\textbf{Pencegahan Deadlock}
+
 Untuk mencegah \textit{deadlock}, kita bisa menggunakan metode \textit{Resource Ordering}, di mana setiap proses harus mengunci sumber daya dalam urutan yang sama. Berikut adalah versi perbaikan dari kode sebelumnya:
 
 \begin{python}
@@ -473,7 +481,7 @@ print("Pencegahan deadlock berhasil")
 
 Dengan penguncian sumber daya yang berurutan, \textit{deadlock} dapat dicegah.
 
-\subsubsection{Hasil Simulasi}
+\textbf{Hasil Simulasi}
 
 \begin{table}[htbp]
     \centering
@@ -492,6 +500,7 @@ Dengan penguncian sumber daya yang berurutan, \textit{deadlock} dapat dicegah.
 
 Tabel di atas menunjukkan hasil dari simulasi \textit{deadlock} sebelum dan sesudah menerapkan metode pencegahan.
 
+
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
@@ -509,7 +518,7 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
-\vspace{2cm}
+\vspace{5cm}
 \begin{thebibliography}{9}
 
     \bibitem{Silberschatz2018}

@@ -74,7 +74,7 @@ Processes are a central concept in operating systems. This section covers:
 	\subsubsection{Round Robin (RR)}
         \begin{figure} [h]
         \centering
-        \includegraphics[width=0.75\textwidth]{assets/Round Robin Diagram.png}
+        \includegraphics[width=0.75\textwidth]{assets/Round Robin diagram.jpg}
         \label{fig:diagram}
         \end{figure}
 		Round robin scheduling adalah versi preemptive dari first-come, first-served scheduling. Proses-proses dijalankan dalam urutan first-in-first-out, tetapi setiap proses hanya diizinkan berjalan dalam jangka waktu yang terbatas. Interval waktu ini dikenal sebagai time-slice atau quantum. Jika suatu proses tidak selesai atau tidak diblokir karena operasi I/O dalam jangka waktu tersebut, maka time-slice akan habis, dan proses tersebut akan dipreempt. Proses yang dipreempt ini ditempatkan di bagian belakang antrian dan harus menunggu semua proses yang sudah ada di dalam antrian untuk berputar melalui CPU
@@ -84,7 +84,7 @@ Processes are a central concept in operating systems. This section covers:
 		\subsubsection*{Karakteristik Algoritma Penjadwalan CPU Round Robin}
 		\begin{itemize}
 			\item Sederhana, mudah diimplementasikan, dan bebas dari kekurangan sumber daya karena semua proses mendapat porsi CPU yang adil.
-			\item Salah satu teknik yang paling umum digunakan dalam penjadwalan CPU adalah inti.
+			\item Salah satu teknik yang paling umum digunakan dalam penjadwalan CPU adalah round robin.
 			\item Hal ini bersifat preemptif karena proses hanya ditugaskan ke CPU untuk jangka waktu tertentu saja maksimal.
 			\item Kerugiannya adalah lebih besarnya biaya overhead pelestarian konteks.
 		\end{itemize}
@@ -171,6 +171,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+\subsubsection{Group 5}
 \subsubsection{Proses yang Diberikan}
 Proses-proses yang perlu dijadwalkan ditampilkan pada Tabel \ref{tab:proses}.
 
@@ -339,6 +340,8 @@ Tabel \ref{tab:hasil_perbandingan} menunjukkan hasil perbandingan antara algorit
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Group 5}
 
 \begin{enumerate}
     \item Pencegahan Deadlock menggunakan Algoritma Banker

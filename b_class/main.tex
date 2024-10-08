@@ -129,7 +129,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
         \item \textbf{Bare-metal Hypervisor}
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.3\textwidth]{assets/hypervisor_tipe_1.png}
+            \includegraphics[width=0.3\textwidth]{asset/hypervisor_tipe_1.png}
             \caption{Ilustrasi Bare-metal Hypervisor}
         \end{figure}
         Bare-metal Hypervisor (juga dikenal sebagai hypervisor tipe 1) berjalan langsung di atas perangkat keras tanpa memerlukan sistem operasi host. Ini memberikan kinerja yang lebih tinggi karena tidak ada lapisan tambahan antara perangkat keras dan hypervisor. VMware ESXi dan Microsoft Hyper-V adalah contoh populer dari jenis hypervisor ini, sering digunakan dalam lingkungan server di mana efisiensi dan stabilitas menjadi prioritas utama \cite{satra2023}. Bare-metal hypervisor ini sangat ideal untuk aplikasi yang memerlukan sumber daya tinggi dan latensi rendah.
@@ -137,7 +137,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
         \item \textbf{Hosted Hypervisor}
         \begin{figure}[h]
             \centering
-            \includegraphics[width=0.3\textwidth]{assets/hypervisor_tipe_2.png}
+            \includegraphics[width=0.3\textwidth]{asset/hypervisor_tipe_2.png}
             \caption{Ilustrasi Hosted Hypervisor}
         \end{figure}
         Hosted hypervisor (atau hypervisor tipe 2) berjalan di atas sistem operasi host, yang menyediakan fleksibilitas lebih tetapi dengan potensi penurunan kinerja dibandingkan dengan bare-metal hypervisor. Contoh dari hosted hypervisor adalah VMware Workstation dan Oracle VirtualBox, yang sering digunakan untuk lingkungan pengembangan atau uji coba \cite{portnoy2012}. Hosted hypervisor lebih mudah diatur dan lebih user-friendly, namun karena berjalan di atas sistem operasi, ada lapisan tambahan yang memperlambat akses ke perangkat keras.
@@ -146,7 +146,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
     \newline Mesin virtual (VM) adalah representasi virtual dari perangkat keras komputer fisik. Setiap mesin virtual beroperasi seperti komputer independen, dengan sumber daya virtual seperti CPU, memori, penyimpanan, dan kartu jaringan, yang diatur oleh hypervisor. Dalam lingkungan ini, VM dapat menjalankan berbagai sistem operasi secara bersamaan di atas satu perangkat keras fisik. Hal ini memungkinkan perusahaan untuk mengkonsolidasikan infrastruktur mereka, mengurangi biaya perangkat keras, dan meningkatkan efisiensi operasional \cite{portnoy2012}. 
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.3\textwidth]{assets/virtual_machine.png}
+        \includegraphics[width=0.3\textwidth]{asset/virtual_machine.png}
         \caption{Ilustrasi Virtual Machine}
     \end{figure}
     Penggunaan mesin virtual juga memungkinkan fleksibilitas dalam pengelolaan, seperti kemampuan untuk mengkloning, menghentikan sementara, atau menghapus VM tanpa mengganggu sistem lain yang berjalan pada perangkat keras yang sama. Ini sangat berguna dalam lingkungan pengembangan dan produksi di mana perubahan cepat dan skalabilitas dibutuhkan \cite{satra2023}.
@@ -181,6 +181,93 @@ Students were tasked with implementing various process scheduling algorithms (e.
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+Pertanyaan:
+Simulasikan skenario deadlock yang melibatkan empat proses dan empat sumber daya. Kemudian, terapkan dan demonstrasikan tiga metode pencegahan deadlock: Mutual Exclusion, Hold and Wait, dan Circular Wait.
+
+\begin{python}
+    import threading
+    import time
+
+    # Sumber Daya
+    R1 = threading.Lock()
+    R2 = threading.Lock()
+    R3 = threading.Lock()
+    R4 = threading.Lock()
+
+    # Simulasi Deadlock
+    def proses_1():
+        R1.acquire()
+        time.sleep(1)
+        R2.acquire()
+        time.sleep(1)
+        R3.acquire()
+        time.sleep(1)
+        R4.acquire()
+        R4.release()
+        R3.release()
+        R2.release()
+        R1.release()
+
+    def proses_2():
+        R2.acquire()
+        time.sleep(1)
+        R3.acquire()
+        time.sleep(1)
+        R4.acquire()
+        time.sleep(1)
+        R1.acquire()
+        R1.release()
+        R4.release()
+        R3.release()
+        R2.release()
+
+    def proses_3():
+        R3.acquire()
+        time.sleep(1)
+        R4.acquire()
+        time.sleep(1)
+        R1.acquire()
+        time.sleep(1)
+        R2.acquire()
+        R2.release()
+        R1.release()
+        R4.release()
+        R3.release()
+
+    def proses_4():
+        R4.acquire()
+        time.sleep(1)
+        R1.acquire()
+        time.sleep(1)
+        R2.acquire()
+        time.sleep(1)
+        R3.acquire()
+        R3.release()
+        R2.release()
+        R1.release()
+        R4.release()
+
+    # Menjalankan semua proses
+    p1 = threading.Thread(target=proses_1)
+    p2 = threading.Thread(target=proses_2)
+    p3 = threading.Thread(target=proses_3)
+    p4 = threading.Thread(target=proses_4)
+
+    p1.start()
+    p2.start()
+    p3.start()
+    p4.start()
+
+    p1.join()
+    p2.join()
+    p3.join()
+    p4.join()
+
+    print("Simulasi deadlock selesai.")
+
+    # Metode pencegahan deadlock dapat diimplementasikan dan diuji dengan cara serupa
+
+\end{python}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -197,7 +284,8 @@ In this assignment, students implemented file system access routines, including:
 \end{itemize}
 
 \section{Conclusion}
-The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+Virtualisasi sistem operasi menawarkan berbagai manfaat signifikan untuk pengelolaan sumber daya komputer. Dengan memungkinkan beberapa sistem operasi berjalan secara bersamaan pada satu mesin fisik, virtualisasi meningkatkan efisiensi penggunaan hardware, menurunkan biaya operasional, dan memberikan fleksibilitas tinggi dalam menjalankan berbagai aplikasi. Teknologi seperti hypervisor memungkinkan pemisahan total antara sistem operasi dan perangkat keras fisik, sehingga memungkinkan isolasi dan pengelolaan sumber daya yang lebih baik. Sebagai hasilnya, pengguna dapat menjalankan beberapa lingkungan komputasi yang terisolasi dengan aman pada satu platform fisik.
+Namun, ada juga beberapa kekurangan yang perlu dipertimbangkan, seperti kompleksitas yang lebih tinggi dalam pengelolaan dan potensi risiko keamanan. Ketergantungan pada hypervisor juga dapat menjadi titik lemah jika terjadi kerentanan atau serangan pada lapisan tersebut. Meskipun begitu, dengan pemahaman yang baik dan manajemen yang tepat, virtualisasi tetap menjadi solusi yang kuat dan fleksibel dalam pengelolaan infrastruktur TI. Kombinasi antara keuntungan ekonomi dan fleksibilitas operasional menjadikan virtualisasi sebagai pilihan utama dalam banyak organisasi modern.
 
 \begin{thebibliography}
     \bibitem[1]{satra2023} Satra, R., Syafie, L., & Tubagus, M. (2023, May). Comparison of server technologies using Kernel-based virtual machine and container virtualization. In AIP Conference Proceedings (Vol. 2595, No. 1). AIP Publishing.

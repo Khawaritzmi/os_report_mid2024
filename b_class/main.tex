@@ -193,14 +193,13 @@ In this assignment, students were asked to simulate different deadlock scenarios
 import threading
 import time
 
-# Create two resources
 resource_a = threading.Lock()
 resource_b = threading.Lock()
 
 def process_1():
     print("Process 1: Acquiring Resource A")
     with resource_a:
-        time.sleep(1)  # Simulate work
+        time.sleep(1)  
         print("Process 1: Acquiring Resource B")
         with resource_b:
             print("Process 1: Working with both resources")
@@ -208,20 +207,19 @@ def process_1():
 def process_2():
     print("Process 2: Acquiring Resource B")
     with resource_b:
-        time.sleep(1)  # Simulate work
+        time.sleep(1)  
         print("Process 2: Acquiring Resource A")
         with resource_a:
             print("Process 2: Working with both resources")
 
-# Create threads
+
 t1 = threading.Thread(target=process_1)
 t2 = threading.Thread(target=process_2)
 
-# Start threads
+
 t1.start()
 t2.start()
 
-# Wait for threads to complete
 t1.join()
 t2.join()
 \end{python}
@@ -232,7 +230,7 @@ To prevent deadlocks, we can ensure a consistent order of resource acquisition:
 def process_1():
     print("Process 1: Acquiring Resource A")
     with resource_a:
-        time.sleep(1)  # Simulate work
+        time.sleep(1)  
         print("Process 1: Acquiring Resource B")
         with resource_b:
             print("Process 1: Working with both resources")
@@ -240,20 +238,19 @@ def process_1():
 def process_2():
     print("Process 2: Acquiring Resource A")
     with resource_a:
-        time.sleep(1)  # Simulate work
+        time.sleep(1) 
         print("Process 2: Acquiring Resource B")
         with resource_b:
             print("Process 2: Working with both resources")
 
-# Create threads
+
 t1 = threading.Thread(target=process_1)
 t2 = threading.Thread(target=process_2)
 
-# Start threads
 t1.start()
 t2.start()
 
-# Wait for threads to complete
+
 t1.join()
 t2.join()
 \end{python}

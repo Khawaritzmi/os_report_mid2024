@@ -202,6 +202,80 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\subsubsection{Group 1}
+Desainlah program Command-Line Interface (CLI) sederhana dalam Python yang memungkinkan pengguna untuk mengelola file dengan mendukung fungsionalitas berikut:
+\begin{enumerate}
+    \item Membuat file.
+    \item Menampilkan semua file di direktori saat ini.
+    \item Menghapus file tertentu.
+\end{enumerate}
+
+Programmu harus memungkinkan pengguna untuk memasukkan perintah seperti \texttt{create <filename>}, \texttt{list}, dan \texttt{delete <filename>} untuk melakukan operasi tersebut. Jika perintah tidak valid, program harus menampilkan pesan kesalahan yang sesuai.
+
+\newpage
+\section*{Jawaban}
+
+\begin{lstlisting}[language=Python, caption=Kode Python untuk manajemen file CLI] 
+import os
+
+def create_file(filename):
+    try:
+        with open(filename, 'w') as f:
+            pass
+        print(f"File '{filename}' berhasil dibuat.")
+    except Exception as e:
+        print(f"Kesalahan saat membuat file: {e}")
+
+def list_files():
+    try:
+        files = os.listdir()
+        if files:
+            print("File-file di direktori saat ini:")
+            for file in files:
+                print(file)
+        else:
+            print("Tidak ada file yang ditemukan di direktori.")
+    except Exception as e:
+        print(f"Kesalahan saat menampilkan file: {e}")
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    except FileNotFoundError:
+        print(f"File '{filename}' tidak ada.")
+    except Exception as e:
+        print(f"Kesalahan saat menghapus file: {e}")
+
+def main():
+    while True:
+        command = input("Masukkan perintah (create <filename>, 
+        list, delete <filename>, atau quit): ").strip().split()
+        
+        if command[0] == 'create' and len(command) == 2:
+            create_file(command[1])
+        elif command[0] == 'list':
+            list_files()
+        elif command[0] == 'delete' and len(command) == 2:
+            delete_file(command[1])
+        elif command[0] == 'quit':
+            print("Keluar dari CLI.")
+            break
+        else:
+            print("Perintah tidak valid. Silakan coba lagi.")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section*{Penjelasan}
+\begin{itemize}
+    \item \texttt{create\_file(filename)}: Fungsi ini membuat file kosong dengan nama file yang ditentukan.
+    \item \texttt{list\_files()}: Fungsi ini menampilkan semua file di direktori saat ini.
+    \item \texttt{delete\_file(filename)}: Fungsi ini menghapus file dengan nama file yang ditentukan.
+    \item \texttt{main()}: Ini adalah loop utama yang mengambil input dari pengguna dan memanggil fungsi yang sesuai berdasarkan perintah yang dimasukkan. Loop ini berjalan sampai pengguna memasukkan perintah \texttt{quit}.
+\end{itemize}
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}
@@ -213,11 +287,11 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
-
 \begin{thebibliography}
     \bibitem[1]{liputan6,2021} Liputan6. (2021, Januari 6). Komputer adalah perangkat pemroses data, kenali cara kerjanya. Liputan6.com. https://www.liputan6.com/hot/read/4855611/komputer-adalah-perangkat-pemroses-data-kenali-cara-kerjanya
     \bibitem[2]{kumparan2021} Kumparan. (2021, Desember 24). Kenali cara kerja sebuah sistem komputer yang benar. Kumparan. https://kumparan.com/tips-dan-trik/kenali-cara-kerja-sebuah-sistem-komputer-yang-benar-21YXYnsblzk
     \bibitem[3]{kumparan2021} Kumparan. (2021, November 25). Cara komputer bekerja dan berbagai komponennya. Kumparan. https://kumparan.com/tips-dan-trik/cara-komputer-bekerja-dan-berbagai-komponennya-20wtogAAGQB
     \bibitem[4]{detik2024} Detik. (2024, September 28). Sistem komputer: Pengertian, bagian, tujuan, dan komponen fisik. Detik.com. https://www.detik.com/edu/detikpedia/d-6983357/sistem-komputer-pengertian-bagian-tujuan-dan-komponen-fisik
 \end{thebibliography}
+
 \end{document}

@@ -92,7 +92,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -107,12 +107,52 @@ File systems provide a way for the operating system to store, retrieve, and mana
     \item Directory management
 \end{itemize}
 
-\subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
+\subsection{Input dan Output Management} 
+\subsubsection{Apa itu Manajemen I/O?} 
+Manajemen I/O merupakan entitas yang bertanggung jawab mengontrol perangkat eksternal dan untuk pertukaran data antarperangkat tersebut dengan memori dan CPU. Perangkat eksternal itu seperti \textit{keyboard, mouse,} dan lain sebagainya.
+
+\subsubsection{Fungsi Utama Modul I/O} 
+Fungsi utama modul I/O dikategorikan menjadi lima, yaitu: 
+\begin{itemize} 
+    \item \textit{Control dan timing}: Modul I/O berfungsi untuk mengatur aliran data antara sistem inti komputer (seperti CPU dan memori) dan perangkat eksternal. Fungsi ini membutuhkan \textit{control dan timing} yang tepat karena ada perbedaan kecepatan dan mekanisme antara CPU dan perangkat eksternal yang biasanya lebih lambat. Modul I/O harus memastikan bahwa data dikirim dan diterima sesuai dengan waktu yang tepat, tanpa menyebabkan konflik atau kerusakan data. 
+    \item Komunikasi CPU: Modul I/O harus mampu berkomunikasi baik dengan CPU maupun dengan perangkat eksternal. Komunikasi ini mencakup beberapa aspek: 
+    \begin{itemize} 
+        \item \textit{Command Decoding} (Dekode Perintah): Modul I/O menerima perintah dari CPU, yang biasanya dikirim melalui sinyal pada \textit{bus control}. Contoh perintah untuk modul I/O pada disk adalah seperti \textit{READ SECTOR, WRITE SECTOR, SEEK} nomor \textit{track, dan SCAN record ID.} Beberapa perintah ini mungkin menyertakan parameter yang dikirim melalui bus data. 
+        \item Data: Data ditransfer antara CPU dan modul I/O melalui bus data. Ini adalah proses pertukaran data yang terjadi setelah perintah diterima dan diproses oleh modul I/O. 
+        \item \textit{Status Reporting} (Laporan Status): Karena perangkat eksternal sering kali lebih lambat daripada CPU, modul I/O harus melaporkan statusnya kepada CPU, misalnya dengan sinyal status seperti \textit{BUSY} (sibuk) atau \textit{READY} (siap). Ini penting agar CPU tahu apakah modul I/O siap untuk melakukan operasi atau sedang sibuk dengan perintah lain. 
+        \item \textit{Address Recognition} (Pengenalan Alamat): Sama seperti memori memiliki alamat unik, perangkat I/O juga memiliki alamat yang unik. Modul I/O harus mampu mengenali alamat unik dari perangkat-perangkat yang dikendalikannya untuk mengarahkan data ke perangkat yang benar. \end{itemize} 
+    \item Komunikasi Perangkat: Modul I/O juga harus bisa berkomunikasi langsung dengan perangkat eksternal. Komunikasi ini meliputi: 
+    \begin{itemize} 
+        \item Perintah (instruksi yang dikirim ke perangkat). \item Informasi Status (kondisi perangkat, seperti siap atau sibuk). 
+        \item Data (informasi yang ditransfer antara perangkat dan CPU). 
+    \end{itemize} 
+    \item \textit{Data Buffering}: Modul I/O bertugas untuk menyiapkan data dari atau untuk perangkat eksternal melalui \textit{buffering }(penyimpanan sementara data) sehingga data dapat diproses dengan lebih efisien, mengatasi perbedaan kecepatan antara CPU dan perangkat eksternal. \item Deteksi Kesalahan: Modul I/O juga bertanggung jawab untuk mendeteksi dan melaporkan kesalahan yang terjadi saat komunikasi dengan perangkat eksternal. Kesalahan ini bisa berupa masalah mekanis (seperti kertas yang menggulung pada printer) atau kesalahan elektris (seperti kesalahan bit saat mentransfer data). Modul I/O kemudian akan melaporkan kesalahan ini ke CPU agar dapat diatasi. 
 \end{itemize}
+
+\subsubsection{Struktur Modul I/O} 
+\begin{figure}[h] 
+    \centering 
+    \includegraphics[width=0.80\linewidth]{b_class/asset/sisop.drawio.png} 
+    \caption{Struktur Modul I/O} \label{fig} 
+\end{figure} 
+Penjelasan: 
+\begin{itemize} 
+    \item Data, alamat, dan kontrol dikirim dari sistem komputer (\textit{bus system}) ke modul I/O. 
+    \item \textit{I/O Logic} mengelola aliran data, kontrol, dan alamat yang masuk. 
+    \item \textit{Data Register} menyimpan data sementara, dan 
+    \textit{Status/Control Register} mengatur status dan kontrol perangkat. 
+    \item \textit{External Device Interface Logic} menjembatani data, status, dan kontrol ke perangkat eksternal. 
+    \item Data, status, dan kontrol diolah dan dikirim ke perangkat eksternal, dan informasi status kembali ke sistem komputer. 
+\end{itemize}
+
+\subsubsection{Control dan Timing} 
+\textit{Control dan Timing} berfungsi untuk mengatur agar kecepatan transfer, data yang berbeda-beda antar periferal dapat tersinkronisasi. Misalnya, kontrol pemindahan data dari sebuah perangkat eksternal ke CPU. Contoh kontrol pemindahan data dari sebuah perangkat eksternal ke CPU meliputi langkah-langkah berikut: 
+\begin{enumerate} 
+    \item CPU meminta modul I/O untuk memeriksa status perangkat yang terhubung. 
+    \item Modul I/O memberikan jawabannya tentang status perangkat. 
+    \item Bila perangkat sedang beroperasi dan berada dalam keadaan siap untuk mengirimkan, maka CPU meminta pemindahan data, dengan menggunakan perintah tertentu ke modul I/O. \item Modul I/O akan memperoleh unit data (misalnya, 8 atau 16 bit) dari perangkat eksternal. 
+    \item Data akan dipindahkan dari modul I/O ke CPU. 
+\end{enumerate}
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
@@ -151,7 +191,6 @@ Students were tasked with implementing various process scheduling algorithms (e.
         self.turnaround_time = 0
         self.waiting_time = 0
 \end{python}
-
 \begin{table}[htbp] % Optional: For floating position
     \centering
     \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
@@ -166,9 +205,269 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{Group 9}
+\begin{itemize}
+    \item Soal : Diberikan sebuah skenario yang terdapat beberapa proses yang ingin dijalankan oleh CPU. Setiap proses memiliki waktu kedatangan (\textit{arrival time}) dan waktu burst (\textit{burst time}). Hitunglah rata-rata waktu tunggu (\textit{average waiting time}) dari proses-proses tersebut menggunakan tiga algoritma penjadwalan CPU, yaitu:
+    \begin{itemize}
+        \item \textit{First Come First Serve} (FCFS)
+        \item \textit{Shortest Job Next} (SJN)
+        \item \textit{Round Robin} (RR) dengan quantum sebesar 4
+    \end{itemize}
+    
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Proses} & \textbf{\textit{burst\_times}} & \textbf{\textit{waiting\_times}} \\ 
+        \hline
+        1              & 10                   & 0                         \\ 
+        \hline
+        2              & 5                    & 1                         \\ 
+        \hline
+        3              & 8                    & 2                         \\ 
+        \hline
+        4              & 6                    & 3                         \\ 
+        \hline
+        5              & 2                    & 4                         \\ 
+        \hline
+        \end{tabular}
+        \caption{Tabel Data Proses}
+        \label{tabel:proses}
+    \end{table}
+    \item Penyelesaian Kode Python :
+    \begin{python}
+# Fungsi untuk menghitung waktu tunggu rata-rata
+def hitung_rata2_waktu(n, burst_times, waiting_times):
+    total_wt = sum(waiting_times)
+    rata2_wt = total_wt / n
+    return rata2_wt
+
+# Algoritma FCFS
+def fcfs(proses, n, burst_times, waktu_kedatangan):
+    waiting_times = [0] * n
+
+    # Menghitung waktu tunggu
+    for i in range(1, n):
+        waiting_times[i] = waiting_times[i - 1] + burst_times[i - 1]
+
+    rata2_wt = hitung_rata2_waktu(n, burst_times, waiting_times)
+    return rata2_wt
+
+# Algoritma SJN
+def sjn(proses, n, burst_times, waktu_kedatangan):
+    # Urutkan proses berdasarkan waktu burst
+    proses_urut = sorted(zip(proses, burst_times, waktu_kedatangan), key=lambda x: (x[1], x[2]))
+    
+    waiting_times = [0] * n
+    waktu_sekarang = 0
+    
+    for i in range(n):
+        id_proses, burst, kedatangan = proses_urut[i]
+        
+        if waktu_sekarang < kedatangan:
+            waktu_sekarang = kedatangan
+        
+        waiting_times[id_proses - 1] = waktu_sekarang - kedatangan
+        waktu_sekarang += burst
+
+    rata2_wt = hitung_rata2_waktu(n, burst_times, waiting_times)
+    return rata2_wt
+
+# Algoritma Round Robin
+def round_robin(proses, n, burst_times, waktu_kedatangan, kuantum):
+    sisa_burst = burst_times[:]  
+    waiting_times = [0] * n
+    waktu_sekarang = 0
+    selesai = False
+    
+    while not selesai:
+        selesai = True
+        for i in range(n):
+            if sisa_burst[i] > 0:
+                selesai = False
+                if sisa_burst[i] > kuantum:
+                    waktu_sekarang += kuantum
+                    sisa_burst[i] -= kuantum
+                else:
+                    waktu_sekarang += sisa_burst[i]
+                    waiting_times[i] = waktu_sekarang - burst_times[i]
+                    sisa_burst[i] = 0
+
+    rata2_wt = hitung_rata2_waktu(n, burst_times, waiting_times)
+    return rata2_wt
+
+# Kode utama
+def main():
+    # Data proses yang diberikan
+    proses = [1, 2, 3, 4, 5]
+    burst_times = [10, 5, 8, 6, 2]
+    waktu_kedatangan = [0, 1, 2, 3, 4]
+    kuantum = 4
+
+    n = len(proses)
+
+    # Menjalankan setiap algoritma
+    rata2_wt_fcfs = fcfs(proses, n, burst_times, waktu_kedatangan)
+    rata2_wt_sjn = sjn(proses, n, burst_times, waktu_kedatangan)
+    rata2_wt_rr = round_robin(proses, n, burst_times, waktu_kedatangan, kuantum)
+
+    # Menampilkan hasil
+    print("Algoritma FCFS")
+    print(f"Rata-rata Waktu Tunggu: {rata2_wt_fcfs:.2f}\n")
+
+    print("Algoritma SJN")
+    print(f"Rata-rata Waktu Tunggu: {rata2_wt_sjn:.2f}\n")
+
+    print("Algoritma Round Robin")
+    print(f"Rata-rata Waktu Tunggu: {rata2_wt_rr:.2f}\n")
+
+if __name__ == "__main__":
+    main()
+
+# Output:
+# Algoritma FCFS
+# Rata-rata Waktu Tunggu: 15.40
+
+# Algoritma SJN
+# Rata-rata Waktu Tunggu: 10.60
+
+# Algoritma Round Robin
+# Rata-rata Waktu Tunggu: 19.40
+    \end{python}
+\end{itemize}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{Group 9}
+\begin{itemize}
+    \item Soal : 
+    Kondisi awal:
+
+    \begin{itemize}
+        \item Proses A membutuhkan R1 untuk mulai berjalan dan menunggu R2 untuk menyelesaikan.
+        \item Proses B membutuhkan R2 untuk mulai berjalan dan menunggu R1 untuk menyelesaikan.
+    \end{itemize}
+    Gunakan Algoritma Banker's untuk mengecek apakah sistem dalam keadaan aman atau terjadi deadlock, dengan data berikut:
+    \begin{enumerate}
+        \item Proses A dan Proses B membutuhkan masing-masing maksimal 3 unit dari R1 dan R2.
+        \item Saat ini, Proses A telah dialokasikan 1 unit dari R1 dan 2 unit dari R2.
+        \item Proses B telah dialokasikan 2 unit dari R1 dan 1 unit dari R2.
+        \item Tersisa 2 unit R1 dan 1 unit R2 di sistem.
+    \end{enumerate}
+
+    \item Penyelesaian Kode Python:
+    \begin{python}
+# Fungsi untuk mensimulasikan skenario deadlock
+def simulasi_deadlock():
+    print("Mensimulasikan Skenario Deadlock...")
+    # Dua sumber daya dan dua proses
+    sumber_daya = [1, 1]  # Sumber daya yang tersedia (R1 dan R2)
+    proses_A = [1, 0]  # Proses A awalnya membutuhkan sumber daya R1
+    proses_B = [0, 1]  # Proses B awalnya membutuhkan sumber daya R2
+    
+    # Kedua proses mencoba untuk mendapatkan sumber daya
+    if sumber_daya[0] >= proses_A[0]:
+        sumber_daya[0] -= proses_A[0]
+        print("Proses A mendapatkan Sumber Daya 1")
+
+    if sumber_daya[1] >= proses_B[1]:
+        sumber_daya[1] -= proses_B[1]
+        print("Proses B mendapatkan Sumber Daya 2")
+    
+    # Sekarang kedua proses mencoba untuk mendapatkan sumber daya satu sama lain
+    if sumber_daya[1] >= 1 and sumber_daya[0] < 1:
+        print("Proses A menunggu Sumber Daya 2, tetapi dipegang oleh Proses B")
+
+    if sumber_daya[0] >= 1 and sumber_daya[1] < 1:
+        print("Proses B menunggu Sumber Daya 1, tetapi dipegang oleh Proses A")
+        
+    print("Deadlock telah terjadi!\n")
+
+# Algoritma Banker's untuk pencegahan deadlock
+def algoritma_bankir(proses, sumber_daya_maks, sumber_daya_alokasi, sumber_daya_tersedia):
+    print("Menerapkan Algoritma Banker's...")
+    n = len(proses)  # Jumlah proses
+    m = len(sumber_daya_maks[0])  # Jumlah jenis sumber daya
+
+    # Menghitung matriks kebutuhan
+    kebutuhan = [[0] * m for _ in range(n)]
+    for i in range(n):
+        for j in range(m):
+            kebutuhan[i][j] = sumber_daya_maks[i][j] - sumber_daya_alokasi[i][j]
+
+    selesai = [False] * n  # Melacak apakah proses telah selesai
+    urutan_aman = []    # Daftar untuk menyimpan urutan aman jika ditemukan
+    
+    while len(urutan_aman) < n:
+        dialokasikan = False
+        for i in range(n):
+            # Memeriksa apakah proses dapat dieksekusi dengan aman
+            if not selesai[i] and all(kebutuhan[i][j] <= sumber_daya_tersedia[j] for j in range(m)):
+                # Jika bisa, tambahkan sumber daya yang dialokasikan kembali ke sumber daya tersedia
+                for k in range(m):
+                    sumber_daya_tersedia[k] += sumber_daya_alokasi[i][k]
+                
+                # Tandai proses sebagai selesai dan tambahkan ke urutan aman
+                urutan_aman.append(proses[i])
+                selesai[i] = True
+                dialokasikan = True
+                print(f"Proses {proses[i]} dieksekusi dengan aman")
+        
+        # Jika tidak ada proses yang bisa dieksekusi di iterasi ini, ada deadlock
+        if not dialokasikan:
+            print("Deadlock terdeteksi oleh Algoritma Banker's - Sistem tidak dalam keadaan aman\n")
+            return False
+
+    print("Sistem dalam keadaan aman. Urutan aman:", urutan_aman, "\n")
+    return True
+
+# Kode Utama
+def main():
+    print("Memulai Simulasi Deadlock dan Pencegahan Menggunakan Algoritma Banker's...\n")
+    
+    # Mensimulasikan skenario deadlock
+    simulasi_deadlock()
+    
+    # Menerapkan Algoritma Banker's untuk mencegah deadlock
+    proses = ["P1", "P2"]
+    sumber_daya_maks = [[3, 3], [4, 2]]  # Sumber daya maksimum yang dibutuhkan oleh setiap proses
+    sumber_daya_alokasi = [[1, 2], [2, 1]]  # Sumber daya yang saat ini dialokasikan ke setiap proses
+    sumber_daya_tersedia = [2, 1]  # Total sumber daya yang tersedia
+
+    algoritma_bankir(proses, sumber_daya_maks, sumber_daya_alokasi, sumber_daya_tersedia)
+
+if __name__ == "__main__":
+    main()
+
+# Output:
+# Memulai Simulasi Deadlock dan Pencegahan Menggunakan Algoritma Banker's...
+
+# Mensimulasikan Skenario Deadlock...
+# Proses A mendapatkan Sumber Daya 1
+# Proses B mendapatkan Sumber Daya 2
+# Deadlock telah terjadi!
+
+# Menerapkan Algoritma Banker's...
+# Proses P1 dieksekusi dengan aman
+# Proses P2 dieksekusi dengan aman
+# Sistem dalam keadaan aman. Urutan aman: ['P1', 'P2']
+    \end{python}
+\end{itemize}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -183,7 +482,6 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
-
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 

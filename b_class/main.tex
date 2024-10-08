@@ -128,7 +128,8 @@ Input and output management is key for handling the interaction between the syst
 Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
-    \item Deadlock prevention techniques
+    \item Deadlock prevention techThis assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+niques
 \end{itemize}
 
 \subsection{User Interface Management}
@@ -181,7 +182,108 @@ Students were tasked with implementing various process scheduling algorithms (e.
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\subsubsection{Group 3}
+Soal 1 :
+Anda diminta untuk membuat program Python yang menggunakan multithreading untuk menghitung jumlah bilangan prima dalam rentang angka dari 1 hingga 
+N.Program harus membagi rentang ini menjadi beberapa bagian dan memprosesnya secara paralel untuk meningkatkan kinerja. Implementasikan program yang menghitung jumlah bilangan prima dalam rentang 1 hingga 
+N menggunakan multithreading. Hitung dan tampilkan waktu eksekusi program untuk jumlah thread yang berbeda (misalnya 1, 2, 4, 8). Catat hasil jumlah bilangan prima dan waktu eksekusi yang didapat.
+
+jawaban:
+\begin{python}
+    import threading
+    import time
+    import math
+
+    def is_prime(n):
+        if n <= 1:
+            return  False
+        for i in range(2, int(math.sqrt(n)) + 1)
+            if n % 1 == 0:
+                return False
+        return True
+
+        def count_primes_in_range(start, end, results, index):
+            prime_count = 0
+        for num in range(start, end):
+            if is_prime(num):
+                prime_count += 1
+        results[index] = prime_count
+
+        def multithreaded_prime_count(n, num_threads):
+            threads = []
+            results = [0] * num_threads
+            range_size = n // num_threads
+
+            for i in range(num_threads):
+                start = i * range_size
+                end = (i + 1) * range_size 
+                if i != num_threads - 1 else n
+                t = threading.Thread
+                (target=count_primes_in_range, 
+                args=(start, end, results, i))
+                threads.append(t)
+
+            start_time = time.time()
+
+            for t in threads:
+                t.start()
+
+            for t in threads:
+                t.join()
+
+            end_time = time.time()
+
+            total primes = sum(results)
+            execution_time = end_time - start_time
+
+            return total_primes, execution_time
+
+    if __name__ == "__main__":
+        N = 100000
+        num_threads_list = [1, 2, 4, 8]
+
+        for num_threads in num_threads_list:
+        primes, exec_time = multithreaded_prime_count(N, num_threads)
+        print(f"Jumlah thread: {num_threads}, Jumlah bilangan prima: {primes}, 
+        Waktu eksekusi: {exec_time:.4f} detik")
+    \end{python}
+
+Contoh Output Soal 1:
+\begin{itemize}
+    \item Jumlah thread: 1, Jumlah bilangan prima: 9592, Waktu eksekusi: 3.2435 detik
+    \item Jumlah thread: 2, Jumlah bilangan prima: 9592, Waktu eksekusi: 1.6521 detik
+    \item Jumlah thread: 4, Jumlah bilangan prima: 9592, Waktu eksekusi: 0.8534 detik
+    \item Jumlah thread: 8, Jumlah bilangan prima: 9592, Waktu eksekusi: 0.5321 detik
+\end{itemize}
+
+Soal 2:
+Setelah menyelesaikan tugas pertama, Anda diminta untuk menghitung speedup teoritis menggunakan Hukum Amdahl berdasarkan program yang telah Anda buat. Anda akan mengasumsikan proporsi 
+P dari kode yang dapat diparalelisasi dan menghitung speedup untuk beberapa jumlah thread. Implementasikan fungsi untuk menghitung speedup teoritis menggunakan Hukum Amdahl dan tampilkan speedup teoritis untuk beberapa nilai 
+N dan P berdasarkan jumlah thread yang digunakan di Soal 1.
+Gunakan hasil dari Soal 1 untuk membandingkan waktu eksekusi aktual dengan speedup teoritis.
+Jawaban:
+\begin{python}
+    def amdahls_law(p, n):
+    return 1 / ((1 - p) + (p / n))
+
+if _name_ == "_main_":
+    p = 0.95 
+    num_threads_list = [1, 2, 4, 8] 
+
+    print("\nMenghitung Speedup Teoritis menggunakan Hukum Amdahl:")
+    for num_threads in num_threads_list:
+        theoretical_speedup = amdahls_law(p, num_threads)
+        print(f"Jumlah thread: {num_threads}, Speedup 
+        Teoritis: {theoretical_speedup:.4f}")
+\end{python}
+Contoh Output Soal 2:
+\begin{itemize}
+    \item Menghitung Speedup Teoritis menggunakan Hukum Amdahl:
+    \item Jumlah thread: 1, Speedup Teoritis: 1.0000
+    \item Jumlah thread: 2, Speedup Teoritis: 1.9048
+    \item Jumlah thread: 4, Speedup Teoritis: 3.6923
+    \item Jumlah thread: 8, Speedup Teoritis: 6.0000
+\end{itemize}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
@@ -197,4 +299,7 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
+\section{References}
+- Tanenbaum, A. S., & Bos, H. (2014). \textit{Modern Operating Systems} (4th ed.). Pearson.
+- Stallings, W. (2018). \textit{Computer Organization and Architecture} 
 \end{document}

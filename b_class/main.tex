@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -14,7 +15,6 @@
 	
 	\maketitle
 	\newpage
-	
 	\tableofcontents
 	\newpage
 	
@@ -126,6 +126,13 @@
 		\item Proses yang berada di akhir antrian harus menunggu lebih lama.		
 		\item Tidak cocok untuk sistem operasi time-sharing di mana setiap proses harus mendapatkan jatah waktu CPU yang sama.	
 	\end{itemize}
+	
+	\subsubsection*{Referensi}
+	\begin{itemize}
+		\item GeeksforGeeks. (n.d.-a). First Come First Serve | CPU scheduling (non-preemptive). Retrieved October 1, 2024, from https://www.geeksforgeeks.org/first-come-first-serve-cpu-scheduling-non-preemptive/
+		
+		\item GeeksforGeeks. (n.d.-b). Program for FCFS CPU scheduling | Set 1. Retrieved October 1, 2024, from https://www.geeksforgeeks.org/program-for-fcfs-cpu-scheduling-set-1/
+	\end{itemize}
 		
 	\subsubsection{Shortest Job Next (SJN)}
 	\subsubsection{Round Robin (RR)}
@@ -191,7 +198,72 @@
 	In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 	
 	\subsection{Assignment 3: Multithreading and Amdahl's Law}
-	This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+	Tentukan peningkatan kecepatan teoritis (speedup) menggunakan Hukum Amdahl dengan beberapa thread, dan bandingkan hasilnya dengan waktu eksekusi yang diukur.Program harus memenuhi spesifikasi sebagai berikut :
+	\begin{itemize}
+		\item Buatlah sebuah program Python yang menghitung faktorial dari beberapa angka secara paralel menggunakan multithreading. Setiap thread akan menghitung faktorial dari satu angka yang berbeda.
+		\item Gunakan 1 thread, 2 thread, dan 4 thread untuk melakukan perhitungan dan catat waktu eksekusi dari setiap percobaan.
+		\item Terapkan Hukum Amdahl dengan asumsi bahwa 90 persen dari tugas dapat diparalelkan. Hitung peningkatan kecepatan teoretis untuk penggunaan 2 dan 4 thread.
+		Bandingkan waktu eksekusi yang diukur dengan speedup teoretis yang dihitung menggunakan Hukum Amdahl.
+		
+		\item Jelaskan perbedaan antara peningkatan kecepatan yang sebenarnya dan yang dihitung secara teoretis.
+	\end{itemize}
+	\begin{python}
+		
+		import threading
+		import os
+		import math
+		import time
+		
+		def hitung_faktorial(angka):
+		print(f"Thread {threading.current_thread().name} dimulai dengan ID: {threading.current_thread().name}")
+		hasil = math.factorial(angka)
+		print(f"Faktorial dari {angka} adalah: {hasil}")
+		print(f"Thread {threading.current_thread().name} selesai")
+		
+		def ukur_waktu_eksekusi(thread_count):
+		start_time = time.time()
+		
+		threads = []
+		for i in range(thread_count):
+		t = threading.Thread(target=hitung_faktorial, args=(i+5,), name=f"Thread-{i+1}")
+		threads.append(t)
+		t.start()
+		
+		for t in threads:
+		t.join()
+		
+		end_time = time.time()
+		
+		return end_time - start_time
+		
+		def amdahls_law(P, N):
+		return 1 / ((1 - P) + (P / N))
+		
+		if __name__ == "__main__":
+		P = 0.9  
+		
+		print(f"ID dari proses utama: {os.getpid()}")
+		
+		waktu_serial = ukur_waktu_eksekusi(1)
+		print(f"Waktu eksekusi tanpa multithreading: {waktu_serial:.4f} detik")
+		
+		waktu_parallel_2 = ukur_waktu_eksekusi(2)
+		print(f"Waktu eksekusi dengan 2 thread: {waktu_parallel_2:.4f} detik")
+		
+		speedup_2 = amdahls_law(P, 2)
+		print(f"Speedup teoretis dengan 2 thread: {speedup_2:.2f} kali lebih cepat")
+		
+		waktu_parallel_4 = ukur_waktu_eksekusi(4)
+		print(f"Waktu eksekusi dengan 4 thread: {waktu_parallel_4:.4f} detik")
+		
+		speedup_4 = amdahls_law(P, 4)
+		print(f"Speedup teoretis dengan 4 thread: {speedup_4:.2f} kali lebih cepat")
+		
+		print("Perhitungan faktorial selesai")
+		
+	\end{python}
+	
+	
 	
 	\subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 	Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

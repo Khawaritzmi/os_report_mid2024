@@ -138,7 +138,7 @@ Struktur ini sangat penting dalam mengelola bagaimana data disimpan dan diakses,
 Beberapa sistem operasi menggunakan sekumpulan sistem pendukung struktur file dengan sejumlah operasi khusus untuk manipulasi file dengan struktur tersebut. Hal ini menjadi kelemahan pada sistem operasi yang mendukung struktur file lebih dari satu. Jika sistem operasi menentukan 10 struktur file berbeda, maka perlu menyertakan kode untuk mendukung struktur file tersebut. Setiap file perlu dapat didefinisikan sebagai satu dari tipe file yang didukung oleh sistem operasi. Beberapa sistem operasi seperti UNIX dan MS-DOS hanya mendukung sejumlah struktur file. UNIX menentukan setiap file merupakan deret 8 bit byte dan bit tersebut tidak diterjemahkan oleh sistem operasi. Skema ini mempunyai fleksibilitas maksimum, tetapi sedikit dukungan. Setiap program aplikasi harus menyertakan kode sendiri untuk menterjemahkan file input ke dalam struktur yang tepat. Setidaknya semua SO harus mendukung sedikitnya satu struktur file \textit{executable} sehingga sistem dapat \textit{load} dan menjalankan program.
 
 \subsubsection*{a. File Attributes }
-File memiliki nama dan data. Selain itu, ia juga menyimpan informasi meta seperti tanggal dan waktu pembuatan file, ukuran saat ini, tanggal terakhir dimodifikasi, dll. Semua informasi ini disebut atribut sistem file. Berikut adalah beberapa atribut File penting yang digunakan di OS:.
+File memiliki nama dan data. Selain itu, ia juga menyimpan informasi meta seperti tanggal dan waktu pembuatan file, ukuran saat ini, tanggal terakhir dimodifikasi, dll. Semua informasi ini disebut atribut sistem file. Berikut adalah beberapa atribut File penting yang digunakan di operasi sistem:
 
 \begin{enumerate}
     \item \textbf Nama: Ini adalah satu-satunya informasi yang disimpan dalam bentuk yang dapat dibaca manusia.
@@ -180,26 +180,26 @@ Atribut ini disimpan dalam struktur direktori sistem file, yang memungkinkan sis
     Saat file dibuka, sistem mengambil metadatanya dari struktur direktori dan memuatnya ke dalam memori. Deskriptor file dibuat, memungkinkan operasi berikutnya (seperti membaca atau menulis) dilakukan. Membuka file juga mengatur penunjuk baca/tulis ke posisi yang sesuai.
     
     \item \textbf{Close (Tutup)}: \\
-    Menutup file berarti menyelesaikan operasi yang tersisa (seperti membilas data yang di-buffer ke disk) dan menghapus informasi file dari memori. Operasi ini memastikan bahwa tidak ada operasi lebih lanjut yang dapat dilakukan pada file hingga dibuka kembali.
+    Menutup file berarti menyelesaikan operasi yang tersisa (seperti membilas data yang di-buffer ke disk) dan menghapus informasi file dari memori. Operasi ini memastikan bahwa tidak ada operasi lebih lanjut yang dapat dilakukan pada file hingga file tersebut dibuka kembali.
 \end{enumerate}
 \subsubsection*{c. Open Files}
 
 
 
-Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem operasi modern, karena pada dasarnya, setiap proses yang berjalan sering kali berinteraksi dengan file untuk membaca data, menulis informasi, atau mengakses sumber daya tertentu. Oleh karena itu, manajemen \textit{open files} yang efektif akan berdampak langsung pada kinerja beberapa komponen utama yang dibutuhkan untuk mengelola file:
+Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem operasi modern, karena pada dasarnya, setiap proses yang berjalan sering kali berinteraksi dengan file untuk membaca data, menulis informasi, atau mengakses sumber daya tertentu. Oleh karena itu, manajemen \textit{open files} yang efektif akan berdampak langsung pada kinerja. Beberapa komponen utama yang dibutuhkan untuk mengelola file:
 
 \begin{enumerate}
     \item \textbf{Tabel file terbuka}: \\
-    Struktur yang melacak semua file yang sedang dibuka oleh proses. Setiap entri biasanya berisi informasi tentang file seperti penunjuk file, deskriptor file, dan detail relevan lainnya. Tabel file terbuka sangat penting untuk manajemen file yang efisien dalam sistem operasi. Tanpa tabel ini, OS akan kesulitan melacak file mana yang terbuka, dan oleh proses mana. Tabel ini menyediakan kontrol terpusat untuk penanganan file.
+    Struktur ini melacak semua file yang sedang dibuka oleh proses. Setiap entri biasanya berisi informasi tentang file, seperti penunjuk file, deskriptor file, dan detail relevan lainnya. Tabel file terbuka sangat penting untuk manajemen file yang efisien dalam sistem operasi. Tanpa tabel ini, sistem operasi akan kesulitan melacak file mana yang terbuka dan oleh proses mana. Tabel ini menyediakan kontrol terpusat untuk penanganan file.
 
     \item \textbf{Penunjuk berkas}: \\
-    Ini merujuk pada penunjuk yang menyimpan posisi baca/tulis terakhir dalam berkas. Ini biasanya disimpan per proses untuk melacak posisi tertentu tempat operasi akan dilanjutkan. Penunjuk berkas memungkinkan setiap proses mempertahankan posisinya di dalam berkas secara independen. Hal ini penting untuk lingkungan multitugas di mana beberapa proses dapat membaca atau menulis ke berkas yang sama.
+    Ini merujuk pada penunjuk yang menyimpan posisi baca/tulis terakhir dalam berkas. Penunjuk ini biasanya disimpan per proses untuk melacak posisi tertentu tempat operasi akan dilanjutkan. Penunjuk berkas memungkinkan setiap proses mempertahankan posisinya di dalam berkas secara independen. Hal ini penting dalam lingkungan multitugas di mana beberapa proses dapat membaca atau menulis ke berkas yang sama.
 
     \item \textbf{Jumlah file yang dibuka}: \\
-    Penghitung yang digunakan untuk melacak berapa banyak proses yang telah membuka file tertentu. Ini berguna untuk memastikan bahwa entri file dalam tabel file yang dibuka hanya dihapus setelah proses terakhir menutup file. Penghitungan file yang dibuka membantu memastikan bahwa file tidak dihapus sebelum waktunya dari tabel file yang dibuka saat masih digunakan oleh proses lain. Penghitungan ini menyediakan mekanisme penghitungan referensi yang sederhana namun efektif.
+    Penghitung digunakan untuk melacak berapa banyak proses yang telah membuka berkas tertentu. Hal ini berguna untuk memastikan bahwa entri berkas dalam tabel berkas yang dibuka hanya dihapus setelah proses terakhir menutup berkas tersebut. Penghitung berkas yang dibuka membantu memastikan bahwa berkas tidak dihapus sebelum waktunya dari tabel berkas yang masih digunakan oleh proses lain. Mekanisme ini menyediakan cara penghitungan referensi yang sederhana namun efektif.
 
     \item \textbf{Lokasi disk berkas}: \\
-    Cache yang menyimpan informasi mengenai lokasi fisik berkas pada disk, yang memungkinkan akses lebih cepat selama operasi. Caching lokasi disk mengurangi operasi I/O disk dengan melacak data akses file dalam memori, sehingga menghasilkan kecepatan akses yang lebih cepat.
+    \textit{Cache} yang menyimpan informasi mengenai lokasi fisik berkas pada disk, yang memungkinkan akses lebih cepat selama operasi. \textit{Caching} lokasi disk mengurangi operasi I/O disk dengan melacak data akses file dalam memori, sehingga menghasilkan kecepatan akses yang lebih cepat.
 
     \item \textbf{Hak akses}: \\
     Izin yang dimiliki setiap proses terkait berkas tertentu. Misalnya, suatu proses mungkin memiliki hak baca, tulis, atau eksekusi berdasarkan mode aksesnya. Hak akses menegakkan keamanan dan memastikan bahwa proses hanya dapat berinteraksi dengan berkas sesuai dengan cara yang diizinkan, mencegah akses atau modifikasi yang tidak sah.
@@ -211,29 +211,32 @@ Manajemen \textit{open files} adalah salah satu elemen penting dalam sistem oper
 
 \begin{table}[htbp] % Optional: For floating position
     \centering
-    \begin{tabular}{|c|c|p{4cm}|p{7cm}|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \begin{tabular}{|c|c|p{6cm}|p{8cm}|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
     \hline
-\textbf{File Type}      & \textbf{Usual Extension}        & \textbf {Function}                                                      \\ \hline
-Executable              & exe, com, bin or none           & Read to run machine-language program                                    \\ \hline
-Object                  & obj, o                          & Compiled, machine language, not linked                                  \\ \hline
-Source code             & c, cc, java, pas, asm, a        & Source code in various languages                                        \\ \hline
-Batch                   & bat, sh                         & Commands to the command interpreter                                     \\ \hline
-Text                    & txt, doc                        & Textual data, documents                                                 \\ \hline
-Word processor          & wp, tex, rrf, doc               & Various word-processor formats                                          \\ \hline
-Library                 & lib, a, so, dll                 & Libraries of routines for programmers                                   \\ \hline
-Print or view           & arc, zip, tar                   & ASCII or binary file in a format for printing or viewing                \\ \hline
-Archive                 & arc, zip, tar                   & Related files grouped into one file, sometimes compressed, for archiving or storage \\ \hline
-Multimedia              & mpeg, mov, rm                   & Binary file containing audio or A/V information                         \\ \hline
+\textbf{Tipe File}      & \textbf{Ekstensi biasa}        & \textbf{Fungsi}                                                      \\ \hline
+\textit{Execute}              & exe, com, bin or none           & Baca untuk menjalankan program bahasa mesin                                   \\ \hline
+Objek                  & obj, o                          & Dikompilasi, bahasa mesin tidak ditautkan                                  \\ \hline
+\textit{Source code}             & c, cc, java, pas, asm, a        & Kode sumber dalam berbagai bahasa                                      \\ \hline
+\textit{Batch}                   & bat, sh                        & Perintah ke penerjemah perintah                                    \\ \hline
+Teks                   & txt, doc                        & Data tekstual, dokumen                                                 \\ \hline
+Pengolah          & wp, tex, rrf, doc            & Berbagai format pengolah kata                                          \\ \hline
+\textit{Library}                & lib, a, so                & Berisi pustaka rutinitas untuk pemrograman                                   \\ \hline
+Cetak atau Lihat           & arc, zip, tar                  & Format untuk mencetak atau melihat file ASCII atau biner.              \\ \hline
+Arsip                 & {arc, zip, tar                   & File-file terkait dikelompokkan menjadi satu file terkompresi untuk arsip atau penyimpanan. \\ \hline
+\textit{Multimedia}              & mpeg, mov, rm                  & Berisi informasi audio/video                       \\ \hline
 \end{tabular}
-    \caption{File Type}
+
+    \caption{Tipe File}
     \label{tab:your_label}
 \end{table}
 
 Salah satu pertimbangan penting dalam merancang sistem file dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem file. Bila sistem operasi mengenali tipe suatu file, maka dapat dilakukan operasi terhadap file dengan lebih baik.
 
-\textit{UNIX} menggunakan \textit{magic number} yang disimpan pada awal file untuk mengindikasikan tipe file berupa program \textit{executable}, \textit{batch file} (shell script), file \textit{postscript}, dan lain-lain. Tidak semua file mempunyai \textit{magic number}, sehingga informasi tipe tidak dapat digambarkan. \textit{UNIX} tidak menyimpan nama dari program pembuatnya. \textit{UNIX} juga mengizinkan nama ekstensi dari file tersembunyi, sehingga pengguna dapat menentukan tipe file sendiri dan tidak tergantung pada sistem operasi.
-    \item File access methods
-    \item Directory management
+UNIX menggunakan \textit{magic number} yang disimpan pada awal file untuk mengindikasikan tipe file berupa program \textit{executable}, \textit{batch file} (shell script), file \textit{postscript}, dan lain-lain. Tidak semua file mempunyai \textit{magic number}, sehingga informasi tipe tidak dapat digambarkan. UNIX tidak menyimpan nama dari program pembuatnya. UNIX juga mengizinkan nama ekstensi dari file tersembunyi, sehingga pengguna dapat menentukan tipe file sendiri dan tidak tergantung pada sistem operasi.
+
+\subsubsection File access methods
+\subsubsection Directory management
+
 \end{itemize}
 
 \subsection{Input and Output Management}

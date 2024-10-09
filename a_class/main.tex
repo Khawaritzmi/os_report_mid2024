@@ -336,14 +336,326 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+
+\subsubsection{Kelompok 7}
+\begin{python}
+    import random
+
+class Process:
+    def __init__(self, pid, arrival_time, burst_time):
+        self.id = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+
+def round_robin_scheduling(processes, quantum):
+    time = 0
+    completed = []
+    queue = []
+    remaining_time = {process.id: process.burst_time for process in processes}
+
+    while remaining_time:
+        for process in processes:
+            if process.id in remaining_time and process.arrival_time <= time:
+                queue.append(process)
+
+        if queue:
+            current_process = queue.pop(0)
+            time_spent = min(quantum, remaining_time[current_process.id])
+            time += time_spent
+            remaining_time[current_process.id] -= time_spent
+            
+            if remaining_time[current_process.id] == 0:
+                completed.append((current_process.id, time))
+                del remaining_time[current_process.id]
+            else:
+                queue.append(current_process)
+        else:
+            time += 1
+    return completed
+    processes = [
+        Process(1, 0, 7),
+        Process(2, 2, 4),
+        Process(3, 4, 1),
+        Process(4, 5, 4)]
+
+quantum = 3 #Quantum time ini untuk algoritma Round Robin
+result = round_robin_scheduling(processes, quantum)
+\end{python}
+\textbf{Soal : } \\
+Dari kode Python di atas, tuliskan output yang akan dihasilkan serta coba gambarkan eksekusi proses menggunakan Gantt Chart! \\
+\textbf{Jawaban :} \\
+\begin{python}
+    Waktu saat ini: 0
+    Menjalankan process 1 selama 3 waktu
+    Waktu saat ini: 3
+
+    Waktu saat ini: 3
+    Menjalankan process 2 selama 3 waktu
+    Waktu saat ini: 6
+
+    Waktu saat ini: 6
+    Menjalankan process 1 selama 3 waktu
+    Waktu saat ini: 9
+
+    Waktu saat ini: 9
+    Menjalankan process 3 selama 1 waktu
+    Waktu saat ini: 10
+
+    Waktu saat ini: 10
+    Menjalankan process 4 selama 3 waktu
+    Waktu saat ini: 13
+
+    Waktu saat ini: 13
+    Menjalankan process 2 selama 1 waktu
+    Waktu saat ini: 14
+
+    Waktu saat ini: 14
+    Menjalankan process 4 selama 1 waktu
+    Waktu saat ini: 15
+
+    Waktu saat ini: 15
+    Menjalankan process 1 selama 1 waktu
+    Waktu saat ini: 16
+
+    Waktu saat ini: 16
+    Menjalankan process 4 selama 1 waktu
+    Waktu saat ini: 17
+
+    Waktu saat ini: 17
+    Menjalankan process 4 selama 1 waktu
+    Waktu saat ini: 18
+\end{python}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{asset/gantt-chart-a1.png}
+    \caption{Gantt Chart.}
+    \label{fig:gantt-chart-kelompok7-assignment1}
+\end{figure}
+
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Kelompok 7}
+\begin{python}
+import threading
+import time
+import random
+
+class Resource:
+    def __init__(self, name):
+        self.name = name
+        self.lock = threading.Lock()
+
+class Process(threading.Thread):
+    def __init__(self, name, resource1, resource2):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.resource1 = resource1
+        self.resource2 = resource2
+
+    def run(self):
+        print(f"{self.name} mencoba untuk mengunci {self.resource1.name}")
+        with self.resource1.lock:
+            print(f"{self.name} mengunci {self.resource1.name}")
+            time.sleep(random.uniform(1, 2))
+            print(f"{self.name} mencoba untuk mengunci {self.resource2.name}")
+            with self.resource2.lock:
+                print(f"{self.name} mengunci {self.resource2.name}")
+        print(f"{self.name} selesai.")
+
+# Membuat dua sumber daya
+resource_A = Resource("Resource A")
+resource_B = Resource("\textbf{Resource B}")
+
+# Membuat dua proses yang saling menunggu satu sama lain
+process1 = Process("Process 1", resource_A, resource_B)
+process2 = Process("Process 2", resource_B, resource_A)
+
+# Menjalankan proses
+process1.start()
+process2.start()
+
+process1.join()
+process2.join()
+\end{python}
+
+\textbf{Soal : }
+Dari kode Python di atas, jelaskan skenario deadlock yang terjadi ketika dua proses berusaha mengunci dua sumber daya. Apa metode pencegahan yang bisa digunakan untuk menghindari deadlock dalam situasi ini? \\
+
+\textbf{Jawaban : }
+Penjelasan Skenario Deadlock:
+Dalam kode ini, terdapat dua proses, yaitu \textbf{Process 1} dan \textbf{Process 2}. Keduanya mencoba untuk mengunci dua sumber daya, \textbf{Resource A} dan \textbf{\textbf{Resource B}}.
+\begin{itemize}
+    \item \textbf{Process 1} mengunci \textbf{Resource A} dan kemudian mencoba mengunci \textbf{Resource B}.
+    \item \textbf{Process 2} mengunci \textbf{Resource B} dan kemudian mencoba mengunci \textbf{Resource A}.
+\end{itemize}
+Jika \textbf{Process 1} sudah mengunci \textbf{Resource A} dan \textbf{Process 2} sudah mengunci \textbf{Resource B}, keduanya akan saling menunggu satu sama lain, menyebabkan deadlock. \textbf{Process 1} menunggu \textbf{Resource B} yang dipegang oleh \textbf{Process 2}, sedangkan \textbf{Process 2} menunggu \textbf{Resource A} yang dipegang oleh \textbf{Process 1}.
+Metode Pencegahan Deadlock:
+\begin{enumerate}
+    \item Menghindari Siklus: Menjaga agar tidak ada siklus dalam alokasi sumber daya. Dalam kasus ini, bisa mengatur urutan penguncian sumber daya, misalnya semua proses harus mengunci Resource A terlebih dahulu sebelum \textbf{Resource B}.
+    \item Penggunaan Waktu Tunggu (Timeout): Jika suatu proses tidak dapat mengunci sumber daya dalam waktu tertentu, maka proses tersebut akan dibatalkan dan di-restart. Dengan cara ini, sumber daya akan tersedia untuk proses lain.
+\end{enumerate}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
+\subsubsection{Kelompok 7}
+\begin{python}
+    import threading
+import time
+
+# Fungsi untuk melakukan komputasi intensif
+def computational_task(task_id):
+    print(f"Thread {task_id} mulai.")
+    # Simulasi kerja komputasi intensif
+    time.sleep(2)  # Menggunakan waktu 2 detik sebagai simulasi kerja, bisa diganti
+    print(f"Thread {task_id} selesai.")
+
+def main():
+    num_threads = 4  # Jumlah thread yang akan digunakan
+    threads = []
+
+    # Memulai thread
+    for i in range(num_threads):
+        thread = threading.Thread(target=computational_task, args=(i,))
+        threads.append(thread)
+        thread.start()
+
+    # Menunggu semua thread selesai
+    for thread in threads:
+        thread.join()
+
+if __name__ == "__main__":
+    start_time = time.time()
+    main()
+    end_time = time.time()
+    print(f"Waktu eksekusi total: {end_time - start_time:.2f} detik.")
+\end{python}
+
+\textbf{Soal : }
+Dari kode Python di atas, jelaskan bagaimana skenario multithreading diimplementasikan untuk menyelesaikan masalah komputasi intensif. Selain itu, terapkan Hukum Amdahl untuk menghitung percepatan teoretis program saat jumlah thread meningkat dari 1 ke 4. \\
+
+\textbf{Jawaban : }
+\begin{itemize}
+    \item Penjelasan Skenario Multithreading
+        \begin{enumerate}
+            \item Kita menentukan jumlah thread yang akan digunakan, yaitu 4.
+            \item Kita memulai setiap thread menggunakan \texttt{threading.Thread}, dan setiap thread menjalankan \texttt{computational\_task}.
+            \item Setelah semua thread dimulai, kita menunggu sampai semua thread selesai menggunakan \texttt{join()}, sehingga program tidak akan melanjutkan eksekusi sampai semua thread selesai.
+        \end{enumerate}
+    \item Penerapan Hukum Amdahl
+        \textbf{Hukum Amdahl} digunakan untuk menghitung percepatan teoretis yang diharapkan dari peningkatan jumlah prosesor (atau thread) untuk sebuah program. Hukum ini dinyatakan sebagai:
+        \begin{equation}
+            S = \frac{1}{(1 - P) + \frac{P}{N}}
+        \end{equation}
+        Di mana:
+        \begin{itemize}
+            \item \( S \) = percepatan total.
+            \item \( P \) = proporsi waktu yang dapat diparalelkan.
+            \item \( N \) = jumlah thread.
+        \end{itemize}
+
+        Mari kita asumsikan:
+        \begin{itemize}
+            \item Waktu total tanpa paralelisasi (dengan 1 thread) = 2 detik (hanya ada satu thread).
+            \item Proporsi waktu yang dapat diparalelkan \( P = 1 \) (100\% dari tugas dapat diparalelkan).
+            \item Jumlah thread \( N = 4 \).
+        \end{itemize}
+        Maka, kita dapat menghitung percepatannya:
+\begin{equation}
+S = \frac{1}{(1 - 1) + \frac{1}{4}} = \frac{1}{0 + 0.25} = 4
+\end{equation}
+\end{itemize}
+
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Kelompok 7}
+
+\begin{python}
+import os
+import sys
+import subprocess
+
+def create_file(filename):
+    with open(filename, 'w') as f:
+        f.write('')  # Create an empty file
+    print(f'File "{filename}" created.')
+
+def list_files():
+    files = os.listdir('.')
+    print("Files in current directory:")
+    for file in files:
+        print(file)
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f'File "{filename}" deleted.')
+    except FileNotFoundError:
+        print(f'File "{filename}" not found.')
+
+def list_processes():
+    try:
+        processes = subprocess.check_output(['ps', 'aux']).decode('utf-8')
+        print("Current running processes:")
+        print(processes)
+    except Exception as e:
+        print(f'Error retrieving processes: {e}')
+
+def system_status():
+    print("System Status:")
+    print(f"Current working directory: {os.getcwd()}")
+    print(f"Number of files: {len(os.listdir('.'))}")
+
+def main():
+    print("Welcome to Simple CLI!")
+    while True:
+        command = input("Enter command (create, list, delete, processes, status, exit): ").strip().lower()
+        
+        if command == 'create':
+            filename = input("Enter filename to create: ")
+            create_file(filename)
+        elif command == 'list':
+            list_files()
+        elif command == 'delete':
+            filename = input("Enter filename to delete: ")
+            delete_file(filename)
+        elif command == 'processes':
+            list_processes()
+        elif command == 'status':
+            system_status()
+        elif command == 'exit':
+            print("Exiting CLI. Goodbye!")
+            sys.exit()
+        else:
+            print("Unknown command. Please try again.")
+
+if __name__ == "__main__":
+    main()
+\end{python}
+
+\textbf{Soal : }
+
+Jelaskan bagaimana cara kerja perintah \texttt{create} dalam CLI yang telah Anda buat. Apa yang terjadi jika file dengan nama yang sama sudah ada di direktori saat ini?
+
+\textbf{Jawaban : }
+
+Perintah \texttt{create} dalam CLI berfungsi untuk membuat file baru dengan nama yang ditentukan oleh pengguna. Berikut adalah langkah-langkah yang terjadi saat perintah \texttt{create} dijalankan:
+
+\begin{enumerate}
+    \item \textbf{Input Nama File}: Pengguna diminta untuk memasukkan nama file yang ingin dibuat, misalnya \texttt{data.txt}.
+    \item \textbf{Membuat File Baru}: Aplikasi membuka file tersebut dalam mode penulisan (\texttt{'w'}). Jika file dengan nama yang sama sudah ada, mode \texttt{'w'} akan menghapus isi file yang ada dan membuat file baru. Oleh karena itu, jika \texttt{data.txt} sudah ada, kontennya akan hilang dan file tersebut menjadi kosong.
+    \item \textbf{Menulis ke File}: Setelah file dibuka, aplikasi menulis konten kosong ke dalam file dengan menggunakan \texttt{f.write('')}.
+    \item \textbf{Menampilkan Pesan Konfirmasi}: Setelah file berhasil dibuat, aplikasi menampilkan pesan konfirmasi kepada pengguna, mengonfirmasi bahwa file dengan nama yang ditentukan telah dibuat.
+\end{enumerate}
+
+Jika pengguna mencoba membuat file dengan nama yang sama, isi dari file tersebut akan hilang, dan file baru (kosong) akan dibuat. Ini dapat menjadi risiko jika pengguna tidak menyadari bahwa file tersebut sudah ada, karena data yang sebelumnya tersimpan akan terhapus secara permanen.
+
+Untuk mengatasi masalah ini, sebaiknya menambahkan logika untuk memeriksa apakah file sudah ada sebelum membuat file baru. Jika sudah ada, aplikasi dapat memberikan peringatan kepada pengguna dan meminta konfirmasi sebelum menghapus isi file yang ada.
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -352,6 +664,94 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
+\subsubsection{Kelompok 7}
+\begin{python}
+import os
+import sys
+
+def create_file(filename):
+    with open(filename, 'w') as f:
+        f.write('')  # Membuat file kosong
+    print(f'File "{filename}" created.')
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f'File "{filename}" deleted.')
+    except FileNotFoundError:
+        print(f'File "{filename}" not found.')
+
+def read_file(filename):
+    try:
+        with open(filename, 'r') as f:
+            content = f.read()
+        print(f'Content of "{filename}":\n{content}')
+    except FileNotFoundError:
+        print(f'File "{filename}" not found.')
+
+def write_to_file(filename, content):
+    with open(filename, 'a') as f:
+        f.write(content + '\n')  # Menambahkan konten ke dalam file
+    print(f'Content written to "{filename}".')
+
+def list_files():
+    files = os.listdir('.')
+    print("Files in current directory:")
+    for file in files:
+        print(file)
+
+def main():
+    print("Welcome to File System CLI!")
+    while True:
+        command = input("Enter command (create, delete, read, write, list, exit): ").strip().lower()
+        
+        if command == 'create':
+            filename = input("Enter filename to create: ")
+            create_file(filename)
+        elif command == 'delete':
+            filename = input("Enter filename to delete: ")
+            delete_file(filename)
+        elif command == 'read':
+            filename = input("Enter filename to read: ")
+            read_file(filename)
+        elif command == 'write':
+            filename = input("Enter filename to write to: ")
+            content = input("Enter content to write: ")
+            write_to_file(filename, content)
+        elif command == 'list':
+            list_files()
+        elif command == 'exit':
+            print("Exiting CLI. Goodbye!")
+            sys.exit()
+        else:
+            print("Unknown command. Please try again.")
+
+if __name__ == "__main__":
+    main()
+\end{python}
+
+\textbf{Soal}
+
+Deskripsikan fungsi dari setiap perintah yang terdapat dalam kode CLI ini (create, delete, read, write, list). Apa yang terjadi jika pengguna mencoba untuk membaca file yang tidak ada?
+
+\textbf{Jawaban}
+
+Dalam kode CLI di atas, terdapat beberapa perintah yang masing-masing memiliki fungsinya sendiri:
+
+\begin{enumerate}
+    \item \textbf{create}: Perintah ini digunakan untuk membuat file baru. Pengguna diminta untuk memasukkan nama file yang ingin dibuat. Jika file dengan nama yang sama sudah ada, isi dari file tersebut akan dihapus, dan file baru (kosong) akan dibuat.
+    
+    \item \textbf{delete}: Perintah ini digunakan untuk menghapus file yang ada. Pengguna memasukkan nama file yang ingin dihapus. Jika file tersebut tidak ditemukan, sistem akan memberikan pesan kesalahan yang menyatakan bahwa file tidak ada.
+    
+    \item \textbf{read}: Perintah ini digunakan untuk membaca isi dari file yang ada. Pengguna memasukkan nama file yang ingin dibaca. Jika file ditemukan, kontennya akan ditampilkan. Namun, jika file tidak ada, sistem akan menampilkan pesan kesalahan.
+    
+    \item \textbf{write}: Perintah ini digunakan untuk menambahkan konten baru ke dalam file yang ada. Pengguna diminta untuk memasukkan nama file dan konten yang ingin ditulis. Konten akan ditambahkan di akhir file, sehingga tidak menghapus data yang sudah ada.
+    
+    \item \textbf{list}: Perintah ini digunakan untuk menampilkan semua file yang ada di direktori saat ini. Sistem akan mencetak daftar nama file yang ada di dalam direktori tersebut.
+\end{enumerate}
+
+Jika pengguna mencoba untuk membaca file yang tidak ada dengan menggunakan perintah \texttt{read}, aplikasi akan menangkap kesalahan \texttt{FileNotFoundError} dan menampilkan pesan kepada pengguna yang menyatakan bahwa file tersebut tidak ditemukan. Ini memastikan bahwa pengguna mendapatkan umpan balik yang jelas ketika mencoba mengakses file yang tidak ada, tanpa menyebabkan program crash.
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

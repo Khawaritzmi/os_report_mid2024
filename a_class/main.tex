@@ -326,6 +326,102 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\subsubsection{Group 10}
+\begin{enumerate}
+    \item Buatlah sebuah \textit{Command Line Interface} (CLI) sederhana untuk manajemen antarmuka pengguna.CLI harus mendukung perintah dasar seperti manipulasi file (membuat, membuat daftar, dan menghapus file), manajemen proses, dan status sistem pelaporan.
+
+    \textit{JAWABAN :}
+    \begin{python}
+        import os
+import psutil
+import sys
+
+def create_file(filename):
+    try:
+        with open(filename, 'w') as f:
+            pass
+        print(f"File '{filename}' berhasil dibuat.")
+    except IOError:
+        print(f"Gagal membuat file '{filename}'.")
+
+def list_files():
+    files = os.listdir()
+    for file in files:
+        print(file)
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    except FileNotFoundError:
+        print(f"File '{filename}' tidak ditemukan.")
+    except PermissionError:
+        print(f"Tidak memiliki izin untuk menghapus file '{filename}'.")
+
+def list_processes():
+    for proc in psutil.process_iter(['pid', 'name']):
+        print(f"PID: {proc.info['pid']}, Name: {proc.info['name']}")
+
+def system_status():
+    print(f"CPU Usage: {psutil.cpu_percent()}%")
+    print(f"Memory Usage: {psutil.virtual_memory().percent}%")
+    print(f"Disk Usage: {psutil.disk_usage('/').percent}%")
+
+def main():
+    while True:
+        print("\nSimple CLI Manager")
+        print("1. Buat File")
+        print("2. Daftar File")
+        print("3. Hapus File")
+        print("4. Daftar Proses")
+        print("5. Status Sistem")
+        print("6. Keluar")
+        
+        choice = input("Pilih opsi (1-6): ")
+        
+        if choice == '1':
+            filename = input("Masukkan nama file: ")
+            create_file(filename)
+        elif choice == '2':
+            list_files()
+        elif choice == '3':
+            filename = input("Masukkan nama file yang akan dihapus: ")
+            delete_file(filename)
+        elif choice == '4':
+            list_processes()
+        elif choice == '5':
+            system_status()
+        elif choice == '6':
+            print("Terima kasih telah menggunakan Simple CLI Manager.")
+            sys.exit()
+        else:
+            print("Pilihan tidak valid. Silakan coba lagi.")
+
+if __name__ == "__main__":
+    main()
+    \end{python}
+    \textit{PENJELASAN :}
+    \begin{enumerate}
+        \item Kita mengimpor modul yang diperlukan: \textit{os} untuk operasi file, \textit{psutil} untuk manajemen proses dan status sistem, dan \textit{sys} untuk keluar dari program.
+        \item Fungsi utama :
+        \begin{enumerate}
+            \item \textit{create\_file(filename)}: Membuat file baru.
+            \item \textit{list\_files()}: Menampilkan daftar file di direktori saat ini.
+            \item \textit{delete\_file(filename)}: Menghapus file yang ditentukan.
+            \item \textit{list\_processes()}: Menampilkan daftar proses yang sedang berjalan.
+            \item \textit{system\_status()}: Menampilkan penggunaan CPU, memori, dan \textit{disk}.
+        \end{enumerate}
+        \item Fungsi \textit{main()}:
+        \begin{enumerate}
+            \item Menampilkan menu utama dalam \textit{loop}.
+            \item Meminta input dari pengguna.
+            \item Memanggil fungsi yang sesuai berdasarkan pilihan pengguna.
+        \end{enumerate}
+        \item Kita menggunakan \textit{if \_\_name\_\_ == "\_\_main\_\_"}: untuk memastikan bahwa \textit{main()} hanya dijalankan jika \textit{script} dieksekusi langsung, bukan diimpor sebagai modul.
+    \end{enumerate}
+\end{enumerate}
+
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}

@@ -124,73 +124,52 @@ Explores the concept of deadlocks and methods for preventing them:
 \subsection{User Interface Management}
 
 
-User Interface Management adalah proses merancang, mengimplementasikan, dan memelihara elemen-elemen interaktif dari sebuah sistem perangkat lunak yang memungkinkan pengguna untuk berinteraksi dengan fungsionalitas sistem  tersebut.
+\textit{User Interface Management} adalah proses merancang, mengimplementasi, dan memelihara unsur-unsur interaktif dari sebuah sistem perangkat lunak yang memungkinkan pengguna untuk berinteraksi dengan fungsi sistem tersebut.
 
 \subsubsection{Jenis-Jenis User Interface}
-\par antarmuka pengguna(User Interface) dapat didefinisikan sebagai bagian dari sistem komputer yang memungkinkan manusia berinteraksi dengan dan melakukan tugas-tugas pada sistem komputer tersebut. Perkembangan antarmuka pengguna telah menghasilkan beberapa jenis utama, termasuk Command Line Interface (CLI), Graphical User Interface (GUI), Text User Interface (TUI), Voice User Interface (VUI), dan Conversational User Interface (CUI). 
+\par Antarmuka pengguna (\textit{User Interface}) dapat didefinisikan sebagai bagian dari sistem komputer yang memungkinkan manusia berinteraksi dengan dan melakukan tugas-tugas pada sistem komputer tersebut. Perkembangan antarmuka pengguna telah menghasilkan beberapa jenis utama, termasuk Antarmuka Baris Perintah (CLI), Antarmuka Pengguna Grafis (GUI), Antarmuka Pengguna Teks (TUI), Antarmuka Pengguna Suara (VUI), dan Antarmuka Pengguna Percakapan (CUI). 
 
 \begin{enumerate}
-    \item{Graphical User Interface (GUI) }
+    \item{Antarmuka Pengguna Grafis (GUI)}
 
+\textit{Graphical User Interface} (GUI) adalah jenis antarmuka yang digunakan oleh pengguna untuk berinteraksi dengan sistem operasi melalui gambar-gambar grafis, ikon, menu, dan menggunakan alat penunjuk (\textit{pointing device}) seperti tetikus atau bola jejak. Unsur-unsur utama dari GUI bisa diringkas dalam konsep JIMA (\textit{jendela, ikon, menu, alat penunjuk})
 
+ \item{Antarmuka Baris Perintah (CLI)}
 
-\textit{Graphical User Interface} (GUI) adalah tipe antarmuka yang digunakan
-oleh pengguna untuk berinteraksi dengan sistem operasi melalui gambar- gambar grafik, ikon, menu, dan menggunakan perangkat penunjuk (pointing
-device) seperti mouse atau track ball. Elemen-elemen utama dari GUI bisa
-diringkas dalam konsep WIMP ( window, icon, menu, pointing device)
+\textit{Command Line Interface} (CLI) adalah jenis antarmuka di mana pengguna berinteraksi dengan sistem operasi melalui terminal teks. Pengguna menjalankan perintah dan program di sistem operasi tersebut dengan cara mengetikkan baris-baris tertentu.
 
+\item{Antarmuka Pengguna Teks (TUI)}
 
+\textit{Text User Interface} (TUI) merupakan bentuk antarmuka yang menggabungkan unsur CLI dan GUI. Antarmuka ini menggunakan karakter teks untuk menciptakan tampilan semi-grafis. TUI menawarkan navigasi yang lebih mudah dibandingkan CLI, namun tetap mempertahankan efisiensi penggunaan sumber daya sistem yang rendah. TUI sering digunakan pada sistem operasi berbasis teks atau aplikasi yang memerlukan tampilan sederhana namun fungsional.
 
- \item{Command Line Interface (CLI)}
+\item {Antarmuka Pengguna Suara (VUI)}
 
-\textit{Command Line Interface} (CLI) adalah tipe antarmuka dimana pengguna berinteraksi dengan sistem operasi melalui text-terminal. Pengguna menjalankan perintah dan program di sistem operasi tersebut dengan cara mengetikkan baris-baris tertentu.
+\textit{Voice User Interface} (VUI) adalah jenis antarmuka yang memungkinkan pengguna berinteraksi dengan sistem menggunakan suara. Teknologi ini memanfaatkan pemrosesan bahasa alami dan pengenalan suara untuk menerjemahkan perintah lisan menjadi tindakan yang dapat dijalankan oleh sistem. VUI telah menjadi semakin populer dengan munculnya asisten virtual seperti Siri, Alexa, dan Google Assistant.
 
+\item{Antarmuka Pengguna Percakapan (CUI)}
 
-
-
-\item{ Text User Interface (TUI)}
-
-\textit{Text User Interface} (TUI) merupakan bentuk antarmuka yang menggabungkan elemen CLI dan GUI. Antarmuka ini menggunakan karakter teks untuk menciptakan tampilan semi-grafis. TUI menawarkan navigasi yang lebih mudah dibandingkan CLI, namun tetap mempertahankan efisiensi penggunaan sumber daya sistem yang rendah. TUI sering digunakan pada sistem operasi berbasis teks atau aplikasi yang memerlukan tampilan sederhana namun fungsional.
-
-\item {Voice User Interface (VUI)}
-
-\textit{Voice User Interface} (VUI) adalah jenis antarmuka yang memungkinkan pengguna berinteraksi dengan sistem menggunakan suara. Teknologi ini memanfaatkan pemrosesan bahasa alami dan pengenalan suara untuk menerjemahkan perintah verbal menjadi tindakan yang dapat dieksekusi oleh sistem. VUI telah menjadi semakin populer dengan munculnya asisten virtual seperti Siri, Alexa, dan Google Assistant.
-
-
-\item{Conversitional User Interface (CUI)}
-
-\textit{Conversitional User Interface} (CUI) merupakan pengembangan lebih lanjut dari VUI, yang memungkinkan interaksi yang lebih alami dan kontekstual antara pengguna dan sistem. CUI tidak hanya mengandalkan perintah suara, tetapi juga dapat menggunakan teks, seperti yang terlihat pada chatbot dan asisten virtual berbasis teks. CUI dirancang untuk memahami konteks percakapan dan memberikan respons yang lebih personal dan relevan
+\textit{Conversational User Interface} (CUI) merupakan pengembangan lebih lanjut dari VUI, yang memungkinkan interaksi yang lebih alami dan kontekstual antara pengguna dan sistem. CUI tidak hanya mengandalkan perintah suara, tetapi juga dapat menggunakan teks, seperti yang terlihat pada robot obrolan dan asisten virtual berbasis teks. CUI dirancang untuk memahami konteks percakapan dan memberikan tanggapan yang lebih personal dan relevan.
 
 \end{enumerate}
 
-
-
 \subsubsection{Interaksi antara Pengguna dan Sistem Operasi}
 
- Interaksi antara pengguna dan sistem operasi adalah proses komunikasi dua arah yang memungkinkan pengguna untuk mengendalikan dan menggunakan fungsi-fungsi komputer melalui berbagai jenis antarmuka. Aspek-aspek kunci dalam interaksi pengguna-sistem operasi:
+Interaksi antara pengguna dan sistem operasi adalah proses komunikasi dua arah yang memungkinkan pengguna untuk mengendalikan dan menggunakan fungsi-fungsi komputer melalui berbagai jenis antarmuka. Aspek-aspek kunci dalam interaksi pengguna-sistem operasi:
 
 \begin{enumerate}
-\item Antarmuka Pengguna
-     Grafis (GUI) menjadi pilihan utama bagi kebanyakan pengguna karena kemudahannya. Melalui GUI, pengguna dapat mengelola file, folder, dan aplikasi dengan mudah menggunakan mouse atau layar sentuh. Ikon, jendela, dan menu yang disediakan memungkinkan navigasi yang intuitif dalam sistem file dan pengoperasian berbagai fungsi komputer. Di sisi lain, Antarmuka Baris Perintah (CLI) tetap menjadi pilihan bagi pengguna tingkat lanjut dan administrator sistem. CLI menawarkan kontrol yang lebih presisi dan kemampuan untuk mengotomatisasi tugas-tugas kompleks melalui skrip.
+\item Antarmuka Pengguna Grafis (GUI) menjadi pilihan utama bagi kebanyakan pengguna karena kemudahannya. Melalui GUI, pengguna dapat mengelola berkas, folder, dan aplikasi dengan mudah menggunakan tetikus atau layar sentuh. Ikon, jendela, dan menu yang disediakan memungkinkan navigasi yang intuitif dalam sistem berkas dan pengoperasian berbagai fungsi komputer. Di sisi lain, Antarmuka Baris Perintah (CLI) tetap menjadi pilihan bagi pengguna tingkat lanjut dan administrator sistem. CLI menawarkan kendali yang lebih tepat dan kemampuan untuk mengotomatisasi tugas-tugas kompleks melalui skrip.
 
-\item {Manajemen File dan Direktori}
-    menjadi lebih mudah dengan adanya representasi visual dalam GUI, sementara CLI menyediakan perintah-perintah yang memungkinkan manipulasi file secara efisien. Pengguna dapat dengan mudah membuat, menghapus, memindahkan, dan mengorganisir file serta folder sesuai kebutuhan mereka.
+\item {Manajemen Berkas dan Direktori} menjadi lebih mudah dengan adanya representasi visual dalam GUI, sementara CLI menyediakan perintah-perintah yang memungkinkan manipulasi berkas secara efisien. Pengguna dapat dengan mudah membuat, menghapus, memindahkan, dan mengatur berkas serta folder sesuai kebutuhan mereka.
 
-\item {Manajemen Proses}
-    sistem operasi memungkinkan pengguna untuk memulai, menghentikan, dan memantau aplikasi yang berjalan. GUI menyediakan task manager yang memvisualisasikan proses yang sedang berjalan, sementara CLI menawarkan perintah-perintah untuk mengelola proses dengan tingkat kontrol yang lebih tinggi.
+\item {Manajemen Proses} sistem operasi memungkinkan pengguna untuk memulai, menghentikan, dan memantau aplikasi yang berjalan. GUI menyediakan \textit{pengelola tugas} yang memvisualisasikan proses yang sedang berjalan, sementara CLI menawarkan perintah-perintah untuk mengelola proses dengan tingkat kendali yang lebih tinggi.
 
-  \item {Konfigurasi Sistem}
-     menjadi lebih accessible melalui panel kontrol atau pengaturan dalam GUI, memungkinkan pengguna untuk menyesuaikan berbagai aspek sistem operasi. Sementara itu, CLI dan Text User Interface (TUI) memungkinkan konfigurasi yang lebih mendalam melalui file konfigurasi dan perintah-perintah khusus.
+\item {Konfigurasi Sistem} menjadi lebih mudah diakses melalui panel kendali atau pengaturan dalam GUI, memungkinkan pengguna untuk menyesuaikan berbagai aspek sistem operasi. Sementara itu, CLI dan Antarmuka Pengguna Teks (TUI) memungkinkan konfigurasi yang lebih mendalam melalui berkas konfigurasi dan perintah-perintah khusus.
 
-  \item {Keamanan dan otentikasi}
-    merupakan aspek krusial dalam interaksi pengguna-sistem. Sistem operasi menyediakan mekanisme login dan manajemen hak akses untuk melindungi data dan sumber daya sistem. GUI menawarkan dialog visual yang user-friendly untuk proses otentikasi, sementara CLI menggunakan prompt teks yang sederhana namun aman.
+\item {Keamanan dan otentikasi} merupakan aspek penting dalam interaksi pengguna-sistem. Sistem operasi menyediakan mekanisme masuk dan manajemen hak akses untuk melindungi data dan sumber daya sistem. GUI menawarkan dialog visual yang ramah pengguna untuk proses otentikasi, sementara CLI menggunakan \textit{prompt} teks yang sederhana namun aman.
 
-  \item {Pembaruan dan pemeliharaan sistem }  
-    menjadi lebih mudah dengan adanya notifikasi visual dan wizard dalam GUI. Sementara itu, CLI memungkinkan administrator sistem untuk melakukan pembaruan dan pemeliharaan melalui perintah dan skrip yang dapat diotomatisasi.
+\item {Pembaruan dan pemeliharaan sistem} menjadi lebih mudah dengan adanya pemberitahuan visual dan panduan dalam GUI. Sementara itu, CLI memungkinkan administrator sistem untuk melakukan pembaruan dan pemeliharaan melalui perintah dan skrip yang dapat diotomatisasi.
 
-
- \item{Aksesibilitas} 
-    menjadi fokus penting dalam pengembangan antarmuka modern. Voice User Interface (VUI) dan Conversational User Interface (CUI) meningkatkan aksesibilitas bagi pengguna dengan kebutuhan khusus. Fitur seperti pembaca layar dan kontrol suara terintegrasi dengan baik dalam sistem operasi modern, memastikan bahwa teknologi dapat diakses oleh semua kalangan.
+\item{Aksesibilitas} menjadi fokus penting dalam pengembangan antarmuka modern. Antarmuka Pengguna Suara (VUI) dan Antarmuka Pengguna Percakapan (CUI) meningkatkan aksesibilitas bagi pengguna dengan kebutuhan khusus. Fitur seperti pembaca layar dan kendali suara terintegrasi dengan baik dalam sistem operasi modern, memastikan bahwa teknologi dapat diakses oleh semua kalangan.
 \end{enumerate}
 
 \begin{thebibliography}{9} 
@@ -243,82 +222,105 @@ Students were tasked with implementing various process scheduling algorithms (e.
 
 \subsubsection{Kelompok 12}
 
-\paragraph{Pertanyaan:}Diberikan tiga proses dengan waktu kedatangan dan waktu eksekusi sebagai berikut:
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\begin{itemize}
-    \item Proses A:
-    \begin{itemize}
-        \item Kedatangan: 0 ms
-        \item Eksekusi: 8 ms
-    \end{itemize}
-    \item Proses B:
-    \begin{itemize}
-        \item Kedatangan: 1 ms
-        \item Eksekusi: 4 ms
-    \end{itemize}
-    \item Proses C:
-    \begin{itemize}
-        \item Kedatangan: 2 ms
-        \item Eksekusi: 9 ms
-    \end{itemize}
-\end{itemize}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
 
-\subsubsection{Perhitungan Waktu Penyelesaian}
+\lstset{style=mystyle}
 
-\begin{itemize}
-    \item Proses A:
-    \begin{itemize}
-        \item Kedatangan: 0 ms
-        \item Eksekusi: 8 ms
-        \item Waktu Penyelesaian: 0 ms + 8 ms = 8 ms
-    \end{itemize}
-    \item Proses B:
-    \begin{itemize}
-        \item Kedatangan: 1 ms
-        \item Eksekusi: 4 ms
-        \item Waktu Penyelesaian: 8 ms (waktu penyelesaian Proses A) + 4 ms = 12 ms
-    \end{itemize}
-    \item Proses C:
-    \begin{itemize}
-        \item Kedatangan: 2 ms
-        \item Eksekusi: 9 ms
-        \item Waktu Penyelesaian: 12 ms (waktu penyelesaian Proses B) + 9 ms = 21 ms
-    \end{itemize}
-\end{itemize}
 
-\subsubsection{Tabel Waktu Penyelesaian}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Proses} & \textbf{Waktu Penyelesaian (Completion Time)} \\
-\hline
-A & 8 ms \\
-\hline
-B & 12 ms \\
-\hline
-C & 21 ms \\
-\hline
+\begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Proses} & \textbf{Waktu Kedatangan} & \textbf{Waktu Burst} \\
+  \hline
+  P1 & 0 & 10 \\
+  \hline
+  P2 & 1 & 6 \\
+  \hline
+  P3 & 3 & 2 \\
+  \hline
+  P4 & 5 & 4 \\
+  \hline
+  P5 & 6 & 8 \\
+  \hline
 \end{tabular}
-\caption{Waktu Penyelesaian Proses}
-\label{tab:completion_time}
-\end{table}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
+
+\paragraph{Pertanyaan:} Buatlah jadwal eksekusi kelima proses tersebut menggunakan algoritma FCFS Hitunglah:
+   \begin{itemize}
+      \item[a.] Waktu penyelesaian (Completion Time) setiap proses
+      \item[b.] Waktu turnaround (Turnaround Time) setiap proses
+      \item[c.] Waktu tunggu (Waiting Time) setiap proses
+      \item[d.] Rata-rata waktu turnaround
+      \item[e.] Rata-rata waktu tunggu
+   \end{itemize}
+
+Serta berikan juga diagram Gantt untuk masing-masing algoritma untuk memvisualisasikan urutan eksekusi prosesnya.
+
+\paragraph{Jawaban:} 
+
+First-Come, First-Served (FCFS) Algorithm
+
+\begin{lstlisting}[]
+def fcfs(processes):
+    time = 0
+    result = []
+    gantt = []
+    for process in sorted(processes, key=lambda p: p.arrival_time):
+        if time < process.arrival_time:
+            time = process.arrival_time
+        process.completion_time = time + process.burst_time
+        process.turnaround_time = process.completion_time - process.arrival_time
+        process.waiting_time = process.turnaround_time - process.burst_time
+        gantt.extend([process.pid] * process.burst_time)
+        time = process.completion_time
+        result.append(copy.deepcopy(process))
+    return result, gantt
+\end{lstlisting}
+
+
+
+\section*{Output Code:}
+
+Process 1: CT=10, TAT=10, WT=0 \\
+Process 2: CT=16, TAT=15, WT=9 \\
+Process 3: CT=18, TAT=15, WT=13 \\
+Process 4: CT=22, TAT=17, WT=13 \\
+Process 5: CT=30, TAT=24, WT=16 \\
+
+Average Turnaround Time: 16.20 \\
+Average Waiting Time: 10.20
+
+\subsection*{Gantt Chart}
+
+\begin{verbatim}
+| P1 | P1 | P1 | P1 | P1 | P1 | P1 | P1 | P1 | P1 | P2 | P2 | P2 | P2 | P2 | P2 | P3 | P3 | P4 | P4 | P4 | P4 | P5 | P5 | P5 | P5 | P5 | P5 | P5 | P5 |
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+\end{verbatim}
+
+
+
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
@@ -349,88 +351,109 @@ Berdasarkan Amdahl's Law, peningkatan jumlah thread tidak menghasilkan peningkat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+
+\definecolor{codebg}{rgb}{0.95,0.95,0.92}  
+\definecolor{keywordcolor}{rgb}{0.31,0.56,0.71}  
+\definecolor{commentcolor}{rgb}{0.4,0.6,0.4} 
+\definecolor{stringcolor}{rgb}{0.71,0.45,0.32}  
+\definecolor{framecolor}{rgb}{0.65,0.65,0.65}  
+
+\lstset{
+    backgroundcolor=\color{codebg},   
+    basicstyle=\ttfamily\small,  
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor}\itshape,
+    stringstyle=\color{stringcolor},
+    showstringspaces=false,
+    frame=single,
+    framesep=8pt,
+    framerule=0.8pt,
+    rulecolor=\color{framecolor},
+    breaklines=true,  
+    linewidth=\textwidth, 
+    xleftmargin=0.5cm, 
+    xrightmargin=0.5cm, 
+    escapeinside={(*@}{@*)},  
+    language=Python  
+}
+
 \subsubsection{Kelompok 12}
 
-\paragraph{Pertanyaan:} Mahasiswa diminta untuk membuat antarmuka baris perintah sederhana (CLI) yang dapat digunakan untuk mengelola antarmuka pengguna. CLI ini harus mendukung perintah dasar seperti manipulasi file (membuat, menampilkan, dan menghapus file), manajemen proses, dan pelaporan status sistem.
+\paragraph{Pertanyaan:}
+Ali adalah seorang programmer yang baru belajar membuat program untuk mengelola file di komputer menggunakan Command-Line Interface (CLI). Suatu hari, Ali diminta oleh gurunya untuk membuat program yang bisa:
 
-\paragraph{Jawab:} Berikut adalah implementasi CLI dalam Python:
+\begin{enumerate}
+    \item[a.] Membuat file baru dengan nama dan isi yang diberikan pengguna.
+    \item[b.] Menampilkan daftar file yang ada di folder tempat program dijalankan.
+    \item[c.] Menghapus file berdasarkan nama yang diberikan pengguna.
+\end{enumerate}
+
+Ali mencoba menulis program tersebut menggunakan bahasa Python, tapi dia bingung bagaimana cara menggabungkan ketiga fungsi tersebut ke dalam satu program. Bantu Ali untuk menyelesaikan masalah ini dengan memberikan contoh kode Python yang dapat menjalankan ketiga fungsi di atas!
+
+
+\paragraph{Jawaban:}
+
+
 
 \begin{lstlisting}[language=Python]
-import os
-import psutil
+import os  
 
-def create_file(filename):
-    with open(filename, 'w') as f:
-        f.write('')  # Create an empty file
-    print(f'File {filename} created successfully.')
+def create_file():
+    filename = input("Masukkan nama file: ")
+    content = input("Masukkan isi file: ")
+    with open(filename, 'w') as file:
+        file.write(content)
+    print(f"File '{filename}' berhasil dibuat.\n")
 
 def list_files():
-    files = os.listdir()
-    if files:
-        print("Files in the current directory:")
-        for file in files:
-            print(f' - {file}')
-    else:
-        print("No files found in the current directory.")
+    print("Daftar file di direktori saat ini:")
+    files = os.listdir('.')  
+    for file in files:
+        if os.path.isfile(file):  
+            print(f"- {file}")
+    print()
 
-def delete_file(filename):
-    try:
+def delete_file():
+    filename = input("Masukkan nama file yang ingin dihapus: ")
+    if os.path.exists(filename): 
         os.remove(filename)
-        print(f'File {filename} deleted successfully.')
-    except FileNotFoundError:
-        print(f'File {filename} not found.')
-    except Exception as e:
-        print(f'Error deleting file: {e}')
-
-def show_processes():
-    print("Currently running processes:")
-    for proc in psutil.process_iter(['pid', 'name']):
-        print(f' - PID: {proc.info["pid"]}, Name: {proc.info["name"]}')
-
-def show_system_status():
-    print("System Status:")
-    print(f' - Total Memory: {psutil.virtual_memory().total // (1024 ** 2)} MB')
-    print(f' - Available Memory: {psutil.virtual_memory().available // (1024 ** 2)} MB')
-    print(f' - Used Memory: {psutil.virtual_memory().used // (1024 ** 2)} MB')
-    print(f' - CPU Usage: {psutil.cpu_percent(interval=1)}%')
+        print(f"File '{filename}' berhasil dihapus.\n")
+    else:
+        print(f"File '{filename}' tidak ditemukan.\n")
 
 def main():
     while True:
-        command = input("Enter command (create, list, delete, processes, status, exit): ").strip().lower()
-        if command.startswith("create "):
-            filename = command.split(" ", 1)[1]
-            create_file(filename)
-        elif command == "list":
+        print("=== Menu CLI ===")
+        print("1. Buat file baru")
+        print("2. Lihat daftar file")
+        print("3. Hapus file")
+        print("4. Keluar")
+        choice = input("Pilih opsi (1/2/3/4): ")
+        if choice == '1':
+            create_file()
+        elif choice == '2':
             list_files()
-        elif command.startswith("delete "):
-            filename = command.split(" ", 1)[1]
-            delete_file(filename)
-        elif command == "processes":
-            show_processes()
-        elif command == "status":
-            show_system_status()
-        elif command == "exit":
-            print("Exiting the CLI.")
+        elif choice == '3':
+            delete_file()
+        elif choice == '4':
+            print("Program selesai.")
             break
         else:
-            print("Invalid command. Please try again.")
+            print("Pilihan tidak valid, coba lagi.\n")
 
 if __name__ == "__main__":
     main()
 \end{lstlisting}
 
-\paragraph{Penjelasan:} Program ini mengimplementasikan CLI sederhana dengan fungsi-fungsi berikut:
-\begin{itemize}
-    \item \texttt{create\_file}: Membuat file kosong dengan nama yang ditentukan.
-    \item \texttt{list\_files}: Menampilkan daftar file dalam direktori saat ini.
-    \item \texttt{delete\_file}: Menghapus file dengan nama yang ditentukan.
-    \item \texttt{show\_processes}: Menampilkan daftar proses yang sedang berjalan.
-    \item \texttt{show\_system\_status}: Menampilkan status sistem, termasuk penggunaan memori dan CPU.
-\end{itemize}
 
-Program utama (\texttt{main}) menjalankan loop yang terus meminta input perintah dari pengguna dan menjalankan fungsi yang sesuai berdasarkan perintah tersebut.
+\textbf{Contoh Keluaran}:
 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{asset/Output_Asignment4.jpg}
+    \label{fig:contohgambar}
+\end{figure}
 
 
 

@@ -188,7 +188,69 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Pertanyaan dan Jawaban serta Implementasi Kode Python untuk Deadlock Handling}
+
+\textbf{Pertanyaan :} 
+
+\vspace{0.2cm}
+
+Jelaskan bagaimana deadlock dapat terjadi dalam kode di bawah!
+
+\vspace{0.2cm}
+
+\begin{python}
+import threading
+import time
+
+class SumberDaya:
+    def _init_(self, nama):
+        self.nama = nama
+        self.lock = threading.Lock()
+
+def skenario_deadlock(sumber_a, sumber_b):
+    def thread_1():
+        # Kunci sumber daya dalam urutan yang sama di kedua thread
+        with sumber_a.lock:
+            print(f"Thread 1: Mengunci {sumber_a.nama}")
+            time.sleep(1)  # Simulasikan kerja
+            with sumber_b.lock:
+                print(f"Thread 1: Mengunci {sumber_b.nama}")
+        print("Thread 1 selesai")
+
+    def thread_2():
+        # Kunci sumber daya dalam urutan yang sama di kedua thread
+        with sumber_a.lock:
+            print(f"Thread 2: Mengunci {sumber_a.nama}")
+            time.sleep(1)  # Simulasikan kerja
+            with sumber_b.lock:
+                print(f"Thread 2: Mengunci {sumber_b.nama}")
+        print("Thread 2 selesai")
+
+    t1 = threading.Thread(target=thread_1)
+    t2 = threading.Thread(target=thread_2)
+
+    t1.start()
+    t2.start()
+    
+    t1.join()
+    t2.join()
+
+# Buat dua sumber daya
+sumber_a = SumberDaya("Sumber Daya A")
+sumber_b = SumberDaya("Sumber Daya B")
+skenario_deadlock(sumber_a, sumber_b)
+\end{python} 
+
+\textbf{Jawaban:} Deadlock terjadi ketika dua thread mencoba mengunci dua sumber daya dalam urutan yang berlawanan. Dalam kode ini:
+
+\begin{itemize}
+    \item {thread\_1} mengunci {sumber\_a} terlebih dahulu, lalu mencoba mengunci {sumber\_b}.
+    \item {thread\_2} mengunci {sumber\_b} terlebih dahulu, lalu mencoba mengunci {sumber\_a}. Jika {thread\_1} mengunci {sumber\_a} dan {thread\_2} mengunci {sumber\_b} pada saat yang sama, kedua thread akan menunggu selamanya untuk sumber daya lain yang tidak pernah tersedia, sehingga terjadi deadlock.
+\end{itemize}
+
+
+
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

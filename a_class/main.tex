@@ -261,6 +261,162 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\subsubsection{Group 9}
+\begin{itemize}
+    \item \textbf{Tugas Pemrograman CLI: Manajemen Antarmuka Pengguna}
+\end{itemize}
+\par \textbf{Deskripsi Tugas:} Buatlah sebuah program Command Line Interface (CLI) sederhana untuk manajemen antarmuka pengguna. Program ini harus mendukung perintah-perintah dasar berikut:
+\begin{enumerate}
+    \item Manipulasi berkas baru:
+    \begin{itemize}
+        \item Membuat Berkas baru
+        \item Menampilkan daftar berkas dalam direktori saat ini.
+        \item Menghapus berkas yang dipilih.
+    \end{itemize}
+    \item Manajemen Proses
+    \begin{itemize}
+        \item Menampilkan daftar proses yang sedang berjalan di sistem.
+        \item Menghentikan proses berdasarkan PID (Process ID).
+    \end{itemize}
+    \item Pelaporan Status Sistem
+    \begin{itemize}
+        \item Menampilkan penggunaan CPU saat ini.
+        \item Menampilkan penggunaan memori saat ini.
+        \item Menampilkan waktu aktif sistem (uptime).
+    \end{itemize}
+\end{enumerate}
+\par \textbf{Ketentuan :}
+\begin{enumerate}
+    \item Program harus berjalan di lingkungan CLI (Command Line Interface) tanpa antarmuka grafis.
+    \item Pengguna dapat memasukkan perintah melalui CLI untuk menjalankan fungsi yang diinginkan.
+    \item Buat dokumentasi singkat mengenai cara penggunaan program (petunjuk perintah).
+\end{enumerate}
+\par \textbf{Fitur Tambahan (Opsional):}
+\begin{itemize}
+    \item Menyediakan opsi untuk menampilkan daftar direktori saat ini.
+    \item Menampilkan informasi jaringan seperti alamat IP atau kecepatan jaringan.
+    \item Membuat log aktivitas untuk setiap perintah yang dijalankan.
+\end{itemize}
+\par \textbf{Contoh Perintah CLI yang Diharapkan:}
+\begin{itemize}
+    \item create-file 
+    \item list-files
+    \item delete-file 
+    \item list-processes
+    \item kill-process 
+    \item cpu-status
+    \item memory-status
+    \item system-uptime
+\end{itemize}
+\par \textbf{Jawaban:}
+\begin{python}
+    import os
+import psutil
+import time
+
+def create_file(filename):
+    """Membuat file baru."""
+    try:
+        with open(filename, 'w') as f:
+            f.write('')  # Membuat file kosong
+        print(f"File '{filename}' berhasil dibuat.")
+    except Exception as e:
+        print(f"Gagal membuat file: {e}")
+
+def list_files():
+    """Menampilkan daftar file di direktori saat ini."""
+    files = os.listdir('.')
+    print("Daftar berkas:")
+    for f in files:
+        print(f"- {f}")
+
+def delete_file(filename):
+    """Menghapus file."""
+    try:
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    except Exception as e:
+        print(f"Gagal menghapus file: {e}")
+
+def list_processes():
+    """Menampilkan daftar proses yang berjalan."""
+    processes = psutil.pids()
+    for pid in processes:
+        p = psutil.Process(pid)
+        print(f"PID: {pid}, Name: {p.name()}, Status: {p.status()}")
+
+def kill_process(pid):
+    """Menghentikan proses berdasarkan PID."""
+    try:
+        p = psutil.Process(int(pid))
+        p.terminate()
+        print(f"Proses dengan PID {pid} berhasil dihentikan.")
+    except Exception as e:
+        print(f"Gagal menghentikan proses: {e}")
+
+def cpu_status():
+    """Menampilkan status penggunaan CPU."""
+    cpu_percent = psutil.cpu_percent(interval=1)
+    print(f"Penggunaan CPU: {cpu_percent}%")
+
+def memory_status():
+    """Menampilkan status penggunaan memori."""
+    mem = psutil.virtual_memory()
+    print(f"Total Memori: {mem.total // (1024 ** 2)} MB")
+    print(f"Memori Terpakai: {mem.used // (1024 ** 2)} MB")
+    print(f"Memori Bebas: {mem.available // (1024 ** 2)} MB")
+
+def system_uptime():
+    """Menampilkan uptime sistem."""
+    uptime_seconds = time.time() - psutil.boot_time()
+    uptime_str = time.strftime("%H:%M:%S", time.gmtime(uptime_seconds))
+    print(f"System Uptime: {uptime_str}")
+
+def main():
+    while True:
+        print("\nPerintah CLI yang tersedia:")
+        print("1. create-file <nama_berkas>")
+        print("2. list-files")
+        print("3. delete-file <nama_berkas>")
+        print("4. list-processes")
+        print("5. kill-process <pid>")
+        print("6. cpu-status")
+        print("7. memory-status")
+        print("8. system-uptime")
+        print("9. exit")
+
+        command = input("\nMasukkan perintah: ").split()
+
+        if len(command) == 0:
+            continue
+
+        if command[0] == "create-file" and len(command) == 2:
+            create_file(command[1])
+        elif command[0] == "list-files":
+            list_files()
+        elif command[0] == "delete-file" and len(command) == 2:
+            delete_file(command[1])
+        elif command[0] == "list-processes":
+            list_processes()
+        elif command[0] == "kill-process" and len(command) == 2:
+            kill_process(command[1])
+        elif command[0] == "cpu-status":
+            cpu_status()
+        elif command[0] == "memory-status":
+            memory_status()
+        elif command[0] == "system-uptime":
+            system_uptime()
+        elif command[0] == "exit":
+            print("Keluar dari program.")
+            break
+        else:
+            print("Perintah tidak valid. Coba lagi.")
+
+if __name__ == "__main__":
+    main()
+
+\end{python}
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}

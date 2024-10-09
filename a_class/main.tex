@@ -541,12 +541,12 @@ Dari kode Python di atas, jelaskan bagaimana skenario multithreading diimplement
 \begin{itemize}
     \item Penjelasan Skenario Multithreading
         \begin{enumerate}
-            \item Kita menentukan jumlah thread yang akan digunakan, yaitu 4.
-            \item Kita memulai setiap thread menggunakan \texttt{threading.Thread}, dan setiap thread menjalankan \texttt{computational\_task}.
-            \item Setelah semua thread dimulai, kita menunggu sampai semua thread selesai menggunakan \texttt{join()}, sehingga program tidak akan melanjutkan eksekusi sampai semua thread selesai.
+            \item Kita menentukan jumlah \textit{thread} yang akan digunakan, yaitu 4.
+            \item Kita memulai setiap \textit{thread} menggunakan \texttt{threading.Thread}, dan setiap \textit{thread} menjalankan \texttt{computational\_task}.
+            \item Setelah semua \textit{thread} dimulai, kita menunggu sampai semua thread selesai menggunakan \texttt{join()}, sehingga program tidak akan melanjutkan eksekusi sampai semua \textit{thread} selesai.
         \end{enumerate}
     \item Penerapan Hukum Amdahl
-        \textbf{Hukum Amdahl} digunakan untuk menghitung percepatan teoretis yang diharapkan dari peningkatan jumlah prosesor (atau thread) untuk sebuah program. Hukum ini dinyatakan sebagai:
+        \textbf{Hukum Amdahl} digunakan untuk menghitung percepatan teoretis yang diharapkan dari peningkatan jumlah prosesor (atau \textit{thread}) untuk sebuah program. Hukum ini dinyatakan sebagai:
         \begin{equation}
             S = \frac{1}{(1 - P) + \frac{P}{N}}
         \end{equation}
@@ -554,14 +554,14 @@ Dari kode Python di atas, jelaskan bagaimana skenario multithreading diimplement
         \begin{itemize}
             \item \( S \) = percepatan total.
             \item \( P \) = proporsi waktu yang dapat diparalelkan.
-            \item \( N \) = jumlah thread.
+            \item \( N \) = jumlah \textit{thread}.
         \end{itemize}
 
         Mari kita asumsikan:
         \begin{itemize}
             \item Waktu total tanpa paralelisasi (dengan 1 thread) = 2 detik (hanya ada satu thread).
             \item Proporsi waktu yang dapat diparalelkan \( P = 1 \) (100\% dari tugas dapat diparalelkan).
-            \item Jumlah thread \( N = 4 \).
+            \item Jumlah \textit{thread} \( N = 4 \).
         \end{itemize}
         Maka, kita dapat menghitung percepatannya:
 \begin{equation}

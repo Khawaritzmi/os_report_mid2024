@@ -168,38 +168,103 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+Dari kode python dengan algoritma FCFS di bawah, berikan \textit{output} mengenai waktu penyelesaian, waktu tunggu, dan waktu putaran dari setiap proses!
+\subsubsection{Kode Python}
 \begin{python}
     class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
+    def __init__(self, id, arrival_time, burst_time):
+        self.id = id
         self.arrival_time = arrival_time
         self.burst_time = burst_time
         self.completion_time = 0
-        self.turnaround_time = 0
         self.waiting_time = 0
+        self.turnaround_time = 0
+
+    def find_fcfs_scheduling(processes):
+        processes.sort(key=lambda x: x.arrival_time)
+        
+        current_time = 0
+        for process in processes:
+            if current_time < process.arrival_time:
+                current_time = process.arrival_time
+            current_time += process.burst_time
+            process.completion_time = current_time
+            process.turnaround_time = process.completion_time - process.arrival_time
+            process.waiting_time = process.turnaround_time - process.burst_time
+    
+    def display_process_info(processes):
+        print("ID Proses\tWaktu Kedatangan\tDurasi Proses\tWaktu Penyelesaian\tWaktu Tunggu\tWaktu Putaran")
+        for process in processes:
+            print(f"{process.id}\t\t{process.arrival_time}\t\t{process.burst_time}\t\t{process.completion_time}\t\t{process.waiting_time}\t\t{process.turnaround_time}")
+    
+    if __name__ == "__main__":
+        processes = [
+            Process(1, 0, 4),
+            Process(2, 1, 2),
+            Process(3, 2, 1),
+            Process(4, 3, 3)
+        ]
+    
+    find_fcfs_scheduling(processes)
+    display_process_info(processes)
+
 \end{python}
 
 \begin{table}[htbp] % Optional: For floating position
     \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \begin{tabular}{|c|c|l|l|l|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
     \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
+    ID Proses& Waktu Kedatangan&   Durasi Proses& Waktu Penyelesaian&Waktu Tunggu&Waktu Putaran\\ % Column headers
     \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
+    1& 0&   4& 4&0&4\\ \hline 
+ 2& 1& 2& 6& 3&5\\ \hline 
+ 3& 2& 1& 7& 4&5\\ \hline 
+ 4& 3& 3& 10& 4&7\\ \hline
     \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
+    \caption{Output} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+Buatlah program Python yang menghitung kecepatan teoritis dari sebuah program menggunakan \textbf{Hukum Amdahl}. Program harus menerima input proporsi waktu yang dapat diparalelkan dan jumlah thread yang digunakan. Hitung kecepatan teoritis untuk jumlah thread 2, 4, dan 8, serta tampilkan hasilnya. 
+\subsubsection{Kode Python}
+\begin{python}
+    def amdahls_law(parallel_fraction, num_threads):
+    """Menghitung kecepatan teoritis berdasarkan Hukum Amdahl."""
+    serial_fraction = 1 - parallel_fraction
+    speedup = 1 / (serial_fraction + (parallel_fraction / num_threads))
+    return speedup
+
+    if __name__ == "__main__":
+        # Input: proporsi waktu yang dapat diparalelkan (30 detik dari total 100 detik)
+        total_time = 100
+        parallel_time = 30
+        parallel_fraction = parallel_time / total_time
+    
+        # Daftar jumlah thread yang akan diuji
+        num_threads_list = [2, 4, 8]
+    
+        print("Jumlah Thread\tKecepatan Teoritis")
+        for num_threads in num_threads_list:
+            speedup = amdahls_law(parallel_fraction, num_threads)
+            print(f"{num_threads}\t\t{speedup:.3f}")
+\end{python}
+
+\begin{table}[htbp] % Optional: For floating position
+    \centering
+    \begin{tabular}{|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \hline
+    Jumlah Thread& Kecepatan Teoritis\\ % Column headers
+    \hline
+    2& 1176\\ \hline 
+ 4& 1333\\ \hline 
+ 8& 1500\\\hline
+    \end{tabular}
+    \caption{Output} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

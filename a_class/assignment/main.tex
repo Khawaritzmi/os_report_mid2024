@@ -91,7 +91,7 @@ Describes the architecture of modern computer systems, focusing on the interacti
         \newline  Data penggunaan sumber daya oleh proses, termasuk waktu CPU, waktu mulai, dan statistik penting lainnya.
  \end{enumerate}
 
- \subsubsection{\textit{Process Control}}
+\subsubsection{\textit{Process Control}}
 Kontrol Proses/\textit{Process Control} adalah sekumpulan metode dan mekanisme yang digunakan oleh sistem operasi untuk mengelola siklus hidup suatu proses, 
 mulai dari penciptaan, penjadwalan, hingga penghentian proses. Proses ini sangat penting untuk menjaga sistem tetap berjalan efisien dan memastikan setiap 
 proses mendapatkan sumber daya CPU yang dibutuhkan tanpa mengganggu proses lain.
@@ -199,7 +199,63 @@ Students were tasked with implementing various process scheduling algorithms (e.
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\noindent Tugas ini melibatkan perancangan skenario multithreading untuk menyelesaikan masalah komputasi intensif. Mahasiswa kemudian menerapkan Hukum Amdahl untuk menghitung peningkatan kecepatan teoritis program seiring dengan bertambahnya jumlah thread.
+
+\textbf{Pertanyaan:}
+\noindent Implementasikan sebuah program multithreading untuk menghitung nilai pi menggunakan metode Monte Carlo. Gunakan jumlah thread yang bervariasi (1, 2, 4, 8, dan 16) dan hitung waktu eksekusi untuk setiap kasus. Kemudian, terapkan Hukum Amdahl untuk menghitung peningkatan kecepatan teoritis, dengan asumsi 95% dari program dapat diparalelkan. Bandingkan hasil aktual dengan hasil teoritis dan jelaskan perbedaan yang mungkin terjadi.
+
+\textbf{Jawaban:}
+\begin{python}
+import random
+import threading
+import time
+def perkiraan_pi(titik_per_thread):
+dalam_lingkaran = 0
+for _ in range(titik_per_thread):
+x = random.uniform(-1, 1)
+y = random.uniform(-1, 1)
+if xx + yy <= 1:
+dalam_lingkaran += 1
+return dalam_lingkaran
+def hitung_pi(jumlah_thread, total_titik):
+titik_per_thread = total_titik // jumlah_thread
+threads = []
+hasil = [0] * jumlah_thread
+Copyfor i in range(jumlah_thread):
+    thread = threading.Thread(target=lambda: hasil.__setitem__(i, perkiraan_pi(titik_per_thread)))
+    threads.append(thread)
+    thread.start()
+
+for thread in threads:
+    thread.join()
+
+total_dalam = sum(hasil)
+perkiraan_pi = 4 * total_dalam / total_titik
+return perkiraan_pi
+def main():
+total_titik = 1000000
+jumlah_thread_list = [1, 2, 4, 8, 16]
+Copyfor jumlah_thread in jumlah_thread_list:
+    waktu_mulai = time.time()
+    hasil_pi = hitung_pi(jumlah_thread, total_titik)
+    waktu_selesai = time.time()
+    
+    waktu_eksekusi = waktu_selesai - waktu_mulai
+    print(f"Thread: {jumlah_thread}, Perkiraan Pi: {hasil_pi:.6f}, Waktu: {waktu_eksekusi:.4f} detik")
+if name == "main":
+main()
+
+Penerapan Hukum Amdahl
+def percepatan_amdahl(p, n):
+return 1 / ((1 - p) + (p / n))
+p = 0.95  # Asumsi 95% program dapat diparalelkan
+jumlah_thread_list = [1, 2, 4, 8, 16]
+print("\nPercepatan Teoritis (Hukum Amdahl):")
+for n in jumlah_thread_list:
+percepatan = percepatan_amdahl(p, n)
+print(f"Thread: {n}, Percepatan: {percepatan:.2f}")
+\end{python}
+
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

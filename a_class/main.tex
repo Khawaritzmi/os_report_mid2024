@@ -55,23 +55,23 @@ This section explains the fundamental components that make up a computer system,
 
 \subsection{System Performance and Metrics}
 \subsubsection{Performa Sistem}
-Performa sistem komputer adalah kemampuan suatu sistem untuk menjalankan tugas-tugas komputasi sesuai dengan spesifikasi dan parameter yang telah ditetapkan. Performa ini mencakup kecepatan, efisiensi, dan ketepatan dalam menyelesaikan berbagai proses dan operasi yang diminta oleh pengguna atau aplikasi.
+    \Performa sistem komputer adalah kemampuan suatu sistem untuk menjalankan tugas-tugas komputasi sesuai dengan spesifikasi dan parameter yang telah ditetapkan. Performa ini mencakup kecepatan, efisiensi, dan ketepatan dalam menyelesaikan berbagai proses dan operasi yang diminta oleh pengguna atau aplikasi.
 \begin{enumerate}
     \item {Faktor Pengaruh Peforma}
     \par \begin{enumerate}
         \item {CPU (Central Processing Unit)}
-        \par CPU atau prosesor adalah otak dari komputer yang bertanggung jawab untuk menjalankan instruksi dan menjalankan proses komputasi. Kecepatan CPU diukur dalam gigahertz (GHz), dan semakin tinggi frekuensi, semakin cepat proses eksekusi instruksi. Selain itu, jumlah core pada CPU juga memainkan peran penting; semakin banyak core, semakin baik komputer dalam menangani multitasking dan menjalankan aplikasi yang membutuhkan banyak sumber daya.
+        \par \par CPU atau prosesor adalah otak dari komputer yang bertanggung jawab untuk menjalankan instruksi dan menjalankan proses komputasi. Kecepatan CPU diukur dalam gigahertz (GHz), dan semakin tinggi frekuensi, semakin cepat proses eksekusi instruksi. Selain itu, jumlah core pada CPU juga memainkan peran penting; semakin banyak core, semakin baik komputer dalam menangani multitasking dan menjalankan aplikasi yang membutuhkan banyak sumber daya.
         \item {GPU (Graphics Processing Unit)}
         \par GPU bertanggung jawab untuk menangani pemrosesan grafis dan rendering visual. Dalam aplikasi yang membutuhkan performa grafis tinggi seperti game, desain 3D, atau pengeditan video, GPU yang kuat menjadi sangat penting. GPU modern juga digunakan untuk komputasi paralel di bidang kecerdasan buatan dan pembelajaran mesin, mempercepat proses yang tidak bisa ditangani dengan efisien oleh CPU.
         
         \item {RAM (Random Access Memory)}
-        \par RAM adalah memori sementara yang digunakan oleh sistem untuk menyimpan data yang aktif digunakan atau diakses oleh CPU dengan cepat. Kapasitas RAM yang lebih besar memungkinkan komputer untuk menjalankan lebih banyak aplikasi secara bersamaan atau memproses data yang lebih besar tanpa memperlambat performa. Selain itu, kecepatan RAM juga berpengaruh pada seberapa cepat data dapat diakses dan diproses.
+        \par RAM adalah memori sementara yang digunakan oleh sistem untuk menyimpan data yang aktif digunakan atau diakses oleh CPU dengan cepat . Kapasitas RAM yang lebih besar memungkinkan komputer untuk menjalankan lebih banyak aplikasi secara bersamaan atau memproses data yang lebih besar tanpa memperlambat performa. Selain itu, kecepatan RAM juga berpengaruh pada seberapa cepat data dapat diakses dan diproses.
 
         \item {Penyimpanan (Storage)}
-        \par Jenis dan kapasitas penyimpanan berperan besar dalam kecepatan akses data. Penyimpanan berbasis SSD (Solid State Drive) jauh lebih cepat dibandingkan dengan HDD (Hard Disk Drive) tradisional, yang memungkinkan komputer untuk memuat program dan mengakses file dengan lebih cepat. SSD meningkatkan performa keseluruhan sistem, terutama dalam hal waktu boot, pembukaan aplikasi, dan kecepatan transfer file.
+        \par Jenis dan kapasitas penyimpanan berperan besar dalam kecepatan akses data . Penyimpanan berbasis SSD (Solid State Drive) jauh lebih cepat dibandingkan dengan HDD (Hard Disk Drive) tradisional, yang memungkinkan komputer untuk memuat program dan mengakses file dengan lebih cepat. SSD meningkatkan performa keseluruhan sistem, terutama dalam hal waktu boot, pembukaan aplikasi, dan kecepatan transfer file.
 
     \end{enumerate}
-
+    
     \item {Keterkaitan Hardware}
     \par \begin{enumerate}
         \item {{Keterkaitan antara RAM dan CPU}}
@@ -83,7 +83,7 @@ Performa sistem komputer adalah kemampuan suatu sistem untuk menjalankan tugas-t
         \item {{Keterkaitan antara Penyimpanan dan RAM}}
         \par RAM dan penyimpanan juga bekerja sama untuk memastikan kelancaran operasi sistem. Ketika aplikasi atau data yang dibutuhkan oleh CPU tidak dapat seluruhnya ditampung di RAM, sistem akan menggunakan penyimpanan sebagai memori virtual. Jika penyimpanan yang digunakan adalah SSD (Solid State Drive), maka akses data dari penyimpanan ke RAM menjadi jauh lebih cepat dibandingkan dengan HDD (Hard Disk Drive) tradisional, sehingga mempercepat pemuatan aplikasi dan respons sistem secara keseluruhan.
     
-    \end{enumerate}
+    \end{enumerate} 
 
 \end{enumerate}
 
@@ -170,33 +170,56 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
+\subsubsection{Group 2}
+\textbf{Soal:}
+    \par Buatlah sebuah program Python sederhana yang dapat mensimulasikan algoritma penjadwalan proses dengan menggunakan Round Robin Scheduling. Program ini harus mendukung beberapa fitur berikut:
+    \begin{itemize} 
+    \item Menerima daftar proses dengan burst time masing-masing.
+    \item Mengatur proses dengan kuantum waktu tetap.
+    \item Menampilkan urutan eksekusi proses serta waktu selesai masing-masing.
+    \item Hitung waktu rata-rata turnaround time dan waiting time.
+    \end{itemize}
+
+\textbf{Jawaban:}
+    Untuk menyelesaikan soal ini, berikut adalah implementasi dari algoritma Round Robin Scheduling sederhana dalam Python:
+
+\begin{python} def round_robin(processes, burst_time, quantum): n = len(processes) remaining_time = burst_time[:] # Salin burst time awal waiting_time = [0] * n turnaround_time = [0] * n t = 0 # Waktu berjalan
+
+python
+Copy code
+    while True:
+        done = True
+        for i in range(n):
+            if remaining_time[i] > 0:
+                done = False  # Ada proses yang belum selesai
+                if remaining_time[i] > quantum:
+                    t += quantum
+                    remaining_time[i] -= quantum
+                else:
+                    t += remaining_time[i]
+                    waiting_time[i] = t - burst_time[i]
+                    remaining_time[i] = 0
+        if done:
+            break
+
+    # Hitung turnaround time
+    for i in range(n):
+        turnaround_time[i] = burst_time[i] + waiting_time[i]
+
+    print("Proses\tBurst Time\tWaiting Time\tTurnaround Time")
+    for i in range(n):
+        print(f"{processes[i]}\t{burst_time[i]}\t\t{waiting_time[i]}\t\t{turnaround_time[i]}")
+
+    print(f"\nRata-rata Waiting Time: {sum(waiting_time) / n:.2f}")
+    print(f"Rata-rata Turnaround Time: {sum(turnaround_time) / n:.2f}")
+
+if __name__ == "__main__":
+    processes = ['P1', 'P2', 'P3']
+    burst_time = [24, 3, 3]
+    quantum = 4
+    round_robin(processes, burst_time, quantum)
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
@@ -207,14 +230,92 @@ This assignment involved designing a multithreading scenario to solve a computat
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
 \subsection{Assignment 5: File System Access}
-In this assignment, students implemented file system access routines, including:
-\begin{itemize}
-    \item File creation and deletion
-    \item Reading from and writing to files
-    \item Navigating directories and managing file permissions
-\end{itemize}
+\subsubsection{Group 2}
+    \textbf{Soal:}
+    \par Buatlah sebuah program Python sederhana untuk melakukan akses sistem file. Program ini harus mendukung beberapa perintah berikut:
+    \begin{itemize}
+    \item Membaca isi file teks.
+    \item Menambahkan teks ke dalam file yang sudah ada.
+    \item Menampilkan status akses file, seperti siapa pemiliknya, waktu modifikasi terakhir, dan izin akses file.
+    \end{itemize}
+    
+    \textbf{Jawaban:}
+    Berikut adalah implementasi dari program Python yang dapat mengakses sistem file dan mendukung fitur-fitur yang diminta:
+    
+    \begin{python} import os import stat from datetime import datetime
+    
+    python
+    Copy code
+    def baca_file(nama_file):
+        try:
+            with open(nama_file, 'r') as f:
+                print(f"\nIsi file '{nama_file}':")
+                print(f.read())
+        except FileNotFoundError:
+            print(f"File '{nama_file}' tidak ditemukan.")
+        except Exception as e:
+            print(f"Gagal membaca file: {e}")
+    
+    def tambah_teks(nama_file, teks):
+        try:
+            with open(nama_file, 'a') as f:
+                f.write(teks + '\n')
+            print(f"Teks berhasil ditambahkan ke file '{nama_file}'.")
+        except Exception as e:
+            print(f"Gagal menambahkan teks: {e}")
+    
+    def status_file(nama_file):
+        try:
+            stat_info = os.stat(nama_file)
+            print(f"\nStatus file '{nama_file}':")
+            print(f"Pemilik: {stat_info.st_uid}")
+            print(f"Waktu modifikasi terakhir: {datetime.fromtimestamp(stat_info.st_mtime)}")
+            print(f"Izin akses: {stat.filemode(stat_info.st_mode)}")
+        except FileNotFoundError:
+            print(f"File '{nama_file}' tidak ditemukan.")
+        except Exception as e:
+            print(f"Gagal menampilkan status file: {e}")
+    
+    def main():
+        while True:
+            print("\nPilih perintah:")
+            print("1. Baca file")
+            print("2. Tambah teks ke file")
+            print("3. Tampilkan status file")
+            print("4. Keluar")
+    
+            pilihan = input("Masukkan pilihan (1-4): ")
+    
+            if pilihan == '1':
+                nama_file = input("Masukkan nama file yang akan dibaca: ")
+                baca_file(nama_file)
+            elif pilihan == '2':
+                nama_file = input("Masukkan nama file yang akan ditambahkan teks: ")
+                teks = input("Masukkan teks yang ingin ditambahkan: ")
+                tambah_teks(nama_file, teks)
+            elif pilihan == '3':
+                nama_file = input("Masukkan nama file untuk menampilkan status: ")
+                status_file(nama_file)
+            elif pilihan == '4':
+                print("Keluar dari program.")
+                break
+            else:
+                print("Pilihan tidak valid. Silakan coba lagi.")
+    
+    if __name__ == "__main__":
+        main()
+    \end{python}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{3}
+    \bibitem{3.2.1Stallings2016}
+    Stallings, W. (2016). \textit{Computer Organization and Architecture: Designing for Performance (10th ed.)}. Pearson Education. 
+
+    \bibitem{3.2.1Owens2008}
+    Owens, J. D., Houston, M., Luebke, D., Green, S., Stone, J. E., & Phillips, J. C. (2008). \textit{GPU Computing}. Proceedings of the IEEE, 96(5), 879-899.
+
+\end{thebibliography}
 
 \end{document}

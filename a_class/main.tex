@@ -216,6 +216,147 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Group 9}
+
+In this task, we simulate a potential deadlock scenario and implement a deadlock prevention strategy. Two processes, Process 1 and Process 2, each require two resources: Resource A and Resource B.
+
+\subsection*{Deadlock Simulation}
+
+In the deadlock simulation, Process 1 first locks Resource A and waits for Resource B, while Process 2 locks Resource B and waits for Resource A. This creates a circular wait condition, which leads to a deadlock.
+
+\subsection*{Deadlock Prevention}
+
+To prevent the deadlock, we apply a consistent resource allocation order. Both processes are required to lock Resource A first, followed by Resource B. This ensures that no circular wait occurs, and thus avoids the deadlock.\vspace{10pt}
+
+	\lstset{ 
+		language=Python,
+		backgroundcolor=\color{white}, 
+		commentstyle=\color{gray}, 
+		keywordstyle=\color{blue},
+		basicstyle=\ttfamily\footnotesize, 
+		breaklines=true,  
+		frame=single, 
+		showstringspaces=false, 
+	}
+
+\begin{lstlisting}
+import threading
+import time
+
+# Create two locks to represent Resource A and Resource B
+resource_a = threading.Lock()
+resource_b = threading.Lock()
+
+# Function for Process 1
+def process_1():
+    print("Process 1: Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 1: Acquired Resource A.")
+    
+    time.sleep(1)  # Simulating work with Resource A
+    
+    print("Process 1: Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 1: Acquired Resource B.")
+    
+    # Release resources after processing
+    resource_b.release()
+    resource_a.release()
+    
+    print("Process 1: Released both resources.")
+
+# Function for Process 2
+def process_2():
+    print("Process 2: Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 2: Acquired Resource B.")
+    
+    time.sleep(1)  # Simulating work with Resource B
+    
+    print("Process 2: Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 2: Acquired Resource A.")
+    
+    # Release resources after processing
+    resource_a.release()
+    resource_b.release()
+    
+    print("Process 2: Released both resources.")
+
+# Simulating Deadlock
+print("Starting simulation of potential deadlock...")
+
+# Create two threads for Process 1 and Process 2
+t1 = threading.Thread(target=process_1)
+t2 = threading.Thread(target=process_2)
+
+# Start the threads
+t1.start()
+t2.start()
+
+# Join threads back to the main thread to finish execution
+t1.join()
+t2.join()
+
+print("Simulation of potential deadlock complete.\n")
+
+# Deadlock Prevention using a consistent resource allocation order
+print("Starting deadlock prevention simulation...")
+
+def process_1_prevent_deadlock():
+    print("Process 1 (Prevent): Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 1 (Prevent): Acquired Resource A.")
+    
+    time.sleep(1)  # Simulating work with Resource A
+    
+    print("Process 1 (Prevent): Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 1 (Prevent): Acquired Resource B.")
+    
+    # Release resources after processing
+    resource_b.release()
+    resource_a.release()
+    
+    print("Process 1 (Prevent): Released both resources.")
+
+def process_2_prevent_deadlock():
+    print("Process 2 (Prevent): Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 2 (Prevent): Acquired Resource A.")
+    
+    time.sleep(1)  # Simulating work with Resource A
+    
+    print("Process 2 (Prevent): Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 2 (Prevent): Acquired Resource B.")
+    
+    # Release resources after processing
+    resource_b.release()
+    resource_a.release()
+    
+    print("Process 2 (Prevent): Released both resources.")
+
+# Using consistent resource allocation order (A -> B) to prevent deadlock
+t1_prevent = threading.Thread(target=process_1_prevent_deadlock)
+t2_prevent = threading.Thread(target=process_2_prevent_deadlock)
+
+# Start the threads
+t1_prevent.start()
+t2_prevent.start()
+
+# Join threads back to the main thread to finish execution
+t1_prevent.join()
+t2_prevent.join()
+
+print("Deadlock prevention simulation complete.")
+\end{lstlisting}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item \textbf{Deadlock Simulation}: In this part, we simulate a deadlock where Process 1 locks Resource A and waits for Resource B, while Process 2 locks Resource B and waits for Resource A. This leads to a circular wait (deadlock).
+    \item \textbf{Deadlock Prevention}: In the second part, we use a consistent resource allocation order, where both processes request Resource A first and then Resource B. This prevents deadlock because no circular wait can occur.
+\end{itemize}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

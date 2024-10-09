@@ -273,85 +273,80 @@ This assignment involved designing a multithreading scenario to solve a computat
     import os
     import psutil
     
-    def buat_file(nama_file):
-        try:
-            with open(nama_file, 'w') as f:
-                f.write('')  # Membuat file kosong
-            print(f"File '{nama_file}' berhasil dibuat.")
-        except Exception as e:
-            print(f"Gagal membuat file: {e}")
+    def tampilkan_welcome_screen():
+        print(
+            """
+        \033[32m ___  ___      _____ _     _____\033[0m
+        \033[32m|  \/  |     /  __ \ |   |_   _|\033[0m
+        \033[32m| .  . |_   _| /  \/ |     | |  \033[0m
+        \033[32m| |\/| | | | | |   | |     | |  \033[0m
+        \033[32m| |  | | |_| | \__/\ |_____| |_ \033[0m
+        \033[32m\_|  |_/\__, |\____/\_____/\___/\033[0m
+        \033[32m         __/ |                  \033[0m
+        \033[32m        |___/                   \033[0m
     
-    def hapus_file(nama_file):
-        try:
-            os.remove(nama_file)
-            print(f"File '{nama_file}' berhasil dihapus.")
-        except FileNotFoundError:
-            print(f"File '{nama_file}' tidak ditemukan.")
-        except Exception as e:
-            print(f"Gagal menghapus file: {e}")
+        \033[35mPenggunaan: python mycli.py\033[0m
+    
+        \033[36mMengelola file dan menampilkan informasi sistem\033[0m
+        """)
     
     def tampilkan_daftar_file():
         try:
             files = os.listdir('.')
-            if files:
-                print("Daftar file di direktori saat ini:")
-                for file in files:
-                    print(file)
-            else:
-                print("Tidak ada file di direktori saat ini.")
+            print("Daftar file:", ", ".join(files) if files else "Tidak ada file")
         except Exception as e:
             print(f"Gagal menampilkan daftar file: {e}")
     
     def tampilkan_daftar_proses():
         try:
-            for proc in psutil.process_iter(['pid', 'name', 'username']):
-                print(f"PID: {proc.info['pid']}, Nama: {proc.info['name']}, Pengguna: {proc.info['username']}")
+            for proc in psutil.process_iter(['pid', 'name']):
+                print(f"PID: {proc.info['pid']}, Nama: {proc.info['name']}")
         except Exception as e:
             print(f"Gagal menampilkan daftar proses: {e}")
     
     def tampilkan_status_sistem():
         try:
-            cpu_percent = psutil.cpu_percent(interval=1)
-            memory = psutil.virtual_memory()
-            print(f"Penggunaan CPU: {cpu_percent}%")
-            print(f"Total Memori: {memory.total / (1024 ** 3):.2f} GB")
-            print(f"Memori yang Digunakan: {memory.used / (1024 ** 3):.2f} GB ({memory.percent}%)")
+            cpu = psutil.cpu_percent()
+            mem = psutil.virtual_memory()
+            print(f"CPU: {cpu}%, RAM: {mem.percent}% ({mem.used/1e9:.1f}/{mem.total/1e9:.1f} GB)")
         except Exception as e:
             print(f"Gagal menampilkan status sistem: {e}")
     
     def main():
+        tampilkan_welcome_screen()
+        
+        perintah = {
+            '1': ('Buat file', 
+                    lambda: open(input("Nama file: "), 'w').close()),
+            '2': ('Tampilkan daftar file', 
+                    tampilkan_daftar_file),
+            '3': ('Hapus file', 
+                    lambda: os.remove(input("Nama file: "))),
+            '4': ('Tampilkan daftar proses', 
+                    tampilkan_daftar_proses),
+            '5': ('Tampilkan status sistem', 
+                    tampilkan_status_sistem),
+            '6': ('Keluar', 
+                    exit)
+        }
+        
         while True:
-            print("\nPilih perintah:")
-            print("1. Buat file")
-            print("2. Tampilkan daftar file")
-            print("3. Hapus file")
-            print("4. Tampilkan daftar proses")
-            print("5. Tampilkan status sistem")
-            print("6. Keluar")
-            
-            pilihan = input("Masukkan pilihan (1-6): ")
-    
-            if pilihan == '1':
-                nama_file = input("Masukkan nama file yang akan dibuat: ")
-                buat_file(nama_file)
-            elif pilihan == '2':
-                tampilkan_daftar_file()
-            elif pilihan == '3':
-                nama_file = input("Masukkan nama file yang akan dihapus: ")
-                hapus_file(nama_file)
-            elif pilihan == '4':
-                tampilkan_daftar_proses()
-            elif pilihan == '5':
-                tampilkan_status_sistem()
-            elif pilihan == '6':
-                print("Keluar dari program.")
-                break
-            else:
-                print("Pilihan tidak valid. Silakan coba lagi.")
+            print("\n" + "\n".join(f"{k}. {v[0]}" for k, v in perintah.items()))
+            try:
+                perintah[input("Pilih perintah: ")][1]()
+            except Exception as e:
+                print(f"Error: {e}")
     
     if __name__ == "__main__":
         main()
 \end{python}
+\par Hasil \textit{output}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth] {asset/output_assignment4_group2.png} 
+    \caption{\textit{output assignment} 4}
+    \label{fig:output_assignment_4}
+\end{figure}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

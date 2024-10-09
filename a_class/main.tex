@@ -116,6 +116,20 @@ Dalam penerapannya pada penjadwalan CPU, metode FCFS menempatkan setiap proses d
     \item Tidak ideal untuk sistem waktu-berbagi karena tidak dapat memenuhi kebutuhan respons cepat.
 \end{enumerate}
 
+\renewcommand{\refname}{Sumber}
+\begin{thebibliography}{}
+
+\bibitem{guru99}
+Guru99. (2023). \textit{First Come First Serve (FCFS) Scheduling Algorithm in OS}. Retrieved from \url{https://www.guru99.com/fcfs-scheduling.html}
+
+\bibitem{scaler}
+Scaler. (n.d.). \textit{First Come First Serve (FCFS) Scheduling Algorithm}. Retrieved October 10, 2024, from \url{https://www.scaler.com/topics/first-come-first-serve/}
+
+\bibitem{byjus}
+BYJU'S. (n.d.). \textit{FCFS Scheduling - Full Form and Working}. Retrieved October 10, 2024, from \url{https://byjus.com/gate/fcfs-scheduling-full-form/}
+
+\end{thebibliography}
+
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:
 \begin{itemize}
@@ -212,8 +226,57 @@ In this assignment, students were asked to simulate different deadlock scenarios
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
+%Ilham Kurniawan - H071231024
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Pertanyaan dan Implementasi Kode Python untuk \textit{Command-Line Interface} (CLI) Sederhana}
+
+\textbf{Pertanyaan} :
+
+\vspace{0.2cm}
+
+Jelaskan fungsi cli() dalam kode Python di bawah dan sebutkan perintah-perintah apa saja yang didukung oleh CLI tersebut!
+
+\begin{python}
+import os
+
+def cli():
+    while True:
+        perintah = input("Masukkan perintah (buat, daftar, hapus, info, keluar): ")
+        if perintah == "buat":
+            nama_file = input("Masukkan nama file yang akan dibuat: ")
+            open(nama_file, 'w').close()
+            print(f"File {nama_file} telah dibuat.")
+        elif perintah == "daftar":
+            files = os.listdir('.')
+            print("File:", files)
+        elif perintah == "hapus":
+            nama_file = input("Masukkan nama file yang akan dihapus: ")
+            os.remove(nama_file)
+            print(f"File {nama_file} telah dihapus.")
+        elif perintah == "info":
+            files = os.listdir('.')
+            for file in files:
+                if os.path.isfile(file):
+                    print(f"File: {file}, Ukuran: {os.path.getsize(file)} bytes")
+        elif perintah == "keluar":
+            break
+        else:
+            print("Perintah tidak valid.")
+
+cli()
+
+\end{python}
+
+\textbf{Jawaban} : Fungsi cli() dalam kode Python tersebut merupakan antarmuka baris perintah sederhana yang memungkinkan \textit{user} untuk melakukan manipulasi file dasar. Perintah yang didukung adalah:
+
+\begin{itemize}
+    \item buat: Membuat file kosong dengan nama yang diberikan oleh \textit{user}.
+    \item daftar: Menampilkan semua file yang ada di direktori saat ini.
+    \item hapus: Menghapus file dengan nama yang diberikan oleh \textit{user}.
+    \item keluar: Mengakhiri program CLI.
+\end{itemize}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

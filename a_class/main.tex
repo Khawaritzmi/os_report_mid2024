@@ -439,7 +439,7 @@ compare_algorithms(processes, quantum)
     SJN  & 6.25  & 12.25 \\ \hline
     RR   & 12.50 & 18.50 \\ \hline
     \end{tabular}
-    \caption{Perbandingan Algoritma FCFS, SJN, dan RR}
+    \caption{Perbandingan Algoritma FCFS, SJN, dan Round Robin}
     \end{table}
     \item Kesimpulan \\
     Dari hasil di atas, dapat disimpulkan bahwa algoritma SJN memberikan hasil rata \textit{waiting time} dan \textit{turnaround time} yang lebih baik dibandingkan dengan FCFS dan RR, karena algoritma ini mengeksekusi proses dengan waktu \textit{burst time} terpendek terlebih dahulu. 
@@ -461,6 +461,77 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
+\subsubsection{Group 9}
+Buatlah sebuah program \textit{Python} yang dapat melakukan hal-hal berikut:
+\begin{enumerate}
+    \item Membuat sebuah \textit{file} baru bernama data.txt.
+    \item Menulis teks "Hello, this is a test file" ke dalam \textit{file} data.txt.
+    \item Membaca isi \textit{file} data.txt dan menampilkannya di layar.
+    \item Buat sub-direktori baru bernama test_dir.
+    \item Pindahkan \textit{file} data.txt ke dalam sub-direktori test_dir.
+    \item Cek dan tampilkan hak akses \textit{file} untuk file data.txt di dalam sub-direktori tersebut.
+    \item Hapus \textit{file} data.txt beserta direktori test_dir.
+\end{enumerate}
+
+\textbf{Jawaban}
+\begin{python}
+import os
+import shutil
+
+# 1. Membuat sebuah file baru bernama 'data.txt'
+with open('data.txt', 'w') as file:
+
+# 2. Menulis teks ke dalam file
+file.write("Hello, this is a test file")
+
+# 3. Membaca isi file dan menampilkannya
+with open('data.txt', 'r') as file:
+content = file.read()
+print("Isi dari 'data.txt':", content)
+
+# 4. Buat sub-direktori baru bernama 'test_dir'
+os.mkdir('test_dir')
+
+# 5. Pindahkan file 'data.txt' ke dalam sub-direktori 'test_dir'
+shutil.move('data.txt', 'test_dir/data.txt')
+
+# 6. Cek dan tampilkan hak akses file untuk file 'data.txt'
+file_path = 'test_dir/data.txt'
+permissions = oct(os.stat(file_path).st_mode)[-3:]
+print(f"Hak akses file 'data.txt' setelah dipindahkan: {permissions}")
+
+# 7. Hapus file 'data.txt' beserta direktori 'test_dir'
+os.remove(file_path)
+os.rmdir('test_dir')
+
+print("File 'data.txt' dan direktori 'test_dir' berhasil dihapus.")
+
+\end{python}
+
+Penjelasan:
+\begin{enumerate}
+    \item Membuat \textit{file}: Menggunakan open() dengan mode 'w' untuk membuat \textit{file} baru atau menulis ulang \textit{file} yang ada.
+    \item Menulis \textit{file}: Teks "Hello, this is a test file" ditulis ke dalam file menggunakan method write().
+    \item Membaca \textit{file}: Isi \textit{file} dibaca dan ditampilkan menggunakan method read().
+    \item Membuat direktori: Direktori baru test_dir dibuat menggunakan os.mkdir().
+    \item Memindahkan \textit{file}: File data.txt dipindahkan ke dalam direktori test_dir menggunakan shutil.move().
+    \item Cek hak akses \textit{file}: Hak akses \textit{file} dicek menggunakan os.stat() dan ditampilkan dalam format oktal. 
+    \begin{enumerate}
+        \item Misalkan \textit{output}-nya adalah 644. Ini berarti:
+        \begin{itemize}
+            \item Pemilik \textit{file} dapat membaca dan menulis \textit{file} (6 = 4 + 2).
+            \item Grup pemilik \textit{file} hanya dapat membaca \textit{file} (4).
+            \item Pengguna lain juga hanya dapat membaca \textit{file} (4).
+        \end{itemize}
+        \item Jika hak akses yang berbeda muncul, misalnya 755:
+        \begin{itemize}
+            \item 7 untuk pemilik \textit{file} berarti kombinasi dari 4 (baca) + 2 (tulis) + 1 (eksekusi), sehingga pemilik bisa membaca, menulis, dan mengeksekusi \textit{file}.
+            \item 5 untuk grup dan pengguna lainnya berarti mereka hanya bisa membaca dan mengeksekusi \textit{file} (4 + 1).
+        \end{itemize}
+    \end{enumerate}
+    \item Menghapus file dan direktori: File dan direktori dihapus menggunakan os.remove() dan os.rmdir().
+\end{enumerate}
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

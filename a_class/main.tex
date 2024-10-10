@@ -152,7 +152,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
     skenario ini, sistem operasi dapat membuat beberapa proses 
     yang benar-benar berjalan secara bersamaan pada \textit{core} 
     yang berbeda. Setiap \textit{core} dapat menangani tugas 
-    secara independen, sehingga meningkatkan throughput sistem 
+    secara independen, sehingga meningkatkan \textit{throughput} sistem 
     secara signifikan dan memungkinkan eksekusi beberapa tugas 
     secara simultan.
 
@@ -223,7 +223,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
         \textit{process creation}. Ketika sebuah proses baru 
         dibuat, sistem operasi harus mengalokasikan berbagai 
         sumber daya yang dibutuhkan proses untuk berfungsi. Ini 
-        meliputi memori, deskriptor file, dan waktu CPU.
+        meliputi memori, \textit{file descriptor}, dan waktu CPU.
 
         Alokasi memori melibatkan penciptaan ruang alamat virtual 
         untuk proses baru. Pada sistem modern, ini biasanya 
@@ -254,7 +254,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
         diimplementasikan melalui \textit{pointer} dalam struktur 
         proses. Setiap proses memiliki \textit{pointer} ke proses 
         induknya, serta daftar proses anaknya. Ini memungkinkan 
-        traversal yang efisien dari pohon proses, yang diperlukan 
+        penjelajahan yang efisien dari pohon proses, yang diperlukan 
         untuk operasi seperti terminasi proses dan pembersihan 
         sumber daya (Bovet \& Cesati, 2005).
 

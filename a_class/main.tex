@@ -101,102 +101,102 @@ This section introduces the concept of threads and their relation to processes, 
 \subsubsection{\textit{Threads vs Proses}}
 Dalam sistem operasi modern, konsep proses dan \textit{thread} adalah dua mekanisme penting untuk melakukan eksekusi program secara paralel atau \textit{multitasking}. Keduanya memberikan kemampuan bagi sistem untuk menjalankan berbagai tugas secara efisien, tetapi dengan cara yang berbeda dalam hal pengelolaan sumber daya, memori, dan \textit{performa}. Makalah ini akan membahas perbedaan mendasar antara \textit{thread} dan proses, cara kerja keduanya, serta kelebihan dan kekurangan masing-masing.
 
-	            Proses adalah program yang sedang dieksekusi, yang terdiri dari instruksi yang dijalankan oleh CPU dan memiliki ruang memori sendiri, mencakup ruang alamat, data, dan variabel. Setiap proses yang berjalan di sistem operasi adalah entitas independen yang tidak berbagi memori atau sumber daya dengan proses lain kecuali menggunakan mekanisme komunikasi khusus seperti \textit{Inter-Process Communication} (IPC).
+            Proses adalah program yang sedang dieksekusi, yang terdiri dari instruksi yang dijalankan oleh CPU dan memiliki ruang memori sendiri, mencakup ruang alamat, data, dan variabel. Setiap proses yang berjalan di sistem operasi adalah entitas independen yang tidak berbagi memori atau sumber daya dengan proses lain kecuali menggunakan mekanisme komunikasi khusus seperti \textit{Inter-Process Communication} (IPC). 
 
-	            Karakteristik proses:
-	            \begin{enumerate}
-		            \item Isolasi Memori: Setiap proses memiliki ruang memori sendiri, terisolasi dari proses lain.
-		            \item Komunikasi: Menggunakan mekanisme IPC seperti \textit{shared memory}, \textit{pipes}, atau \textit{message passing}.
-		            \item \textit{Overhead} Tinggi: Membuat proses baru membutuhkan waktu dan sumber daya lebih banyak karena setiap proses memiliki salinan terpisah dari memori, sumber daya, dan lingkungan eksekusi.
-	            \end{enumerate}
-	      \item Thread
+            Menurut Tanenbaum dan Bos (2015), \textit{"a process is essentially a program in execution, including the program counter, registers, and variables, while threads are the entities within a process that can be scheduled for execution"} (p. 89). Dalam hal ini, proses memiliki ruang memori terisolasi, sedangkan beberapa thread dalam satu proses berbagi memori dan sumber daya yang sama, yang memungkinkan komunikasi antar-thread lebih cepat tetapi memerlukan manajemen sinkronisasi yang ketat.
 
-	            \textit{Thread} adalah unit eksekusi yang lebih ringan di dalam proses. Sebuah proses dapat memiliki banyak \textit{thread} yang berbagi ruang memori dan sumber daya. Semua \textit{thread} dalam satu proses dapat mengakses data yang sama dan bekerja secara bersamaan, membuatnya lebih efisien untuk tugas-tugas yang memerlukan multitasking dalam ruang memori yang sama.
+            Karakteristik proses:
+            \begin{enumerate}
+                \item Isolasi Memori: Setiap proses memiliki ruang memori sendiri, terisolasi dari proses lain.
+                \item Komunikasi: Menggunakan mekanisme IPC seperti \textit{shared memory}, \textit{pipes}, atau \textit{message passing}.
+                \item \textit{Overhead} Tinggi: Membuat proses baru membutuhkan waktu dan sumber daya lebih banyak karena setiap proses memiliki salinan terpisah dari memori, sumber daya, dan lingkungan eksekusi.
+            \end{enumerate}
+      \item Thread
 
-	            Karakteristik \textit{thread}:
-	            \begin{enumerate}
-		            \item Berbagi Memori: Semua \textit{thread} dalam satu proses berbagi ruang alamat yang sama, membuat komunikasi antar \textit{thread} lebih cepat.
-		            \item Komunikasi Lebih Efisien: Karena berbagi memori, \textit{thread} tidak memerlukan mekanisme IPC yang kompleks untuk berkomunikasi.
-		            \item \textit{Overhead} Rendah: Membuat \textit{thread} baru lebih cepat dan membutuhkan lebih sedikit sumber daya dibandingkan membuat proses baru.
-	            \end{enumerate}
+            \textit{Thread} adalah unit eksekusi yang lebih ringan di dalam proses. Sebuah proses dapat memiliki banyak \textit{thread} yang berbagi ruang memori dan sumber daya. Semua \textit{thread} dalam satu proses dapat mengakses data yang sama dan bekerja secara bersamaan, membuatnya lebih efisien untuk tugas-tugas yang memerlukan multitasking dalam ruang memori yang sama.
+
+            Karakteristik \textit{thread}:
+            \begin{enumerate}
+                \item Berbagi Memori: Semua \textit{thread} dalam satu proses berbagi ruang alamat yang sama, membuat komunikasi antar \textit{thread} lebih cepat.
+                \item Komunikasi Lebih Efisien: Karena berbagi memori, \textit{thread} tidak memerlukan mekanisme IPC yang kompleks untuk berkomunikasi.
+                \item \textit{Overhead} Rendah: Membuat \textit{thread} baru lebih cepat dan membutuhkan lebih sedikit sumber daya dibandingkan membuat proses baru.
+            \end{enumerate}
       \endenumerate
 \item Perbedaan utama antara Proses dan Thread
       \begin{enumerate}
-	      \item Isolasi Memori
-	            \begin{enumerate}
-		            \item Proses memiliki ruang memori sendiri yang terpisah dari proses lain. Ini berarti setiap proses memiliki wilayah alamat memori yang terisolasi, dan satu proses tidak bisa secara langsung mengakses data dari proses lain.
-		            \item \textit{Thread}, di sisi lain, berbagi ruang memori dengan \textit{thread} lain dalam satu proses. Semua \textit{thread} dalam satu proses memiliki akses ke data dan variabel yang sama, sehingga komunikasi antar-\textit{thread} lebih mudah tetapi membutuhkan manajemen sinkronisasi.
-	            \end{enumerate}
-	      \item Komunikasi
-	            \begin{enumerate}
-		            \item Proses menggunakan mekanisme \textit{Inter-Process Communication} (IPC) untuk berkomunikasi satu sama lain, seperti \textit{message passing}, \textit{pipes}, atau \textit{shared memory}. Mekanisme IPC sering kali lebih lambat dan kompleks karena memerlukan protokol tambahan untuk mentransfer data antara proses.
-		            \item \textit{Thread} dalam satu proses dapat berkomunikasi secara langsung melalui memori bersama tanpa perlu menggunakan IPC. Karena itu, komunikasi antar-\textit{thread} jauh lebih cepat dibandingkan dengan antar-proses.
-	            \end{enumerate}
-	      \item \textit{Overhead}
-	            \begin{enumerate}
-		            \item Membuat atau mengelola proses baru membutuhkan lebih banyak waktu dan sumber daya. Setiap kali sebuah proses baru dibuat, sistem harus menyiapkan ruang memori dan salinan sumber daya terpisah untuk proses tersebut, yang membutuhkan \textit{overhead} yang besar.
-		            \item Membuat \textit{thread} baru dalam sebuah proses jauh lebih efisien dan memerlukan lebih sedikit sumber daya karena \textit{thread} berbagi sebagian besar lingkungan eksekusi dengan \textit{thread} lain di proses yang sama.
-	            \end{enumerate}
-	      \item Manajemen
-	            \begin{enumerate}
-		            \item Proses dikelola secara independen oleh sistem operasi. Setiap proses memiliki siklus hidup sendiri yang tidak bergantung pada proses lain. Jika sebuah proses mengalami \textit{crash}, tidak akan mempengaruhi proses lain.
-		            \item \textit{Thread} dikelola di bawah proses yang sama dan berbagi sumber daya bersama. Jika satu \textit{thread} mengalami \textit{crash} atau kegagalan, bisa mempengaruhi \textit{thread} lain dalam proses yang sama, sehingga meningkatkan risiko ketidakstabilan.
-	            \end{enumerate}
-	      \item Kegagalan
-	            \begin{enumerate}
-		            \item Jika sebuah proses mengalami kegagalan atau \textit{crash}, proses tersebut tidak akan mempengaruhi proses lain karena setiap proses terisolasi satu sama lain. Hal ini memberikan keandalan yang lebih besar.
-		            \item Jika satu \textit{thread} dalam sebuah proses mengalami kegagalan, hal itu dapat berdampak pada \textit{thread} lain dalam proses yang sama karena mereka berbagi ruang memori dan sumber daya yang sama. Oleh karena itu, kegagalan satu \textit{thread} bisa menyebabkan seluruh proses menjadi tidak stabil.
-	            \end{enumerate}
-	      \item Penggunaan
-	            \begin{enumerate}
-		            \item Proses lebih cocok untuk menjalankan aplikasi yang berbeda secara terpisah, terutama ketika keamanan dan isolasi sangat penting. Misalnya, menjalankan dua aplikasi seperti \textit{browser} dan editor teks sebagai dua proses berbeda.
-		            \item \textit{Thread} lebih cocok digunakan ketika sebuah aplikasi memerlukan multitasking internal. Contohnya, aplikasi seperti server web menggunakan \textit{thread} untuk menangani banyak permintaan pengguna dalam satu proses yang sama.
-	            \end{enumerate}
+          \item Isolasi Memori
+                \begin{enumerate}
+                    \item Proses memiliki ruang memori sendiri yang terpisah dari proses lain. Ini berarti setiap proses memiliki wilayah alamat memori yang terisolasi, dan satu proses tidak bisa secara langsung mengakses data dari proses lain.
+                    \item \textit{Thread}, di sisi lain, berbagi ruang memori dengan \textit{thread} lain dalam satu proses. Semua \textit{thread} dalam satu proses memiliki akses ke data dan variabel yang sama, sehingga komunikasi antar-\textit{thread} lebih mudah tetapi membutuhkan manajemen sinkronisasi.
+                \end{enumerate}
+          \item Komunikasi
+                \begin{enumerate}
+                    \item Proses menggunakan mekanisme \textit{Inter-Process Communication} (IPC) untuk berkomunikasi satu sama lain, seperti \textit{message passing}, \textit{pipes}, atau \textit{shared memory}. Mekanisme IPC sering kali lebih lambat dan kompleks karena memerlukan protokol tambahan untuk mentransfer data antara proses.
+                    \item \textit{Thread} dalam satu proses dapat berkomunikasi secara langsung melalui memori bersama tanpa perlu menggunakan IPC. Karena itu, komunikasi antar-\textit{thread} jauh lebih cepat dibandingkan dengan antar-proses.
+                \end{enumerate}
+          \item \textit{Overhead}
+                \begin{enumerate}
+                    \item Membuat atau mengelola proses baru membutuhkan lebih banyak waktu dan sumber daya. Setiap kali sebuah proses baru dibuat, sistem harus menyiapkan ruang memori dan salinan sumber daya terpisah untuk proses tersebut, yang membutuhkan \textit{overhead} yang besar.
+                    \item Membuat \textit{thread} baru dalam sebuah proses jauh lebih efisien dan memerlukan lebih sedikit sumber daya karena \textit{thread} berbagi sebagian besar lingkungan eksekusi dengan \textit{thread} lain di proses yang sama.
+                \end{enumerate}
+          \item Manajemen
+                \begin{enumerate}
+                    \item Proses dikelola secara independen oleh sistem operasi. Setiap proses memiliki siklus hidup sendiri yang tidak bergantung pada proses lain. Jika sebuah proses mengalami \textit{crash}, tidak akan mempengaruhi proses lain.
+                    \item \textit{Thread} dikelola di bawah proses yang sama dan berbagi sumber daya bersama. Jika satu \textit{thread} mengalami \textit{crash} atau kegagalan, bisa mempengaruhi \textit{thread} lain dalam proses yang sama, sehingga meningkatkan risiko ketidakstabilan.
+                \end{enumerate}
+          \item Kegagalan
+                \begin{enumerate}
+                    \item Jika sebuah proses mengalami kegagalan atau \textit{crash}, proses tersebut tidak akan mempengaruhi proses lain karena setiap proses terisolasi satu sama lain. Hal ini memberikan keandalan yang lebih besar.
+                    \item Jika satu \textit{thread} dalam sebuah proses mengalami kegagalan, hal itu dapat berdampak pada \textit{thread} lain dalam proses yang sama karena mereka berbagi ruang memori dan sumber daya yang sama. Oleh karena itu, kegagalan satu \textit{thread} bisa menyebabkan seluruh proses menjadi tidak stabil.
+                \end{enumerate}
+          \item Penggunaan
+                \begin{enumerate}
+                    \item Proses lebih cocok untuk menjalankan aplikasi yang berbeda secara terpisah, terutama ketika keamanan dan isolasi sangat penting. Misalnya, menjalankan dua aplikasi seperti \textit{browser} dan editor teks sebagai dua proses berbeda.
+                    \item \textit{Thread} lebih cocok digunakan ketika sebuah aplikasi memerlukan multitasking internal. Contohnya, aplikasi seperti server web menggunakan \textit{thread} untuk menangani banyak permintaan pengguna dalam satu proses yang sama.
+                \end{enumerate}
       \end{enumerate}
 \item Manfaat dan Kekurangan
       \begin{enumerate}
-	      \item Proses
+          \item Proses
 
-	            Manfaat:
-	            \begin{enumerate}
-		            \item Isolasi dan Keamanan: Proses yang berbeda terisolasi satu sama lain, sehingga kegagalan atau \textit{crash} pada satu proses tidak akan memengaruhi proses lain. Ini memberikan stabilitas dan keamanan lebih baik, terutama untuk aplikasi yang berjalan secara independen.
-		            \item Penggunaan untuk Aplikasi Terpisah: Proses cocok untuk menjalankan aplikasi yang berbeda, seperti menjalankan editor teks bersamaan dengan \textit{browser}.
-	            \end{enumerate}
-	            Kekurangan:
-	            \begin{enumerate}
-		            \item \textit{Overhead} Besar: Pembuatan proses baru memerlukan lebih banyak sumber daya dan waktu karena setiap proses memiliki salinan sendiri dari memori dan sumber daya.
-		            \item Komunikasi yang Rumit: Komunikasi antar proses memerlukan mekanisme IPC, yang lebih lambat dan kompleks dibandingkan komunikasi antar-\textit{thread}.
-	            \end{enumerate}
-	      \item \textit{Thread}
+                Manfaat:
+                \begin{enumerate}
+                    \item Isolasi dan Keamanan: Proses yang berbeda terisolasi satu sama lain, sehingga kegagalan atau \textit{crash} pada satu proses tidak akan memengaruhi proses lain. Ini memberikan stabilitas dan keamanan lebih baik, terutama untuk aplikasi yang berjalan secara independen.
+                    \item Penggunaan untuk Aplikasi Terpisah: Proses cocok untuk menjalankan aplikasi yang berbeda, seperti menjalankan editor teks bersamaan dengan \textit{browser}.
+                \end{enumerate}
+                Kekurangan:
+                \begin{enumerate}
+                    \item \textit{Overhead} Besar: Pembuatan proses baru memerlukan lebih banyak sumber daya dan waktu karena setiap proses memiliki salinan sendiri dari memori dan sumber daya.
+                    \item Komunikasi yang Rumit: Komunikasi antar proses memerlukan mekanisme IPC, yang lebih lambat dan kompleks dibandingkan komunikasi antar-\textit{thread}.
+                \end{enumerate}
+          \item \textit{Thread}
 
-	            Manfaat:
-	            \begin{enumerate}
-		            \item Multitasking yang Cepat: \textit{Thread} memungkinkan multitasking yang lebih efisien dalam satu proses, karena berbagi memori dan sumber daya dengan \textit{thread} lain.
-		            \item Lebih Efisien dalam Sumber Daya: Membuat \textit{thread} baru lebih cepat dan ringan dibandingkan membuat proses baru, sehingga cocok untuk aplikasi yang membutuhkan banyak tugas paralel seperti server web atau aplikasi \textit{real-time}.
-	            \end{enumerate}
+                Manfaat:
+                \begin{enumerate}
+                    \item Multitasking yang Cepat: \textit{Thread} memungkinkan multitasking yang lebih efisien dalam satu proses, karena berbagi memori dan sumber daya dengan \textit{thread} lain.
+                    \item Lebih Efisien dalam Sumber Daya: Membuat \textit{thread} baru lebih cepat dan ringan dibandingkan membuat proses baru, sehingga cocok untuk aplikasi yang membutuhkan banyak tugas paralel seperti server web atau aplikasi \textit{real-time}.
+                \end{enumerate}
 
-	            Kekurangan:
-	            \begin{enumerate}
-		            \item Masalah Keamanan dan Kestabilan: Karena \textit{thread} berbagi memori dan sumber daya, jika satu \textit{thread} mengalami \textit{crash} atau error, hal itu bisa berdampak pada \textit{thread} lain dalam proses yang sama.
-		            \item Kompleksitas Pengelolaan Sinkronisasi: Dalam aplikasi \textit{multithreaded}, sinkronisasi antara \textit{thread} harus dikelola dengan hati-hati untuk menghindari masalah seperti \textit{race conditions} atau \textit{deadlock}.
-	            \end{enumerate}
+                Kekurangan:
+                \begin{enumerate}
+                    \item Masalah Keamanan dan Kestabilan: Karena \textit{thread} berbagi memori dan sumber daya, jika satu \textit{thread} mengalami \textit{crash} atau error, hal itu bisa berdampak pada \textit{thread} lain dalam proses yang sama.
+                    \item Kompleksitas Pengelolaan Sinkronisasi: Dalam aplikasi \textit{multithreaded}, sinkronisasi antara \textit{thread} harus dikelola dengan hati-hati untuk menghindari masalah seperti \textit{race conditions} atau \textit{deadlock}.
+                \end{enumerate}
       \end{enumerate}
 \item Implementasi
       \begin{enumerate}
-	      \item Proses
+          \item Proses
 
-	            Pada sistem operasi seperti Linux, menjalankan dua aplikasi berbeda seperti \textit{Google Chrome} dan \textit{LibreOffice} adalah contoh penggunaan proses. Masing-masing aplikasi berjalan dalam ruang memori yang terpisah dan tidak dapat berinteraksi secara langsung tanpa melalui mekanisme IPC.
-	      \item \textit{Thread}
+                Pada sistem operasi seperti Linux, menjalankan dua aplikasi berbeda seperti \textit{Google Chrome} dan \textit{LibreOffice} adalah contoh penggunaan proses. Masing-masing aplikasi berjalan dalam ruang memori yang terpisah dan tidak dapat berinteraksi secara langsung tanpa melalui mekanisme IPC.
+          \item \textit{Thread}
 
-	            Aplikasi seperti \textit{Google Chrome} juga menggunakan multithreading di dalam satu proses. Setiap tab atau plugin di \textit{browser} mungkin dijalankan sebagai \textit{thread} terpisah yang berbagi memori, tetapi berfungsi secara independen untuk meningkatkan performa dan responsivitas.
+                Aplikasi seperti \textit{Google Chrome} juga menggunakan multithreading di dalam satu proses. Setiap tab atau plugin di \textit{browser} mungkin dijalankan sebagai \textit{thread} terpisah yang berbagi memori, tetapi berfungsi secara independen untuk meningkatkan performa dan responsivitas.
       \end{enumerate}
 \item Kapan menggunakan Proses dan \textit{Thread}?
       \begin{enumerate}
-	      \item Gunakan proses ketika isolasi dan keamanan antar tugas sangat penting, misalnya saat menjalankan aplikasi yang berbeda. Isolasi memori dan sumber daya membantu melindungi stabilitas sistem jika terjadi \textit{crash}.
-	      \item Gunakan \textit{thread} ketika kamu memerlukan efisiensi dalam multitasking di dalam satu aplikasi. \textit{Thread} cocok untuk aplikasi yang membutuhkan banyak tugas paralel yang saling bergantung, seperti server web atau aplikasi multimedia.
+          \item Gunakan proses ketika isolasi dan keamanan antar tugas sangat penting, misalnya saat menjalankan aplikasi yang berbeda. Isolasi memori dan sumber daya membantu melindungi stabilitas sistem jika terjadi \textit{crash}.
+          \item Gunakan \textit{thread} ketika kamu memerlukan efisiensi dalam multitasking di dalam satu aplikasi. \textit{Thread} cocok untuk aplikasi yang membutuhkan banyak tugas paralel yang saling bergantung, seperti server web atau aplikasi multimedia.
       \end{enumerate}
-
-
 
 Tanenbaum, A. S., \& Bos, H. (2015). \textit{Modern operating systems} (4th ed.). Pearson.
 

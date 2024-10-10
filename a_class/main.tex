@@ -71,14 +71,14 @@ This section explains the fundamental components that make up a computer system,
         
         \begin{enumerate}
             \item \textit{Benchmarking}
-            \par \textit{Benchmarking} adalah metode pengujian serangkaian program dengan cara membandingkan performa suatu sistem terhadap performa standar untuk mendapatkan performa relatif dari komponen PC atau sistem. Tujuan dari \textit{benchmarking} adalah untuk memberikan gambaran yang jelas tentang performa sistem komputer sehingga dapat dipastikan bahwa teknologi atau perangkat yang digunakan optimal dan memenuhi standar industri. Ada dua jenis dari \textit{benchmarking}:
+            \par \textit{Benchmarking} adalah metode pengujian serangkaian program dengan cara membandingkan performa suatu sistem terhadap performa standar untuk mendapatkan performa relatif dari komponen PC atau sistem\cite{3.2.4Bhat2021}. Tujuan dari \textit{benchmarking} adalah untuk memberikan gambaran yang jelas tentang performa sistem komputer sehingga dapat dipastikan bahwa teknologi atau perangkat yang digunakan optimal dan memenuhi standar industri. Ada dua jenis dari \textit{benchmarking}:
             \begin{itemize}
                 \item \textit{Synthetic benchmarking}: Simulasi skenario tertentu untuk mengukur potensi maksimum performa sistem, seperti menggunakan SPEC CPU untuk menguji kemampuan komputasi CPU.
                 \item \textit{Real-world Benchmarking}: Pengukuran performa sistem menggunakan aplikasi nyata dalam kondisi operasional sehari-hari, seperti Adobe Premiere Pro untuk menguji kecepatan \textit{rendering} video.
             \end{itemize}
             
             \item \textit{Profiling}
-            \par \textit{Profiling} adalah metode untuk menganalisis performa aplikasi atau sistem secara mendalam dengan fokus pada penggunaan sumber daya internal. \textit{Profiling} membantu mengidentifikasi bagian dari sistem atau program yang mengkonsumsi sumber daya paling banyak, seperti CPU, memori, I/O, dan waktu eksekusi. Dengan demikian, \textit{profiling} digunakan untuk menemukan dan memperbaiki "\textit{bottleneck}" dalam aplikasi atau sistem, memungkinkan pengembang untuk melakukan optimasi yang tepat. Berikut beberapa metode dalam \textit{profiling}:
+            \par \textit{Profiling} adalah metode untuk menganalisis performa aplikasi atau sistem secara mendalam dengan fokus pada penggunaan sumber daya internal\cite{3.2.4Altvater2023}. \textit{Profiling} membantu mengidentifikasi bagian dari sistem atau program yang mengkonsumsi sumber daya paling banyak, seperti CPU, memori, I/O, dan waktu eksekusi. Dengan demikian, \textit{profiling} digunakan untuk menemukan dan memperbaiki "\textit{bottleneck}" dalam aplikasi atau sistem, memungkinkan pengembang untuk melakukan optimasi yang tepat. Berikut beberapa metode dalam \textit{profiling}:
             \begin{itemize}
                 \item \textit{CPU profiling}: Mengukur penggunaan CPU untuk mengidentifikasi kode yang paling memakan waktu.
                 \item \textit{Memory profiling}: Mengukur alokasi memori dan menemukan kebocoran memori. 
@@ -87,7 +87,7 @@ This section explains the fundamental components that make up a computer system,
             \end{itemize}
             
             \item \textit{Monitoring}
-            \par \textit{Monitoring} adalah proses pengamatan dan pengukuran performa sistem secara \textit{real-time} dan berkelanjutan untuk memastikan sistem berjalan optimal serta mendeteksi masalah atau potensi gangguan. \textit{Monitoring} sangat penting untuk menjaga stabilitas dan performa sistem komputer atau aplikasi, terutama dalam lingkungan produksi, di mana \textit{uptime} dan keandalan menjadi prioritas. Beberapa teknik yang sering digunakan dalam \textit{monitoring} antara lain:
+            \par \textit{Monitoring} adalah proses pengamatan dan pengukuran performa sistem secara \textit{real-time} dan berkelanjutan untuk memastikan sistem berjalan optimal serta mendeteksi masalah atau potensi gangguan\cite{3.2.4Wikimedia2023}. \textit{Monitoring} sangat penting untuk menjaga stabilitas dan performa sistem komputer atau aplikasi, terutama dalam lingkungan produksi, di mana \textit{uptime} dan keandalan menjadi prioritas. Beberapa teknik yang sering digunakan dalam \textit{monitoring} antara lain:
             \begin{itemize}
                 \item \textit{Real-time monitoring}:
                 \par Memantau sistem secara langsung dan memberikan informasi performa atau kegagalan segera setelah terjadi. \textit{Real-time monitoring} sangat penting untuk aplikasi dengan kebutuhan \textit{uptime} tinggi, seperti layanan berbasis \textit{cloud}, sistem \textit{e-commerce}, atau \textit{server}.
@@ -118,6 +118,7 @@ This section explains the fundamental components that make up a computer system,
         \end{enumerate}
             
     \item {Strategi Optimasi Performa}
+    \par Strategi optimasi performa bertujuan untuk mengatasi beberapa masalah yang telah diidentifikasi atau diukur performanya\cite{3.2.4GeeksforGeeks2024}.
         \begin{enumerate}
             \item Peningkatan \textit{hardware}
             \par Peningkatan \textit{hardware} mengacu pada peningkatan kapasitas fisik perangkat keras komputer untuk meningkatkan performa sistem. Beberapa cara peningkatan \textit{hardware} antara lain:
@@ -186,7 +187,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -379,5 +380,8 @@ The first half of the course introduced core operating system concepts, includin
 
     \bibitem{3.2.4GeeksforGeeks2024}
     GeeksforGeeks. (2024). \textit{Performance of computer in Computer Organization.} Diakses pada 1 oktober 2024, dari https://www.geeksforgeeks.org/computer-organization-performance-of-computer/ 
+
+    \bibitem{3.2.4Wikimedia2023}
+    Wikimedia Foundation. (2023). \textit{Monitoring.} Wikipedia. Diakses pada 1 oktober 2024, dari https://en.wikipedia.org/wiki/Monitoring 
 \end{thebibliography}
 \end{document}

@@ -222,40 +222,32 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
+\subsubsection{Group 1}
+\subsection*{Soal}
+
 \begin{enumerate}
-    \item \textit{ Deadlock Handling:}
-
-    \begin{enumerate}[a.]
-    \item Simulasikan beberapa skenario \textit{deadlock} dengan
-
-    menggunakan pemrograman \textit{Python}. Skenario-skenario tersebut harus mencakup situasi di mana dua atau lebih proses saling menunggu satu sama lain untuk melepaskan sumber daya.
+    \item Simulasikan beberapa skenario \textit{deadlock} dengan menggunakan pemrograman \textit{Python}. Skenario-skenario tersebut harus mencakup situasi di mana dua atau lebih proses saling menunggu satu sama lain untuk melepaskan sumber daya.
 
     \item Eksplorasi beberapa metode pencegahan \textit{deadlock} berikut ini:
     \begin{itemize}
         \item  {Prevention}: Buat aturan sehingga deadlock tidak mungkin terjadi.
         \item {Avoidance}: Simulasikan algoritma \textit{Banker's} untuk menghindari \textit{deadlock}.
-        \item {Detection and Recovery}: Implementasikan mekanisme untuk mendeteksi \textit{deadlock} dan mengambil langkah pemulihan.
+        \item {Detection and Recovery}: Implementasikan mekanisme untuk men-deteksi \textit{deadlock} dan mengambil langkah pemulihan.
     \end{itemize}
-
-   \item Setiap metode, tunjukkan bagaimana cara metode tersebut bekerja melalui implementasi \textit{Python.}
-
-   \item 	Berikan analisis singkat dari setiap pendekatan, termasuk kelebihan dan kekurangannya.
+    Setiap metode, tunjukkan bagaimana cara metode tersebut bekerja melalui implementasi \textit{Python.} Serta berikan analisis singkat dari setiap pendekatan, termasuk kelebihan dan kekurangannya.
 \end{enumerate}
 
-\end{enumerate}
+\subsection*{Jawaban}
 
-
-jawaban:
-
-\begin{enumerate}[b.]
+\begin{enumerate}
     \item Skenario \textit{Deadlock}
 
     Pada skenario ini, kita akan membuat dua atau lebih proses yang membutuhkan dua sumber daya dan mengunci satu sama lain, menciptakan situasi \textit{deadlock}.
-\end{enumerate}
 
-Kode Phyton:
 
-\begin{python}
+    Kode \textit{Phyton}:
+
+    \begin{python}
 import threading
 import time
 
@@ -297,20 +289,23 @@ t2.start()
 t1.join()
 t2.join()
 
-\end{python}
+    \end{python}
 
     Hasil : Pada simulasi ini, proses pertama mengunci \textit{resource} 1 lalu mencoba mengunci \textit{resource} 2, sementara proses kedua mengunci \textit{resource} 2 dan mencoba mengunci \textit{resource} 1, sehingga kedua proses saling menunggu dan terjadi \textit{deadlock.}
 
+    \item Skenario Pencegahan \textit{Deadlock}
 
-\begin{enumerate}[a.]
-    \item Prevention (Pencegahan \textit{Deadlock})
+    Untuk mencegah \textit{deadlock} kita bisa menggunakan metode - metode berikut:
 
-    Dalam metode pencegahan, kita mencegah \textit{deadlock} dengan menetapkan aturan tertentu, seperti memaksa semua proses untuk mengunci resource dalam urutan yang sama.
-\end{enumerate}
+    \begin{enumerate}[a.]
+        \item \textit{Prevention} (Pencegahan \textit{Deadlock})
 
-Kode Phyton :
+        Dalam metode pencegahan, kita mencegah \textit{deadlock} dengan me-netapkan aturan tertentu, seperti memaksa semua proses untuk mengunci \textit{resource} dalam urutan yang sama.
+    \end{enumerate}
 
-\begin{python}
+    Kode\textit{Phyton} :
+
+    \begin{python}
 def process_1_prevention():
     print("Process 1 trying to lock resources in order")
     lock1.acquire()
@@ -342,37 +337,36 @@ t2.start()
 
 t1.join()
 t2.join()
-\end{python}
+    \end{python}
 
+    Analisis : Metode pencegahan ini memastikan bahwa semua proses mengunci \textit{resource} dalam urutan yang sama sehingga \textit{deadlock} tidak akan terjadi. Namun, metode ini bisa mengurangi fleksibilitas dan efisiensi dalam penggunaan \textit{resource.}
 
-Analisis : Metode pencegahan ini memastikan bahwa semua proses mengunci \textit{resource} dalam urutan yang sama sehingga \textit{deadlock} tidak akan terjadi. Namun, metode ini bisa mengurangi fleksibilitas dan efisiensi dalam penggunaan \textit{resource.}
+    \begin{enumerate}[b.]
+        \item {Avoidance} (Algoritma \textit{Banker's})
 
-\begin{enumerate}[c.]
-    \item {Avoidance} (Algoritma \textit{Banker's})
+        Metode ini menggunakan algoritma \textit{Banker's} yang menghitung apa-kah permintaan sumber daya dapat dipenuhi tanpa menyebabkan \textit{deadlock}. Berikut adalah contoh sederhana simulasi \textit{Banker's algorithm.}
+    \end{enumerate}
 
-    Metode ini menggunakan algoritma \textit{Banker's} yang menghitung apakah permintaan sumber daya dapat dipenuhi tanpa menyebabkan \textit{deadlock}. Berikut adalah contoh sederhana simulasi \textit{Banker's algorithm.}
-\end{enumerate}
+        Kode \textit{Phyton} :
 
-Kode Phyton :
-
-\begin{python}
+        \begin{python}
 def is_safe(available, max_need, allocation):
     need = [[max_need[i][j] - allocation[i][j] for j in range(len(available))] for i in range(len(allocation))]
     work = available[:]
     finish = [False] * len(allocation)
     safe_sequence = []
 
-    while len(safe_sequence) < len(finish):
-        for i in range(len(finish)):
-            if not finish[i] and all(need[i][j] <= work[j] for j in range(len(work))):
-                safe_sequence.append(i)
-                work = [work[j] + allocation[i][j] for j in range(len(work))]
-                finish[i] = True
-                break
-        else:
-            return False, []
+while len(safe_sequence) < len(finish):
+    for i in range(len(finish)):
+        if not finish[i] and all(need[i][j] <= work[j] for j in range(len(work))):
+            safe_sequence.append(i)
+            work = [work[j] + allocation[i][j] for j in range(len(work))]
+            finish[i] = True
+            break
+    else:
+        return False, []
 
-    return True, safe_sequence
+return True, safe_sequence
 
 available = [3, 3, 2]
 max_need = [[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]]
@@ -383,22 +377,19 @@ if is_safe_state:
     print(f"System is in safe state. Safe sequence: {safe_seq}")
 else:
     print("System is in unsafe state. Deadlock may occur.")
-\end{python}
+    \end{python}
 
+    Analisis : Algoritma \textit{Banker's} menjaga sistem tetap dalam keadaan aman. Kelebihannya adalah algoritma ini memastikan bahwa \textit{deadlock} tidak akan terjadi. Namun, kerugiannya adalah algoritma ini memerlukan informasi yang akurat tentang jumlah sumber daya yang dibutuhkan setiap proses dan sering kali terlalu konservatif.
 
-Analisis : Algoritma \textit{Banker's} menjaga sistem tetap dalam keadaan aman. Kelebihannya adalah algoritma ini memastikan bahwa \textit{deadlock} tidak akan terjadi. Namun, kerugiannya adalah algoritma ini memerlukan informasi yang akurat tentang jumlah sumber daya yang dibutuhkan setiap proses dan sering kali terlalu konservatif.
+    \begin{enumerate}[c.]
+        \item \textit{Detection and Recovery} (Pendeteksian dan Pemulihan \textit{Deadlock)}
 
+        Metode ini mendeteksi \textit{deadlock} dengan memonitor kondisi sistem, kemudian mengambil tindakan pemulihan seperti menghentikan beberapa proses untuk memecah \textit{deadlock}.
+    \end{enumerate}
 
-\begin{enumerate}[d.]
-    \item \textit{Detection and Recovery} (Pendeteksian dan Pemulihan \textit{Deadlock)}
+    Kode \textit{python}:
 
-    Metode ini mendeteksi \textit{deadlock} dengan memonitor kondisi sistem, kemudian mengambil tindakan pemulihan seperti menghentikan beberapa proses untuk memecah \textit{deadlock}.
-Kode Phyton :
-\end{enumerate}
-
-kode python:
-
-\begin{python}
+    \begin{python}
 def detect_deadlock(allocation, request, available):
     num_processes = len(allocation)
     num_resources = len(available)
@@ -430,10 +421,10 @@ if detect_deadlock(allocation, request, available):
     print("Deadlock detected.")
 else:
     print("No deadlock.")
-\end{python}
+    \end{python}
 
-Analisis : Metode deteksi dan pemulihan efektif dalam situasi di mana \textit{deadlock} jarang terjadi. Keuntungannya adalah sumber daya dapat digunakan lebih optimal tanpa harus mencegah \textit{deadlock} sejak awal. Namun, pemulihan bisa memerlukan penghentian proses, yang mungkin tidak selalu diinginkan.
-
+    Analisis : Metode deteksi dan pemulihan efektif dalam situasi di mana \textit{deadlock} jarang terjadi. Keuntungannya adalah sumber daya dapat digunakan lebih optimal tanpa harus mencegah \textit{deadlock} sejak awal. Namun, pemulihan bisa memerlukan penghentian proses, yang mungkin tidak selalu diinginkan.
+\end{enumerate}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

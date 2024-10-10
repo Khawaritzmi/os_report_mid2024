@@ -100,7 +100,8 @@ Penjelasannya dibawah ini:
 \subsubsection{Hubungan antara \textit{Threads} dan Proses}
 \subsubsection{Manfaat Penggunaan \textit{Threads}}
 \subsubsection{\textit{Multithreading}}
-\textit{Multithreading} adalah teknik yang memungkinkan sebuah proses menjalankan beberapa tugas secara paralel dalam satu waktu. Setiap tugas ini disebut \textit{thread}, dan masing-masing \textit{thread} dapat berjalan secara independen, tetapi tetap berbagi sumber daya seperti memori dan file yang sama. \textit{Multithreading} sangat berguna dalam meningkatkan efisiensi dan performa sebuah aplikasi, terutama untuk program yang perlu menangani banyak tugas bersamaan.
+\textit{Multithreading} adalah teknik yang memungkinkan sebuah proses menjalankan beberapa tugas secara paralel dalam satu waktu. Setiap tugas ini disebut \textit{thread}, dan masing-masing \textit{thread} dapat berjalan secara independen, tetapi tetap berbagi sumber daya seperti memori dan file yang sama. \textit{Multithreading} sangat berguna dalam meningkatkan efisiensi dan performa sebuah aplikasi, terutama untuk program yang perlu menangani banyak tugas bersamaan \textit{(GeeksforGeeks, n.d)}.
+
 
 Dalam sistem operasi modern, \textit{multithreading} digunakan untuk menjalankan proses-proses berat seperti pengolahan data atau menjalankan banyak aplikasi sekaligus, dengan memanfaatkan kemampuan prosesor untuk menangani beberapa pekerjaan secara simultan. Berikut beberapa konsep penting dalam \textit{multithreading}:
 
@@ -122,8 +123,9 @@ Dengan mengimplementasikan \textit{multithreading}, kita bisa menciptakan aplika
 
 \subsubsection{\textit{Threads} and Proses}
 \subsubsection{Model \textit{Multithreading}}
-\textit{Multithreading} adalah fitur dari sistem operasi yang memungkinkan beberapa \textit{thread} berjalan secara bersamaan dalam satu proses.
-Ada beberapa model \textit{Multithreading} umumnya dibagi menjadi tiga, yaitu:
+\textit{Multithreading} adalah fitur dari sistem operasi yang memungkinkan beberapa \textit{thread} berjalan secara bersamaan dalam satu proses (Tutorialspoint, n.d).\\
+
+Beberapa model \textit{Multithreading} umumnya dibagi menjadi tiga, yaitu:
 \begin{enumerate}
     \item \textit{Many-to-One Model} (Banyak ke Satu)\\
     Pada model ini, banyak \textit{thread} yang dibuat oleh aplikasi \textit{(user-level)} dipetakan ke satu \textit{thread} di \textit{kernel}. Artinya, sistem operasi hanya melihat satu \textit{thread kernel} meskipun ada banyak \textit{thread} di tingkat aplikasi.
@@ -222,18 +224,18 @@ Ada beberapa model \textit{Multithreading} umumnya dibagi menjadi tiga, yaitu:
 \noindent Tutorialspoint. (n.d.). \textit{Multithreading models in operating system}. Tutorialspoint. Diakses pada 3 Oktober 2024, dari \url{https://www.tutorialspoint.com/operating_system/os_multi_threading_models.htm}
 
 \subsubsection{Pengelolaan \textit{Threads}}
-Pengelolaan \textit{threads} merupakan salah satu aspek penting dalam sistem operasi untuk memastikan bahwa \textit{threads} dapat berjalan secara efisien dan tidak saling mengganggu. Sistem operasi bertanggung jawab untuk mengalokasikan waktu \textit{CPU (Central Processing Unit)}, memori, serta sumber daya lain bagi setiap \textit{thread}. Berikut adalah beberapa elemen utama dalam pengelolaan \textit{threads}:
+Pengelolaan \textit{threads} merupakan salah satu aspek penting dalam sistem operasi untuk memastikan bahwa \textit{threads} dapat berjalan secara efisien dan tidak saling mengganggu. Sistem operasi bertanggung jawab untuk mengalokasikan waktu CPU \textit{(Central Processing Unit)}, memori, serta sumber daya lain bagi setiap \textit{thread}. Berikut adalah beberapa elemen utama dalam pengelolaan \textit{threads}:
 
 \begin{itemize}
     \item \textbf{Pembuatan \textit{Threads}}: Sistem operasi memungkinkan aplikasi untuk membuat \textit{threads} baru saat dibutuhkan. Misalnya, saat sebuah aplikasi memulai tugas paralel, sistem operasi akan membuat satu atau lebih \textit{threads} untuk menangani tugas-tugas tersebut. Setiap \textit{thread} memiliki identitas unik dan dikaitkan dengan proses induknya. Pembuatan \textit{threads} biasanya dilakukan melalui \textit{API (Application Programming Interface)} atau fungsi-fungsi khusus yang disediakan oleh sistem operasi, seperti \texttt{pthread\_create()} pada \textit{Linux} atau \texttt{CreateThread()} pada \textit{Windows}.
 
-    \item \textbf{Penjadwalan \textit{Threads}}: Sistem operasi menggunakan algoritma penjadwalan untuk menentukan urutan eksekusi \textit{threads}. Ini memastikan bahwa \textit{threads} dari berbagai proses mendapatkan waktu \textit{CPU} secara adil dan efisien. Beberapa algoritma penjadwalan yang digunakan dalam pengelolaan \textit{threads} antara lain \textit{Round Robin} dan \textit{Priority Scheduling}. Penjadwalan yang baik sangat penting untuk menjaga kinerja sistem secara keseluruhan, terutama dalam lingkungan dengan banyak \textit{threads} yang berjalan bersamaan.
+    \item \textbf{Penjadwalan \textit{Threads}}: Sistem operasi menggunakan algoritma penjadwalan untuk menentukan urutan eksekusi \textit{threads}. Ini memastikan bahwa \textit{threads} dari berbagai proses mendapatkan waktu CPU secara adil dan efisien. Beberapa algoritma penjadwalan yang digunakan dalam pengelolaan \textit{threads} antara lain \textit{Round Robin} dan \textit{Priority Scheduling}. Penjadwalan yang baik sangat penting untuk menjaga kinerja sistem secara keseluruhan, terutama dalam lingkungan dengan banyak \textit{threads} yang berjalan bersamaan.
 
     \item \textbf{Sinkronisasi \textit{Threads}}: Ketika beberapa \textit{threads} berbagi sumber daya yang sama, sistem operasi harus memastikan bahwa tidak terjadi konflik saat \textit{threads} mengakses sumber daya tersebut. Mekanisme sinkronisasi seperti \textit{mutexes}, \textit{semaphores}, dan \textit{condition variables} digunakan untuk mengelola akses bersamaan dan mencegah kondisi balapan (\textit{race conditions}). Sinkronisasi memastikan bahwa \textit{threads} tidak saling mengganggu dan data yang digunakan tetap konsisten.
 
     \item \textbf{Penghentian \textit{Threads}}: Setelah \textit{threads} selesai menjalankan tugasnya, sistem operasi harus menghentikan \textit{threads} tersebut dan membersihkan sumber daya yang digunakan. Penghentian \textit{threads} dapat dilakukan secara manual oleh aplikasi, atau secara otomatis ketika tugas telah selesai. Fungsi-fungsi seperti \texttt{pthread\_exit()} pada \textit{Linux} atau \texttt{ExitThread()} pada \textit{Windows} digunakan untuk mengakhiri \textit{threads}.
 
-    \item \textbf{Manajemen Konteks \textit{Threads}}: Ketika sistem operasi berpindah dari satu \textit{thread} ke \textit{thread} lainnya, perlu dilakukan penyimpanan dan pemulihan konteks eksekusi (\textit{context switching}). Konteks ini mencakup informasi tentang status \textit{CPU}, \textit{register}, dan memori yang sedang digunakan oleh \textit{thread}. Sistem operasi harus memastikan bahwa ketika sebuah \textit{thread} dilanjutkan, ia bisa melanjutkan eksekusinya tanpa kehilangan data atau instruksi penting.
+    \item \textbf{Manajemen Konteks \textit{Threads}}: Ketika sistem operasi berpindah dari satu \textit{thread} ke \textit{thread} lainnya, perlu dilakukan penyimpanan dan pemulihan konteks eksekusi (\textit{context switching}). Konteks ini mencakup informasi tentang status CPU, \textit{register}, dan memori yang sedang digunakan oleh \textit{thread}. Sistem operasi harus memastikan bahwa ketika sebuah \textit{thread} dilanjutkan, ia bisa melanjutkan eksekusinya tanpa kehilangan data atau instruksi penting.
 \end{itemize}
 
 Pengelolaan \textit{threads} yang efektif sangat penting untuk meningkatkan kinerja sistem operasi, terutama pada sistem dengan banyak tugas yang berjalan secara bersamaan. Dengan teknik yang tepat, \textit{threads} dapat membantu mempercepat penyelesaian tugas dan memastikan pemanfaatan sumber daya secara optimal.

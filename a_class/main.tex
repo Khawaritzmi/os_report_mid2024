@@ -67,6 +67,14 @@ Processes are a central concept in operating systems. This section covers:
     \item Context switching
 \end{itemize}
 
+\subsubsection{Process Creation}
+Process creation adalah tahap di mana sistem operasi menciptakan proses baru:
+\begin{enumerate}
+    \item \textbf{Inisialisasi PCB:} OS membuat Process Control Block (PCB) yang berisi informasi dasar proses, seperti Process ID (PID), status awal, dan program counter.
+    \item \textbf{Masuk ke Ready Queue:} Proses ditempatkan dalam Ready Queue, menunggu giliran untuk dijadwalkan dan dieksekusi oleh CPU.
+    \item \textbf{Alokasi sumber daya:} OS mengalokasikan sumber daya yang diperlukan oleh proses, seperti memori untuk kode dan data, serta akses ke perangkat I/O.
+\end{enumerate}
+
 \subsection{Scheduling Algorithms}
 This section covers:
 \begin{itemize}

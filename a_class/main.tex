@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage{float}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -59,6 +60,136 @@ This section introduces various system performance metrics used to measure the e
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
+\subsubsection{Fungsi Arsitektur Sistem Komputer }
+\subsubsection{Komponen Utama Sistem Arsitektur Komputer }
+\subsubsection{Tipe atau Jenis dari Sistem Arsitektur Komputer }
+
+\begin{enumerate}
+    \item Arsitektur\textit{Von Neumann}
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\linewidth]{asset/image1.png}
+            \caption{Diagram Arsitektur \textit{Von Neumann}}
+            \label{fig:Arsitektur-Von-Neumann}
+        \end{figure}
+
+    \item Arsitektur Harvard
+    
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\linewidth]{asset/image2.png}
+            \caption{Diagram Arsitektur Harvard}
+            \label{fig:Diagram-Arsitektur-Harvard}
+        \end{figure}
+    
+    \item Arsitektur ISA \textit{(Instruction Set Architecture)}
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.3\linewidth]{asset/image3.png}
+            \caption{Diagram Arsitektur ISA}
+            \label{fig:Diagram-Arsitektur-ISA}
+        \end{figure}
+
+    \item Arsitektur Mikro
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.4\linewidth]{asset/image4.png}
+            \caption{Diagram Arsitektur Mikro}
+            \label{fig:Diagram-Arsitektur-Mikro}
+        \end{figure}
+    
+    \item Desain Sistem
+    \par Desain sistem adalah proses yang melibatkan pembuatan kerangka kerja atau blueprint dari suatu sistem yang akan dibangun. Pada dasarnya, desain sistem bertujuan untuk menggabungkan berbagai elemen atau komponen yang ada dalam suatu sistem menjadi satu kesatuan yang berfungsi secara utuh dan terintegrasi. Desain ini memastikan bahwa semua komponen bekerja bersama untuk mencapai tujuan sistem secara efektif dan efisien. Menurut Laudon dan Laudon (2020), desain ini bertujuan untuk menggabungkan berbagai elemen sistem menjadi satu kesatuan yang berfungsi secara efektif dan efisien, termasuk perencanaan elemen seperti CPU, memori, I/O \textit{(Input/Output)}, dan \textit{bus}. 
+
+    \item Arsitektur SISD \textit{(Single Instruction, Single Data)}
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.4\linewidth]{asset/image6.png}
+            \caption{Diagram Arsitektur SISD}
+            \label{fig:Diagram-Arsitektur-SISD}
+        \end{figure}
+        
+    Sistem \textit{Single Instruction Single Data} (SISD) adalah arsitektur komputasi di mana satu instruksi diproses pada satu aliran data secara berurutan dalam sebuah mesin uniprosesor. CPU hanya menangani satu aliran instruksi dan satu aliran data pada satu waktu, menjadikannya ideal untuk komputasi sekuensial dalam sistem yang sederhana. Dalam sistem ini, instruksi dan data disimpan di memori utama, tetapi kecepatan pemrosesannya dibatasi oleh kecepatan transfer data internal. Model ini kurang cocok untuk aplikasi yang membutuhkan pemrosesan paralel atau kinerja komputasi tinggi.
+
+    \begin{itemize}
+        \item  Keuntungan  SISD adalah kesederhanaannya dan mudah diimplementasikan, cocok untuk komputasi sekuensial
+        \item kekurangannya adalah tidak mendukung pemrosesan paralel, sehingga kinerjanya terbatas untuk tugas komputasi intensif atau modern yang membutuhkan pemrosesan simultan.
+    \end{itemize}
+    
+    \item Arsitektur SIMD \textit{(Single Instruction, Multiple Data)}
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.4\linewidth]{asset/image7.png}
+            \caption{Diagram Arsitektur SIMD}
+            \label{fig:Diagram-Arsitektur-SIMD}
+        \end{figure}
+    
+    Menurut Kahfi Alfarisi Firdaus (2015), kelas komputer paralel dalam taksonomi Flynn. Ini menggambarkan komputer dengan beberapa elemen pemrosesan yang melakukan operasi yang sama pada beberapa titik data secara bersamaan. Dengan demikian, mesin tersebut memanfaatkan data tingkat paralelisme. SIMD ini terutama berlaku untuk tugas umum seperti menyesuaikan kontras dalam citra digital atau menyesuaikan volume audio digital. Paling modern CPU desain termasuk instruksi SIMD dalam rangka meningkatkan kinerja multimedia digunakan.
+
+    \begin{itemize}
+        \item Keuntungan utama sistem SIMD adalah kemampuannya untuk memproses banyak data sekaligus dengan satu instruksi. Misalnya, jika SIMD memuat delapan data sekaligus, operasi seperti add dapat diterapkan ke seluruh data dalam satu waktu, meningkatkan paralelisme dan efisiensi dibandingkan prosesor super-skalar
+        \item kekurangannya adalah tidak semua algoritma, terutama yang berbasis aliran kontrol, dapat dioptimalkan dengan SIMD. Selain itu, kebutuhan register besar meningkatkan konsumsi daya, dan sebagian besar kompiler tidak secara otomatis menghasilkan instruksi SIMD, sehingga memerlukan tenaga ahli untuk implementasinya.
+    \end{itemize}
+
+    \item Arsitektur MISD \textit{(Multiple Instruction, Single Data)}
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.4\linewidth]{asset/image8.png}
+            \caption{Diagram Arsitektur MISD}
+            \label{fig:Diagram-Arsitektur-MISD}
+        \end{figure}
+
+    MISD \textit{(Multiple Instruction, Single Data)}  menurut Imam (2014), adalah jenis arsitektur komputasi paralel di mana beberapa prosesor menjalankan operasi berbeda pada data yang sama secara bersamaan. Arsitektur ini digunakan untuk mendeteksi dan menutupi kesalahan, seperti pada sistem toleransi kesalahan yang menggunakan replikasi tugas untuk memastikan keandalan. Meskipun termasuk dalam jenis komputasi paralel, MISD kurang umum dibandingkan dengan arsitektur SIMD dan MIMD, yang lebih cocok untuk pemrosesan data paralel pada umumnya. Contoh penerapannya jarang, karena efisiensinya yang lebih rendah dibanding arsitektur lainnya.
+
+    \begin{itemize}
+        \item keuntungan MISD dalam deteksi kesalahan dan peningkatan keamanan karena beberapa prosesor menjalankan instruksi berbeda pada data yang sama, memungkinkan validasi hasil secara efektif. Sistem ini ideal untuk aplikasi yang memerlukan keandalan tinggi, seperti toleransi kesalahan.
+        \item kekurangannya adalah penggunaan yang sangat terbatas dalam komputasi umum, karena tidak efisien untuk tugas-tugas yang memerlukan paralelisme standar. kekurangannya adalah penggunaan yang sangat terbatas dalam komputasi umum, karena tidak efisien untuk tugas-tugas yang memerlukan paralelisme standar. 
+    \end{itemize}
+    \item Arsitektur MIMD \textit{(Multiple Instruction, Multiple Data)}
+
+        \noindent
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.4\linewidth]{asset/image8.png}
+            \caption{Diagram Arsitektur MIMD}
+            \label{fig:Diagram-Arsitektur-MIMD}
+        \end{figure}
+        
+    MIMD \textit{(Multiple Instruction Multiple Data)} adalah arsitektur di mana beberapa instruksi dapat dieksekusi secara paralel pada banyak unit data. Dengan kata lain, MIMD menerapkan berbagai instruksi pada beberapa data secara bersamaan. Arsitektur ini menggunakan mekanisme sinkronisasi lokal yang eksplisit, yang membuatnya fleksibel, tetapi juga menyebabkan perangkat lunak menjadi lebih kompleks karena programmer atau kompiler paralelisasi harus menulis secara langsung perintah untuk komunikasi data antara prosesor yang berbeda. Namun, menurut Hennessy dan Patterson (2017), kompleksitas dalam desain perangkat keras dan pemrograman menjadi tantangan utama dalam penerapannya.
+
+    \begin{itemize}
+    
+        \item keuntungan arsitektur MIMD seperti fleksibilitas tinggi, skalabilitas, dan kecocokan untuk berbagai aplikasi karena mampu menjalankan instruksi yang berbeda secara paralel.
+
+        \item kekurangan arsitektur MIMD adalah kompleksitas dalam desain perangkat keras dan pemrograman, serta efisiensi yang sangat bergantung pada pengaturan beban kerja, yang bisa membuatnya kurang optimal jika tidak dikelola dengan baik.
+    \end{itemize}
+\end{enumerate}
+
+\begin{thebibliography}{9} 
+
+\bibitem{Laudon2020} Laudon, K., dan Laudon, J. (2020). Management Information Systems: Managing the Digital Firm. Pearson.
+
+\bibitem{Kahfie2024} Kahfie, M. (2024). Tugas 4 Arsitektur SIMD dan SISD. Retrieved October 3, 2024, https://kahfie.com/tugas-4-arsitektur-simd-dan-sisd
+
+\bibitem{Imandisini2014} Iman (2014). Arsitektur MISD dan Arsitektur SIMD. Retrieved July 21, 2014, from https://imandisini.blogspot.com/2014/07/arsitektur-misd-arsitektur-simd.html
+
+
+
+\end{thebibliography}
+
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:
 \begin{itemize}
@@ -92,7 +223,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    % \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}

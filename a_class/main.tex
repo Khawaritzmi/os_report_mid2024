@@ -7,6 +7,7 @@
 \usepackage{pythonhighlight}
 \usepackage{caption}
 \usepackage{float}
+\captionsetup{labelformat=empty}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -64,41 +65,91 @@ Describes the architecture of modern computer systems, focusing on the interacti
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:
     \subsubsection{\textit{Process Description}}
-    Menurut Silberschatz, Galvin, dan Gagne (2009), sebuah proses adalah sebuah program yang sedang dijalankan pada komputer. Setiap proses membutuhkan sumber daya, seperti CPU, memori, dan perangkat \textit{input/output}, untuk bisa berfungsi dengan baik. Komputer harus mengelola berbagai proses agar semua program dapat berfungsi dengan baik. Dalam pengelolaan ini, setiap proses memiliki \textit{process state} dan \textit{Process Control Block} (PCB) yang membantu sistem untuk mengawasi dan mengatur kondisi serta informasi penting mengenai proses tersebut.
+    Menurut Silberschatz, Galvin, dan Gagne (2009), proses adalah sebuah
+    program yang sedang dijalankan pada komputer. Setiap proses membutuhkan
+    sumber daya, seperti CPU, memori, dan perangkat \textit{input/output},
+    untuk bisa berfungsi dengan baik. Komputer harus mengelola berbagai
+    proses agar semua program dapat berfungsi dengan baik. Dalam pengelolaan ini,
+    setiap proses memiliki \textit{process state} dan \textit{Process Control Block}
+    (PCB) yang membantu sistem untuk mengawasi dan mengatur kondisi serta informasi 
+    penting mengenai proses tersebut.
+    
     \subsubsection{Process States and State Transitions}
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.8\textwidth]{asset/process-state.jpg}
-                        \caption{Gambar 1: \textit{Process states and state transitions}}
+            \caption{Gambar 1: \textit{Process states and state transitions}}
             \label{fig:process_state}
         \end{figure}
 
-        Dalam sistem operasi (OS), manajemen cara program berjalan dan berinteraksi dengan sumber daya sistem sangat penting untuk kinerja yang efisien. Model \textit{5-process-state} adalah kerangka dasar yang digunakan oleh OS untuk mengategorikan dan mengendalikan perilaku proses.
+        Dalam sistem operasi (OS), manajemen cara program berjalan dan
+        berinteraksi dengan sumber daya sistem sangat penting untuk
+        kinerja yang efisien. \textit{The 5-process-state model} adalah
+        kerangka dasar yang digunakan oleh OS untuk mengategorikan
+        dan mengendalikan perilaku proses.
 
-        Model ini membagi siklus hidup sebuah proses menjadi lima status yang berbeda, masing-masing mewakili tahap yang berbeda dalam eksekusinya. Memahami status-status ini membantu dalam mengoptimalkan penggunaan sumber daya, memastikan \textit{multitasking} yang lancar, dan menjaga stabilitas sistem. (GeeksForGeeks, 2024)
+        Model ini membagi siklus hidup sebuah proses menjadi lima status
+        yang berbeda, masing-masing mewakili tahap yang berbeda dalam eksekusinya.
+        Memahami status-status ini membantu dalam mengoptimalkan penggunaan sumber
+        daya, memastikan \textit{multitasking} yang lancar, dan menjaga stabilitas
+        sistem. (GeeksForGeeks, 2024)
 
-        Siklus hidup proses dalam sistem operasi terdiri dari beberapa status, seperti yang terlihat pada gambar di atas. Status-status tersebut meliputi:
+        Siklus hidup proses dalam sistem operasi terdiri dari beberapa status,
+        seperti yang terlihat pada gambar di atas. Status-status tersebut meliputi:
         \begin{itemize}
-            \item \textbf{\textit{New}}: Proses baru saja dibuat dan sedang menunggu  untuk dimasukkan dalam daftar proses yang siap dijalankan. Proses akan berada dalam status ini hingga sistem menerima proses tersebut.
-            \item \textbf{\textit{Ready}}: Setelah diterima, proses akan berpindah ke status \textit{ready}. Proses sudah siap untuk dieksekusi namun harus menunggu hingga \textit{scheduler} memilihnya untuk dieksekusi.
-            \item \textbf{\textit{Running}}: Proses sedang dieksekusi oleh CPU. Setelah dijadwalkan, proses akan berpindah dari status \textit{ready} ke \textit{running}.
-            \item \textbf{\textit{Waiting}}: Proses sedang menunggu operasi I/O atau suatu \textit{event} tertentu. Ketika proses membutuhkan input dari perangkat keras atau menunggu suatu \textit{event}, ia akan berpindah dari status running ke \textit{waiting}.
-            \item \textbf{\textit{Terminated}}: Proses telah selesai dieksekusi. Setelah eksekusi selesai, proses akan berpindah dari status \textit{running} ke \textit{terminated}, di mana ia tidak lagi menjadi bagian dari sistem.
+            \item \textbf{\textit{New}}:
+                Status ini menunjukkan bahwa proses baru saja dibuat dan sedang menunggu
+                untuk dimasukkan dalam daftar proses yang siap dijalankan. Proses akan
+                berada dalam status ini hingga sistem menerima proses tersebut.
+            \item \textbf{\textit{Ready}}:
+                Setelah proses diterima, proses akan berpindah ke status \textit{ready}.
+                Di sini, proses sudah siap untuk dieksekusi namun harus menunggu hingga
+                \textit{scheduler} memilihnya.
+            \item \textbf{\textit{Running}}:
+                Setelah mendapatkan jadwal, proses akan berpindah dari status \textit{ready}
+                ke \textit{running}. Pada status ini, proses sedang dieksekusi oleh CPU,
+                yang berarti ia sedang aktif melakukan tugasnya.
+            \item \textbf{\textit{Waiting}}:
+                Proses dapat berpindah ke status \textit{waiting} ketika sedang menunggu
+                operasi I/O atau suatu \textit{event} tertentu. Status ini menunjukkan
+                bahwa proses membutuhkan \textit{input} dari perangkat keras atau menunggu
+                \textit{event} tertentu sebelum dapat melanjutkan eksekusi.    
+            \item \textbf{\textit{Terminated}}:
+                Setelah eksekusi selesai, proses akan berpindah ke status \textit{terminated},
+                Pada tahap ini, proses tidak lagi menjadi bagian dari sistem.
         \end{itemize}
         Transisi antar status tersebut meliputi:
         \begin{itemize}
-            \item \textbf{\textit{Admitted}}: Ketika sebuah proses baru dibuat, ia akan berpindah dari status \textit{new} ke \textit{ready} setelah diterima oleh sistem operasi.
-            \item \textbf{\textit{Scheduler Dispatch}}: Ketika CPU siap untuk mengeksekusi proses, \textit{scheduler} akan memindahkan proses dari status \textit{ready} ke \textit{running}.
-            \item \textbf{I/O or \textit{Event Wait}}: Ketika proses membutuhkan operasi I/O atau menunggu suatu kejadian, proses akan berpindah dari \textit{running} ke \textit{waiting}.
-            \item \textbf{I/O or \textit{Event Completion}}: Setelah operasi I/O atau kejadian selesai, proses yang berada di status \textit{waiting} akan berpindah kembali ke status \textit{ready}.
-            \item \textbf{\textit{Interrupt}}: Jika proses yang sedang berjalan terganggu (misalnya terganggu oleh \textit{scheduler} untuk memberikan giliran kepada proses lain), proses akan berpindah dari \textit{running} ke \textit{ready}.
-            \item \textbf{\textit{Exit}}: Ketika proses selesai dieksekusi, ia akan berpindah dari \textit{running} ke \textit{terminated}.
+            \item \textbf{\textit{Admitted}}:
+                Ketika sebuah proses baru dibuat, ia akan berpindah dari status \textit{new} ke
+                \textit{ready} setelah diterima oleh sistem operasi. Ini menandakan bahwa proses
+                tersebut sudah siap untuk berpindah ke status berikutnya.
+            \item \textbf{\textit{Scheduler Dispatch}}:
+                Ketika CPU siap untuk mengeksekusi proses, \textit{scheduler} akan memindahkan
+                proses dari status \textit{ready} ke \textit{running}.  Ini menandakan bahwa
+                proses tersebut sedang dieksekusi.
+            \item \textbf{I/O or \textit{Event Wait}}:
+                Ketika proses membutuhkan operasi I/O atau menunggu suatu \textit{event},
+                proses akan berpindah dari \textit{running} ke \textit{waiting}.
+            \item \textbf{I/O or \textit{Event Completion}}:
+                Setelah operasi I/O atau kejadian selesai, proses yang berada di status
+                \textit{waiting} akan berpindah kembali ke status \textit{ready}.
+            \item \textbf{\textit{Interrupt}}:
+                Jika proses yang sedang berjalan terganggu (misalnya terganggu oleh
+                \textit{scheduler} untuk memberikan giliran kepada proses lain), 
+                proses akan berpindah dari \textit{running} ke \textit{ready}.
+            \item \textbf{\textit{Exit}}:
+                Ketika proses selesai dieksekusi, ia akan berpindah dari \textit{running}
+                ke \textit{terminated}.
         \end{itemize}
+
         \subsubsection {\textit{Process Control Block} (PCB)}
+
         \subsubsection {\textit{Process Control}}
+
     \begin{thebibliography}{9}
     \bibitem{Silberschatz2009} 
-    Silberschatz, A., Galvin, P. B., \& Gagne, G. (2009). \textit{Operating System Concepts} (8th ed.). Hoboken, NJ: Wiley.
+    Silberschatz, A., Galvin, P. B., \& Gagne, G. (2009). \textit{Operating System Concepts} (8th ed.).Hoboken, NJ: Wiley.
     \bibitem{GeeksForGeeks2024} 
     GeeksForGeeks. (2024, 22 Juli). \textit{5 State Process Model in Operating System}. Diakses pada 10 Oktober 2024, dari \url{https://www.geeksforgeeks.org/5-state-process-model-in-operating-system/}.    
     \end{thebibliography}
@@ -177,16 +228,16 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
     \subsubsection{Group 1}
-        \begin{python}
-            class Process:
-            def __init__(self, pid, arrival_time, burst_time):
-                self.pid = pid
-                self.arrival_time = arrival_time
-                self.burst_time = burst_time
-                self.completion_time = 0
-                self.turnaround_time = 0
-                self.waiting_time = 0
-        \end{python}
+\begin{python}
+class Process:
+    def __init__(self, pid, arrival_time, burst_time):
+        self.pid = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+        self.completion_time = 0
+        self.turnaround_time = 0
+        self.waiting_time = 0
+\end{python}
 
         \begin{table}[htbp] % Optional: For floating position
             \centering
@@ -231,9 +282,9 @@ Students were tasked with implementing various process scheduling algorithms (e.
         \noindent \textbf{Jawaban: }
 
         \noindent Untuk menjawab soal tersebut kita dapat menggunakan kode di bawah ini
-        \begin{python}
-        # Fungsi untuk algoritma First-Come, First-Served (FCFS)
-        def fcfs(processes):
+\begin{python}
+# Fungsi untuk algoritma First-Come, First-Served (FCFS)
+def fcfs(processes):
     print("\nFirst-Come, First-Served (FCFS)")
     waiting_time = 0
     total_waiting_time = 0
@@ -305,12 +356,12 @@ else:
     best_algorithm = "Round Robin"
 
 print(f"\nAlgoritma dengan rata-rata waktu tunggu paling rendah adalah {best_algorithm} dengan rata-rata waktu tunggu sebesar {min_avg_time:.2f}.")
-        \end{python}
+\end{python}
         \noindent \textbf{Output Kode:}
         \begin{figure}[h]
             \centering
             \includegraphics[width=0.9\textwidth]{asset/a1-output.png}
-                        \caption{Gambar 2: \textit{Output of Scheduling Algorithm Program}}
+            \caption{Gambar 2: \textit{Output of Scheduling Algorithm Program}}
             \label{fig:a1-output}
         \end{figure}
 
@@ -397,34 +448,34 @@ if __name__ == "__main__":
 \end{python}
 
         \noindent Berikut adalah \textit{output} dari program CLI yang dijalankan di \textit{command line}.
-        \begin{figure}[h]
-            \centering\
+        \begin{figure}[htbp]
+            \centering
             \includegraphics[width=0.9\textwidth]{asset/a4-output-1.png}
-                        \caption{Gambar 3: Membuat \textit{file} dengan nama 'tes.txt'}
+            \caption{Gambar 3: Membuat \textit{file} dengan nama 'tes.txt'}
             \label{fig:a4-output-1}
         \end{figure}
-        \begin{figure}[h]
+        \begin{figure}[htbp]
             \centering
             \includegraphics[width=0.9\textwidth]{asset/a4-output-2.png}
-                        \caption{Gambar 4: Menampilkan daftar \textit{file} dalam direktori}
+            \caption{Gambar 4: Menampilkan daftar \textit{file} dalam direktori}
             \label{fig:a4-output-2}
         \end{figure}
-        \begin{figure}[h]
+        \begin{figure}[htbp]
             \centering
             \includegraphics[width=0.9\textwidth]{asset/a4-output-3.png}
-                        \caption{Gambar 5: Menghapus \textit{file} bernama 'tes.txt'}
+            \caption{Gambar 5: Menghapus \textit{file} bernama 'tes.txt'}
             \label{fig:a4-output-3}
         \end{figure}
-        \begin{figure}[h]
+        \begin{figure}[htbp]
             \centering
             \includegraphics[width=0.9\textwidth]{asset/a4-output-4.png}
-                        \caption{Gambar 6: Menampilkan status sistem sederhana}
+            \caption{Gambar 6: Menampilkan status sistem sederhana}
             \label{fig:a4-output-4}
         \end{figure}
-        \begin{figure}[h]
+        \begin{figure}[htbp]
             \centering
             \includegraphics[width=0.9\textwidth]{asset/a4-output-5.png}
-                        \caption{Gambar 7: Keluar dari program}
+            \caption{Gambar 7: Keluar dari program}
             \label{fig:a4-output-5}
         \end{figure}
 

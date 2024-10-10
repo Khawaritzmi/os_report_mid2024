@@ -4,13 +4,13 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{caption}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
 \date{\today}
 
 \begin{document}
-	
 	\maketitle
 	\newpage
 	
@@ -90,70 +90,80 @@
 	\end{itemize}
 	
 	\subsection{File Systems}
+	File systems provide a way for the operating system to store, retrieve, and manage data. This section explains: 
 	File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
 	\begin{itemize}
-		\item File System Concepts
-		\item File attributes
-		\item Operations on files
-		\item File types
-		\item File structure
-		\item File access methods
-		\item Directory structure
-			\\Direktori adalah kumpulan titik yang berisi informasi tentang semua \textit{file}. Beberapa sistem menyimpan ratusan \textit{file} pada disk ratusan \textit{gigabyte}. Untuk mengatur semua data menggunakan organisasi yang dilakukan dalam dua bagian.
-	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{aset/Halaman-1.drawio.png}
-		\captionsetup{labelformat=empty}
-		\caption{Gambar 8. Direktori}
-	\end{figure}
-	
-	Pertama,\textit{ system file} dipecah ke dalam partisi, yang disebut juga “\textit{minidisc}” (pada mesin IBM) atau “volume” (pada mesin PC dan \textit{Macintosh}). Setiap disk pada sistem berisi sedikitnya satu partisi, merupakan struktur \textit{low-level} dimana \textit{file} dan direktori berada. Terkadang, partisi digunakan untuk menentukan beberapa daerah terpisah dalam satu \textit{disk}, yang diperlakukan sebagai perangkat penyimpan yang terpisah. Sistem lain menggunakan partisi yang lebih besar dari sebuah \textit{disk} untuk mengelompokkan \textit{disk} ke dalam satu struktur logika. Kedua, setiap partisi berisi informasi mengenai \textit{file }di dalamnya. Informasi ini disimpan pada\textit{ entry }dalam “\textit{device directory atau volume table of contents}”. Perangkat direktori (atau direktori) menyimpan informasi seperi nama, lokasi, ukuran dan tipe untuk semua\textit{ file} dari partisi tersebut. Organisasi \textit{file} yang umum dapat dilihat pada gambar .
-	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{aset/Halaman-2.drawio.png}
-		\captionsetup{labelformat=empty}
-		\caption{Gambar 9. Organisasi Sistem File}
-	\end{figure}
-	Informasi yang terdapat pada direktori adalah :  Nama, Tipe, Alamat, Panjang saat ini,  Panjang maksimum, Tanggal akses terakhir, Tanggal perubahan terakhir, ID pemilik, Informasi proteksi . Beberapa operasi yang dibentuk pada direktori adalah : Mencari \textit{file} (\textit{search}),  Membuat \textit{file} (\textit{create}), Menghapus \textit{file} (\textit{delete}), Mendaftar suatu direktori (\textit{list}), Mengubah nama \textit{file} (\textit{r\textit{ename}}),  Melintasi sistem \textit{file }(\textit{traverse})   
-	Organisasi \textit{file} dan direktori disarankan yang seefisien mungkin sehingga dapat menempatkan \textit{file} dengan cepat. Selain itu dalam penamaan \textit{file} dan direktori harus nyaman untuk\textit{ user}. Dua \textit{user} dapat memberikan nama \textit{file} yang sama. \textit{File} yang sama dapat mempunyai beberapa nama. Dalam organisasi \textit{file} dan direktori juga perlu dilakukan pengelompokan \textit{file }berdasarkan \textit{property}, misalnya semua program Java, game dan lain-lain. 
-	
-	\subsubsection{One - Level Directory}
-	Direktori ini hanya terdiri dari satu direktori untuk setiap\textit{ user}. Pada direktori jenis ini terjadi permasalahan penamaan dan pengelompokan berdasarkan \textit{user.} 
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-3.drawio.png}
-		\captionsetup{labelformat=empty}
-		\caption{Gambar 10.\textit{ One - Level Directory}}
-	\end{figure}
-	
-	\subsubsection{Two - Level Directory}
-	Direktori ini terdiri dari dua \textit{level} yang memisahkan direktori untuk setiap \textit{user} . Setiap \textit{file} diberi nama \textit{path}, dapat mempunyai nama \textit{file} yang sama untuk \textit{user} yang berbeda, mempunyai kapabilitas pencarian, tetapi belum dilakukan pengelompokan. 
-	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-4.drawio.png}
-		\captionsetup{labelformat=empty}
-		\caption{Gambar 11. \textit{Two - Level Directory}}
-	\end{figure}
-	
-	\subsubsection{Tree Structured Directory or Three Levels }
-	Direktori berstruktur pohon merupakan struktur direktori yang biasa digunakan. Pohon mempunyai direktori \textit{root}. Setiap \textit{file }pada sistem mempunyai nama \textit{path} yang unik.
-	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.5\textwidth]{aset/File system-Halaman-5.drawio.png}
-		\captionsetup{labelformat=empty}
-		\caption{Gambar 12.\textit{ Tree Structured Directory or Three Levels}}
-	\end{figure}
-	
-	Pada direktori ini pencarian \textit{file} dan direktori lebih efisien, mengelompokkan \textit{file} dan dapat mengakses direktori dan sub direktori. Sebuah direktori atau subdirektori berisi kumpulan \textit{file} atau sub direktori. Sebuah direktori merupakan \textit{file} yang diperlakukan dengan cara khusus. Semua direktori mempunyai format internal yang sama. Satu bit dalam setiap masukan direktori merupakan masukan sebagai \textit{file} (0) atau sebagai subdirektori (1). \textit{Call system} khusus digunakan untuk membuat dan menghapus direktori. Nama \textit{path} dapat dibagi menjadi dua tipe yaitu nama path “absolut” dan “relatif”. Pada saat membuat \textit{file} baru akan dilakukan pada \textit{current directory}. Demikian juga pada saat membuat direktori baru.
+		\item \textit{File System Concepts}
+		\item \textit{File attributes}
+		\item \textit{Operations on files}
+		\item \textit{File types}
+		\item \textit{File structure}
+		\item \textit{File access methods}
+		\item \textit{Directory structure}
 		
-		\item file system mounting
-		\item file sharing
-		\item protection
+		Direktori adalah kumpulan titik yang berisi informasi tentang semua \textit{file}. Beberapa sistem menyimpan ratusan \textit{file} pada \textit{disk} ratusan \textit{gigabyte}. Untuk mengatur semua data menggunakan organisasi yang dilakukan dalam dua bagian.
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\textwidth]{aset/Halaman-1.drawio.png}
+			\captionsetup{labelformat=empty}
+			\caption{Gambar 8. Direktori}
+		\end{figure}
+		
+		Pertama,\textit{ system file} dipecah ke dalam partisi, yang disebut juga “\textit{minidisc}” (pada mesin IBM) atau “volume” (pada mesin PC dan \textit{Macintosh}). Setiap disk pada sistem berisi sedikitnya satu partisi, merupakan struktur \textit{low-level} dimana \textit{file} dan direktori berada. Terkadang, partisi digunakan untuk menentukan beberapa daerah terpisah dalam satu \textit{disk}, yang diperlakukan sebagai perangkat penyimpan yang terpisah. Sistem lain menggunakan partisi yang lebih besar dari sebuah \textit{disk} untuk mengelompokkan \textit{disk} ke dalam satu struktur logika. Kedua, setiap partisi berisi informasi mengenai \textit{file }di dalamnya. Informasi ini disimpan pada\textit{ entry }dalam “\textit{device directory atau volume table of contents}”. Perangkat direktori (atau direktori) menyimpan informasi seperi nama, lokasi, ukuran dan tipe untuk semua\textit{ file} dari partisi tersebut. Organisasi \textit{file} yang umum dapat dilihat pada gambar .
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\textwidth]{aset/Halaman-2.drawio.png}
+			\captionsetup{labelformat=empty}
+			\caption{Gambar 9. Organisasi Sistem File}
+		\end{figure}
+		
+		Informasi yang terdapat pada direktori adalah :  nama, tipe, alamat, panjang saat ini,  panjang maksimum, tanggal akses terakhir, tanggal perubahan terakhir, ID pemilik, informasi proteksi . Beberapa operasi yang dibentuk pada direktori adalah : Mencari \textit{file} (\textit{search}),  Membuat \textit{file} (\textit{create}), Menghapus \textit{file} (\textit{delete}), Mendaftar suatu direktori (\textit{list}), Mengubah nama \textit{file} (\textit{r\textit{ename}}),  Melintasi sistem \textit{file }(\textit{traverse})   
+		Organisasi \textit{file} dan direktori disarankan yang seefisien mungkin sehingga dapat menempatkan \textit{file} dengan cepat. Selain itu dalam penamaan \textit{file} dan direktori harus nyaman untuk\textit{ user}. Dua \textit{user} dapat memberikan nama \textit{file} yang sama. \textit{File} yang sama dapat mempunyai beberapa nama. Dalam organisasi \textit{file} dan direktori juga perlu dilakukan pengelompokan \textit{file }berdasarkan \textit{property}, misalnya semua program Java, \textit{game} dan lain-lain. 
+		
+		\subsubsection{One - Level Directory}
+		Direktori ini hanya terdiri dari satu direktori untuk setiap\textit{ user}. Pada direktori jenis ini terjadi permasalahan penamaan dan pengelompokan berdasarkan \textit{user.} 
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-3.drawio.png}
+			\captionsetup{labelformat=empty}
+			\caption{Gambar 10.\textit{ One - Level Directory}}
+		\end{figure}
+		
+		\subsubsection{Two - Level Directory}
+		Direktori ini terdiri dari dua \textit{level} yang memisahkan direktori untuk setiap \textit{user} . Setiap \textit{file} diberi nama \textit{path}, dapat mempunyai nama \textit{file} yang sama untuk \textit{user} yang berbeda, mempunyai kapabilitas pencarian, tetapi belum dilakukan pengelompokan. 
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-4.drawio.png}
+			\captionsetup{labelformat=empty}
+			\caption{Gambar 11. \textit{Two - Level Directory}}
+		\end{figure}
+		
+		\subsubsection{Tree Structured Directory or Three Levels }
+		Direktori berstruktur pohon merupakan struktur direktori yang biasa digunakan. Pohon mempunyai direktori \textit{root}. Setiap \textit{file }pada sistem mempunyai nama \textit{path} yang unik.
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.5\textwidth]{aset/File system-Halaman-5.drawio.png}
+			\captionsetup{labelformat=empty}
+			\caption{Gambar 12.\textit{ Tree Structured Directory or Three Levels}}
+		\end{figure}
+		
+		Pada direktori ini pencarian \textit{file} dan direktori lebih efisien, mengelompokkan \textit{file} dan dapat mengakses direktori dan sub direktori. Sebuah direktori atau sub direktori berisi kumpulan \textit{file} atau sub direktori. Sebuah direktori merupakan \textit{file} yang diperlakukan dengan cara khusus. Semua direktori mempunyai format internal yang sama. Satu bit dalam setiap masukan direktori merupakan masukan sebagai \textit{file} (0) atau sebagai sub direktori (1). \textit{Call system} khusus digunakan untuk membuat dan menghapus direktori. Nama \textit{path} dapat dibagi menjadi dua tipe yaitu nama \textit{path} “absolut” dan “relatif”. Pada saat membuat \textit{file} baru akan dilakukan pada \textit{current directory}. Demikian juga pada saat membuat direktori baru.
+		
+		\item \textit{file system mounting}
+		\item \textit{file sharing}
+		\item \textit{protection}
+		\begin{thebibliography}{99}
+			\bibitem{arpaci2018} 
+			Silberschatz, Galvin \& Gagne. (2013). \textit{Operating System Concepts – 9th Edition}. cc.ee.ntu.edu.tw.
+			\bibitem{Geeks} 
+			GeeksforGeeks. (2024, Juny 24). \textit{File Systems in Operating System}. Retrieved from GeeksforGeeks: \textit{https://www.geeksforgeeks.org/file-systems-in-operating-system/}
+		\end{thebibliography}
 	\end{itemize}
+	
 	
 	\subsection{Input and Output Management}
 	Input and output management is key for handling the interaction between the system and external devices. This section includes:
@@ -211,7 +221,6 @@
 	\lstset{ 
 		language=Python,
 		backgroundcolor=\color{white}, 
-		commentstyle=\color{gray}, 
 		keywordstyle=\color{blue},
 		basicstyle=\ttfamily\footnotesize, 
 		breaklines=true,  
@@ -307,6 +316,7 @@
 	\end{lstlisting}
 	\subsection{Assignment 5: File System Access}
 	In this assignment, students implemented file system access routines, including:
+	
 	\begin{itemize}
 		\item File creation and deletion
 		\item Reading from and writing to files

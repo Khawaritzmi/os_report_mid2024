@@ -58,7 +58,7 @@ This section explains the fundamental components that make up a computer system,
 \subsubsection{Interaksi Antara \textit{Brainware}, \textit{Hardware}, dan \textit{Software}}
 
 \subsubsection*{\textit{Brainware}}
-\hspace{0.5cm} \textit{Brainware} adalah orang yang menggunakan, menjalankan, memanfaatkan, dan mengoperasikan perangkat komputer. Istilah brainware lebih sering ditujukan kepada pengguna komputer yang mampu mengoperasikan komputer dengan canggih, baik dari segi perangkat lunak (\textit{software}) maupun perangkat keras (\textit{hardware}) (\cite{brainwareKompas}).
+\hspace{0.5cm} \textit{Brainware} adalah orang yang menggunakan, menjalankan, memanfaatkan, dan mengoperasikan perangkat komputer. Istilah \textit{brainware} lebih sering ditujukan kepada pengguna komputer yang mampu mengoperasikan komputer dengan canggih, baik dari segi perangkat lunak (\textit{software}) maupun perangkat keras (\textit{hardware}) (\cite{brainwareKompas}).
 
 \subsubsection*{Jenis-Jenis \textit{Brainware}}
 \hspace{0.5cm} Dalam bidang teknologi dan komputer, terdapat beragam jenis pekerjaan, masing-masing dengan peran dan tanggung jawab yang berbeda. Di bawah ini, terdapat penjelasan secara singkat:
@@ -330,7 +330,7 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsubsection{Group 1}
 \subsubsection*{Soal}
 
-Pada sistem komputasi modern, penggunaan \textit{multithreading} sering kali diterapkan untuk mempercepat eksekusi program dengan cara menjalankan beberapa bagian program secara paralel. Efektivitas dari pendekatan ini dapat diukur menggunakan Hukum Amdahl. 
+Pada sistem komputasi modern, penggunaan \textit{multithreading} sering kali dite-rapkan untuk mempercepat eksekusi program dengan cara menjalankan beberapa bagian program secara paralel. Efektivitas dari pendekatan ini dapat diukur menggunakan Hukum Amdahl. 
 
 Diketahui persamaan Hukum Amdahl sebagai berikut:
 
@@ -338,7 +338,7 @@ Diketahui persamaan Hukum Amdahl sebagai berikut:
 S_{max} = \frac{1}{(1 - P) + \frac{P}{N}}
 \]
 
-di mana:
+keterangan:
 \begin{itemize}
     \item \(S_{max}\) adalah percepatan maksimum yang dapat dicapai,
     \item \(P\) adalah persentase bagian dari program yang dapat diparalelkan,
@@ -354,7 +354,7 @@ Berikut ini adalah tiga skenario yang harus diselesaikan:
     \item 8 \textit{threads}.
 \end{itemize}
 
-2. Jika suatu program dapat diparalelkan sebesar 85\% (\(P = 0.85\)), berapa jumlah minimum \textit{threads} yang diperlukan untuk mencapai percepatan 5 kali lipat dari waktu eksekusi serial (\(S_{max} = 5\))?
+2. Jika suatu program dapat diparalelkan sebesar 85\% (\(P = 0.85\)), berapa jumlah minimum \textit{threads} yang diperlukan untuk mencapai percepatan lima kali lipat dari waktu eksekusi serial (\(S_{max} = 5\))?
 
 3. Jelaskan secara singkat, apakah selalu lebih baik menggunakan lebih banyak \textit{threads}? Berdasarkan Hukum Amdahl, berikan alasan mengapa penggunaan \textit{multithreading} kadang tidak memberikan percepatan yang signifikan.
 
@@ -380,7 +380,7 @@ for N in threads:
     \item Untuk 8 \textit{threads}, \(S_{max} \approx 3.43\)
 \end{itemize}
 
-\textbf{2. Mencari jumlah minimum \textit{threads} untuk mencapai percepatan 5 kali lipat}:
+\textbf{2. Mencari jumlah minimum \textit{threads} untuk mencapai percepatan lima kali lipat}:
 
 \begin{python}
 from math import ceil
@@ -397,7 +397,7 @@ def find_min_threads(P, S_target):
         N += 1
 
 min_threads = find_min_threads(P, S_target)
-print(f"Jumlah minimum threads untuk mencapai percepatan 5 kali lipat: {min_threads}")
+print(f"Jumlah minimum threads untuk mencapai percepatan lima kali lipat: {min_threads}")
 \end{python}
 \textit{Output}: Jumlah minimum \textit{threads} yang diperlukan adalah 10.
 

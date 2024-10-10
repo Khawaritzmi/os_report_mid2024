@@ -82,18 +82,18 @@ It explains how these algorithms are used to allocate CPU time to processes.
 (Isi materi disini)
 
 \subsubsection{Siapa saja yang membuat proses}
-Proses dalam sistem operasi diciptakan oleh beberapa entitas baik oleh pengguna, sistem operasi itu sendiri, atau proses lain. Setiap entitas memainkan peran penting dalam memastikan bahwa tugas yang dijalankan oleh komputer dilakukan dengan efektif. Berikut adalah penjelasan mendetail tentang setiap entitas yang dapat menciptakan proses.
+Proses dalam sistem operasi diciptakan oleh beberapa entitas, baik oleh pengguna, sistem operasi itu sendiri, atau proses lain. Setiap entitas memainkan peran penting dalam memastikan bahwa tugas yang dijalankan oleh komputer dilakukan dengan efektif. Berikut adalah penjelasan mendetail tentang setiap entitas yang dapat menciptakan proses.
 \begin{itemize}
-    \item \textit{Process spawning} Pembuatan proses baru oleh entitas yang ada (pengguna, sistem operasi, atau proses lain) dengan cara menyalin atau memodifikasi proses yang sudah ada.
-    \item \textit{Process termination conditions} Kondisi di mana sebuah proses dihentikan, bisa karena proses telah selesai, terjadi kesalahan, atau dihentikan secara manual oleh entitas yang membuatnya.
+    \item \textit{Process spawning} Pembuatan proses baru oleh entitas yang ada (pengguna, sistem operasi, atau proses lain) dengan cara menyalin atau memodifikasi proses yang sudah ada (Silberschatz, Galvin, \& Gagne, 2018).
+    \item \textit{Process termination conditions} Kondisi yang menyebabkan sebuah proses dihentikan, bisa karena proses telah selesai, terjadi kesalahan, atau dihentikan secara manual oleh entitas yang membuatnya (Silberschatz, Galvin, \& Gagne, 2018).
 \end{itemize}
 
 \paragraph{Pengguna sebagai Pencipta Proses}
 Pengguna adalah salah satu entitas yang paling sering menciptakan proses di dalam sistem operasi. Setiap kali pengguna membuka sebuah program atau aplikasi, sebuah proses baru diciptakan untuk menjalankan program tersebut.
 
 \begin{itemize}
-    \item  Ketika pengguna membuka aplikasi seperti browser, game, atau pemutar video, sebuah proses baru dibuat oleh sistem operasi. Proses ini akan dijalankan oleh CPU untuk mengerjakan tugas-tugas aplikasi tersebut.
-    \item  Setiap kali Anda membuka Google Chrome, sistem operasi menciptakan sebuah proses baru. Jika Anda membuka lebih dari satu tab setiap tab mungkin dibuat sebagai proses terpisah untuk meningkatkan stabilitas dan performa.
+    \item  Ketika pengguna membuka aplikasi seperti \textit{browser}, gim, atau pemutar video, sebuah proses baru dibuat oleh sistem operasi. Proses ini akan dijalankan oleh CPU untuk mengerjakan tugas-tugas aplikasi tersebut.
+    \item  Setiap kali Anda membuka \textit{Google Chrome}, sistem operasi menciptakan sebuah proses baru. Jika Anda membuka lebih dari satu tab, setiap tab mungkin dibuat sebagai proses terpisah untuk meningkatkan stabilitas dan performa.
     \item  Sistem operasi akan mengalokasikan sumber daya yang dibutuhkan proses, seperti memori, waktu CPU, dan akses ke perangkat keras lain seperti jaringan dan penyimpanan.
 \end{itemize}
 
@@ -103,7 +103,6 @@ Pengguna adalah salah satu entitas yang paling sering menciptakan proses di dala
     \caption{Pengguna menciptakan proses baru ketika membuka aplikasi.}
 \end{figure}
 
-
 Pengguna adalah entitas langsung yang memulai proses ketika berinteraksi dengan perangkat lunak. Setiap aplikasi yang dijalankan pengguna akan mengarah pada pembuatan proses baru yang membutuhkan manajemen sumber daya oleh sistem operasi.
 
 \paragraph{Sistem Operasi sebagai Pencipta Proses}
@@ -112,53 +111,52 @@ Sistem operasi juga bertindak sebagai pencipta proses, terutama untuk proses-pro
 
 \begin{itemize}
     \item  Sistem operasi menciptakan proses-proses yang menjalankan tugas penting seperti pengelolaan jaringan, penjadwalan tugas, dan pengelolaan file. Tugas-tugas ini dilakukan tanpa memerlukan interaksi langsung dari pengguna.
-    \item  Beberapa proses latar belakang, yang dikenal sebagai daemon, selalu berjalan untuk menangani tugas-tugas seperti pengelolaan memori atau pengaturan koneksi jaringan.
+    \item  Beberapa proses latar belakang, yang dikenal sebagai \textit{daemon}, selalu berjalan untuk menangani tugas-tugas seperti pengelolaan memori atau pengaturan koneksi jaringan.
     \item  Sistem operasi secara otomatis menangani kapan proses-proses ini dibuat, diatur, dan diakhiri, berdasarkan kebutuhan sistem dan kondisi saat ini.
 \end{itemize}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{asset/os background process creation.png}
-    \caption{Pengguna menciptakan proses baru ketika membuka aplikasi.}
+    \caption{Sistem operasi menciptakan proses latar belakang untuk menjaga kestabilan sistem.}
 \end{figure}
 
 Proses yang diciptakan oleh sistem operasi tidak membutuhkan interaksi pengguna secara langsung, namun sangat penting untuk menjaga stabilitas dan efisiensi komputer. Contoh dari proses-proses ini termasuk manajemen memori, keamanan sistem, dan pengelolaan perangkat keras.
 
-\paragraph{Proses Lain sebagai Pencipta Proses (Parent-Child Relationship)}
+\paragraph{Proses Lain sebagai Pencipta Proses (Hubungan Induk-Anak)}
 
 Selain pengguna dan sistem operasi, sebuah proses juga dapat menciptakan proses lain, yang dikenal sebagai \textit{spawning}. Dalam sistem operasi, sebuah proses induk (\textit{parent process}) dapat menciptakan proses anak (\textit{child process}) untuk menjalankan tugas-tugas tertentu secara paralel atau terpisah.
 
 \begin{itemize}
-    \item \textit{Proses Parent-Child} Ketika proses induk menciptakan proses anak keduanya dapat berjalan secara bersamaan. Proses anak dapat mewarisi sebagian besar sumber daya dari proses induk, namun tetap dapat berjalan secara independen.
-    \item \textit{Pembuatan Sub-Proses} Proses induk mungkin menciptakan sub-proses untuk menjalankan bagian-bagian spesifik dari suatu program, misalnya, dalam pengelolaan tab di browser web.
-    \item \textbf{Contoh :} Google Chrome membuat proses terpisah untuk setiap tab yang dibuka oleh pengguna. Setiap tab berfungsi sebagai proses anak dari proses utama Chrome, yang mengelola seluruh operasi aplikasi.
+    \item \textit{Proses Parent-Child}Ketika proses induk menciptakan proses anak, keduanya dapat berjalan secara bersamaan. Proses anak dapat mewarisi sebagian besar sumber daya dari proses induk, namun tetap dapat berjalan secara independen.
+    \item \textit{Pembuatan Sub-Proses} Proses induk mungkin menciptakan sub-proses untuk menjalankan bagian-bagian spesifik dari suatu program, misalnya, dalam pengelolaan tab di \textit{web browser}.
+    \item \textbf{Contoh :} \textit{Google Chrome} membuat proses terpisah untuk setiap tab yang dibuka oleh pengguna. Setiap tab berfungsi sebagai proses anak dari proses utama \textit{Chrome}, yang mengelola seluruh operasi aplikasi.
 \end{itemize}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{asset/parent child process creation.png}
-    \caption{Pengguna menciptakan proses baru ketika membuka aplikasi.}
+    \caption{Proses induk menciptakan proses anak.}
 \end{figure}
-
 
 Penciptaan proses oleh proses lain memungkinkan multitasking dan pembagian beban kerja dalam sistem operasi. Ini penting dalam aplikasi yang membutuhkan banyak tugas secara bersamaan tanpa mengganggu tugas utama.
 
 \paragraph{Scheduler sebagai Pengelola Proses}
-Meskipun bukan entitas yang secara langsung menciptakan proses, scheduler dalam sistem operasi memainkan peran penting dalam mengelola proses yang sedang berjalan. Scheduler bertanggung jawab untuk mengalokasikan waktu CPU ke setiap proses yang sedang berjalan berdasarkan prioritas dan kebutuhan.
+Meskipun bukan entitas yang secara langsung menciptakan proses, \textit{scheduler} dalam sistem operasi memainkan peran penting dalam mengalokasikan waktu CPU kepada setiap proses yang sedang berjalan {Stallings et al., 2017}.
 
 \begin{itemize}
-    \item \textit{Pembagian Waktu CPU} Scheduler memastikan bahwa setiap proses mendapatkan giliran yang adil untuk menggunakan CPU, terutama ketika banyak proses berjalan bersamaan.
-    \item \textit{Manajemen Prioritas} Proses dengan prioritas lebih tinggi seperti proses sistem, dapat diberikan waktu CPU lebih sering dibandingkan proses dengan prioritas lebih rendah, seperti aplikasi yang tidak aktif.
-    \item \textit{Pengelolaan Multitasking} Dengan bantuan scheduler sistem operasi dapat menjalankan banyak aplikasi secara bersamaan tanpa menurunkan performa keseluruhan.
+    \item \textit{Pembagian Waktu CPU} \textit{Scheduler} memastikan bahwa setiap proses mendapatkan giliran yang adil untuk menggunakan CPU, terutama ketika banyak proses berjalan bersamaan.
+    \item \textit{Manajemen Prioritas} Proses dengan prioritas lebih tinggi, seperti proses sistem, dapat diberikan waktu CPU lebih sering dibandingkan proses dengan prioritas lebih rendah, seperti aplikasi yang tidak aktif.
+    \item \textit{Pengelolaan Multitasking} Dengan bantuan \textit{scheduler}, sistem operasi dapat menjalankan banyak aplikasi secara bersamaan tanpa menurunkan performa keseluruhan.
 \end{itemize}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{asset/scheduler cpu allocation.png}
-    \caption{Pengguna menciptakan proses baru ketika membuka aplikasi.}
+    \caption{\textit{Scheduler} mengelola alokasi waktu CPU untuk setiap proses.}
 \end{figure}
 
-Meskipun scheduler tidak menciptakan proses, ia berperan penting dalam pengelolaan proses, memastikan bahwa semua proses berjalan dengan efisien dan sistem tetap responsif terhadap tugas-tugas pengguna.
+Meskipun \textit{scheduler} tidak menciptakan proses, ia berperan penting dalam pengelolaan proses, memastikan bahwa semua proses berjalan dengan efisien dan sistem tetap responsif terhadap tugas-tugas pengguna.
 
 \subsubsection{Proses \textit{Termination}}
 \begin{itemize}
@@ -170,7 +168,9 @@ Meskipun scheduler tidak menciptakan proses, ia berperan penting dalam pengelola
 
     \item Apa yang Terjadi Setelah \textit{Termination}
     (isi materi disini)
-\end{itemize}
+\end{itemize} 
+
+
 
 \begin{thebibliography}{99}
 
@@ -272,20 +272,26 @@ In this assignment, students were asked to simulate different deadlock scenarios
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied \textbf{Amdahl's Law} to calculate the theoretical speedup of the program as the number of threads increased.
 \subsubsection{Group 6}
 
-Ragilnata, seorang mahasiswa berkulit gelap yang suka bercanda, sedang duduk di ruang lab sambil liat instagram, ketika dosennya Pak Abdul tiba-tiba memberi tugas mendadak tentang multithreading. "Eh Ragilnata, udah saatnya kamu ngerjain tugas daripada liat mirai terus," kata Pak Abdul sambil marah.
+Ragilnata, seorang mahasiswa dengan kulit gelap yang suka bercanda, sedang duduk di ruang lab sambil melihat \textit{Instagram} ketika dosennya, Pak Abdul, tiba-tiba memberi tugas mendadak tentang \textit{multithreading}. 
 
-Ragilnata diminta untuk membuat program yang memproses data gambar berukuran besar untuk mendeteksi objek tertentu (misalnya pisang). Karena gambar-gambar ini lumayan besar dan berat secara komputasi, Ragilnata memutuskan untuk menggunakan multithreading biar cepat selesai, soalnya dia gak mau ngerjain ini sendirian semalaman.
+"Eh Ragilnata, sudah saatnya kamu mengerjakan tugas daripada hanya melihat media sosial terus," kata Pak Abdul dengan nada marah.
 
-Total waktu untuk menyelesaikan proses deteksi objek tanpa multithreading adalah 10 detik. Dari seluruh proses, sekitar 70\% dari total eksekusi bisa diparalelkan, sedangkan sisanya harus tetap dieksekusi secara serial karena constraint dari algoritma deteksi objeknya.
+Ragilnata diminta untuk membuat program yang memproses data gambar berukuran besar untuk mendeteksi objek tertentu (misalnya, pisang). Mengingat gambar-gambar ini cukup besar dan berat secara komputasi, Ragilnata memutuskan untuk menggunakan \textit{multithreading} agar dapat menyelesaikan tugas ini dengan lebih cepat, karena dia tidak ingin mengerjakan ini sendirian semalaman.
 
-Dengan informasi ini, Ragilnata pun mencoba menghitung berapa kecepatan (speedup) yang bisa dicapai berdasarkan \textbf{Amdahl’s Law} jika ia menggunakan 4 thread. Sebelum mulai koding, Ragilnata jadi mikir-mikir, "Kira-kira pake 4 thread aja gak sih? Atau cukup pake 2 doang biar hemat resource?"
+Total waktu yang diperlukan untuk menyelesaikan proses deteksi objek tanpa \textit{multithreading} adalah sepuluh detik. Dari keseluruhan proses, sekitar 70\% dari total eksekusi dapat diparalelkan, sedangkan sisanya harus dieksekusi secara serial karena batasan dari algoritma deteksi objeknya.
+
+Dengan informasi ini, Ragilnata mencoba menghitung berapa kecepatan (\textit{speedup}) yang dapat dicapai berdasarkan \textbf{Amdahl’s Law} jika ia menggunakan empat \textit{thread}. Sebelum mulai melakukan pengkodean, Ragilnata berpikir, "Apakah cukup menggunakan empat \textit{thread}? Atau cukup dua saja agar lebih hemat sumber daya?"
+
+
+
 
 \textbf{Pertanyaan:}
 \begin{enumerate}
-    \item Hitung berapa speedup (S) yang bisa Ragilnata capai jika dia menggunakan 4 thread.
-    \item Apakah hasil speedup tersebut signifikan dibandingkan dengan jika Ragilnata hanya menggunakan 2 thread? Hitung juga speedup untuk 2 thread dan bandingkan hasilnya.
-    \item Menurut kamu, berapa jumlah thread yang sebaiknya digunakan oleh Ragilnata, dan kenapa?
+    \item Hitung berapa \textit{speedup} (S) yang bisa Ragilnata capai jika dia menggunakan empat \textit{thread}.
+    \item Apakah hasil \textit{speedup} tersebut signifikan dibandingkan dengan jika Ragilnata hanya menggunakan dua \textit{thread}? Hitung juga \textit{speedup} untuk dua \textit{thread} dan bandingkan hasilnya.  
+    \item Menurut kamu, berapa jumlah \textit{thread} yang sebaiknya digunakan oleh Ragilnata, dan kenapa?
 \end{enumerate}
+
 
 \textbf{Jawaban:}
 

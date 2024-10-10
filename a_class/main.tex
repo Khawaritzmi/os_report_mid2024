@@ -68,13 +68,40 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsection{Scheduling Algorithms}
-This section covers:
+\subsubsection{Round Robbin}
+salah satu algoritma penjadwalan proses yang digunakan dalam sistem operasi. Algoritma ini membagi waktu eksekusi secara adil kepada setiap proses yang berjalan dalam sistem dengan prinsip "\textit{quantum time}". Setelah quantum habis, proses yang sedang berjalan akan ditunda, dan CPU akan diberikan ke proses berikutnya dalam antrian. Algoritma ini berfokus pada \textit{fairness} atau keadilan dalam pembagian waktu CPU.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{asset/Kelompok5_Round Robbin.png}
+\caption{Ilustrasi Algoritma Round Robin}
+\label{fig:roundrobin}
+\end{figure}
+
 \begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
+\item Kelebihan
+\begin{itemize}
+    \item Setiap proses memiliki kesempatan untuk dieksekusi secara adil dalam waktu yang sama.
+    \item Cocok untuk sistem \textit{time-sharing} .
 \end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+\end{itemize}
+
+\begin{itemize}
+\item Kekurangan
+\begin{itemize}
+    \item \textit{Overhead} terjadi karena \textit{switching} antara proses, terutama jika quantum terlalu kecil.
+    \item Jika quantum terlalu besar, algoritma ini bisa berubah menjadi FCFS
+\end{itemize}
+\end{itemize}
+
+\paragraph{Contoh}
+ nyata dari algoritma \textit{Round Robin} dapat dilihat dalam situasi seperti ujian, di mana seorang siswa memiliki sejumlah soal untuk dijawab. Misalnya, setiap soal diberi waktu 2 menit. Jika siswa belum selesai menjawab soal tersebut dalam 2 menit, mereka harus beralih ke soal berikutnya. Setelah semua soal sudah dibaca atau dikerjakan sebentar, siswa kembali ke soal yang belum selesai.
+\begin{itemize}
+    \item Siswa mulai dengan soal pertama dan memiliki waktu 2 menit untuk menjawab.
+    \item Jika belum selesai dalam 2 menit, siswa harus melanjutkan ke soal berikutnya.
+    \item Setelah semua soal telah dikerjakan sebentar, siswa kembali ke soal-soal yang belum selesai, dan melanjutkan dari bagian yang tertinggal, lagi-lagi selama 2 menit setiap kali.
+    \item Siklus ini berulang sampai semua soal selesai atau waktu ujian habis.
+\end{itemize}
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:
@@ -92,7 +119,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -166,6 +193,154 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+
+\subsubsection{Group 5}
+\textbf{Soal:}
+Hitung waktu selesai, waktu putar, dan waktu tunggu untuk setiap proses jika menggunakan algoritma FCFS (\textit{First Come First Serve}), SJN (\textit{Shortest Job First}), dan RR (\textit{Round Robin}).
+    \begin{table}[h] % Optional: For floating position
+        \centering
+        \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+        \hline
+        Proses & Waktu Kedatangan & Waktu Burst \\ % Column headers
+        \hline
+        P1 & 0 & 4 \\ % First row of data
+        \hline
+        P2 & 1 & 3 \\ % Second row of data
+        \hline
+        P3 & 2 & 2 \\
+        \hline
+        P4 & 3 & 1 \\
+        \hline
+        \end{tabular}
+        \caption{Data Proses Untuk Penjadwalan} % Optional: For adding a caption
+        \label{tab:Data Proses Untuk Penjadwalan} % Optional: For cross-referencing the table
+    \end{table}
+
+    
+\begin{python}
+Assignment 1 
+
+class Proses:
+    def __init__(self, pid, waktu_kedatangan, waktu_burst):
+        self.pid = pid  # ID Proses
+        self.waktu_kedatangan = waktu_kedatangan  # Waktu kedatangan proses
+        self.waktu_burst = waktu_burst  # Waktu eksekusi yang dibutuhkan
+        self.waktu_selesai = 0  # Waktu penyelesaian proses
+        self.waktu_putar = 0  # Waktu putar (completion - arrival)
+        self.waktu_tunggu = 0  # Waktu tunggu (turnaround - burst)
+
+def fcfs(proses_list):
+    # Urutkan proses berdasarkan waktu kedatangan
+    proses_list.sort(key=lambda x: x.waktu_kedatangan)  
+    waktu_sekarang = 0  # Waktu saat ini
+    for proses in proses_list:
+        # Jika waktu saat ini kurang dari waktu kedatangan, set waktu saat ini ke waktu kedatangan
+        if waktu_sekarang < proses.waktu_kedatangan:
+            waktu_sekarang = proses.waktu_kedatangan
+        waktu_sekarang += proses.waktu_burst  # Tambahkan waktu burst ke waktu saat ini
+        proses.waktu_selesai = waktu_sekarang
+        proses.waktu_putar = proses.waktu_selesai - proses.waktu_kedatangan
+        proses.waktu_tunggu = proses.waktu_putar - proses.waktu_burst
+
+def sjn(proses_list):
+    proses_list.sort(key=lambda x: (x.waktu_kedatangan, x.waktu_burst))  # Urutkan berdasarkan arrival dan burst
+    waktu_sekarang = 0
+    while proses_list:
+        # Ambil proses yang sudah tiba
+        antrean_siaps = [p for p in proses_list if p.waktu_kedatangan <= waktu_sekarang]
+        if not antrean_siaps:
+            waktu_sekarang += 1  # Tunggu satu unit waktu
+            continue
+        # Ambil proses dengan burst time terpendek
+        terpendek = min(antrean_siaps, key=lambda x: x.waktu_burst)
+        proses_list.remove(terpendek)  # Hapus dari daftar proses
+        waktu_sekarang += terpendek.waktu_burst
+        terpendek.waktu_selesai = waktu_sekarang
+        terpendek.waktu_putar = terpendek.waktu_selesai - terpendek.waktu_kedatangan
+        terpendek.waktu_tunggu = terpendek.waktu_putar - terpendek.waktu_burst
+
+def round_robin(proses_list, kuota_waktu):
+    antrean = proses_list.copy()  # Salin proses ke antrean
+    waktu_sekarang = 0
+    while antrean:
+        proses = antrean.pop(0)  # Ambil proses dari depan antrean
+        if proses.waktu_burst > kuota_waktu:
+            waktu_sekarang += kuota_waktu
+            proses.waktu_burst -= kuota_waktu  # Kurangi burst time
+            antrean.append(proses)  # Masukkan kembali ke antrean
+        else:
+            waktu_sekarang += proses.waktu_burst
+            proses.waktu_selesai = waktu_sekarang
+            proses.waktu_putar = proses.waktu_selesai - proses.waktu_kedatangan
+            proses.waktu_tunggu = proses.waktu_putar - proses.waktu_burst
+            proses.waktu_burst = 0  # Proses telah selesai
+
+\end{python}
+
+\textbf{\textit{Output:}}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        Proses & Waktu Kedatangan & Waktu Burst & Waktu Selesai & Waktu Putar & Waktu Tunggu \\
+        \hline
+        P1 & 0 & 4 & 4 & 4 & 0 \\
+        \hline
+        P2 & 1 & 3 & 7 & 6 & 3 \\
+        \hline
+        P3 & 2 & 2 & 9 & 7 & 5 \\
+        \hline
+        P4 & 3 & 1 & 10 & 7 & 6 \\
+        \hline
+    \end{tabular}
+    \caption{Tabel Hasil Algoritma FCFS}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        Proses & Waktu Kedatangan & Waktu Burst & Waktu Selesai & Waktu Putar & Waktu Tunggu \\
+        \hline
+        P1 & 0 & 4 & 4 & 4 & 0 \\
+        \hline
+        P4 & 3 & 1 & 5 & 2 & 1 \\
+        \hline
+        P3 & 2 & 2 & 7 & 5 & 3 \\
+        \hline
+        P2 & 1 & 3 & 10 & 9 & 6 \\
+        \hline
+    \end{tabular}
+    \caption{Tabel Hasil Algoritma SJN}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        Proses & Waktu Kedatangan & Waktu Burst & Waktu Selesai & Waktu Putar & Waktu Tunggu \\
+        \hline
+        P1 & 0 & 4 & 8 & 8 & 4 \\
+        \hline
+        P2 & 1 & 3 & 9 & 8 & 5 \\
+        \hline
+        P3 & 2 & 2 & 7 & 5 & 3 \\
+        \hline
+        P4 & 3 & 1 & 6 & 3 & 2 \\
+        \hline
+    \end{tabular}
+    \caption{Tabel Hasil Algoritma \textit{Round Robin} (Quantum = 2)}
+\end{table}
+
+\subsection*{Kesimpulan:}
+Dari hasil output tersebut, kita bisa menyimpulkan bahwa:
+
+\begin{itemize}
+    \item FCFS lebih adil karena memproses sesuai urutan kedatangan, namun dapat menyebabkan waktu tunggu lebih lama untuk proses dengan \textit{burst} pendek yang datang terlambat.
+    \item SJN memberikan waktu tunggu lebih rendah secara keseluruhan, terutama untuk proses dengan burst pendek, tetapi bisa menyebabkan kelaparan (\textit{starvation}) bagi proses yang datang lebih awal namun memiliki burst besar.
+    \item RR memastikan keadilan di antara proses dengan meminimalkan waktu tunggu bagi proses yang seringkali lambat diproses oleh algoritma lain, meski bisa sedikit lebih lama dalam penyelesaian jika quantum-nya kecil.
+\end{itemize}
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 

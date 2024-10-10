@@ -53,8 +53,31 @@ The course is divided into two halves. This report focuses on the first half, wh
 \subsection{Basic Concepts and Components of Computer Systems}
 This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
 
-\subsection{System Performance and Metrics}
-This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
+
+\subsubsection{Metrik Sistem Utama}
+\begin{enumerate}
+    \item Throughput
+    \par Throughput adalah jumlah output yang dapat diselesaikan oleh sistem dalam jangka waktu tertentu, misalnya jumlah permintaan yang dilayani oleh server dalam satu detik. Contoh Kasus: Server Web: Sebuah server web yang mampu melayani 200 permintaan HTTP per detik memiliki throughput sebesar 200 request per second. Jika throughput rendah, server mungkin membutuhkan peningkatan kapasitas. Optimasi: Throughput dapat ditingkatkan dengan mempercepat prosesor atau meningkatkan bandwidth jaringan untuk menangani lebih banyak permintaan secara simultan. 
+    \item Latency
+    \par Latency adalah waktu yang diperlukan untuk menyelesaikan satu unit kerja dari awal hingga akhir, misalnya waktu tunggu antara saat data dikirim dan diterima. Contoh Kasus: Sistem Jaringan: Dalam jaringan, jika waktu yang dibutuhkan untuk mengirim paket data dari satu komputer ke komputer lain adalah 20 milidetik, ini mencerminkan tingkat latency. Latency yang tinggi dapat menyebabkan keterlambatan dalam komunikasi, yang dapat mengganggu aplikasi seperti video conference. Optimasi: Latency dapat dikurangi dengan menggunakan jalur komunikasi yang lebih cepat atau memperbaiki routing jaringan untuk menghindari keterlambatan.
+    \item Utilization
+    \par Utilization mengukur tingkat penggunaan sumber daya
+    sistem, seperti CPU atau memori, dan biasanya dinyatakan
+    dalam persentase.
+    \item Response Time
+    \par Response time adalah waktu yang diperlukan oleh sistem untuk merespons permintaan dari pengguna, misalnya waktu yang diperlukan untuk memproses pembayaran dalam aplikasi e-commerce.
+
+    \item Contoh
+    \par Server Database: Jika sebuah server database menunjukkan
+    CPU utilization sebesar 90%, ini menandakan bahwa CPU bekerja
+    sangat keras, yang bisa menjadi tanda overutilization.
+    Overutilization dapat menyebabkan penurunan performa
+    keseluruhan sistem.
+    Optimasi: Utilization dapat dikurangi dengan menambahkan lebih
+    banyak CPU, menyeimbangkan beban kerja di antara server
+    lain, atau mengoptimalkan kode aplikasi untuk efisiensi yang
+    lebih tinggi.
+\end{enumerate}
 
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.

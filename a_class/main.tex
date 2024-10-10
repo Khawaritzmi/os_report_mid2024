@@ -92,7 +92,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{C:/Users/moham/Documents/Abdul/Unhas/Semester 3/Sistem Operasi/Mid/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -132,7 +132,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     a.	Menjamin bahwa sistem tidak akan masuk ke keadaan deadlock
 
-    Dengan menggunakan metode ini, sistem memastikan bahwa tidak ada proses yang diberikan sumber daya jika pengalokasian tersebut berpotensi menyebabkan deadlock. Artinya, sebelum sumber daya dialokasikan, sistem melakukan pengecekan apakah alokasi tersebut aman atau tidak. Hal ini sangat penting terutama untuk sistem kritis di mana downtime akibat deadlock bisa mengakibatkan kerugian besar atau risiko keamanan tinggi.\\
+    Dengan menggunakan metode ini, sistem memastikan bahwa tidak ada proses yang diberikan sumber daya jika pengalokasian tersebut berpotensi menyebabkan deadlock. Artinya, sebelum sumber daya dialokasikan, sistem melakukan pengecekan apakah alokasi tersebut aman atau tidak. Hal ini sangat penting terutama untuk sistem kritis dimana downtime akibat deadlock bisa mengakibatkan kerugian besar atau risiko keamanan tinggi.\\
 
     b.	Algoritma Banker's memberikan solusi optimal dalam pengalokasian sumber daya
     
@@ -144,7 +144,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     d.	Mengurangi risiko kelambatan atau deadlock pada sistem yang membutuhkan kontrol ketat
     
-    Dalam sistem di mana sumber daya terbatas dan pengelolaannya membutuhkan kontrol ketat, metode ini bisa mengurangi kemungkinan proses berhenti akibat deadlock. Hal ini karena semua pengalokasian sumber daya dilakukan hanya jika sudah diverifikasi aman, sehingga proses bisa berjalan lebih lancar tanpa gangguan yang disebabkan oleh deadlock.\\
+    Dalam sistem dimana sumber daya terbatas dan pengelolaannya membutuhkan kontrol ketat, metode ini bisa mengurangi kemungkinan proses berhenti akibat deadlock. Hal ini karena semua pengalokasian sumber daya dilakukan hanya jika sudah diverifikasi aman, sehingga proses bisa berjalan lebih lancar tanpa gangguan yang disebabkan oleh deadlock.\\
     
     Kekurangan dari pencegahan ini, yaitu:\\
 
@@ -158,7 +158,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
 	c. Memerlukan informasi lengkap tentang jumlah sumber daya yang dibutuhkan setiap proses, yang bisa sulit diestimasi
 
-    Algoritma ini membutuhkan informasi lengkap mengenai kebutuhan maksimum dari setiap proses. Namun, dalam praktiknya, seringkali sulit atau tidak mungkin untuk memprediksi dengan akurat berapa jumlah sumber daya yang benar-benar dibutuhkan oleh setiap proses, terutama pada sistem dinamis di mana kebutuhan bisa berubah-ubah.\\
+    Algoritma ini membutuhkan informasi lengkap mengenai kebutuhan maksimum dari setiap proses. Namun, dalam praktiknya, seringkali sulit atau tidak mungkin untuk memprediksi dengan akurat berapa jumlah sumber daya yang benar-benar dibutuhkan oleh setiap proses, terutama pada sistem dinamis dimana kebutuhan bisa berubah-ubah.\\
 
 	d. Tidak fleksibel
 
@@ -178,7 +178,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     c. Meminimalkan kebutuhan pengawasan sumber daya secara dinamis, sehingga mengurangi overhead pada sistem
     
-    Karena sumber daya dialokasikan berdasarkan urutan tetap, tidak ada kebutuhan untuk melakukan pengawasan terus-menerus terhadap status sumber daya atau proses. Ini mengurangi overhead yang biasanya terjadi pada metode yang lebih kompleks, di mana sistem harus memantau pengalokasian sumber daya secara dinamis.\\
+    Karena sumber daya dialokasikan berdasarkan urutan tetap, tidak ada kebutuhan untuk melakukan pengawasan terus-menerus terhadap status sumber daya atau proses. Ini mengurangi overhead yang biasanya terjadi pada metode yang lebih kompleks, dimana sistem harus memantau pengalokasian sumber daya secara dinamis.\\
 
     d. Sederhana untuk diimplementasikan dalam sistem dengan sedikit sumber daya
     
@@ -196,7 +196,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     c. Tidak skalabel dalam sistem yang lebih kompleks dengan banyak jenis sumber daya
     
-    Metode ini kurang cocok untuk sistem yang lebih besar dan lebih kompleks di mana ada banyak jenis sumber daya yang berbeda. Mengatur urutan tetap untuk banyak sumber daya bisa menjadi sangat rumit dan tidak efisien, sehingga metode ini tidak efektif untuk sistem besar dengan berbagai kebutuhan.\\
+    Metode ini kurang cocok untuk sistem yang lebih besar dan lebih kompleks dimana ada banyak jenis sumber daya yang berbeda. Mengatur urutan tetap untuk banyak sumber daya bisa menjadi sangat rumit dan tidak efisien, sehingga metode ini tidak efektif untuk sistem besar dengan berbagai kebutuhan.\\
 
     d. Pengurutan sumber daya statis mungkin tidak efektif jika pola penggunaan sumber daya berubah secara dinamis
     
@@ -206,9 +206,9 @@ Explores the concept of deadlocks and methods for preventing them:
 
     Kelebihan dari pencegahan ini, yaitu :\\
 
-    a. Mencegah kondisi deadlock dengan menghilangkan salah satu dari empat kondisi deadlock (hold-and-wait)
+    a. Mencegah kondisi deadlock dengan menghilangkan salah satu dari empat kondisi deadlock (\textit{hold-and-wait})
     
-    Metode ini mencegah deadlock dengan memastikan bahwa proses tidak akan memegang satu sumber daya sambil menunggu sumber daya lain. Semua sumber daya yang dibutuhkan oleh proses harus diminta sekaligus, sehingga menghindari situasi di mana satu proses menunggu sumber daya yang sedang dipegang oleh proses lain. Ini adalah pendekatan preventif yang sangat efektif dalam menghilangkan salah satu syarat terjadinya deadlock.\\
+    Metode ini mencegah deadlock dengan memastikan bahwa proses tidak akan memegang satu sumber daya sambil menunggu sumber daya lain. Semua sumber daya yang dibutuhkan oleh proses harus diminta sekaligus, sehingga menghindari situasi dimana satu proses menunggu sumber daya yang sedang dipegang oleh proses lain. Ini adalah pendekatan preventif yang sangat efektif dalam menghilangkan salah satu syarat terjadinya deadlock.\\
 
     b. Lebih mudah diterapkan dalam beberapa sistem kecil atau dengan sumber daya terbatas
     
@@ -230,7 +230,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     b. Pemborosan sumber daya karena proses mungkin memegang sumber daya yang tidak segera digunakan
     
-    Karena semua sumber daya diminta sekaligus, ada kemungkinan beberapa sumber daya yang dialokasikan tidak langsung digunakan. Hal ini bisa menyebabkan pemborosan, di mana sumber daya yang sudah dialokasikan tidak dimanfaatkan dengan baik, sementara proses lain yang membutuhkan sumber daya tersebut harus menunggu.\\
+    Karena semua sumber daya diminta sekaligus, ada kemungkinan beberapa sumber daya yang dialokasikan tidak langsung digunakan. Hal ini bisa menyebabkan pemborosan, dimana sumber daya yang sudah dialokasikan tidak dimanfaatkan dengan baik, sementara proses lain yang membutuhkan sumber daya tersebut harus menunggu.\\
 
     c. Membatasi multitasking karena proses harus menunggu sampai semua sumber daya tersedia
     
@@ -258,7 +258,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     d. Memungkinkan sistem tetap responsif dalam menghadapi deadlock sementara
     
-    Jika terjadi deadlock sementara di mana beberapa proses saling menunggu sumber daya, metode timeout dapat membantu memutus lingkaran deadlock tersebut. Ketika salah satu proses mencapai batas waktunya dan dihentikan, sumber daya yang terlibat dalam deadlock bisa dilepaskan, memungkinkan proses lain untuk melanjutkan eksekusi dan sistem tetap responsif.\\
+    Jika terjadi deadlock sementara  beberapa proses saling menunggu sumber daya, metode timeout dapat membantu memutus lingkaran deadlock tersebut. Ketika salah satu proses mencapai batas waktunya dan dihentikan, sumber daya yang terlibat dalam deadlock bisa dilepaskan, memungkinkan proses lain untuk melanjutkan eksekusi dan sistem tetap responsif.\\
 
     Kekurangan dari pencegahan ini, yaitu :\\
 
@@ -276,7 +276,7 @@ Explores the concept of deadlocks and methods for preventing them:
 
     d. Batas waktu yang tidak tepat dapat menyebabkan proses yang memerlukan sumber daya besar mengalami kegagalan berulang
     
-    Jika batas waktu yang ditetapkan terlalu singkat, proses yang memerlukan banyak sumber daya mungkin tidak pernah mendapatkan cukup waktu untuk menyelesaikan tugasnya, dan terus menerus dihentikan. Ini bisa menyebabkan kegagalan berulang, di mana proses besar tidak pernah selesai, mempengaruhi kinerja sistem secara keseluruhan.\\
+    Jika batas waktu yang ditetapkan terlalu singkat, proses yang memerlukan banyak sumber daya mungkin tidak pernah mendapatkan cukup waktu untuk menyelesaikan tugasnya, dan terus menerus dihentikan. Ini bisa menyebabkan kegagalan berulang, dimana proses besar tidak pernah selesai, mempengaruhi kinerja sistem secara keseluruhan.\\
 
     \begin{thebibliography}{9}
 

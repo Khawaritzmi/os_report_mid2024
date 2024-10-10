@@ -125,7 +125,7 @@ Explores the concept of deadlocks and methods for preventing them:
             \item \textbf{Model \textit{Deadlock}}
 
                 \hspace{1cm}
-                Model \textit{deadlock} adalah representasi dari situasi di mana serangkaian proses dalam suatu sistem tidak dapat melanjutkan eksekusi karena saling menunggu sumber daya yang sedang digunakan oleh proses lain.\newline
+                Model \textit{deadlock} adalah representasi dari situasi dimana serangkaian proses dalam suatu sistem tidak dapat melanjutkan eksekusi karena saling menunggu sumber daya yang sedang digunakan oleh proses lain.\newline
                 
                 \begin{enumerate}
                     \item \textit{\textbf{Resource Alocation Graph}}
@@ -134,13 +134,17 @@ Explores the concept of deadlocks and methods for preventing them:
                         Sebuah model graf yang digunakan untuk mempresentasikan hubungan antara proses dan sumber daya dalam sistem komputasi.
 
                         \hspace{1cm}
-                        Untuk menggambar model \textit{resource allocation graph} ada beberapa ketentuan sebagai berikut :
+                        Menurut Wahid (2020), untuk menggambar model 
+                        
+                        \textit{resource allocation graph} ada beberapa ketentuan sebagai berikut:
+                        
                         \begin{itemize}
                             \item \textbf{Persegi} menandakan sebuah sumber daya atau \textit{resource} yang biasa diberi penanda "R(n)", jumlah \textit{resource} yang bisa digunakan biasa ditandai dengan jumlah titik yang ada dalam persegi tersebut,
                             \item \textbf{Lingkaran} menandakan sebuah proses dengan penanda huruf "P(n)",
                             \item \textbf{Lingkaran} $\longrightarrow$ \textbf{Persegi} menandakan bahwa proses tersebut sedang meminta sebuah sumber daya dari \textit{resource},
                             \item \textbf{Persegi} $\longrightarrow$ \textbf{Lingkaran} menandakan bahwa sumber daya dari \textit{resource} sedang digunakan oleh proses tersebut.\newline
                         \end{itemize}
+
                         \begin{figure}[h]
                             \centering
                             \includegraphics[width=0.45\linewidth]
@@ -149,10 +153,10 @@ Explores the concept of deadlocks and methods for preventing them:
                             \label{fig:deadlock-RAG}
                             \end{figure}
                         
-                    \item \textit{\textbf{State-based model}}
+                    \item \textit{\textbf{State-based Model}}
 
                         \hspace{1cm}
-                        model yang digunakan untuk menganalisa dan mendeteksi \textit{deadlock} dengan melihat keadaan (\textit{state}) sistem dalam hal alokasi sumber daya dan proses yang sedang berjalan. 
+                        model yang digunakan untuk menganalisa dan mendeteksi \textit{deadlock} dengan melihat keadaan (\textit{state}) sistem dalam hal alokasi sumber daya dan proses yang sedang berjalan.
 
                         \hspace{1cm}
                         Gambar dibawah adalah contoh ilustrasi dari \textit{state-based model} yang biasa digunakan untuk menentukan apakah sistem berada dalam kondisi \textit{safe} atau \textit{unsafe}. Sistem bisa dikatakan dalam \textit{state} aman jika sistem dapat mengalokasikan sumber daya untuk setiap proses secara berurutan dan menghindari \textit{deadlock}.
@@ -168,10 +172,10 @@ Explores the concept of deadlocks and methods for preventing them:
                             \label{fig:deadlock-SBM}
                             \end{figure}
                         
-                    \item \textit{\textbf{Wait-For Graph}}
+                    \item \textit{\textbf{Wait-for Graph}}
 
                         \hspace{1cm}
-                        Model ini adalah penyederhanaan dari \textit{Resource Allocation Graph}. Dalam \textit{Wait-for Graph} hanya proses yang diwakili sebagai \textit{node}, dan ada panah yang menunjukkan bahwa satu proses menunggu proses lain untuk melepaskan sumber daya.
+                        Model ini adalah penyederhanaan dari \textit{resource allocation graph}. Dalam \textit{wait-for graph} hanya proses yang diwakili sebagai \textit{node}, dan ada panah yang menunjukkan bahwa satu proses menunggu proses lain untuk melepaskan sumber daya.
                             \begin{figure}[h]
                             \centering
                             \includegraphics[width=0.4\linewidth]
@@ -181,16 +185,15 @@ Explores the concept of deadlocks and methods for preventing them:
                             \end{figure}
 
                         \hspace{1cm}
-                        Model \textit{wait-for graph} biasa digunakan untuk menyederhanakan hasil dari model \textit{resource allocation graph}, tapi ada beberapa syarat yang harus terpenuhi jika ingin mengubah \textit{resource allocation graph} menjadi model \textit{wait-for graph}, adapun syarat dan ketentuannya sebagai berikut :
+                        Model \textit{wait-for graph} biasa digunakan untuk menyederhanakan hasil dari model \textit{resource allocation graph}, tapi ada beberapa syarat yang harus terpenuhi jika ingin mengubah \textit{resource allocation graph} menjadi model \textit{wait-for graph}, adapun syarat dan ketentuannya sebagai berikut : 
                         \begin{itemize}
-                            \item Tidak ada \textit{resource}, jadi model WFG hanya dapat menampilkan proses tanpa menampilkan \textit{resource},
+                            \item Tidak ada \textit{resource}, jadi model \textit{wait-for graph} hanya dapat menampilkan proses tanpa menampilkan \textit{resource},
                             \item  Mengubah relasi proses-\textit{resource} menjadi antar proses.\newline
                         \end{itemize}
 
                         
                 \end{enumerate}
-            \item \textbf{Deteksi Dan Pemulihan \textit{Deadlock}}
-            \item \textbf{\textit{Deadlock} Dalam Keseharian}
+            \item \textbf{Deteksi dan Pemulihan \textit{Deadlock}}
         \end{enumerate}
     \subsubsection{ \textit{Deadlock prevention techniques}}
 \end{itemize}
@@ -248,11 +251,9 @@ This assignment involved designing a multithreading scenario to solve a computat
 
 \subsubsection{Group 10}
 \begin{enumerate}
-    \item No 1
+    \item Sebuah program memiliki 75\% bagian yang dapat diparalelkan. Jika program ini dijalankan pada sistem dengan enam \textit{core} prosesor, berapakah \textit{speedup} maksimum yang dapat dicapai menurut Hukum Amdahl?
 
-    Sebuah program memiliki 75\% bagian yang dapat diparalelkan. Jika program ini dijalankan pada sistem dengan 6 core prosesor, berapakah speedup maksimum yang dapat dicapai menurut Hukum Amdahl?
-
-    \textit{JAWABAN : }
+    \textbf{Jawaban : }
     \begin{python}
     import math
 
@@ -278,46 +279,46 @@ This assignment involved designing a multithreading scenario to solve a computat
     print(f"Kecepatan maksimum teoritis (dengan cores tak terbatas) adalah: {max_theoretical_speedup:.2f}x")
 \end{python}
 
-    \textit{PENJELASAN : }
+    \textbf{Penjelasan : }
     \begin{enumerate}
-        \item Kita mengimpor modul \textit{math} untuk menggunakan konstanta inf (tak terhingga) nanti.
+        \item Kita mengimpor modul \textit{math} untuk menggunakan konstanta \textit{inf} (tak terhingga) nanti.
         \item Membuat fungsi \textit{calculate\_speedup} yang menerima dua parameter:
-            \begin{enumerate}
+            \begin{itemize}
                 \item \textit{parallel\_fraction}: Bagian program yang dapat diparalelkan (0 sampai 1)
                 \item \textit{num\_processors}: Jumlah prosesor atau \textit{thread} yang digunakan
-            \end{enumerate}
+            \end{itemize}
         \item Implementasi Hukum Amdahl:
-            \begin{enumerate}
+            \begin{itemize}
                 \item Ini adalah implementasi langsung dari rumus Hukum Amdahl: \textit{Speedup} = 1 / ((1 - P) + (P / N))
                 \item \textit{serial\_fraction} adalah bagian yang tidak dapat diparalelkan (1 - P)
                 \item Rumus menghitung \textit{speedup} berdasarkan fraksi paralel dan jumlah prosesor
-            \end{enumerate}
+            \end{itemize}
         \item Pengaturan parameter masalah :
-            \begin{enumerate}
-                \item Sesuai soal, 75\% program dapat diparalelkan dan menggunakan 6 \textit{core}
-            \end{enumerate}
+            \begin{itemize}
+                \item Sesuai soal, 75\% program dapat diparalelkan dan menggunakan enam \textit{core}
+            \end{itemize}
         \item Konversi persentase ke fraksi :
-            \begin{enumerate}
+            \begin{itemize}
                 \item Mengubah 75\% menjadi 0.75 untuk perhitungan
-            \end{enumerate}
+            \end{itemize}
         \item Perhitungan \textit{speedup} :
-            \begin{enumerate}
+            \begin{itemize}
                 \item Memanggil fungsi dengan parameter yang telah ditentukan
-            \end{enumerate}
+            \end{itemize}
         \item  Mencetak hasil :
-            \begin{enumerate}
+            \begin{itemize}
                 \item Menampilkan hasil perhitungan dengan format yang mudah dibaca
-                \item .2f memformat angka dengan 2 desimal
-            \end{enumerate}
+                \item .2f memformat angka dengan dua desimal
+            \end{itemize}
         \item  Perhitungan \textit{speedup} teoritis maksimum :
-            \begin{enumerate}
+            \begin{itemize}
                 \item Menghitung \textit{speedup} dengan jumlah prosesor tak terbatas (\textit{math.inf})
                 \item Ini menunjukkan batas atas teoritis dari \textit{speedup} yang mungkin dicapai
-            \end{enumerate}
+            \end{itemize}
         \item Mencetak \textit{speedup} teoritis maksimum :
-            \begin{enumerate}
+            \begin{itemize}
                 \item Menampilkan batas atas teoritis \textit{speedup}
-            \end{enumerate}
+            \end{itemize}
 
 
     \end{enumerate}
@@ -328,9 +329,9 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 
 \subsubsection{Group 10}
 \begin{enumerate}
-    \item Buatlah sebuah \textit{Command Line Interface} (CLI) sederhana untuk manajemen antarmuka pengguna.CLI harus mendukung perintah dasar seperti manipulasi file (membuat, membuat daftar, dan menghapus file), manajemen proses, dan status sistem pelaporan.
+    \item Buatlah sebuah \textit{Command Line Interface} (CLI) sederhana untuk manajemen antarmuka pengguna. CLI harus mendukung perintah dasar seperti manipulasi \textit{file} (membuat, membuat daftar, dan menghapus \textit{file}), manajemen proses, dan status sistem pelaporan.
 
-    \textit{JAWABAN :}
+    \textbf{Jawaban :}
     \begin{python}
         import os
 import psutil
@@ -400,24 +401,32 @@ def main():
 if __name__ == "__main__":
     main()
     \end{python}
-    \textit{PENJELASAN :}
+    \textbf{Penjelasan :}
     \begin{enumerate}
-        \item Kita mengimpor modul yang diperlukan: \textit{os} untuk operasi file, \textit{psutil} untuk manajemen proses dan status sistem, dan \textit{sys} untuk keluar dari program.
+        \item Kita mengimpor modul-modul yang diperlukan:
+            \begin{itemize}
+                \item \textit{os} untuk operasi \textit{file} dan sistem,
+                \item \textit{psutil} untuk manajemen proses dan pemantauan status sistem,
+                \item \textit{sys} untuk fungsi-fungsi terkait sistem, termasuk keluar dari program.
+            \end{itemize}
         \item Fungsi utama :
-        \begin{enumerate}
-            \item \textit{create\_file(filename)}: Membuat file baru.
-            \item \textit{list\_files()}: Menampilkan daftar file di direktori saat ini.
-            \item \textit{delete\_file(filename)}: Menghapus file yang ditentukan.
-            \item \textit{list\_processes()}: Menampilkan daftar proses yang sedang berjalan.
-            \item \textit{system\_status()}: Menampilkan penggunaan CPU, memori, dan \textit{disk}.
-        \end{enumerate}
+            \begin{itemize}
+                \item \textit{create\_file(filename)}: Membuat \textit{file} baru.
+                \item \textit{list\_files()}: Menampilkan daftar \textit{file} di direktori saat ini.
+                \item \textit{delete\_file(filename)}: Menghapus \textit{file} yang ditentukan.
+                \item \textit{list\_processes()}: Menampilkan daftar proses yang sedang berjalan.
+                \item \textit{system\_status()}: Menampilkan penggunaan CPU, memori, dan \textit{disk}.
+            \end{itemize}
         \item Fungsi \textit{main()}:
-        \begin{enumerate}
-            \item Menampilkan menu utama dalam \textit{loop}.
-            \item Meminta input dari pengguna.
-            \item Memanggil fungsi yang sesuai berdasarkan pilihan pengguna.
-        \end{enumerate}
-        \item Kita menggunakan \textit{if \_\_name\_\_ == "\_\_main\_\_"}: untuk memastikan bahwa \textit{main()} hanya dijalankan jika \textit{script} dieksekusi langsung, bukan diimpor sebagai modul.
+            \begin{itemize}
+                \item Menampilkan menu utama dalam \textit{loop}.
+                \item Meminta input dari pengguna.
+                \item Memanggil fungsi yang sesuai berdasarkan pilihan pengguna.
+            \end{itemize}
+        \item Kita menggunakan \textit{if \_\_name\_\_ == "\_\_main\_\_"}: 
+            \begin{itemize}
+                \item untuk memastikan bahwa \textit{main()} hanya dijalankan jika \textit{script} dieksekusi langsung, bukan diimpor sebagai modul.
+            \end{itemize}
     \end{enumerate}
 \end{enumerate}
 

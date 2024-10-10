@@ -77,11 +77,50 @@ This section covers:
 It explains how these algorithms are used to allocate CPU time to processes.
 
 \subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
+\subsubsection{\textit{Process Creation}}
+(Isi materi disini)
+
+\subsubsection{Siapa yang Membuat Proses}
+(Isi materi disini)
+
+\subsubsection{Proses \textit{Terminasi}}
 \begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
+    \item Definisi Proses \textit{Terminasi}
+    \item[] 
+Proses terminasi yaitu saat program atau aplikasi yang sedang berjalan dihentikan atau ditutup. Penghentian ini bisa terjadi setelah program selesai menjalankan semua tugasnya dengan baik atau bisa juga karena ada masalah atau kesalahan yang membuat program harus dihentikan sebelum selesai((Adiningati, 2024).
+
+    \item Jenis-jenis \textit{Terminasi}
+    \item[] 
+a. Proses Terminasi Normal
+     \item[]
+Proses menyelesaikan kerjaannya dengan sukses dan keluar secara normal. Secara umum status (nol) pada proses menunjukkan bahwa proses tersebut telah selesai dieksekusi dengan sukses. Tidak ada kesalahan yang terjadi selama proses berjalan(Neso Academy, 2021).
+     \item[]
+     \item[] 
+b. Proses Terminasi Abnormal
+     \item[]
+Proses suatu keadaan di mana sebuah program atau aplikasi tidak berjalan sesuai dengan yang diharapkan. Ini bisa terjadi karena berbagai alasan seperti kesalahan dalam penulisan kode, kurangnya sumber daya sistem (misalnya, memori atau ruang disk). Ketika proses abnormal terjadi program mungkin berhenti secara tiba-tiba lalu menghasilkan keluaran yang salah(Neso Academy, 2021). 
+     \item[]
+c. Proses Terminasi Paksa
+     \item[]
+Menghentikan suatu proses secara paksa tanpa menunggu proses tersebut selesai secara alami. Ini biasanya dilakukan ketika sebuah proses mengalami masalah seperti macet, menghabiskan terlalu banyak sumber daya, atau menimbulkan ancaman keamanan. Meskipun terminasi paksa dapat menyelesaikan masalah dengan cepat, tindakan ini juga memiliki risiko seperti kerusakan data(Neso Academy, 2021).
+    \item[]
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{norrmal.png}
+\caption{Contoh gambar Proses Terminasi Normal.}
+\end{figure}
+
+    \item Apa yang Terjadi Setelah \textit{Termination}
+    (isi materi disini)
 \end{itemize}
+
+\begin{thebibliography}{99}
+    \bibitem{Neso Academy}
+    Neso Academy. (2021, 12 Januari). Sistem Operasi: Pengoperasian Proses – Penghentian Proses [Video]. YouTube. https://youtu.be/SFc3jt8t5rU
+    \bibitem {medium}
+    Adiningati, B. (n.d.). Process dalam sistem operasi. Medium. Retrieved October 2, 2024, from https://britani-adiningati.medium.com/process-dalam-sistem-operasi-193207608976
+\end{thebibliography}
 
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
@@ -167,7 +206,42 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\item[]
+soal
+\item[] 
+Jelaskan konsep \textit{Banker's Algorithm}  untuk pencegahan \textit{deadlock }
+\item[]
+jawaban
+\item[] 
+\textit{Banker's Algorithm} adalah metode pencegahan \textit{deadlock} yang memeriksa apakah permintaan sumber daya oleh proses dapat dipenuhi tanpa menempatkan sistem dalam keadaan tidak aman. Algoritma ini mengevaluasi jumlah sumber daya yang tersedia, kebutuhan \textit{maxsimum}, dan sumber daya yang sudah dialokasikan untuk memutuskan apakah sistem aman.
+\begin{document}
+\subsection*{Implementasi \textit{Banker's Algorithm}}
+Berikut adalah contoh implementasi \textit{ Banker's Algorithm} dalam Python:
+\begin{verbatim}
+import numpy as np
+
+def is_safe(available, max_demand, allocation):
+    need = max_demand - allocation
+    work = available.copy()
+    finish = [False] * len(allocation)
+
+    for _ in range(len(allocation)):
+        for i in range(len(allocation)):
+            if not finish[i] and np.all(need[i] <= work):
+                work += allocation[i]
+                finish[i] = True
+    
+    return all(finish)
+
+# Contoh data
+available = np.array([3, 3, 2])
+max_demand = np.array([[7, 5, 3], [3, 2, 2], [9, 0, 2]])
+allocation = np.array([[0, 1, 0], [2, 0, 0], [3, 0, 2]])
+
+print("Sistem aman" if is_safe(available, max_demand, allocation)
+else "Sistem tidak aman")
+\end{verbatim}
+\end{document}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

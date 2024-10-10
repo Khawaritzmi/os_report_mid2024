@@ -123,12 +123,12 @@ Sistem operasi juga bertindak sebagai pencipta proses, terutama untuk proses-pro
 
 Proses yang diciptakan oleh sistem operasi tidak membutuhkan interaksi pengguna secara langsung, namun sangat penting untuk menjaga stabilitas dan efisiensi komputer. Contoh dari proses-proses ini termasuk manajemen memori, keamanan sistem, dan pengelolaan perangkat keras.
 
-\paragraph{Proses Lain sebagai Pencipta Proses (Hubungan Induk-Anak)}
+\paragraph{Proses Lain sebagai Pencipta Proses (\textit{Parent-Child Relationship})}
 
 Selain pengguna dan sistem operasi, sebuah proses juga dapat menciptakan proses lain, yang dikenal sebagai \textit{spawning}. Dalam sistem operasi, sebuah proses induk (\textit{parent process}) dapat menciptakan proses anak (\textit{child process}) untuk menjalankan tugas-tugas tertentu secara paralel atau terpisah.
 
 \begin{itemize}
-    \item \textit{Proses Parent-Child}Ketika proses induk menciptakan proses anak, keduanya dapat berjalan secara bersamaan. Proses anak dapat mewarisi sebagian besar sumber daya dari proses induk, namun tetap dapat berjalan secara independen.
+    \item \textit{Proses Parent-Child} Ketika proses induk menciptakan proses anak, keduanya dapat berjalan secara bersamaan. Proses anak dapat mewarisi sebagian besar sumber daya dari proses induk, namun tetap dapat berjalan secara independen.
     \item \textit{Pembuatan Sub-Proses} Proses induk mungkin menciptakan sub-proses untuk menjalankan bagian-bagian spesifik dari suatu program, misalnya, dalam pengelolaan tab di \textit{web browser}.
     \item \textbf{Contoh :} \textit{Google Chrome} membuat proses terpisah untuk setiap tab yang dibuka oleh pengguna. Setiap tab berfungsi sebagai proses anak dari proses utama \textit{Chrome}, yang mengelola seluruh operasi aplikasi.
 \end{itemize}

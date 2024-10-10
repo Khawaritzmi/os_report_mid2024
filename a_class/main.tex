@@ -186,7 +186,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
 
         \begin{figure}[h]
             \centering
-            \includegraphics[width=1\textwidth]{D:/Universitas Hasanuddin/Semester III/Sistem Operasi/Repository/os_report_mid2024/a_class/asset/pid-illustration.png}
+            \includegraphics[width=1\textwidth]{D:/Universitas Hasanuddin/Semester III/Sistem Operasi/Repository/os_report_mid2024/a_class/asset/pid-illustration.drawio.png}
             \caption{Diagram Alokasi PID}
         \end{figure}
 
@@ -233,7 +233,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
         proses, yang digunakan untuk menyimpan variabel lokal dan 
         informasi pemanggilan fungsi.
 
-        Menurut Arpaci-Dusseau dan Arpaci-Dusseau (2018), alokasi 
+        Menurut Arpaci-Dusseau (2018), alokasi 
         sumber daya juga melibatkan inisialisasi berbagai struktur 
         data \textit{kernel} yang terkait dengan proses. Ini 
         termasuk \textit{Process Control Block} (PCB) atau 
@@ -241,7 +241,6 @@ It explains how these algorithms are used to allocate CPU time to processes.
         informasi yang dibutuhkan \textit{kernel} untuk mengelola 
         proses.
 
-        \newpage    
         \item Hubungan Induk-anak
         
         Sistem operasi memelihara hubungan hierarkis antara 
@@ -292,7 +291,6 @@ It explains how these algorithms are used to allocate CPU time to processes.
         pemanggilan sistem akan gagal dengan kode kesalahan yang 
         sesuai (Love, 2010).
 
-        \newpage
         \item Penugasan PID 
         
         Jika sumber daya mencukupi, langkah berikutnya adalah 
@@ -472,7 +470,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \subsubsection{Group 6}
 \textbf{Soal:}
 
-Implementasikan algoritma penjadwalan proses FCFS (First Come First Serve), SJN (Shortest Job Next), dan RR (Round Robin) menggunakan Python. Bandingkan kinerja ketiga algoritma tersebut dengan menggunakan set data berikut:
+Implementasikan algoritma penjadwalan proses FCFS (\textit{First Come First Serve}), SJN (\textit{Shortest Job Next}), dan RR (\textit{Round Robin}) menggunakan Python. Bandingkan kinerja ketiga algoritma tersebut dengan menggunakan set data berikut:
     \begin{table}[h] % Optional: For floating position
         \centering
         \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
@@ -492,7 +490,7 @@ Implementasikan algoritma penjadwalan proses FCFS (First Come First Serve), SJN 
         \label{tab:Data Proses Untuk Penjadwalan} % Optional: For cross-referencing the table
     \end{table}
 
-Untuk algoritma Round Robin, gunakan quantum waktu 2 unit. Hitung waktu tunggu rata-rata dan waktu penyelesaian rata-rata untuk setiap algoritma.
+Untuk algoritma \textit{Round Robin}, gunakan kuantum waktu dua unit. Hitung waktu tunggu rata-rata dan waktu penyelesaian rata-rata untuk setiap algoritma.
 
 \textbf{Jawaban:}
 \begin{lstlisting}
@@ -607,12 +605,12 @@ rr_avg_waiting, rr_avg_turnaround = calculate_averages(rr_processes)
 
 \textbf{Kesimpulan:}
 
-Dari hasil output tersebut, kita bisa menyimpulkan bahwa:
+Dari hasil \textit{output} tersebut, kita bisa menyimpulkan bahwa:
 
 \begin{itemize}
     \item Algoritma SJN memberikan waktu tunggu dan waktu penyelesaian yang paling rendah di antara ketiga algoritma tersebut.
     \item FCFS memiliki waktu tunggu dan waktu penyelesaian yang tertinggi.
-    \item Algoritma Round Robin dengan kuantum waktu 2 unit menunjukkan waktu penyelesaian yang efisien, tetapi waktu tunggu rata-rata yang lebih tinggi dibandingkan SJN.
+    \item Algoritma \textit{Round Robin} dengan kuantum waktu dua unit menunjukkan waktu penyelesaian yang efisien, tetapi waktu tunggu rata-rata yang lebih tinggi dibandingkan SJN.
 \end{itemize}
 
 \subsection{Assignment 2: Deadlock Handling}

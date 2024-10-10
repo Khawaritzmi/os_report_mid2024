@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{pythonhighlight}
+\usepackage{indentfirst}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -84,11 +85,73 @@ Details how processes are created and terminated by the operating system, includ
 \end{itemize}
 
 \subsection{Introduction to Threads}
-This section introduces the concept of threads and their relation to processes, covering:
-\begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
-\end{itemize}
+\subsubsection{Konsep Threads}
+
+% Materi Restu Ahmadinata - H071231021
+
+\subsubsection{Hubungan antara Proses dan \textit{Threads}}
+
+    % Pengertian
+    \textit{Threads} dan proses memiliki hubungan yang sangat erat dalam mengeksekusi program di dalam komputer. \textbf{Proses} merupakan unit eksekusi mandiri yang berjalan dengan memiliki ruang memori, sumber daya, dan lingkungan eksekusi yang terisolasi dari proses-proses lain. Sebuah proses dapat menjalankan program secara independen dan memanfaatkan memori serta sumber daya yang dialokasikan oleh sistem operasi. Di dalam sebuah proses, bisa terdapat satu atau lebih \textit{threads}. \textbf{\textit{Thread}} adalah unit eksekusi yang lebih kecil dan lebih ringan dibanding dengan proses. \cite{lovengreen2024}
+    
+    \hspace{1cm}
+
+    % Hubungan
+    \textit{Thread} berbagi ruang memori dan sumber daya yang sama dengan proses induknya, namun setiap \textit{thread} memiliki \textit{stack} dan \textit{register} tersendiri. Hal tersebut memungkinkan beberapa \textit{threads} menjalankan tugas-tugas berbeda secara paralel, namun tetap terkoordinasi dalam satu proses yang sama. Karena \textit{threads} berbagi sumber daya yang sama dengan proses induk, eksekusi \textit{thread} jauh lebih ringan dibanding jika harus membuat proses baru. Maka dari itulah, \textit{threads} sering digunakan untuk meningkatkan efisiensi dan performa, terutama dalam aplikasi yang memerlukan banyak tugas dilakukan secara bersamaan.\cite{dinus} 
+    
+    \hspace{1cm}
+
+    % Contoh aplikasi
+    Salah satu aplikasi desain grafis yaitu Canva dapat dijadikan sebagai contoh untuk menjelaskan hubungan antara \textit{threads} dan proses. Ketika pengguna membuka aplikasi Canva, berikut adalah bagaimana proses dan \textit{threads} berkolaborasi:
+
+    % Kerjasama antara proses dan thread
+    \begin{enumerate}
+    
+        \item \textbf{Proses Canva:} Ketika pengguna menjalankan aplikasi Canva, sistem operasi akan membuat sebuah proses baru. Proses ini mencakup semua sumber daya yang dibutuhkan oleh aplikasi untuk berjalan dengan baik, termasuk memori, \textit{CPU time}, dan file pendukung. Proses ini juga akan mengelola seluruh komponen aplikasi, mulai dari antarmuka pengguna hingga alat desain yang tersedia.
+        
+        \item \textbf{\textit{Threads} di dalam Proses Canva:} Aplikasi Canva memanfaatkan \textit{multithreading} untuk menangani beberapa tugas secara bersamaan tanpa harus membuat proses baru. Berikut adalah beberapa contoh \textit{thread} yang bekerja di dalam proses Canva:
+
+        % Thread dan fungsinya
+        \begin{itemize}
+        
+            \item \textbf{\textit{Thread} 1: Antarmuka Pengguna (UI) -} \textit{Thread} ini bertanggung jawab untuk menampilkan dan menjaga responsivitas elemen-elemen visual seperti tombol, menu, dan panel desain di Canva. \textit{Thread} ini memastikan bahwa pengguna dapat berinteraksi dengan antarmuka secara lancar.
+            
+            \item \textbf{\textit{Thread} 2: Pemrosesan Gambar -} Ketika pengguna mengunggah, mengedit, atau menambahkan filter pada gambar atau elemen grafis, \textit{thread} ini akan menangani pemrosesan tersebut secara paralel, sehingga Canva tetap bisa berjalan tanpa mengalami penurunan performa.
+            
+            \item \textbf{\textit{Thread} 3: Sinkronisasi dengan \textit{Server} -} \textit{Thread} ini berfungsi untuk menyimpan hasil desain secara otomatis di \textit{cloud} Canva dan memastikan desain yang dikerjakan pengguna selalu diperbarui. Proses ini dilakukan di latar belakang tanpa mengganggu aktivitas utama pengguna.
+            
+        \end{itemize}
+    
+        % Ilustrasi
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\linewidth]{asset/process-and-threads-illustration.png}
+            \caption{Ilustrasi hubungan proses dan \textit{threads}}
+            \label{fig:ilustrasi-proses-dan-threads}
+        \end{figure}
+        
+    \end{enumerate}
+    
+    \hspace{1cm}
+
+    % Kesimpulan
+    Hubungan antara \textit{threads} dan proses dalam sebuah aplikasi penting untuk menjaga efisiensi dan performa aplikasi tersebut. \textit{Threads} memungkinkan berbagai tugas dapat dilakukan secara bersamaan dalam satu proses yang sama. Hal tersebut dapat mengurangi \textit{overhead} yang dihasilkan jika setiap tugas dijalankan dalam proses yang berbeda. Dengan demikian, \textit{threads} memberikan pengalaman yang lebih responsif dan efisien bagi pengguna, karena setiap \textit{thread} dapat fokus pada tugas spesifik, namun tetap berbagi sumber daya yang sama dalam proses induknya.
+
+    % Referensi
+    \begin{thebibliography}{99}
+
+        \bibitem{lovengreen2024}
+        Lovengreen, H. H. (2024). \textit{Processes, threads and tasks (Version 2.0, preliminary v.3).} \url{https://www2.imm.dtu.dk/courses/02158/proc.pdf}
+        
+        \bibitem{dinus}
+        Universitas Dian Nuswantoro. (n.d.). \textit{Sister 3: Proses dan Thread}. \url{https://repository.dinus.ac.id/docs/ajar/Sister_3_Proses_dan_Thread.pdf} 
+    
+    \end{thebibliography}
+    
+% END OF THE LINE
+\hspace{1cm}
+\hline
+\hspace{1cm}
 
 \begin{figure}[h]
     \centering

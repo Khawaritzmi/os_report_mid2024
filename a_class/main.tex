@@ -54,34 +54,32 @@ The course is divided into two halves. This report focuses on the first half, wh
 This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
 
 \subsection{System Performance and Metrics}
+\subsection{Performa Sistem dan Metrik Sistem Komputer}
 \subsubsection{Performa Sistem}
-    \Performa sistem komputer adalah kemampuan suatu sistem untuk menjalankan tugas-tugas komputasi sesuai dengan spesifikasi dan parameter yang telah ditetapkan. Performa ini mencakup kecepatan, efisiensi, dan ketepatan dalam menyelesaikan berbagai proses dan operasi yang diminta oleh pengguna atau aplikasi.
+    Performa sistem komputer adalah kemampuan suatu sistem untuk menjalankan tugas-tugas komputasi sesuai dengan spesifikasi dan parameter yang telah ditetapkan. Performa ini mencakup kecepatan, efisiensi, dan ketepatan dalam menyelesaikan berbagai proses dan operasi yang diminta oleh pengguna atau aplikasi.
 \begin{enumerate}
-    \item {Faktor Pengaruh Peforma}
+    \item {Faktor Pengaruh performa}
     \par \begin{enumerate}
-        \item {CPU (Central Processing Unit)}
-        \par \par CPU atau prosesor adalah otak dari komputer yang bertanggung jawab untuk menjalankan instruksi dan menjalankan proses komputasi. Kecepatan CPU diukur dalam gigahertz (GHz), dan semakin tinggi frekuensi, semakin cepat proses eksekusi instruksi. Selain itu, jumlah core pada CPU juga memainkan peran penting; semakin banyak core, semakin baik komputer dalam menangani multitasking dan menjalankan aplikasi yang membutuhkan banyak sumber daya.
-        \item {GPU (Graphics Processing Unit)}
-        \par GPU bertanggung jawab untuk menangani pemrosesan grafis dan rendering visual. Dalam aplikasi yang membutuhkan performa grafis tinggi seperti game, desain 3D, atau pengeditan video, GPU yang kuat menjadi sangat penting. GPU modern juga digunakan untuk komputasi paralel di bidang kecerdasan buatan dan pembelajaran mesin, mempercepat proses yang tidak bisa ditangani dengan efisien oleh CPU.
+        \item {CPU (\textit{(Central Processing Unit)}}
+        \par CPU atau prosesor adalah otak dari komputer yang bertanggung jawab untuk menjalankan instruksi dan proses komputasi. Kecepatan \textit{CPU} diukur dalam \textit{gigahertz (GHz)}; semakin tinggi frekuensi, semakin cepat proses eksekusi instruksi. Jumlah \textit{core} pada CPU juga penting; semakin banyak \textit{core}, semakin baik komputer dalam menangani \textit{multitasking} dan aplikasi yang membutuhkan banyak sumber daya\cite{3.2.1 Vaia}.
+        \item {GPU \textit{(Graphics Processing Unit)}}
+        \par GPU bertanggung jawab untuk menangani pemrosesan grafis dan rendering visual. Dalam aplikasi yang memerlukan performa grafis tinggi seperti game dan desain 3D, GPU yang kuat menjadi sangat penting. GPU modern juga digunakan untuk komputasi paralel di bidang kecerdasan buatan dan pembelajaran mesin, GPU dapat menyelesaikan tugas sederhana dan berulang jauh lebih cepat karena dapat memecah tugas menjadi komponen yang lebih kecil dan menyelesaikannya secara paralel\cite{3.2.1 AWS. GPU vs CPU}.
         
-        \item {RAM (Random Access Memory)}
-        \par RAM adalah memori sementara yang digunakan oleh sistem untuk menyimpan data yang aktif digunakan atau diakses oleh CPU dengan cepat . Kapasitas RAM yang lebih besar memungkinkan komputer untuk menjalankan lebih banyak aplikasi secara bersamaan atau memproses data yang lebih besar tanpa memperlambat performa. Selain itu, kecepatan RAM juga berpengaruh pada seberapa cepat data dapat diakses dan diproses.
-
-        \item {Penyimpanan (Storage)}
-        \par Jenis dan kapasitas penyimpanan berperan besar dalam kecepatan akses data . Penyimpanan berbasis SSD (Solid State Drive) jauh lebih cepat dibandingkan dengan HDD (Hard Disk Drive) tradisional, yang memungkinkan komputer untuk memuat program dan mengakses file dengan lebih cepat. SSD meningkatkan performa keseluruhan sistem, terutama dalam hal waktu boot, pembukaan aplikasi, dan kecepatan transfer file.
+        \item {RAM \textit{(Random Access Memory)}}
+        \par RAM adalah memori sementara yang digunakan oleh sistem untuk menyimpan data yang aktif digunakan atau diakses oleh CPU dengan cepat. Jumlah dan kecepatan RAM biasanya meningkatkan performa sistem dengan memungkinkan lebih banyak data digunakan tanpa harus menggunakan penyimpanan yang lebih lambat\cite{3.2.1 Algor Cards}.
 
     \end{enumerate}
     
     \item {Keterkaitan Hardware}
     \par \begin{enumerate}
-        \item {{Keterkaitan antara RAM dan CPU}}
-        \par CPU bergantung pada RAM untuk menyimpan data sementara yang sedang diproses. Ketika CPU menjalankan tugas, ia membutuhkan data yang dapat diakses dengan cepat. RAM menyediakan ruang penyimpanan sementara yang memungkinkan CPU untuk mengakses data dengan kecepatan tinggi, yang membantu mencegah penundaan dalam pemrosesan. Semakin besar kapasitas dan kecepatan RAM, semakin cepat CPU dapat memproses data, terutama dalam situasi multitasking di mana banyak aplikasi berjalan secara bersamaan.
+        \item {Keterkaitan antara RAM dan CPU}
+        \par CPU bergantung pada RAM untuk menyimpan data sementara yang sedang diproses. Ketika CPU menjalankan tugas, ia membutuhkan data yang dapat diakses dengan cepat. RAM menyediakan ruang penyimpanan sementara yang memungkinkan CPU untuk mengakses data dengan kecepatan tinggi, yang membantu mencegah penundaan dalam pemrosesan. Semakin besar kapasitas dan kecepatan RAM, semakin cepat CPU dapat memproses data, terutama dalam situasi \textit{multitasking} ketika banyak aplikasi berjalan secara bersamaan.
     
-        \item {{Keterkaitan antara CPU dan GPU}}
-        \par CPU dan GPU bekerja bersama-sama untuk membagi tugas yang memerlukan pemrosesan berat. CPU menangani tugas-tugas umum seperti logika, kontrol aplikasi, dan aliran data, sementara GPU menangani tugas-tugas yang membutuhkan komputasi paralel, seperti rendering grafis atau komputasi numerik. Kinerja keseluruhan sistem meningkat ketika CPU dan GPU dapat bekerja secara seimbang. Jika salah satu komponen terlalu lambat dibandingkan dengan yang lain, bisa terjadi bottleneck, di mana salah satu perangkat keras menahan kinerja perangkat lainnya.
+        \item {Keterkaitan antara CPU dan GPU}
+        \par CPU dan GPU bekerja bersama-sama untuk membagi tugas yang memerlukan pemrosesan berat. CPU menangani tugas-tugas umum seperti logika, kontrol aplikasi, dan aliran data, sementara GPU menangani tugas-tugas yang membutuhkan komputasi paralel, seperti rendering grafis atau komputasi numerik. Kinerja keseluruhan sistem meningkat ketika CPU dan GPU dapat bekerja secara seimbang. Jika salah satu komponen terlalu lambat dibandingkan dengan yang lain, bisa terjadi \textit{bottleneck}, ketika salah satu perangkat keras menahan kinerja perangkat lainnya.
     
-        \item {{Keterkaitan antara Penyimpanan dan RAM}}
-        \par RAM dan penyimpanan juga bekerja sama untuk memastikan kelancaran operasi sistem. Ketika aplikasi atau data yang dibutuhkan oleh CPU tidak dapat seluruhnya ditampung di RAM, sistem akan menggunakan penyimpanan sebagai memori virtual. Jika penyimpanan yang digunakan adalah SSD (Solid State Drive), maka akses data dari penyimpanan ke RAM menjadi jauh lebih cepat dibandingkan dengan HDD (Hard Disk Drive) tradisional, sehingga mempercepat pemuatan aplikasi dan respons sistem secara keseluruhan.
+        \item {Keterkaitan antara Penyimpanan dan RAM}
+        \par RAM dan penyimpanan juga bekerja sama untuk memastikan kelancaran operasi sistem. Ketika aplikasi atau data yang dibutuhkan oleh CPU tidak dapat seluruhnya ditampung di RAM, sistem akan menggunakan penyimpanan sebagai memori virtual. Jika penyimpanan yang digunakan adalah SSD (\textit{Solid State Drive}), maka akses data dari penyimpanan ke RAM menjadi jauh lebih cepat dibandingkan dengan HDD (\textit{Hard Disk Drive}) tradisional, sehingga mempercepat pemuatan aplikasi dan respons sistem secara keseluruhan.
     
     \end{enumerate} 
 

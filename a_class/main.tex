@@ -100,16 +100,16 @@ It explains how these algorithms are used to allocate CPU time to processes.
     berikut :
 
     \begin{enumerate}
-        \item Normal Exit (voluntary)
-        \item Error Exit (voluntary)
-        \item Fatal Exit (involuntary)
-        \item Killed by another process (involuntary)
+        \item Normal \textit{Exit} (voluntary)
+        \item Error \textit{Exit} (voluntary)
+        \item Fatal \textit{Exit} (involuntary)
+        \item \textit{Killed by another process (involuntary)}
     \end{enumerate}
 
     Sebagian besar proses berhenti karena mereka telah menyelesaikan 
     tugasnya. Saat menjadi compiler telah mengkompilasi program yang diberikan 
     padanya, kompilator mengeksekusi panggilan sistem untuk memberitahu sistem 
-    operasi yang sudah selesai. Panggilan ini keluar di UNIX dan ExitProcess di 
+    operasi yang sudah selesai. Panggilan ini keluar di UNIX dan \textit{ExitProcess} di 
     Windows. Program berorientasi layar juga mendukung penghentian sukarela. 
     Kata prosesor, browser Internet, dan program serupa selalu memiliki ikon atau 
     menu item yang dapat diklik pengguna untuk memberi tahu proses untuk 
@@ -129,7 +129,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
     Alasan keempat suatu proses mungkin berhenti adalah bahwa proses 
     tersebut menjalankan panggilan sistem yang memberi tahu sistem operasi untuk 
     menghentikan beberapa proses lain. Di UNIX panggilan ini adalah membunuh. 
-    Fungsi Win32 yang sesuai adalah TerminateProcess.
+    Fungsi Win32 yang sesuai adalah \textit{TerminateProcess}.
 
     Setelah sebuah proses dihentikan di sistem operasi, ada beberapa hal yang terjadi di balik layar untuk memastikan semuanya berjalan dengan lancar. Mari kita bahas ini dengan cara yang santai.
     \begin{enumerate}
@@ -138,7 +138,7 @@ It explains how these algorithms are used to allocate CPU time to processes.
 
         Setiap proses yang berjalan di komputer 
         menggunakan berbagai sumber daya, seperti 
-        memori, CPU, file, dan perangkat keras lainnya. 
+        memori, CPU, \textit{file}, dan perangkat keras lainnya. 
         Ketika proses tersebut dihentikan, semua sumber daya 
         yang telah dipinjam oleh proses itu harus dikembalikan ke 
         sistem agar bisa digunakan oleh proses lain. 
@@ -151,12 +151,12 @@ It explains how these algorithms are used to allocate CPU time to processes.
         Selain itu, informasi tentang bagaimana proses itu berakhir 
         (apakah sukses atau terjadi error) disimpan oleh OS.
 
-        Exit Status: Setelah proses berhenti, biasanya ada 
-        semacam "kode" yang dikembalikan untuk menunjukkan 
+        \textit{Exit} Status: Setelah proses berhenti, biasanya ada 
+        semacam kode yang dikembalikan untuk menunjukkan 
         apakah proses itu berhasil atau ada masalah. Ini disebut 
-        exit status. Jika proses berjalan lancar, exit status-nya 
-        mungkin 0. Kalau ada masalah, exit status-nya bisa berupa 
-        angka lain yang menunjukkan error.
+        \textit{exit} status. Jika proses berjalan lancar, \textit{exit} status-nya 
+        mungkin 0(nol). Kalau ada masalah, \textit{exit} status-nya bisa berupa 
+        angka lain yang menunjukkan \textit{error}.
 
         \item Membersihkan Proses dari Daftar
         
@@ -175,11 +175,11 @@ It explains how these algorithms are used to allocate CPU time to processes.
         tersebut bahwa proses yang mereka tunggu sudah selesai. 
         Ini memungkinkan proses lain untuk melanjutkan tugasnya.
 
-        \item  Logging atau Pencatatan
+        \item  \textit{Logging} atau Pencatatan
         
 
         Terakhir, beberapa sistem operasi akan mencatat bahwa 
-        sebuah proses telah dihentikan dalam log sistem. Ini 
+        sebuah proses telah dihentikan dalam \textit{log} sistem. Ini 
         seperti mencatat dalam buku harian tentang apa yang telah 
         terjadi. Informasi ini bisa berguna jika ada masalah atau
         jika kamu ingin melihat apa yang telah dilakukan komputer 

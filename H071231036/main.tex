@@ -1,172 +1,196 @@
 \documentclass{article}
-\usepackage{graphicx} % Required for inserting images
-\documentclass[12pt]{article}
+\usepackage{graphicx} % Diperlukan untuk memasukkan gambar
 \usepackage{amsmath}
-\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
 
-\title{Operating System Course Report - First Half of the Semester}
-\author{A class}
+\title{Laporan Mata Kuliah Sistem Operasi - Paruh Pertama Semester}
+\author{Kelas A}
 \date{\today}
 
 \begin{document}
 
 \maketitle
 
+\section{Pendahuluan}
+Laporan ini merangkum topik-topik yang telah dibahas selama paruh pertama mata kuliah Sistem Operasi. Laporan ini mencakup konsep teoretis, implementasi praktis, serta tugas-tugas. Mata kuliah ini berfokus pada dasar-dasar sistem operasi, termasuk arsitektur sistem, manajemen proses, penjadwalan CPU, dan penanganan deadlock.
 
-\section{Introduction}
-This report summarizes the topics covered during the first half of the Operating System course. It includes theoretical concepts, practical implementations, and assignments. The course focuses on the fundamentals of operating systems, including system architecture, process management, CPU scheduling, and deadlock handling.
-
-\section{Course Overview}
-\subsection{Objectives}
-The main objectives of this course are:
+\section{Gambaran Umum Mata Kuliah}
+\subsection{Tujuan}
+Tujuan utama dari mata kuliah ini adalah:
 \begin{itemize}
-    \item To understand the basic components and architecture of a computer system.
-    \item To learn process management, scheduling, and inter-process communication.
-    \item To explore file systems, input/output management, and virtualization.
-    \item To study the prevention and handling of deadlocks in operating systems.
+    \item Memahami komponen dasar dan arsitektur dari sistem komputer.
+    \item Mempelajari manajemen proses, penjadwalan, dan komunikasi antar-proses.
+    \item Menjelajahi sistem berkas, manajemen input/output, dan virtualisasi.
+    \item Mempelajari pencegahan dan penanganan deadlock dalam sistem operasi.
 \end{itemize}
 
-\subsection{Course Structure}
-The course is divided into two halves. This report focuses on the first half, which covers:
+\subsection{Struktur Mata Kuliah}
+Mata kuliah ini dibagi menjadi dua bagian. Laporan ini berfokus pada paruh pertama yang mencakup:
 \begin{itemize}
-    \item Basic Concepts and Components of Computer Systems
-    \item System Performance and Metrics
-    \item System Architecture of Computer Systems
-    \item Process Description and Control
-    \item Scheduling Algorithms
-    \item Process Creation and Termination
-    \item Introduction to Threads
-    \item File Systems
-    \item Input and Output Management
-    \item Deadlock Introduction and Prevention
-    \item User Interface Management
-    \item Virtualization in Operating Systems
+    \item Konsep dan Komponen Dasar Sistem Komputer
+    \item Kinerja Sistem dan Metrik
+    \item Arsitektur Sistem Komputer
+    \item Deskripsi dan Pengendalian Proses
+    \item Algoritma Penjadwalan
+    \item Pembuatan dan Penghentian Proses
+    \item Pengenalan Threads
+    \item Sistem Berkas
+    \item Manajemen Input dan Output
+    \item Pengenalan dan Pencegahan Deadlock
+    \item Manajemen Antarmuka Pengguna
+    \item Virtualisasi dalam Sistem Operasi
 \end{itemize}
 
-\section{Topics Covered}
+\section{Topik yang Dibahas}
 
-\subsection{Basic Concepts and Components of Computer Systems}
-This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
+\subsection{Konsep dan Komponen Dasar Sistem Komputer}
+Bagian ini menjelaskan komponen dasar yang membentuk sistem komputer, termasuk CPU, memori, penyimpanan, dan perangkat input/output.
 
-\subsection{System Performance and Metrics}
-This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
+\subsection{Kinerja Sistem dan Metrik}
+Bagian ini memperkenalkan berbagai metrik kinerja sistem yang digunakan untuk mengukur efisiensi sistem komputer, termasuk throughput, waktu respons, dan utilisasi.
 
-\subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+\subsection{Arsitektur Sistem Komputer}
+Bagian ini menggambarkan arsitektur sistem komputer modern, dengan fokus pada interaksi antara perangkat keras dan sistem operasi.
 
-\subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
+\subsection{Deskripsi dan Pengendalian Proses}
+Proses merupakan konsep sentral dalam sistem operasi. Bagian ini mencakup:
 \begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
+    \item Status proses dan transisi status
+    \item Process Control Block (PCB)
+    \item Pergantian konteks
 \end{itemize}
 
-\subsection{Scheduling Algorithms}
-This section covers:
+\subsection{Algoritma Penjadwalan}
+Bagian ini membahas:
 \begin{itemize}
     \item First-Come, First-Served (FCFS)
     \item Shortest Job Next (SJN)
     \item Round Robin (RR)
 \end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
+Penjelasan tentang bagaimana algoritma ini digunakan untuk mengalokasikan waktu CPU ke proses-proses.
 
-\subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
+\subsection{Pembuatan dan Penghentian Proses}
+Menjelaskan bagaimana proses dibuat dan dihentikan oleh sistem operasi, termasuk:
 \begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
+    \item Penciptaan proses (process spawning)
+    \item Kondisi penghentian proses
 \end{itemize}
 
-\subsection{Introduction to Threads}
-This section introduces the concept of threads and their relation to processes, covering:
+\subsection{Pengenalan Threads}
+Bagian ini memperkenalkan konsep threads dan hubungannya dengan proses, mencakup:
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item Proses single-threaded vs. multi-threaded
+    \item Manfaat multithreading
 \end{itemize}
 
-\subsection{File Systems}
-File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
+\subsection{Sistem Berkas}
+Sistem berkas menyediakan cara bagi sistem operasi untuk menyimpan, mengambil, dan mengelola data. Bagian ini menjelaskan:
 \begin{itemize}
-    \item File system structure
-    \item File access methods
-    \item Directory management
+    \item Struktur sistem berkas
+    \item Metode akses berkas
+    \item Manajemen direktori
 \end{itemize}
 
-\subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
+\subsection{Manajemen Input dan Output}
+Manajemen input dan output sangat penting untuk menangani interaksi antara sistem dan perangkat eksternal. Bagian ini mencakup:
 \begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
+    \item Driver perangkat
+    \item Penjadwalan I/O
 \end{itemize}
 
-\subsection{Deadlock Introduction and Prevention}
-Explores the concept of deadlocks and methods for preventing them:
+\subsection{Pengenalan dan Pencegahan Deadlock}
+Bagian ini menjelaskan konsep deadlock dan metode untuk mencegahnya:
 \begin{itemize}
-    \item Deadlock introduction
-    \item Conditions for deadlock
-    \item Deadlock detection and recovery
-    \item Deadlock prevention techniques
+    \item Pengenalan deadlock
+    \item Kondisi terjadinya deadlock
+    \item Deteksi dan pemulihan dari deadlock
+    \item Teknik pencegahan deadlock
 \end{itemize}
 
-\subsubsection{Deadlock in Everyday Life}
-Deadlock is not just a concept in computer systems; it can also occur in daily situations where multiple parties are waiting for each other to release resources, leading to a standstill. Here are a few examples of deadlock in real life:
+\subsubsection{Deadlock dalam Kehidupan Sehari-hari}
+Deadlock bukan hanya konsep dalam sistem komputer, tetapi juga dapat terjadi dalam situasi kehidupan sehari-hari di mana beberapa pihak menunggu satu sama lain untuk melepaskan sumber daya, sehingga terjadi kebuntuan. Berikut adalah beberapa contoh deadlock dalam kehidupan nyata:
 
 \begin{itemize}
-    \item \textbf{Traffic Jam at an Intersection:} Imagine a four-way intersection with cars coming from all directions. If each car enters the intersection and blocks the others, no one can move forward. This is a classic example of deadlock, where each car is waiting for the others to move.
+    \item \textbf{Kemacetan di Persimpangan:} Bayangkan sebuah persimpangan empat arah dengan mobil-mobil datang dari semua arah. Jika setiap mobil masuk ke persimpangan dan menghalangi yang lain, tidak ada yang bisa bergerak maju. Ini adalah contoh klasik deadlock, di mana setiap mobil menunggu yang lain untuk bergerak.
     
-    \item \textbf{Diners Waiting for Cutlery:} In a restaurant, if several diners are sharing a set of utensils, deadlock can occur if each diner holds onto one item (e.g., one diner holds a knife and waits for a fork, while the other holds a fork and waits for the knife). Neither can proceed without the other.
+    \item \textbf{Diner yang Menunggu Peralatan Makan:} Di sebuah restoran, jika beberapa pengunjung berbagi satu set alat makan, deadlock dapat terjadi jika masing-masing pengunjung memegang satu alat (misalnya, satu pengunjung memegang pisau dan menunggu garpu, sementara yang lain memegang garpu dan menunggu pisau). Keduanya tidak dapat melanjutkan tanpa yang lain.
     
-    \item \textbf{Locked Doors and Keys:} Two people are trying to get into separate rooms, but each room’s key is in the other room. If person A is waiting for person B to open their room to get the key, and person B is waiting for person A to do the same, they will both be stuck indefinitely.
+    \item \textbf{Pintu Terkunci dan Kunci:} Dua orang berusaha masuk ke kamar yang berbeda, tetapi kunci kamar masing-masing ada di kamar yang lain. Jika orang A menunggu orang B untuk membuka kamarnya dan mendapatkan kunci, dan orang B menunggu orang A melakukan hal yang sama, mereka akan terjebak tanpa henti.
     
-    \item \textbf{Shared Resources at the Workplace:} In a collaborative work environment, if two teams are waiting for shared resources like a printer or project approval from another team, neither can proceed until the other has finished, leading to a deadlock in the workflow.
+    \item \textbf{Sumber Daya Bersama di Tempat Kerja:} Di lingkungan kerja kolaboratif, jika dua tim menunggu sumber daya bersama seperti printer atau persetujuan proyek dari tim lain, keduanya tidak bisa melanjutkan sampai yang lain selesai, menyebabkan deadlock dalam alur kerja.
 \end{itemize}
 
-\subsection{User Interface Management}
-This section discusses the role of the operating system in managing the user interface. Topics covered include:
+\subsection{Manajemen Antarmuka Pengguna}
+Bagian ini membahas peran sistem operasi dalam mengelola antarmuka pengguna. Topik yang dibahas meliputi:
 \begin{itemize}
-    \item Graphical User Interface (GUI)
-    \item Command-Line Interface (CLI)
-    \item Interaction between the user and the operating system
+    \item Antarmuka Grafis Pengguna (GUI)
+    \item Antarmuka Baris Perintah (CLI)
+    \item Interaksi antara pengguna dan sistem operasi
 \end{itemize}
 
-\subsection{Virtualization in Operating Systems}
-Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
+\subsection{Virtualisasi dalam Sistem Operasi}
+Virtualisasi memungkinkan beberapa sistem operasi berjalan secara bersamaan pada satu mesin fisik. Bagian ini membahas:
 \begin{itemize}
-    \item Concept of virtualization
-    \item Hypervisors and their types
-    \item Benefits of virtualization in modern computing
+    \item Konsep virtualisasi
+    \item Hypervisor dan jenis-jenisnya
+    \item Manfaat virtualisasi dalam komputasi modern
 \end{itemize}
 
-\section{Assignments and Practical Work}
-\subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+\section{Tugas dan Pekerjaan Praktis}
+\subsection{Tugas 1: Penjadwalan Proses}
+Mahasiswa diminta untuk mengimplementasikan berbagai algoritma penjadwalan proses (misalnya, FCFS, SJN, dan RR) dan membandingkan kinerja mereka di bawah kondisi yang berbeda.
 
-\subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsection{Tugas 2: Penanganan Deadlock}
+Dalam tugas ini, mahasiswa diminta untuk mensimulasikan berbagai skenario deadlock dan mengeksplorasi berbagai metode pencegahan.
 
-\subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied *Amdahl's Law* to calculate the theoretical speedup of the program as the number of threads increased.
+\subsection{Tugas 3: Multithreading dan Hukum Amdahl}
+Tugas ini melibatkan merancang skenario multithreading untuk menyelesaikan masalah komputasi intensif. Mahasiswa kemudian menerapkan *Hukum Amdahl* untuk menghitung percepatan teoritis dari program seiring bertambahnya jumlah thread.
 
-\subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple *CLI* for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsection{Tugas 4: Antarmuka Baris Perintah (CLI) Sederhana untuk Manajemen Antarmuka Pengguna}
+Mahasiswa diminta untuk membuat *CLI* sederhana untuk manajemen antarmuka pengguna. CLI ini harus mendukung perintah dasar seperti manipulasi berkas (membuat, daftar, dan menghapus berkas), manajemen proses, dan pelaporan status sistem.
 
-\subsection{Assignment 5: File System Access}
-In this assignment, students implemented file system access routines, including:
-\begin{itemize}
-    \item File creation and deletion
-    \item Reading from and writing to files
-    \item Navigating directories and managing file permissions
-\end{itemize}
+\subsection{Tugas 5: Akses File Sistem}
+Dalam tugas ini, siswa diminta untuk melakukan akses file sistem menggunakan Python. Soal ini mencakup pembuatan file, membaca isi file, dan menampilkan daftar file dalam direktori. Berikut adalah soal yang harus dikerjakan:
 
-\section{Conclusion}
-The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+\textbf{Soal:} Buatlah sebuah program Python yang melakukan hal berikut:
+1. Membuat sebuah file baru dengan nama `contoh.txt` dan menuliskan beberapa kalimat ke dalamnya.
+2. Membaca dan menampilkan isi dari file `contoh.txt`.
+3. Menampilkan semua file yang ada di direktori saat ini.
+
+\textbf{Kode Python:}
+\begin{lstlisting}[language=Python]
+import os
+
+# 1. Membuat file dan menuliskan isi
+with open('contoh.txt', 'w') as file:
+    file.write('Ini adalah contoh file.\n')
+    file.write('File ini digunakan untuk demonstrasi akses file sistem.\n')
+
+# 2. Membaca dan menampilkan isi file
+with open('contoh.txt', 'r') as file:
+    isi_file = file.read()
+    print('Isi dari contoh.txt:')
+    print(isi_file)
+
+# 3. Menampilkan semua file di direktori saat ini
+print('\nDaftar file di direktori saat ini:')
+for nama_file in os.listdir('.'):
+    print(nama_file)
+\end{lstlisting}
+
+\textbf{Jawaban:} Ketika kode di atas dijalankan, output yang diharapkan adalah sebagai berikut:
+\begin{verbatim}
+Isi dari contoh.txt:
+Ini adalah contoh file.
+File ini digunakan untuk demonstrasi akses file sistem.
+
+Daftar file di direktori saat ini:
+contoh.txt
+\end{verbatim}
+
+\section{Kesimpulan}
+Paruh pertama mata kuliah ini memperkenalkan konsep inti sistem operasi, termasuk manajemen proses, penjadwalan, multithreading, dan akses sistem berkas. Topik-topik ini memberikan dasar untuk pembahasan lebih lanjut di paruh kedua mata kuliah.
 
 \end{document}
-
-
-
-

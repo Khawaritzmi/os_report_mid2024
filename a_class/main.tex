@@ -1,189 +1,167 @@
-\documentclass[12pt]{article}
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{pythonhighlight}
 
-\title{Operating System Course Report - First Half of the Semester}
-\author{A class}
-\date{\today}
+\title{Arsitektur Harvard, Arsitektur von Neumann, ISA, dan Mikro Arsitektur}
+\author{}
+\date{}
 
 \begin{document}
 
 \maketitle
-\newpage
 
-\tableofcontents
-\newpage
 
-\section{Introduction}
-This report summarizes the topics covered during the first half of the Operating System course. It includes theoretical concepts, practical implementations, and assignments. The course focuses on the fundamentals of operating systems, including system architecture, process management, CPU scheduling, and deadlock handling.
 
-\section{Course Overview}
-\subsection{Objectives}
-The main objectives of this course are:
-\begin{itemize}
-    \item To understand the basic components and architecture of a computer system.
-    \item To learn process management, scheduling, and inter-process communication.
-    \item To explore file systems, input/output management, and virtualization.
-    \item To study the prevention and handling of deadlocks in operating systems.
-\end{itemize}
-
-\subsection{Course Structure}
-The course is divided into two halves. This report focuses on the first half, which covers:
-\begin{itemize}
-    \item Basic Concepts and Components of Computer Systems
-    \item System Performance and Metrics
-    \item System Architecture of Computer Systems
-    \item Process Description and Control
-    \item Scheduling Algorithms
-    \item Process Creation and Termination
-    \item Introduction to Threads
-    \item File Systems
-    \item Input and Output Management
-    \item Deadlock Introduction and Prevention
-    \item User Interface Management
-    \item Virtualization in Operating Systems
-\end{itemize}
-
-\section{Topics Covered}
-
-\subsection{Basic Concepts and Components of Computer Systems}
-This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
-
-\subsection{System Performance and Metrics}
-This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
-
-\subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
-
-\subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
-\begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
-\end{itemize}
-
-\subsection{Scheduling Algorithms}
-This section covers:
-\begin{itemize}
-    \item First-Come, First-Served (FCFS)
-    \item Shortest Job Next (SJN)
-    \item Round Robin (RR)
-\end{itemize}
-It explains how these algorithms are used to allocate CPU time to processes.
-
-\subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
-\begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
-\end{itemize}
-
-\subsection{Introduction to Threads}
-This section introduces the concept of threads and their relation to processes, covering:
-\begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
-\end{itemize}
-
-\begin{figure}[h]
+\section{Arsitektur von Neumann}
+John von Neumann pertama kali menawarkan arsitektur von Neumann pada tahun 1945, yang menjadi dasar hampir semua komputer modern. Arsitektur ini terutama memanfaatkan memori yang sama untuk menyimpan data dan instruksi program. Metode ini memungkinkan komputer untuk menjalankan program yang lebih kompleks dan dapat disesuaikan.
+\begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
+    \includegraphics[width=0.5\linewidth]{assets/Van neuman.png}
+    \caption{Van Neumann}
+    \label{fig:enter-label}
 \end{figure}
+\subsection{Keuntungan dan Kelemahan}
 
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Kelebihan:}
+  \begin{itemize}
+    \item \textbf{Kesederhanaan Desain:}
+    \begin{itemize}
+      \item Satu Memori untuk Data dan Instruksi: Menggunakan satu ruang memori untuk menyimpan data dan instruksi, menyederhanakan desain sistem memori.
+      \item Desain yang Sederhana: Satu set jalur data dan alamat membuat desain perangkat keras menjadi lebih sederhana dan lebih murah.
+    \end{itemize}
+    
+    \item \textbf{Fleksibilitas:}
+    \begin{itemize}
+      \item Pemrograman yang Fleksibel: Instruksi dan data dapat disimpan dalam memori yang sama, memungkinkan program untuk diubah selama runtime.
+      \item Kemudahan Pengembangan \textit{Software}: Perubahan pada kode atau data tidak memerlukan perubahan pada perangkat keras.
+    \end{itemize}
+    
+    \item \textbf{Penggunaan Memori yang Efisien:}
+    \begin{itemize}
+      \item Penggunaan Memori yang lebih mudah: Memori dapat dialokasikan untuk instruksi atau data sesuai kebutuhan, tanpa harus memisahkan ruang secara fisik.
+    \end{itemize}
+  \end{itemize}
+  
+  \item \textbf{Kekurangan:}
+  \begin{itemize}
+    \item \textbf{Bottleneck Memori (Von Neumann Bottleneck):}
+    \begin{itemize}
+      \item Kecepatan Transfer yang Terbatas: Satu jalur untuk mengakses memori instruksi dan data bisa menjadi hambatan ketika prosesor mencoba untuk melakukan banyak operasi secara bersamaan, memperlambat kinerja sistem.
+    \end{itemize}
+    
+    \item \textbf{Performa yang Kurang Optimal:}
+    \begin{itemize}
+      \item Akses Memori yang Bersama: Proses pengambilan instruksi dan akses data harus dilakukan secara bergantian, yang dapat mengurangi kecepatan eksekusi jika kedua jenis operasi terjadi secara bersamaan.
+    \end{itemize}
+    
+    \item \textbf{Keamanan dan Stabilitas:}
+    \begin{itemize}
+      \item Risiko Kesalahan Pengkodean: Karena data dan instruksi disimpan bersama, kesalahan dalam penanganan data atau instruksi dapat menyebabkan masalah seperti corrupt data atau instruksi.
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
 
-\subsection{File Systems}
-File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
-\begin{itemize}
-    \item File system structure
-    \item File access methods
-    \item Directory management
-\end{itemize}
+\section{Arsitektur Harvard}
 
-\subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
-\end{itemize}
-
-\subsection{Deadlock Introduction and Prevention}
-Explores the concept of deadlocks and methods for preventing them:
-\begin{itemize}
-    \item Deadlock conditions
-    \item Deadlock prevention techniques
-\end{itemize}
-
-\subsection{User Interface Management}
-This section discusses the role of the operating system in managing the user interface. Topics covered include:
-\begin{itemize}
-    \item Graphical User Interface (GUI)
-    \item Command-Line Interface (CLI)
-    \item Interaction between the user and the operating system
-\end{itemize}
-
-\subsection{Virtualization in Operating Systems}
-Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
-\begin{itemize}
-    \item Concept of virtualization
-    \item Hypervisors and their types
-    \item Benefits of virtualization in modern computing
-\end{itemize}
-
-\section{Assignments and Practical Work}
-\subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
-
-\begin{table}[htbp] % Optional: For floating position
+Arsitektur Harvard menggunakan dua ruang memori yang berbeda untuk menyimpan instruksi dan data, berbeda dengan arsitektur von Neumann. Ini memungkinkan pengambilan instruksi dan data secara bersamaan, yang dapat meningkatkan kinerja dan efisiensi sistem.
+\begin{figure}
     \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
-\subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+    \includegraphics[width=0.5\linewidth]{assets/Harvard.png}
+    \caption{Harvard}
+    \label{fig:enter-label}
+\end{figure}
+\subsection{Kelebihan}
 
-\subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Performa Lebih Baik:}
+  \begin{itemize}
+    \item Akses Memori Paralel: Memiliki jalur terpisah untuk data dan instruksi memungkinkan akses simultan ke memori instruksi dan data, meningkatkan kecepatan eksekusi dan mengurangi bottleneck memori.
+    \item Eksekusi Instruksi yang Lebih Cepat: Dengan akses yang terpisah, \textit{prosesor} dapat mengambil instruksi dan data secara bersamaan, mempercepat kinerja sistem.
+  \end{itemize}
+  
+  \item \textbf{Optimasi Memori:}
+  \begin{itemize}
+    \item Pengaturan Memori yang Terpisah: Memori instruksi dan data yang terpisah memungkinkan optimasi yang lebih baik untuk masing-masing, seperti menggunakan cache yang berbeda untuk instruksi dan data.
+  \end{itemize}
+  
+  \item \textbf{Keamanan dan Stabilitas:}
+  \begin{itemize}
+    \item Isolasi Data dan Instruksi: Dengan memisahkan data dan instruksi, risiko kesalahan pengkodean yang dapat menyebabkan data bisa rusak atau instruksi berkurang.
+  \end{itemize}
+\end{enumerate}
 
-\subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsection{Kekurangan}
 
-\subsection{Assignment 5: File System Access}
-In this assignment, students implemented file system access routines, including:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Kompleksitas Desain:}
+  \begin{itemize}
+    \item Desain yang Lebih sulit: memakai dua jalur memori terpisah dan pengaturan memori yang lebih kompleks, yang dapat meningkatkan biaya dan kompleksitas desain perangkat keras.
+    \item Penggunaan Memori yang Tidak Fleksibel: Memori untuk instruksi dan data harus dialokasikan secara terpisah, yang bisa menyebabkan pemborosan jika salah satu jenis memori tidak digunakan sepenuhnya.
+  \end{itemize}
+  
+  \item \textbf{Kesulitan dalam Pengembangan:}
+  \begin{itemize}
+    \item Pengembangan Perangkat Lunak yang Lebih Kompleks: Memerlukan pemisahan antara data dan instruksi dalam pemrograman, yang dapat menambah kompleksitas pengembangan perangkat lunak.
+  \end{itemize}
+  
+  \item \textbf{Keterbatasan dalam Adaptasi:}
+  \begin{itemize}
+    \item Kurang Fleksibel: Penambahan atau perubahan pada memori instruksi atau data mungkin memerlukan perubahan perangkat keras, mengurangi fleksibilitas dalam pembaruan atau peningkatan sistem.
+  \end{itemize}
+\end{enumerate}
+
+\section{Instruction Set Architecture (ISA)}
+(ISA)Instruction Set Architecture atau Arsitektur Set Instruksi adalah bagian dari arsitektur komputer yang menentukan cara kerja perangkat keras dan perangkat lunak dalam menjalankan instruksi program. ISA berperan sebagai jembatan antara perangkat lunak (software) dan perangkat keras (hardware) dalam sistem komputer.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{assets/ISA.drawio.png}
+    \caption{Arsitektur Set Instruksi}
+    \label{fig:enter-label}
+\end{figure}
+\subsection{Komponen Utama ISA}
+
 \begin{itemize}
-    \item File creation and deletion
-    \item Reading from and writing to files
-    \item Navigating directories and managing file permissions
+  \item Set Instruksi: Kumpulan perintah yang dapat dijalankan oleh \textit{prosesor}.
+  \item Mode Pengalamatan: Cara dalam menentukan lokasi data yang diperlukan oleh instruksi.
+  \item Format Instruksi: Tata letak atau struktur instruksi di dalam memori.
 \end{itemize}
 
-\section{Conclusion}
-The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+\subsection{Jenis-Jenis ISA}
+
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{CISC (\textit{Complex Instruction Set Computing atau Komputasi Set Instruksi Kompleks}):} Set instruksi yang lebih kompleks dengan tujuan untuk mengurangi jumlah instruksi yang perlu dieksekusi oleh \textit{prosesor}.
+  \item \textbf{RISC (\textit{Reduced Instruction Set Computing atau Pengurangan Komputasi Set Instruksi}):} Set instruksi yang lebih sederhana, tetapi dapat dieksekusi dengan cepat oleh \textit{prosesor}.
+\end{enumerate}
+
+ISA itu penting karena menentukan performa \textit{prosesor} serta kemampuannya dalam menjalankan berbagai aplikasi perangkat lunak.
+
+\section{Mikro Arsitektur}
+
+Mikro arsitektur adalah desain internal \textit{prosesor} yang mencakup semua bagian, seperti unit kontrol, unit aritmatika dan logika (ALU), dan cache memori. Ini melibatkan implementasi fisik dari ISA. Mikro arsitektur bertujuan untuk membuat \textit{prosesor} menangani dan menjalankan instruksi seefektif mungkin.
+
+\subsection{Komponen Utama Mikro Arsitektur}
+
+\begin{itemize}
+  \item \textbf{\textit{Pipelining}:} Teknik untuk meningkatkan efisiensi \textit{prosesor} dengan mengeksekusi beberapa instruksi sekaligus pada berbagai tahap pemrosesan.
+
+  \item \textbf{\textit{Branch Prediction}:} Teknologi yang memungkinkan \textit{prosesor} untuk memprediksi cabang dari instruksi kondisional sehingga dapat mengurangi penundaan dalam eksekusi.
+\end{itemize}
+
+Mikro arsitektur berfungsi sebagai penghubung antara ISA dan desain perangkat keras, yang berarti bahwa implementasi fisik dari sebuah \textit{prosesor} dapat bervariasi meskipun memiliki ISA yang sama.
+
+\section{Kesimpulan}
+
+Arsitektur sebuah sistem komputer sangat penting untuk kinerja, efisiensi, dan fleksibilitasnya. Setiap metode arsitektur von Neumann dan Harvard untuk menangani data dan instruksi memiliki kelebihan dan kekurangan. Sementara Arsitektur Set Instruksi berfungsi sebagai jembatan antara perangkat lunak dan perangkat keras, mikro arsitektur berkonsentrasi pada desain fisik \textit{prosesor} untuk melaksanakan ISA. Memahami perbedaan dan manfaat masing-masing arsitektur ini sangat penting untuk mengembangkan dan mengoptimalkan sistem komputer.
+
+\section{Referensi}
+
+\begin{enumerate}
+  \item Hennessy, J. L., \& Patterson, D. A. (2011). \textit{Computer Architecture: A Quantitative Approach}. Morgan Kaufmann.
+  \item Stallings, W. (2015). \textit{Computer Organization and Architecture: Designing for Performance}. Pearson.
+  \item UNIKOM.M Zusane Oematan (2010).  \textit{Ringkasan Set Instruksi Dan Mode pengalamatan (Addressing Mode }. 
+\end{enumerate}
 
 \end{document}

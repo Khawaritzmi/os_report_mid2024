@@ -91,29 +91,30 @@ This section introduces the concept of threads and their relation to processes, 
 \end{itemize}
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
-\subsubsection{Konsep File System}
+\subsubsection{Konsep File \textit{System}}
 \subsubsection{Atribut File}
 \subsubsection{Operasi pada File}
 \subsubsection{Tipe File}
 \subsubsection{Struktur File}
 \subsubsection{Metode Akses File}
-\\File menyimpan informasi. Jika file ingin digunakan, informasi tersebut harus diakses dan dibaca ke memori. Terdapat beberapa cara mengakses informasi pada file yaitu akses berurutan (\textit{sequential access}), akses langsung (\textit{direct access} atau \textit{relative access}) dan metode akses lain.
+
+File menyimpan informasi. Jika ingin file digunakan, informasi tersebut harus diakses dan dibaca ke memori. Terdapat beberapa cara mengakses informasi pada file yaitu akses berurutan (\textit{sequential access}), akses langsung (\textit{direct access} atau \textit{relative access}) dan metode akses lain.
 \begin{itemize}
     \item Akses Berurutan (\textit{Sequential Access})
-        \\Akses berurutan merupakan metode akses paling sederhana. Informasi pada file diproses secara berurutan, satu \textit{record} diakses setelah \textit{record} yang lain. Metode akses ini berdasarkan model tape dari suatu file yang bekerja dengan perangkat \textit{sequential access} atau \textit{random-access}.
+        \\Akses berurutan merupakan metode akses paling sederhana. Informasi pada file diproses secara berurutan, satu \textit{record} diakses setelah \textit{record} yang lain. Metode akses ini berdasarkan model \textit{tape} dari suatu file yang bekerja dengan perangkat \textit{sequential access} atau \textit{random-access}.
         \begin{figure}[h]
 			\centering
 			\includegraphics[width=0.5\textwidth]{asset/gambar1.png}
             \caption{Operasi akses file berurutan}
         \end{figure}
-        \\Operasi \textit{read} membaca bagian selanjutnya dari file dan otomatis menambah file \textit{pointer} yang melacak lokasi I/O. Operasi \textit{write} menambah ke akhir file dan ke akhir material pembacaan baru (\textit{new end of file}). File dapat di-\textit{reset} ke awal dan sebuah program untuk meloncat maju atau mundur ke n \textit{record}.
+        \\Operasi \textit{read} membaca bagian selanjutnya dari file dan otomatis menambah file \textit{pointer} yang melacak lokasi I/O. Operasi \textit{write} menambah ke akhir file dan ke akhir material pembacaan baru (\textit{new end of file}). File dapat di-\textit{reset} ke awal dan sebuah program untuk meloncat maju atau mundur ke-n \textit{record}.
         \begin{figure}[h]
 			\centering
 			\includegraphics[width=0.6\textwidth]{asset/gambar2.png}
             \caption{Akses file berurutan}
         \end{figure}
         \begin{itemize}
-            \item Keuntungan menggunakan metode akses berurutan (\textit{sequential access})
+            \item Keuntungan menggunakan metode akses berurutan (\textit{sequential access}):
             \begin{enumerate}
                 \item Sangat mudah untuk menerapkan mekanisme akses berkas.
                 \item Metode menggunakan urutan leksikografis untuk mengakses entri berikutnya dengan cepat.
@@ -122,23 +123,23 @@ File systems provide a way for the operating system to store, retrieve, and mana
                 \item Lebih efisien untuk membaca berkas besar karena hanya membaca data yang diperlukan dan tidak membuang waktu membaca data yang tidak perlu.
                 \item Andal untuk operasi pencadangan dan pemulihan karena data disimpan secara berurutan dan dapat dengan mudah dipulihkan jika diperlukan.
             \end{enumerate}
-            \item Kekurangan menggunakan metode akses berurutan (\textit{sequential access})
+            \item Kekurangan menggunakan metode akses berurutan (\textit{sequential access}):
             \begin{enumerate}
-                \item Jika rekaman berkas yang perlu diakses berikutnya tidak ada di samping rekaman saat ini, jenis metode akses berkas ini lambat.
+                \item Jika rekaman berkas yang perlu diakses berikutnya tidak ada di samping rekaman saat ini, maka jenis metode akses berkas ini lambat.
                 \item Memindahkan sebagian besar berkas mungkin diperlukan untuk menyisipkan rekaman baru.
                 \item Akses lambat karena seluruh berkas harus dicari secara berurutan untuk menemukan catatan tertentu yang dapat memakan waktu.
                 \item Tidak cocok untuk aplikasi yang memerlukan pembaruan atau modifikasi file secara berkala. Memperbarui atau memasukkan rekaman di tengah file besar dapat menjadi proses yang lambat dan merepotkan.
-                \item Akses berurutan juga dapat mengakibatkan pemborosan ruang penyimpanan jika catatan memiliki panjang yang berbeda-beda. Ruang antara catatan tidak dapat digunakan oleh catatan lain yang dapat mengakibatkan penggunaan penyimpanan yang tidak efisien.
+                \item Pemborosan ruang penyimpanan. Jika catatan memiliki panjang yang berbeda-beda dan ruang antara catatan tidak dapat digunakan oleh catatan lain yang dapat mengakibatkan penggunaan penyimpanan yang tidak efisien.
             \end{enumerate}
         \end{itemize}
     \item Akses Langsung (\textit{Direct Access})
-        \\File merupakan \textit{logical record} dengan panjang tetap yang memungkinkan program membaca dan menulis \textit{record} dengan cepat tanpa urutan tertentu. Metode akses langsung berdasarkan model disk dari suatu file, memungkinkan acak ke sembarang blok file, memungkinkan blok acak tersebut dibaca atau ditulis.
+        \\File merupakan \textit{logical record} dengan panjang tetap yang memungkinkan program membaca dan menulis \textit{record} dengan cepat tanpa urutan tertentu. Metode akses langsung berdasarkan model \textit{disk} dari suatu file akan memungkinkan acak ke sembarang blok file dan blok acak tersebut dibaca atau ditulis.
         \begin{figure}[h]
 			\centering
 			\includegraphics[width=0.6\textwidth]{asset/gambar3.png}
             \caption{Operasi akses file langsung}
         \end{figure}
-        \\Operasi file dimodifikasi untuk memasukkan nomor blok sebagai parameter. Nomor blok ditentukan \textit{user} yang merupakan nomor blok relatif, misalnya indeks relatif ke awal dari file. Blok relatif pertama dari file adalah 0, meskipun alamat disk absolut aktual dari blok misalnya 17403 untuk blok pertama. Metode ini mengijinkan sistem operasi menentukan dimana file ditempatkan dan mencegah \textit{user} mengakses posisi dari sistem file yang bukan bagian dari file tersebut. 
+        \\Operasi file dimodifikasi untuk memasukkan nomor blok sebagai parameter. Nomor blok ditentukan \textit{user} yang merupakan nomor blok relatif, misalnya indeks relatif ke awal dari file. Blok relatif pertama dari file adalah nol, meskipun alamat \textit{disk} absolut aktual dari blok misalnya 17403 untuk blok pertama. Metode ini mengizinkan sistem operasi menentukan letak file ditempatkan dan mencegah \textit{user} mengakses posisi dari sistem file yang bukan bagian dari file tersebut. 
         \\Sistem operasi tidak semua menggunakan akses berurutan atau akses langsung untuk file. Beberapa sistem hanya menggunakan akses berurutan dan beberapa sistem lain menggunakan akses langsung. Mengubah akses berurutan ke akses langsung bukan sesuatu hal yang sulit seperti pada gambar di bawah.
         \begin{figure}[h]
 			\centering
@@ -146,40 +147,42 @@ File systems provide a way for the operating system to store, retrieve, and mana
             \caption{Mengubah akses berurutan menjadi akses langsung}
         \end{figure}
         \begin{itemize}
-            \item Keuntungan menggunakan metode akses langsung (\textit{direct access})
+            \item Keuntungan menggunakan metode akses langsung (\textit{direct access}):
             \begin{enumerate}
-                \item File dapat segera diakses sehingga mengurangi waktu akses rata-rata.
+                \item File dapat langsung diakses sehingga mengurangi waktu akses rata-rata.
                 \item Mengakses suatu blok tidak perlu melintasi semua blok yang ada sebelumnya.
             \end{enumerate}
-            \item Kekurangan menggunakan metode akses langsung (\textit{direct access})
+            \item Kekurangan menggunakan metode akses langsung (\textit{direct access}):
             \begin{enumerate}
-                \item Implementasi Kompleks: Menerapkan akses langsung bisa menjadi hal yang rumit, memerlukan algoritma dan struktur data yang canggih untuk mengelola dan menemukan catatan secara efisien.
-                \item Beban Penyimpanan yang Lebih Tinggi: Metode akses langsung sering kali memerlukan penyimpanan tambahan untuk memelihara informasi lokasi data (seperti penunjuk atau tabel alamat) yang dapat meningkatkan persyaratan penyimpanan secara keseluruhan.
+                \item Implementasi akses langsung bisa menjadi hal yang rumit karena memerlukan algoritma dan struktur data yang canggih untuk mengelola dan menemukan catatan secara efisien.
+                \item Banyak memerlukan penyimpanan tambahan untuk memelihara informasi lokasi data seperti penunjuk atau tabel alamat yang dapat meningkatkan persyaratan penyimpanan secara keseluruhan.
             \end{enumerate}
         \end{itemize}
     \item  Metode Akses Lain
-        \\Metode akses lain dapat dibangun berpedoman pada metode \textit{direct access}. Metode tambahan ini biasanya melibatkan konstruksi indeks untuk file. Indeks seperti indeks pada bagian akhir buku, berisi \textit{pointer} ke blok-blok tertentu. Dalam menentukan masukan dalam file, pertama dicari indeks, kemudian menggunakan \textit{pointer} untuk mengakses file secara langsung dan menemukan masukan yang tepat.
-        \\File indeks dapat disimpan di memori. Bila file besar, file indeks juga menjadi terlalu besar untuk disimpan di memori. Salah satu pemecahan nya adalah membuat indeks untuk file indeks. File indeks primer berisi \textit{pointer} ke file indeks sekunder yang menunjuk ke data \textit{item} aktual. Bentuk pengaksesan secara berindeks diilustrasikan pada gambar di bawah.
+        \\Metode akses lain dapat dibangun berpedoman pada metode \textit{direct access}. Metode tambahan ini biasanya melibatkan konstruksi indeks untuk file. Indeks seperti indeks pada bagian akhir buku berisi \textit{pointer} ke blok-blok tertentu. Dalam menentukan masukan dalam file, pertama dicari indeks, kemudian menggunakan \textit{pointer} untuk mengakses file secara langsung dan menemukan masukan yang tepat.
+        \\File indeks dapat disimpan di memori. Bila file besar, file indeks juga menjadi terlalu besar untuk disimpan di memori. Salah satu pemecahannya adalah membuat indeks untuk file indeks. File indeks primer berisi \textit{pointer} ke file indeks sekunder yang menunjuk ke data aktual. Bentuk pengaksesan secara berindeks diilustrasikan pada gambar di bawah.
         \begin{figure}[h]
 			\centering
-			\includegraphics[width=0.7\textwidth]{asset/gambar5.png}
+			\includegraphics[width=0.4\textwidth]{asset/gambar5.png}
             \caption{Mengubah akses berurutan menjadi akses langsung}
         \end{figure}
     \end{itemize}
     \subsubsection{Struktur Direktori}
     \subsubsection{\textit{File System Mounting}}
-    \\Suatu sistem file harus di-\textit{mount} sebelum diakses. File yang tidak di-\textit{mount} seperti \textit{Fiture} 6 akan dilakukan proses \textit{mounting} pada \textit{mount point} \textit{Fiture} 7.
+    \textit{Mounting} adalah proses yang dilakukan agar sebuah sistem file bisa diakses oleh pengguna (GeeksforGeeks, 2024). Oleh karena itu, suatu sistem file harus di-\textit{mount} sebelum diakses. File yang tidak di-\textit{mount} seperti \textit{Figure} 6 akan dilakukan proses \textit{mounting} pada \textit{mount point} \textit{Figure} 7.
         \begin{figure}[h!]
 			\centering
-			\includegraphics[width=0.6\textwidth]{asset/gambar6.png}
+			\includegraphics[width=0.3\textwidth]{asset/gambar6.png}
             \caption{(a) Sistem eksis (b) Partisi yang tidak di-\textit{mount}}
         \end{figure}
+        \\Pada \textit{Figure} 6 (a) menunjukkan sebuah sistem yang sudah eksis dengan direktori seperti \textit{bill}, \textit{fred}, dan \textit{help}. Sedangkan pada \textit{Figure} 6 (b) memperlihatkan partisi yang belum di-\textit{mount} seperti \textit{prog} dan \textit{doc} yang berarti file di dalam partisi tersebut belum bisa diakses.
         \begin{figure}[h!]
 			\centering
-			\includegraphics[width=0.6\textwidth]{asset/gambar7.png}
+			\includegraphics[width=0.4\textwidth]{asset/gambar7.png}
             \caption{\textit{Mount point}}
         \end{figure}
-    \subsubsection{File Sharing}
+        \\Pada \textit{Figure} 7 memperlihatkan proses \textit{mount point} pada direktori \textit{prog} dan \textit{doc} yang ada di \textit{Figure} 6 sebelumnya, setelah di-\textit{mount} pada \textit{mount point}, maka file sudah dapat diakses.
+    \subsubsection{File \textit{Sharing}}
     \subsubsection{Proteksi}
     \begin{thebibliography}{99}
         \bibitem{arpaci2018} 
@@ -254,16 +257,18 @@ In this assignment, students were asked to simulate different deadlock scenarios
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 \subsubsection{Group 8}
 \textbf{Soal:}
-\par Sebuah perusahaan teknologi sedang mengembangkan sebuah aplikasi pengolahan gambar yang memanfaatkan kemampuan komputasi \textit{multithreading} untuk mempercepat proses \textit{rendering} gambar. Aplikasi ini didesain agar bisa memanfaatkan beberapa \textit{core} CPU secara bersamaan. Salah satu developer aplikasi ini bernama Sarah yang mendapati bahwa tidak semua bagian dari proses \textit{rendering} bisa dijalankan secara paralel karena terdapat beberapa bagian yang harus dijalankan secara berurutan (\textit{sequential}).
+\par Sebuah perusahaan teknologi sedang mengembangkan sebuah aplikasi pengolahan gambar yang memanfaatkan kemampuan komputasi \textit{multithreading} untuk mempercepat proses \textit{rendering} gambar. Aplikasi ini didesain agar bisa memanfaatkan beberapa \textit{core} CPU secara bersamaan. Salah satu \textit{developer} aplikasi ini bernama Sarah yang mendapati bahwa tidak semua bagian dari proses \textit{rendering} bisa dijalankan secara paralel karena terdapat beberapa bagian yang harus dijalankan secara berurutan (\textit{sequential}).
 \par Sarah mendengar tentang \textit{Amdahl’s Law} yang menyatakan bahwa potensi percepatan komputasi paralel bergantung pada proporsi kode yang dapat diparalelisasi. Setelah melakukan \textit{profiling} terhadap aplikasinya, Sarah menemukan bahwa 70\% dari proses \textit{rendering} dapat dijalankan secara paralel, sementara 30\% lainnya harus tetap berjalan secara \textit{sequential}.
-\par Perusahaan ini menggunakan mesin dengan CPU \textit{multi-core} yang memiliki 8 \textit{core} fisik dan Sarah ingin mengetahui seberapa besar kecepatan yang bisa diperoleh dengan menggunakan 8 \textit{core} untuk bagian yang bisa diparalelisasi.
+\par Perusahaan ini menggunakan mesin dengan CPU \textit{multi-core} yang memiliki delapan \textit{core} fisik dan Sarah ingin mengetahui seberapa besar kecepatan yang bisa diperoleh dengan menggunakan delapan \textit{core} untuk bagian yang bisa diparalelisasi.
 \begin{enumerate}
-    \item Berapa maksimal percepatan (\textit{speedup}) teoritis yang bisa didapat Sarah jika ia menggunakan 8 \textit{core} berdasarkan \textit{Amdahl’s Law}?
-    \item Jika perusahaan ingin meningkatkan proporsi paralel dari 70\% menjadi 90\%, berapa percepatan teoritis yang bisa didapat dengan tetap menggunakan 8 \textit{core}?
+    \item Berapa maksimal percepatan (\textit{speedup}) teoritis yang bisa didapat Sarah jika ia menggunakan delapan \textit{core} berdasarkan \textit{Amdahl’s Law}?
+    \item Jika perusahaan ingin meningkatkan proporsi paralel dari 70\% menjadi 90\%, berapa percepatan teoritis yang bisa didapat dengan tetap menggunakan delapan \textit{core}?
 \end{enumerate}
 \par \textbf{Jawaban:}
 \begin{enumerate}
-    \item \begin{python}
+    \item 
+    
+    \begin{python}
         S1 = 0.70 
         N = 8
         def amdahlsLaw(P, N):
@@ -271,9 +276,12 @@ This assignment involved designing a multithreading scenario to solve a computat
             return speed
         kecS1 = amdahlsLaw(S1, N)
         kecS1b = round(kecS1, 2)
-        print("Maksimal dengan 8 core:", kecS1b)
+        print("Maksimal dengan delapan core:", kecS1b)
     \end{python}
-    \item \begin{python}
+    
+    \item 
+    
+    \begin{python}
         S2 = 0.90
         N = 8
         def amdahlsLaw(P, N):
@@ -281,13 +289,13 @@ This assignment involved designing a multithreading scenario to solve a computat
             return speed
         kecS2 = amdahlsLaw(S2, N)
         kecS2b = round(kecS2, 2)
-        print("Percepatan 90\% dengan 8 core:", kecS2b)
+        print("Percepatan 90\% dengan delapan core:", kecS2b)
     \end{python}
 \end{enumerate}
 \par \textbf{\textit{Output}:}
 \begin{enumerate}
-    \item Maksimal dengan 8 core: 2.58
-    \item Percepatan 90\% dengan 8 core: 4.71
+    \item Maksimal dengan delapan core: 2.58
+    \item Percepatan 90\% dengan delapan core: 4.71
 \end{enumerate}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}

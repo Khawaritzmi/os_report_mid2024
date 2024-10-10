@@ -102,10 +102,107 @@ Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahk
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
 \begin{itemize}
-    \item File system structure
-    \item File access methods
-    \item Directory management
+    \item \textit{FILE SYSTEM CONCEPT}
+    File adalah unit penyimpanan logis yang diabstraksikan oleh sistem operasi dari perangkat penyimpanan. File berisi informasi yang disimpan di penyimpanan sekunder (seperti disk magnetik, pita magnetik, dan disk optik). Informasi dalam file ditentukan oleh pembuatnya. Sebuah file memiliki struktur tertentu tergantung pada jenisnya. Jenis file terdiri dari data numerik, karakter, dan biner, serta program seperti program sumber, program objek, dan program yang dapat dieksekusi.
+    
+    Atribut file 
+
+    Sebuah file memiliki atribut yang bervariasi dari satu sistem operasi ke sistem operasi lainnya, tetapi umumnya terdiri dari file : 
+
+    \begin{itemize}
+        
+        \item Nama, informasi yang disimpan dalam bentuk yang dapat dibaca manusia  
+        
+        \item Jenis, diperlukan untuk sistem yang mendukung berbagai jenis. 
+        
+        \item Lokasi, penunjuk lokasi file pada perangkat. 
+        
+        \item Ukuran, ukuran file saat ini. 
+        
+        \item Perlindungan, mengontrol siapa yang dapat membaca, menulis, dan menjalankan. 
+        
+        \item Waktu, tanggal dan identifikasi pengguna, data untuk memantau perlindungan, keamanan dan penggunaan. 
+    \end{itemize}
+        Informasi file disimpan dalam struktur direktori yang diatur berdasarkan disk. 
+    
+        Operasi pada file 
+    
+             	Sebagai tipe data abstrak, perlu untuk mendefinisikan operasi yang dapat dibentuk oleh file. Ada enam operasi dasar yang disediakan sebagai panggilan sistem, yaitu:
+              \begin{itemize}
+    
+     		     \item Membuat file (\textit{create})  
+    
+     		     \item Menulis file (\textit{write})  
+    
+     		     \item Membaca file (\textit{read}) 
+    
+     		     \item Mencari kembali file (\textit{file seek}) 
+    
+     		     \item Menghapus file (\textit{delete}) 
+    
+        	     \item Memotong file (\textit{truncate}) 
+             \end{itemize}
+    
+    
+        	- \textit{Open}(Fi) mencari struktur direktori untuk entri Fi dan memindahkan isi entri ke memori. 
+    
+     		- \textit{Close}(Fi) memindahkan isi entri Fi dalam memori ke struktur direktori pada disk. 
+     		   Operasi tambahan yang biasanya dilakukan pada file 
+                  adalah: 
+    
+     		\begin{itemize}
+     		    \item  Menambahkan (\textit{append}) informasi baru                pada akhir file yang sudah ada 
+                    \item Mengganti nama file yang sudah ada 
+        
+         		\item Menggandakan (menyalin) file
+    
+     		\end{itemize} 
+    
+     		\begin{itemize}
+     		  
+                    \item Mengganti nama file yang sudah ada 
+                
+                    \item Menggandakan (menyalin) file
+                \end{itemize}
+       
+                \begin{figure}[h]
+                            \centering
+                            \includegraphics[width=0.5\linewidth]
+                            {asset/gambarfilesystem.png}
+                            \caption{Contoh Pemetaan File ke Memori}
+                            \label{fig:deadlock-RAG}
+                            \end{figure}
+       
+              Sebagian besar operasi file melibatkan pencarian direktori untuk input yang terkait dengan file. Untuk menghindari pencarian yang tetap, beberapa sistem akan membuka file saat pertama kali aktif. Sistem operasi menyimpan tabel kecil yang berisi informasi tentang semua file yang terbuka (tabel file terbuka). Ketika file tidak lagi digunakan, file akan ditutup oleh proses dan sistem operasi akan menghapus file tersebut dari tabel file terbuka. Beberapa informasi yang terkait dengan pembukaan file adalah:
+
+            \begin{itemize}
+                \item Penunjuk file. 
+     		\item Jumlah file yang dibuka. 
+     		\item Lokasi file pada disk. 
+              \end{itemize}
+    
+      Jenis file 
+      Salah satu pertimbangan penting dalam mendesain sistem berkas dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem berkas. Jika sistem operasi mengenali jenis file, maka operasi dapat dilakukan pada file dengan cara yang rasional. Sebagai contoh, pengguna yang mencoba mencetak file yang dapat dieksekusi dapat dicegah oleh sistem operasi karena file tersebut adalah program biner. Teknik umum untuk mengimplementasikan tipe file adalah dengan menyertakan tipe file sebagai bagian dari nama file. Nama file dibagi menjadi dua bagian: nama dan ekstensi (seperti pada MS-DOS) seperti yang ditunjukkan pada Gambar 9-2. Setiap file memiliki atribut pembuat yang berisi nama program yang membuatnya (seperti pada MSWindows/Apple Macintosh). Atribut ini diatur oleh sistem operasi ketika menggunakan panggilan sistem create. Ketika pengguna membuka file dengan mengklik dua kali mouse pada ikon file, program yang dibuat akan ditampilkan secara otomatis. UNIX menggunakan nomor ajaib yang disimpan di awal file untuk menunjukkan jenis file seperti program yang dapat dieksekusi, file batch \textit{(shell script}), file \textit{postscript} dan lain-lain. Tidak semua file mempunyai magic number, sehingga informasi tipe tidak dapat dijelaskan. UNIX tidak menyimpan nama program yang membuatnya. UNIX juga mengijinkan nama ekstensi file disembunyikan, sehingga user dapat menentukan sendiri jenis file dan tidak tergantung pada sistem operasi. 
+
+      Struktur file 
+      Jenis file juga digunakan untuk menunjukkan struktur internal file. File tertentu harus mengonfirmasi struktur yang diperlukan yang dipahami oleh sistem operasi. Misalnya, sistem operasi memerlukan file yang dapat dieksekusi yang memiliki struktur khusus sehingga dapat menentukan di mana letak memori dan lokasi instruksi pertama. Beberapa sistem operasi menggunakan seperangkat sistem pendukung struktur file dengan sejumlah operasi khusus untuk memanipulasi file dengan struktur ini. Ini merupakan kelemahan dalam sistem operasi yang mendukung lebih dari satu struktur file. Jika sistem operasi menetapkan 10 struktur file yang berbeda, sistem operasi perlu menyertakan kode untuk mendukung struktur file tersebut. Setiap file harus didefinisikan sebagai salah satu jenis file yang didukung oleh sistem operasi. Beberapa sistem operasi seperti UNIX dan MS-DOS hanya mendukung sejumlah struktur file yang terbatas. UNIX mendefinisikan setiap berkas sebagai urutan \textit{byte} 8 bit dan bit-bit ini tidak diterjemahkan oleh sistem operasi. Skema ini memiliki fleksibilitas maksimum, tetapi sedikit dukungan. Setiap program aplikasi harus menyertakan kodenya sendiri untuk menerjemahkan file input ke dalam struktur yang benar. Semua SO harus mendukung setidaknya satu struktur file yang dapat dieksekusi sehingga sistem dapat memuat dan menjalankan program. 
+
+      Struktur file internal 
+      Jenis file 
+
+      Salah satu pertimbangan penting dalam mendesain sistem berkas dan keseluruhan sistem operasi adalah apakah sistem operasi mengenali dan mendukung sistem berkas. Jika sistem operasi mengenali jenis file, maka operasi dapat dilakukan pada file dengan cara yang rasional. Sebagai contoh, pengguna yang mencoba mencetak file yang dapat dieksekusi dapat dicegah oleh sistem operasi karena file tersebut adalah program biner. Teknik umum untuk mengimplementasikan tipe file adalah dengan menyertakan tipe file sebagai bagian dari nama file. Nama file dibagi menjadi dua bagian: nama dan ekstensi (seperti pada MS-DOS) seperti yang ditunjukkan pada Gambar 9-2. Setiap file memiliki atribut pembuat yang berisi nama program yang membuatnya (seperti pada \textit{MSWindows/Apple Macintosh}). Atribut ini diatur oleh sistem operasi ketika menggunakan panggilan sistem create. Ketika pengguna membuka file dengan mengklik dua kali \textit{mouse} pada ikon file, program yang dibuat akan ditampilkan secara otomatis. UNIX menggunakan nomor ajaib yang disimpan di awal file untuk menunjukkan jenis file seperti program yang dapat dieksekusi, file batch (\textit{shell script}), file\textit{ postscript} dan lain-lain. Tidak semua file mempunyai magic number, sehingga informasi tipe tidak dapat dijelaskan. UNIX tidak menyimpan nama program yang membuatnya. UNIX juga mengijinkan nama ekstensi file disembunyikan, sehingga user dapat menentukan sendiri jenis file dan tidak tergantung pada sistem operasi. 
+
+
+    \item \textit{File system structure}
+    \item \textit{File access methods}
+    \item \textit{Directory management}
 \end{itemize}
+\begin{thebibliography}{99}
+        \bibitem{arpaci2018} 
+        Silberschatz, Galvin \& Gagne. (2013). \textit{Operating System Concepts – 9th Edition}. cc.ee.ntu.edu.tw.
+        \bibitem{Geeks} 
+        GeeksforGeeks. (2024, Juny 24). \textit{File Systems in Operating System}. Retrieved from GeeksforGeeks: \textit{https://www.geeksforgeeks.org/file-systems-in-operating-system/}
+    \end{thebibliography}
 
 \subsection{Input and Output Management}
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
@@ -177,6 +274,134 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
+\subsubsection{group 8} 
+Dalam sebuah sistem operasi, user A membuat file project.txt di dalam direktori /home/userA/documents/. User B juga memiliki akses ke direktori tersebut. Setelah beberapa waktu, terjadi skenario berikut:
+
+1. User A mencoba menulis data ke file project.txt yang dibuatnya, tetapi sistem operasi memberikan pesan error bahwa file tersebut tidak bisa diakses untuk ditulis. Jelaskan kemungkinan alasan terjadinya error ini, dan solusi yang dapat diambil oleh user A.
+   
+2. User B mencoba membaca file project.txt, tetapi mendapatkan pesan bahwa ia tidak memiliki izin untuk membaca file tersebut. Bagaimana administrator sistem dapat memperbaiki izin file sehingga User B bisa membaca file tersebut tanpa memberikan hak menulis? Jelaskan langkah-langkah yang dapat dilakukan dalam sistem operasi berbasis UNIX/Linux.
+
+3. User A ingin mengatur struktur direktori baru di dalam /home/userA/documents/ untuk memisahkan berbagai file proyeknya. Ia berencana untuk membuat dua subdirektori baru projA dan projekB. Berikan perintah yang diperlukan untuk membuat direktori tersebut dan pindahkan file project.txt ke dalam projekA. Pastikan bahwa hanya User A yang dapat membaca, menulis, dan mengeksekusi direktori tersebut, sementara user lain tidak memiliki hak akses.
+
+Jawaban:
+
+\begin{python}
+    
+import os
+import stat
+import shutil
+import subprocess
+
+class FileOperation:
+    class FileOperation:
+    def __init__(self, path, file_name):
+        self.path = path
+        self.file_name = file_name
+        self.file_path = os.path.join(self.path, self.file_name)
+
+    def create_file(self, content):
+        with open(self.file_path, 'w') as f:
+            f.write(content)
+        print(f"File {self.file_name} created in {self.path}")
+
+    def set_permissions(self, permissions):
+        os.chmod(self.file_path, permissions)
+        print(f"Permissions set for {self.file_path}: {oct(permissions)}")
+
+    def read_file(self):
+        if os.access(self.file_path, os.R_OK):
+            with open(self.file_path, 'r') as f:
+                print(f"Contents of {self.file_path}:")
+                print(f.read())
+        else:
+            print(f"Cannot read {self.file_path}: Permission denied")
+
+    def write_to_file(self, content):
+        if os.access(self.file_path, os.W_OK):
+            with open(self.file_path, 'a') as f:
+                f.write(content)
+            print(f"Data written to {self.file_path}")
+        else:
+            print(f"Cannot write to {self.file_path}: Permission denied")
+
+    def check_lock(self):
+        try:
+            result = subprocess.run(['fuser', self.file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if result.stdout:
+                print(f"File is locked by process: {result.stdout.decode().strip()}")
+            else:
+                print("File is not locked by any process.")
+        except Exception as e:
+            print(f"Error while checking file lock: {str(e)}")
+
+    def move_file(self, destination):
+        shutil.move(self.file_path, destination)
+        print(f"File moved from {self.file_path} to {destination}")
+
+class DirectoryOperation:
+    def __init__(self, directory_path):
+        self.directory_path = directory_path
+
+    def create_directory(self):
+        os.makedirs(self.directory_path, exist_ok=True)
+        print(f"Directory {self.directory_path} created.")
+
+    def set_directory_permissions(self, permissions):
+        os.chmod(self.directory_path, permissions)
+        print(f"Permissions set for directory {self.directory_path}: {oct(permissions)}")
+    
+Simulasi path untuk user A dan user B
+    user_a_path = '/home/userA/documents/'
+    user_b_path = '/home/userB/documents/'
+    file_name = 'project.txt'
+    
+    1. User A membuat file di direktori
+    file_op_a = FileOperation(user_a_path, file_name)
+    file_op_a.create_file("Initial project content.\n")
+    
+    2. Set permissions untuk file sehingga hanya user A yang bisa menulis (rw-------)
+    file_op_a.set_permissions(stat.S_IRUSR | stat.S_IWUSR)
+    
+    3. Cek apakah file sedang digunakan (file lock)
+    file_op_a.check_lock()
+    
+    4. User B mencoba membaca file project.txt (izin baca untuk others harus diset)
+    print("\nUser B trying to read the file without proper permissions:")
+    file_op_a.read_file()  #Expected to fail
+    
+    Administrator mengatur izin baca untuk User B (r--r--r--)
+    file_op_a.set_permissions(stat.S_IRUSR | stat.S_IWUSR | stat.S_IROTH)
+    
+    5. User B mencoba membaca lagi
+    print("\nUser B trying to read the file after setting read permissions:")
+    file_op_a.read_file()  # Expected to succeed
+    
+    6. User A membuat dua subdirektori baru dan memindahkan file project.txt ke salah satu direktori
+    projA_path = os.path.join(user_a_path, 'projekA')
+    projB_path = os.path.join(user_a_path, 'projekB')
+    
+    dir_op_a = DirectoryOperation(projekA_path)
+    dir_op_b = DirectoryOperation(projekB_path)
+    
+    dir_op_a.create_directory()
+    dir_op_b.create_directory()
+    
+    Pindahkan file project.txt ke dalam projA
+    file_op_a.move_file(projA_path)
+    
+    7. Set permissions untuk direktori agar hanya User A yang bisa mengakses (rwx------)
+    dir_op_a.set_directory_permissions(stat.S_IRWXU)
+    dir_op_b.set_directory_permissions(stat.S_IRWXU)
+    
+    Verifikasi konten file setelah dipindah
+    moved_file_path = os.path.join(projekA_path, file_name)
+    file_op_projA = FileOperation(projekA_path, file_name)
+    
+    print("\nVerifying moved file in projekA:")
+    file_op_projA.read_file() # User A should still have access
+
+\end{python}
+
 \begin{itemize}
     \item File creation and deletion
     \item Reading from and writing to files

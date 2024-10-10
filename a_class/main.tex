@@ -86,18 +86,180 @@ Details how processes are created and terminated by the operating system, includ
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item Konsep \textit{Threads}
+    \item Hubungan antara \textit{Threads} dan Proses
+    \item Manfaat Penggunaan \textit{Threads}
+    \item \textit{Multithreading}
+    \item \textit{Threads} dan Proses
+    \item Model \textit{Multithreading}
+    \item Pengelolaan \textit{Threads}
+    \item Penerapan \textit{Threads} pada Sistem Operasi
+\end{itemize}
+Penjelasannya dibawah ini:
+\subsubsection{Konsep \textit{Threads}}
+\subsubsection{Hubungan antara \textit{Threads} dan Proses}
+\subsubsection{Manfaat Penggunaan \textit{Threads}}
+\subsubsection{\textit{Multithreading}}
+\textit{Multithreading} adalah teknik yang memungkinkan sebuah proses menjalankan beberapa tugas secara paralel dalam satu waktu. Setiap tugas ini disebut \textit{thread}, dan masing-masing \textit{thread} dapat berjalan secara independen, tetapi tetap berbagi sumber daya seperti memori dan file yang sama. \textit{Multithreading} sangat berguna dalam meningkatkan efisiensi dan performa sebuah aplikasi, terutama untuk program yang perlu menangani banyak tugas bersamaan \textit{(GeeksforGeeks, n.d)}.
+
+
+Dalam sistem operasi modern, \textit{multithreading} digunakan untuk menjalankan proses-proses berat seperti pengolahan data atau menjalankan banyak aplikasi sekaligus, dengan memanfaatkan kemampuan prosesor untuk menangani beberapa pekerjaan secara simultan. Berikut beberapa konsep penting dalam \textit{multithreading}:
+
+\begin{itemize}
+    \item \textbf{Keuntungan \textit{Multithreading}}: Salah satu keuntungan utama dari \textit{multithreading} adalah efisiensi. Dengan membagi tugas menjadi beberapa \textit{threads}, kita bisa memanfaatkan waktu tunggu saat satu \textit{thread} menunggu hasil dari operasi \textit{I/O} (seperti membaca \textit{file}) dengan menjalankan \textit{thread} lain. Hal ini membuat aplikasi lebih responsif dan cepat.
+
+    \item \textbf{Konteks Berbagi Sumber Daya}: \textit{Threads} dalam satu proses berbagi memori yang sama, sehingga mereka dapat bekerja sama dengan lebih mudah dibandingkan proses-proses terpisah. Namun, karena berbagi sumber daya, kita juga harus memastikan tidak ada \textit{thread} yang saling mengganggu saat mengakses data yang sama. Ini bisa menyebabkan masalah seperti \textit{race conditions}, yang terjadi ketika hasil akhir dari suatu proses tergantung pada urutan eksekusi \textit{threads}.
+
+    \item \textbf{Sinkronisasi \textit{Threads}}: Untuk mengatasi masalah dalam berbagi sumber daya, diperlukan mekanisme sinkronisasi. Contohnya, \textit{mutex} dan \textit{semaphore} digunakan untuk memastikan bahwa hanya satu \textit{thread} yang dapat mengakses bagian tertentu dari memori atau data pada satu waktu. Dengan cara ini, kita bisa mencegah konflik dan memastikan data tetap konsisten meskipun diakses oleh beberapa \textit{threads}.
+
+    \item \textbf{Skalabilitas \textit{Multithreading}}: Dalam sistem \textit{multithreaded}, kita bisa memanfaatkan sepenuhnya kemampuan prosesor \textit{multi-core}. Misalnya, jika sebuah program memiliki empat \textit{threads} dan dijalankan di komputer dengan prosesor empat inti, setiap \textit{thread} bisa berjalan di intinya masing-masing secara bersamaan, yang meningkatkan performa secara signifikan. Namun, manajemen \textit{threads} juga memerlukan pengelolaan yang baik untuk memastikan tidak terjadi \textit{overhead} yang malah memperlambat kinerja aplikasi.
+
+    \item \textbf{Tantangan dalam \textit{Multithreading}}: Meskipun \textit{multithreading} dapat meningkatkan performa, teknik ini juga menimbulkan tantangan. Salah satunya adalah \textit{debugging}, karena perilaku aplikasi \textit{multithreaded} bisa menjadi sulit diprediksi. Kesalahan seperti \textit{deadlock} atau \textit{race conditions} sering kali sulit ditemukan, karena mereka mungkin tidak selalu muncul pada setiap eksekusi program. Oleh karena itu, pengembangan aplikasi \textit{multithreaded} memerlukan perhatian khusus untuk memastikan bahwa semua \textit{threads} berjalan dengan aman dan efisien.
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
+Dengan mengimplementasikan \textit{multithreading}, kita bisa menciptakan aplikasi yang lebih efisien dan responsif, terutama ketika menangani tugas-tugas yang kompleks dan memerlukan pemrosesan paralel. Namun, seperti halnya teknologi lainnya, \textit{multithreading} juga memerlukan perencanaan dan pengelolaan yang matang untuk memastikan hasil yang optimal.\\
 
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+\noindent GeeksforGeeks. (n.d.). \textit{Model multi-threading dalam manajemen proses}. GeeksforGeeks. Diakses pada 3 Oktober 2024, dari \url{https://www.geeksforgeeks.org/multi-threading-models-in-process-management/}
+
+\subsubsection{\textit{Threads} and Proses}
+\subsubsection{Model \textit{Multithreading}}
+\textit{Multithreading} adalah fitur dari sistem operasi yang memungkinkan beberapa \textit{thread} berjalan secara bersamaan dalam satu proses (Tutorialspoint, n.d).\\
+
+Beberapa model \textit{Multithreading} umumnya dibagi menjadi tiga, yaitu:
+\begin{enumerate}
+    \item \textit{Many-to-One Model} (Banyak ke Satu)\\
+    Pada model ini, banyak \textit{thread} yang dibuat oleh aplikasi \textit{(user-level)} dipetakan ke satu \textit{thread} di \textit{kernel}. Artinya, sistem operasi hanya melihat satu \textit{thread kernel} meskipun ada banyak \textit{thread} di tingkat aplikasi.
+    Bayangkan kamu punya banyak tugas \textit{(thread user)} yang dikerjakan secara bergantian oleh satu orang \textit{(thread kernel)}. Orang tersebut harus menyelesaikan satu tugas sebelum beralih ke tugas lainnya, jadi jika satu tugas terhenti, semua tugas lain ikut tertunda.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{asset/gambar-model-multithreading-many-to-one.jpg}
+        \caption{Gambar Model \textit{Many-to-one}}
+    \end{figure}
+    \begin{itemize}
+        \item Keuntungan \\
+            \begin{enumerate}
+                \item Lebih cepat dan efisien \\
+                    Karena semua manajemen \textit{thread} terjadi di tingkat aplikasi, tidak perlu 
+                    berkomunikasi dengan \textit{kernel}. Ini mengurangi waktu yang dibutuhkan untuk membuat, menghancurkan, atau mengubah \textit{thread}.
+                \item Sederhana \\
+                    Mudah diimplementasikan karena \textit{kernel} hanya perlu mengelola satu \textit{thread}, terlepas dari berapa banyak \textit{thread} yang 
+                    dibuat oleh aplikasi.
+            \end{enumerate}
+
+        \item Kekurangan \\
+            \begin{enumerate}
+                \item Pemblokiran total \\
+                Jika satu \textit{thread} terblokir (misalnya saat menunggu input), 
+                seluruh proses akan berhenti, karena \textit{kernel} hanya bisa menangani satu \textit{thread}.
+                \item Tidak cocok untuk multiprosesor \\
+                Semua \textit{thread} dijalankan oleh satu \textit{thread kernel}, jadi meskipun ada banyak prosesor, hanya satu yang bisa 
+                digunakan. Ini membuat model ini kurang efisien di sistem dengan banyak prosesor.
+            \end{enumerate}
+    \end{itemize}
+
+
+    
+    \item \textit{One-to-One Model} (Satu ke Satu)\\
+    Dalam model ini, setiap \textit{thread} yang dibuat di tingkat aplikasi dipetakan langsung ke satu \textit{thread kernel.}
+    Jadi, untuk setiap \textit{thread user-level}, \textit{kernel} membuat satu \textit{thread} untuk mengelolanya.
+    Bayangkan kamu punya banyak tugas \textit{(thread user)}, dan setiap tugas dikerjakan 
+    oleh orang yang berbeda \textit{(thread kernel)}. Jika satu orang terhenti, yang lain tetap bisa bekerja, sehingga tugas-tugas lainnya tidak terganggu.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{asset/gambar-model-multithreading-one-to-one.jpg}
+        \caption{Gambar Model \textit{One-to-one}}
+    \end{figure}
+
+    \begin{itemize}
+        \item Keuntungan \\
+        \begin{enumerate}
+            \item Paralelisme lebih baik \\
+                Setiap \textit{thread user-level} bisa berjalan secara paralel di prosesor yang berbeda, sehingga sistem \textit{multi-processor} bisa dimanfaatkan lebih baik.
+            \item Tidak ada pemblokiran total \\
+                Jika satu \textit{thread} terblokir, \textit{thread} lainnya masih bisa berjalan, karena masing-masing \textit{thread user-lever} dikelola oleh \textit{thread kernel} yang terpisah.
+        \end{enumerate}
+        \item Kekurangan \\
+        \begin{enumerate}
+            \item \textit{Overhead} (Beban kerja) lebih besar \\
+                Membuat \textit{thread kernel} untuk setiap \textit{thread user-level} membutuhkan lebih banyak memori dan sumber daya sistem. Jika ada banyak \textit{thread}, beban kerja untuk sistem operasi bisa 
+                meningkat drastis.
+            \item \textit{Switching} antar \textit{thread} lebih lambat \\
+                Karena setiap perpindahan \textit{(switching)} antar \textit{thread} harus melibatkan \textit{kernel}, ini membuat waktu \textit{switching} lebih lambat dibanding model \textit{many-to-one}.
+        \end{enumerate}
+    \end{itemize}
+
+    \item \textit{Many-to-Many Model} (Banyak ke Banyak)\\
+    Model ini mengizinkan banyak \textit{thread user-level} 
+    untuk dipetakan ke sejumlah \textit{thread kernel-level}. Dengan kata lain, 
+    beberapa \textit{thread user-level} dapat dijalankan oleh beberapa 
+    \textit{thread kernel-level}.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{asset/gambar-model-multithreading-many-to-many.jpg}
+        \caption{Gambar Model \textit{Many-to-Many}}
+    \end{figure}
+    \begin{itemize}
+        \item Keuntungan \\
+            \begin{enumerate}
+                \item Efisiensi dan fleksibilitas \\
+                Kamu bisa memiliki lebih banyak \textit{thread user-level} daripada \textit{thread kernel-level}. Jadi, 
+                \textit{thread-thread user-level} tidak harus selalu dihubungkan satu-satu ke \textit{thread kernel}, memungkinkan penggunaan sumber daya yang 
+                lebih efisien
+                \item Pemanfaatan multiprosesor \\
+                Seperti model \textit{one-to-one, thread user-level} dapat berjalan secara paralel di banyak prosesor, 
+                namun lebih hemat sumber daya karena tidak semua \textit{thread user} harus memiliki \textit{thread kernel} masing-masing.
+            \end{enumerate}
+        \item Kekurangan \\
+            \begin{enumerate}
+                \item Kompleksitas manajemen \\
+                Model ini membutuhkan mekanisme yang lebih rumit untuk memetakan \textit{thread user-level} ke \textit{thread kernel-level}, dan bisa 
+                jadi lebih sulit diimplementasikan.
+                \item Potensi \textit{bottleneck} \\
+                Jika terlalu banyak \textit{thread user} yang dipetakan ke \textit{thread kernel} yang sama, ini bisa menimbulkan kemacetan \textit{(bottleneck)} yang memperlambat performa.
+            \end{enumerate}
+    \end{itemize}
+
+\end{enumerate}
+
+\noindent Tutorialspoint. (n.d.). \textit{Multithreading models in operating system}. Tutorialspoint. Diakses pada 3 Oktober 2024, dari \url{https://www.tutorialspoint.com/operating_system/os_multi_threading_models.htm}
+
+\subsubsection{Pengelolaan \textit{Threads}}
+Pengelolaan \textit{threads} merupakan salah satu aspek penting dalam sistem operasi untuk memastikan bahwa \textit{threads} dapat berjalan secara efisien dan tidak saling mengganggu. Sistem operasi bertanggung jawab untuk mengalokasikan waktu CPU \textit{(Central Processing Unit)}, memori, serta sumber daya lain bagi setiap \textit{thread}. Berikut adalah beberapa elemen utama dalam pengelolaan \textit{threads}:
+
+\begin{itemize}
+    \item \textbf{Pembuatan \textit{Threads}}: Sistem operasi memungkinkan aplikasi untuk membuat \textit{threads} baru saat dibutuhkan. Misalnya, saat sebuah aplikasi memulai tugas paralel, sistem operasi akan membuat satu atau lebih \textit{threads} untuk menangani tugas-tugas tersebut. Setiap \textit{thread} memiliki identitas unik dan dikaitkan dengan proses induknya. Pembuatan \textit{threads} biasanya dilakukan melalui \textit{API (Application Programming Interface)} atau fungsi-fungsi khusus yang disediakan oleh sistem operasi, seperti \texttt{pthread\_create()} pada \textit{Linux} atau \texttt{CreateThread()} pada \textit{Windows}.
+
+    \item \textbf{Penjadwalan \textit{Threads}}: Sistem operasi menggunakan algoritma penjadwalan untuk menentukan urutan eksekusi \textit{threads}. Ini memastikan bahwa \textit{threads} dari berbagai proses mendapatkan waktu CPU secara adil dan efisien. Beberapa algoritma penjadwalan yang digunakan dalam pengelolaan \textit{threads} antara lain \textit{Round Robin} dan \textit{Priority Scheduling}. Penjadwalan yang baik sangat penting untuk menjaga kinerja sistem secara keseluruhan, terutama dalam lingkungan dengan banyak \textit{threads} yang berjalan bersamaan.
+
+    \item \textbf{Sinkronisasi \textit{Threads}}: Ketika beberapa \textit{threads} berbagi sumber daya yang sama, sistem operasi harus memastikan bahwa tidak terjadi konflik saat \textit{threads} mengakses sumber daya tersebut. Mekanisme sinkronisasi seperti \textit{mutexes}, \textit{semaphores}, dan \textit{condition variables} digunakan untuk mengelola akses bersamaan dan mencegah kondisi balapan (\textit{race conditions}). Sinkronisasi memastikan bahwa \textit{threads} tidak saling mengganggu dan data yang digunakan tetap konsisten.
+
+    \item \textbf{Penghentian \textit{Threads}}: Setelah \textit{threads} selesai menjalankan tugasnya, sistem operasi harus menghentikan \textit{threads} tersebut dan membersihkan sumber daya yang digunakan. Penghentian \textit{threads} dapat dilakukan secara manual oleh aplikasi, atau secara otomatis ketika tugas telah selesai. Fungsi-fungsi seperti \texttt{pthread\_exit()} pada \textit{Linux} atau \texttt{ExitThread()} pada \textit{Windows} digunakan untuk mengakhiri \textit{threads}.
+
+    \item \textbf{Manajemen Konteks \textit{Threads}}: Ketika sistem operasi berpindah dari satu \textit{thread} ke \textit{thread} lainnya, perlu dilakukan penyimpanan dan pemulihan konteks eksekusi (\textit{context switching}). Konteks ini mencakup informasi tentang status CPU, \textit{register}, dan memori yang sedang digunakan oleh \textit{thread}. Sistem operasi harus memastikan bahwa ketika sebuah \textit{thread} dilanjutkan, ia bisa melanjutkan eksekusinya tanpa kehilangan data atau instruksi penting.
+\end{itemize}
+
+Pengelolaan \textit{threads} yang efektif sangat penting untuk meningkatkan kinerja sistem operasi, terutama pada sistem dengan banyak tugas yang berjalan secara bersamaan. Dengan teknik yang tepat, \textit{threads} dapat membantu mempercepat penyelesaian tugas dan memastikan pemanfaatan sumber daya secara optimal.
+
+\noindent Studytonight. (n.d.). \textit{Thread management in operating system}. Studytonight. Diakses pada 3 Oktober 2024, 
+dari \url{https://www.studytonight.com/operating-system/thread-management}
+
+\subsubsection{Penerapan \textit{Threads} pada Sistem Operasi}
+Sistem operasi modern seperti \textit{Windows}, \textit{Linux}, dan \textit{macOS} menerapkan konsep \textit{threads} untuk meningkatkan efisiensi dan performa ketika menjalankan berbagai tugas secara bersamaan. Berikut adalah beberapa contoh penerapan \textit{threads} pada sistem operasi:
+
+\begin{itemize}
+    \item \textbf{\textit{Multitasking}}: Dalam sistem operasi, setiap proses atau aplikasi dapat terdiri dari beberapa \textit{threads} yang bekerja bersamaan. Misalnya, ketika kamu menjalankan \textit{browser}, mengetik dokumen, dan mendengarkan musik, sistem operasi menggunakan \textit{threads} untuk mengatur agar semua aplikasi tersebut bisa berjalan tanpa saling mengganggu. Setiap \textit{thread} diatur secara independen sehingga \textit{multitasking} dapat tercapai dengan lancar.
+    
+    \item \textbf{Pembagian Tugas dalam Aplikasi}: Banyak aplikasi modern menggunakan \textit{threads} untuk membagi tugas-tugas yang lebih kecil. Misalnya, dalam aplikasi peramban (\textit{browser}), satu \textit{thread} bisa bertanggung jawab untuk menampilkan halaman web, sementara \textit{thread} lain mengunduh gambar, dan \textit{thread} lainnya lagi mengelola animasi. Penggunaan \textit{threads} ini membuat aplikasi lebih responsif dan tidak bergantung pada satu proses untuk menyelesaikan semua tugas.
+    
+    \item \textbf{Penggunaan Sumber Daya yang Efisien}: Pada sistem dengan prosesor \textit{multi-core}, sistem operasi dapat mendistribusikan \textit{threads} ke berbagai inti (\textit{core}). Ini memungkinkan proses berjalan secara paralel dan mempercepat kinerja sistem. Bayangkan sebuah tugas besar yang dibagi ke beberapa pekerja (\textit{thread}), masing-masing menyelesaikan bagian mereka secara bersamaan, sehingga tugas selesai lebih cepat.
+    
+    \item \textbf{\textit{Input/Output} (\textit{I/O Operations})}: Ketika aplikasi menunggu \textit{input} dari pengguna atau operasi \textit{I/O} seperti pembacaan \textit{file} dari \textit{disk} atau pengunduhan data dari internet, \textit{threads} lain masih bisa berjalan. Misalnya, saat menunggu halaman web dimuat, kamu tetap bisa melihat halaman atau mengetik alamat baru karena ada \textit{thread} yang khusus menangani \textit{I/O} dan \textit{thread} lainnya yang tetap aktif untuk menerima interaksi pengguna.
+\end{itemize}
+
+\noindent Scaler. (2023). 
+\textit{Introduction to multithreading in operating systems}. Scaler. Diakses pada 3 Oktober 2024, dari \\ 
+\url{https://www.scaler.com/topics/multithreading-in-operating-system/}
+
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -137,9 +299,19 @@ Virtualization allows multiple operating systems to run concurrently on a single
     \item Benefits of virtualization in modern computing
 \end{itemize}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \caption{Ini adalah gambar contoh dari multithreading.}
+    \label{fig:contoh_gambar}
+\end{figure}
+
+Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
+
 \subsubsection{Group 1}
 \begin{python}
     class Process:
@@ -166,14 +338,326 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+
+\subsubsection{Kelompok 7}
+\begin{python}
+    import random
+
+class Process:
+    def __init__(self, pid, arrival_time, burst_time):
+        self.id = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+
+def round_robin_scheduling(processes, quantum):
+    time = 0
+    completed = []
+    queue = []
+    remaining_time = {process.id: process.burst_time for process in processes}
+
+    while remaining_time:
+        for process in processes:
+            if process.id in remaining_time and process.arrival_time <= time:
+                queue.append(process)
+
+        if queue:
+            current_process = queue.pop(0)
+            time_spent = min(quantum, remaining_time[current_process.id])
+            time += time_spent
+            remaining_time[current_process.id] -= time_spent
+            
+            if remaining_time[current_process.id] == 0:
+                completed.append((current_process.id, time))
+                del remaining_time[current_process.id]
+            else:
+                queue.append(current_process)
+        else:
+            time += 1
+    return completed
+    processes = [
+        Process(1, 0, 7),
+        Process(2, 2, 4),
+        Process(3, 4, 1),
+        Process(4, 5, 4)]
+
+quantum = 3 #Quantum time ini untuk algoritma Round Robin
+result = round_robin_scheduling(processes, quantum)
+\end{python}
+\textbf{Soal : } \\
+Dari kode Python di atas, tuliskan output yang akan dihasilkan serta coba gambarkan eksekusi proses menggunakan Gantt Chart! \\
+\textbf{Jawaban :} \\
+\begin{python}
+    Waktu saat ini: 0
+    Menjalankan process 1 selama 3 waktu
+    Waktu saat ini: 3
+
+    Waktu saat ini: 3
+    Menjalankan process 2 selama 3 waktu
+    Waktu saat ini: 6
+
+    Waktu saat ini: 6
+    Menjalankan process 1 selama 3 waktu
+    Waktu saat ini: 9
+
+    Waktu saat ini: 9
+    Menjalankan process 3 selama 1 waktu
+    Waktu saat ini: 10
+
+    Waktu saat ini: 10
+    Menjalankan process 4 selama 3 waktu
+    Waktu saat ini: 13
+
+    Waktu saat ini: 13
+    Menjalankan process 2 selama 1 waktu
+    Waktu saat ini: 14
+
+    Waktu saat ini: 14
+    Menjalankan process 4 selama 1 waktu
+    Waktu saat ini: 15
+
+    Waktu saat ini: 15
+    Menjalankan process 1 selama 1 waktu
+    Waktu saat ini: 16
+
+    Waktu saat ini: 16
+    Menjalankan process 4 selama 1 waktu
+    Waktu saat ini: 17
+
+    Waktu saat ini: 17
+    Menjalankan process 4 selama 1 waktu
+    Waktu saat ini: 18
+\end{python}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{asset/gantt-chart-a1.png}
+    \caption{Gantt Chart.}
+    \label{fig:gantt-chart-kelompok7-assignment1}
+\end{figure}
+
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Kelompok 7}
+\begin{python}
+import threading
+import time
+import random
+
+class Resource:
+    def __init__(self, name):
+        self.name = name
+        self.lock = threading.Lock()
+
+class Process(threading.Thread):
+    def __init__(self, name, resource1, resource2):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.resource1 = resource1
+        self.resource2 = resource2
+
+    def run(self):
+        print(f"{self.name} mencoba untuk mengunci {self.resource1.name}")
+        with self.resource1.lock:
+            print(f"{self.name} mengunci {self.resource1.name}")
+            time.sleep(random.uniform(1, 2))
+            print(f"{self.name} mencoba untuk mengunci {self.resource2.name}")
+            with self.resource2.lock:
+                print(f"{self.name} mengunci {self.resource2.name}")
+        print(f"{self.name} selesai.")
+
+# Membuat dua sumber daya
+resource_A = Resource("Resource A")
+resource_B = Resource("\textbf{Resource B}")
+
+# Membuat dua proses yang saling menunggu satu sama lain
+process1 = Process("Process 1", resource_A, resource_B)
+process2 = Process("Process 2", resource_B, resource_A)
+
+# Menjalankan proses
+process1.start()
+process2.start()
+
+process1.join()
+process2.join()
+\end{python}
+
+\textbf{Soal : }
+Dari kode Python di atas, jelaskan skenario \textit{deadlock} yang terjadi ketika dua proses berusaha mengunci dua sumber daya. Apa metode pencegahan yang bisa digunakan untuk menghindari \textit{deadlock} dalam situasi ini? \\
+
+\textbf{Jawaban : }
+Penjelasan Skenario \textit{Deadlock}:
+Dalam kode ini, terdapat dua proses, yaitu \textbf{Process 1} dan \textbf{Process 2}. Keduanya mencoba untuk mengunci dua sumber daya, \textbf{Resource A} dan \textbf{\textbf{Resource B}}.
+\begin{itemize}
+    \item \textbf{Process 1} mengunci \textbf{Resource A} dan kemudian mencoba mengunci \textbf{Resource B}.
+    \item \textbf{Process 2} mengunci \textbf{Resource B} dan kemudian mencoba mengunci \textbf{Resource A}.
+\end{itemize}
+Jika \textbf{Process 1} sudah mengunci \textbf{Resource A} dan \textbf{Process 2} sudah mengunci \textbf{Resource B}, keduanya akan saling menunggu satu sama lain, menyebabkan \textit{deadlock}. \textbf{Process 1} menunggu \textbf{Resource B} yang dipegang oleh \textbf{Process 2}, sedangkan \textbf{Process 2} menunggu \textbf{Resource A} yang dipegang oleh \textbf{Process 1}.
+Metode Pencegahan Deadlock:
+\begin{enumerate}
+    \item Menghindari Siklus: Menjaga agar tidak ada siklus dalam alokasi sumber daya. Dalam kasus ini, bisa mengatur urutan penguncian sumber daya, misalnya semua proses harus mengunci \textbf{Resource A} terlebih dahulu sebelum \textbf{Resource B}.
+    \item Penggunaan Waktu Tunggu (\textit{Timeout}): Jika suatu proses tidak dapat mengunci sumber daya dalam waktu tertentu, maka proses tersebut akan dibatalkan dan di-\textit{restart}. Dengan cara ini, sumber daya akan tersedia untuk proses lain.
+\end{enumerate}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
+\subsubsection{Kelompok 7}
+\begin{python}
+    import threading
+import time
+
+# Fungsi untuk melakukan komputasi intensif
+def computational_task(task_id):
+    print(f"Thread {task_id} mulai.")
+    # Simulasi kerja komputasi intensif
+    time.sleep(2)  # Menggunakan waktu 2 detik sebagai simulasi kerja, bisa diganti
+    print(f"Thread {task_id} selesai.")
+
+def main():
+    num_threads = 4  # Jumlah thread yang akan digunakan
+    threads = []
+
+    # Memulai thread
+    for i in range(num_threads):
+        thread = threading.Thread(target=computational_task, args=(i,))
+        threads.append(thread)
+        thread.start()
+
+    # Menunggu semua thread selesai
+    for thread in threads:
+        thread.join()
+
+if __name__ == "__main__":
+    start_time = time.time()
+    main()
+    end_time = time.time()
+    print(f"Waktu eksekusi total: {end_time - start_time:.2f} detik.")
+\end{python}
+
+\textbf{Soal : }
+Dari kode Python di atas, jelaskan bagaimana skenario \textit{multithreading} diimplementasikan untuk menyelesaikan masalah komputasi intensif. Selain itu, terapkan Hukum Amdahl untuk menghitung percepatan teoretis program saat jumlah \textit{thread} meningkat dari satu ke empat. \\
+
+\textbf{Jawaban : }
+\begin{itemize}
+    \item Penjelasan Skenario \textit{Multithreading}
+        \begin{enumerate}
+            \item Kita menentukan jumlah \textit{thread} yang akan digunakan, yaitu empat buah \textit{thread}.
+            \item Kita memulai setiap \textit{thread} menggunakan \texttt{threading.Thread}, dan setiap \textit{thread} menjalankan \texttt{computational\_task}.
+            \item Setelah semua \textit{thread} dimulai, kita menunggu sampai semua thread selesai menggunakan \texttt{join()}, sehingga program tidak akan melanjutkan eksekusi sampai semua \textit{thread} selesai.
+        \end{enumerate}
+    \item Penerapan Hukum Amdahl \\
+        \textbf{Hukum Amdahl} digunakan untuk menghitung percepatan teoretis yang diharapkan dari peningkatan jumlah prosesor (atau \textit{thread}) untuk sebuah program. Hukum ini dinyatakan sebagai:
+        \begin{equation}
+            S = \frac{1}{(1 - P) + \frac{P}{N}}
+        \end{equation}
+        Di mana:
+        \begin{itemize}
+            \item \( S \) = percepatan total.
+            \item \( P \) = proporsi waktu yang dapat diparalelkan.
+            \item \( N \) = jumlah \textit{thread}.
+        \end{itemize}
+
+        Mari kita asumsikan:
+        \begin{itemize}
+            \item Waktu total tanpa paralelisasi (dengan 1 \textit{thread}) = Dua detik (hanya ada satu \textit{thread}).
+            \item Proporsi waktu yang dapat diparalelkan \( P = 1 \) (100\% dari tugas dapat diparalelkan).
+            \item Jumlah \textit{thread} \( N = 4 \).
+        \end{itemize}
+        Maka, kita dapat menghitung percepatannya:
+\begin{equation}
+S = \frac{1}{(1 - 1) + \frac{1}{4}} = \frac{1}{0 + 0.25} = 4
+\end{equation}
+\end{itemize}
+
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Kelompok 7}
+
+\begin{python}
+import os
+import sys
+import subprocess
+
+def create_file(filename):
+    with open(filename, 'w') as f:
+        f.write('')  # Create an empty file
+    print(f'File "{filename}" created.')
+
+def list_files():
+    files = os.listdir('.')
+    print("Files in current directory:")
+    for file in files:
+        print(file)
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f'File "{filename}" deleted.')
+    except FileNotFoundError:
+        print(f'File "{filename}" not found.')
+
+def list_processes():
+    try:
+        processes = subprocess.check_output(['ps', 'aux']).decode('utf-8')
+        print("Current running processes:")
+        print(processes)
+    except Exception as e:
+        print(f'Error retrieving processes: {e}')
+
+def system_status():
+    print("System Status:")
+    print(f"Current working directory: {os.getcwd()}")
+    print(f"Number of files: {len(os.listdir('.'))}")
+
+def main():
+    print("Welcome to Simple CLI!")
+    while True:
+        command = input("Enter command (create, list, delete, processes, status, exit): ").strip().lower()
+        
+        if command == 'create':
+            filename = input("Enter filename to create: ")
+            create_file(filename)
+        elif command == 'list':
+            list_files()
+        elif command == 'delete':
+            filename = input("Enter filename to delete: ")
+            delete_file(filename)
+        elif command == 'processes':
+            list_processes()
+        elif command == 'status':
+            system_status()
+        elif command == 'exit':
+            print("Exiting CLI. Goodbye!")
+            sys.exit()
+        else:
+            print("Unknown command. Please try again.")
+
+if __name__ == "__main__":
+    main()
+\end{python}
+
+\textbf{Soal : }
+
+Jelaskan bagaimana cara kerja perintah \textit{create} dalam CLI yang telah Anda buat. Apa yang terjadi jika \textit{file} dengan nama yang sama sudah ada di direktori saat ini?
+
+\textbf{Jawaban : }
+
+Perintah \textit{create} dalam CLI berfungsi untuk membuat \textit{file} baru dengan nama yang ditentukan oleh pengguna. Berikut adalah langkah-langkah yang terjadi saat perintah \texttt{create} dijalankan:
+
+\begin{enumerate}
+    \item \textbf{Input Nama \textit{File}}: Pengguna diminta untuk memasukkan nama \textit{file} yang ingin dibuat, misalnya \texttt{data.txt}.
+    \item \textbf{Membuat \textit{File} Baru}: Aplikasi membuka \textit{file} tersebut dalam mode penulisan (\texttt{'w'}). Jika \textit{file} dengan nama yang sama sudah ada, mode \texttt{'w'} akan menghapus isi \textit{file} yang ada dan membuat \textit{file} baru. Oleh karena itu, jika \texttt{data.txt} sudah ada, kontennya akan hilang dan \textit{file} tersebut menjadi kosong.
+    \item \textbf{Menulis ke \textit{File}}: Setelah \textit{file} dibuka, aplikasi menulis konten kosong ke dalam \textit{file} dengan menggunakan \texttt{f.write('')}.
+    \item \textbf{Menampilkan Pesan Konfirmasi}: Setelah \textit{file} berhasil dibuat, aplikasi menampilkan pesan konfirmasi kepada pengguna, mengonfirmasi bahwa \textit{file} dengan nama yang ditentukan telah dibuat.
+\end{enumerate}
+
+Jika pengguna mencoba membuat \textit{file} dengan nama yang sama, isi dari \textit{file} tersebut akan hilang, dan \textit{file} baru (kosong) akan dibuat. Ini dapat menjadi risiko jika pengguna tidak menyadari bahwa \textit{file} tersebut sudah ada, karena data yang sebelumnya tersimpan akan terhapus secara permanen.
+
+Untuk mengatasi masalah ini, sebaiknya menambahkan logika untuk memeriksa apakah \textit{file} sudah ada sebelum membuat \textit{file} baru. Jika sudah ada, aplikasi dapat memberikan peringatan kepada pengguna dan meminta konfirmasi sebelum menghapus isi \textit{file} yang ada.
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -182,6 +666,94 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
+\subsubsection{Kelompok 7}
+\begin{python}
+import os
+import sys
+
+def create_file(filename):
+    with open(filename, 'w') as f:
+        f.write('')  # Membuat file kosong
+    print(f'File "{filename}" created.')
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f'File "{filename}" deleted.')
+    except FileNotFoundError:
+        print(f'File "{filename}" not found.')
+
+def read_file(filename):
+    try:
+        with open(filename, 'r') as f:
+            content = f.read()
+        print(f'Content of "{filename}":\n{content}')
+    except FileNotFoundError:
+        print(f'File "{filename}" not found.')
+
+def write_to_file(filename, content):
+    with open(filename, 'a') as f:
+        f.write(content + '\n')  # Menambahkan konten ke dalam file
+    print(f'Content written to "{filename}".')
+
+def list_files():
+    files = os.listdir('.')
+    print("Files in current directory:")
+    for file in files:
+        print(file)
+
+def main():
+    print("Welcome to File System CLI!")
+    while True:
+        command = input("Enter command (create, delete, read, write, list, exit): ").strip().lower()
+        
+        if command == 'create':
+            filename = input("Enter filename to create: ")
+            create_file(filename)
+        elif command == 'delete':
+            filename = input("Enter filename to delete: ")
+            delete_file(filename)
+        elif command == 'read':
+            filename = input("Enter filename to read: ")
+            read_file(filename)
+        elif command == 'write':
+            filename = input("Enter filename to write to: ")
+            content = input("Enter content to write: ")
+            write_to_file(filename, content)
+        elif command == 'list':
+            list_files()
+        elif command == 'exit':
+            print("Exiting CLI. Goodbye!")
+            sys.exit()
+        else:
+            print("Unknown command. Please try again.")
+
+    if __name__ == "__main__":
+        main()
+\end{python}
+
+\textbf{Soal}
+
+Deskripsikan fungsi dari setiap perintah yang terdapat dalam kode \textit{CLI} ini \textit{(create, delete, read, write, list)}. Apa yang terjadi jika pengguna mencoba untuk membaca \textit{file} yang tidak ada?
+
+\textbf{Jawaban}
+
+Dalam kode \textit{CLI} di atas, terdapat beberapa perintah yang masing-masing memiliki fungsinya sendiri:
+
+\begin{enumerate}
+    \item \textbf{\textit{create}}: Perintah ini digunakan untuk membuat \textit{file} baru. Pengguna diminta untuk memasukkan nama \textit{file} yang ingin dibuat. Jika \textit{file} dengan nama yang sama sudah ada, isi dari \textit{file} tersebut akan dihapus, dan \textit{file} baru (kosong) akan dibuat.
+    
+    \item \textbf{\textit{delete}}: Perintah ini digunakan untuk menghapus \textit{file} yang ada. Pengguna memasukkan nama \textit{file} yang ingin dihapus. Jika \textit{file} tersebut tidak ditemukan, sistem akan memberikan pesan kesalahan yang menyatakan bahwa \textit{file} tidak ada.
+    
+    \item \textbf{\textit{read}}: Perintah ini digunakan untuk membaca isi dari \textit{file} yang ada. Pengguna memasukkan nama \textit{file} yang ingin dibaca. Jika \textit{file} ditemukan, kontennya akan ditampilkan. Namun, jika \textit{file} tidak ada, sistem akan menampilkan pesan kesalahan.
+    
+    \item \textbf{\textit{write}}: Perintah ini digunakan untuk menambahkan konten baru ke dalam \textit{file} yang ada. Pengguna diminta untuk memasukkan nama \textit{file} dan konten yang ingin ditulis. Konten akan ditambahkan di akhir \textit{file}, sehingga tidak menghapus data yang sudah ada.
+    
+    \item \textbf{\textit{list}}: Perintah ini digunakan untuk menampilkan semua \textit{file} yang ada di direktori saat ini. Sistem akan mencetak daftar nama \textit{file} yang ada di dalam direktori tersebut.
+\end{enumerate}
+
+Jika pengguna mencoba untuk membaca \textit{file} yang tidak ada dengan menggunakan perintah \texttt{read}, aplikasi akan menangkap kesalahan \texttt{FileNotFoundError} dan menampilkan pesan kepada pengguna yang menyatakan bahwa \textit{file} tersebut tidak ditemukan. Ini memastikan bahwa pengguna mendapatkan umpan balik yang jelas ketika mencoba mengakses \textit{file} yang tidak ada, tanpa menyebabkan program \textit{crash} (gagal berjalan).
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

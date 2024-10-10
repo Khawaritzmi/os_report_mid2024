@@ -122,14 +122,14 @@ Explores the concept of deadlocks and methods for preventing them:
     \subsection{Deadlock Prevention} 
 \hspace{1cm} \textit{Deadlock Prevention} adalah teknik yang digunakan untuk mencegah sistem memasuki keadaan buntu (\textit{deadlock}). Dengan memastikan setidaknya satu dari keempat kondisi \textit{deadlock} tidak terjadi. Menurut Fajar dkk (2022), ada empat kondisi yang menyebabkan terjadinya \textit{deadlock}, yaitu:
 \begin{itemize}
+
     \item \textit{Mutual exclusion}: Kondisi ini terjadi ketika sumber daya hanya dapat digunakan oleh satu proses pada satu waktu. Jadi, ketika satu proses sedang menggunakan sumber daya, sumber daya tersebut tidak bisa digunakan oleh proses lain. Contoh sederhana proses terjadinya \textit{mutual exclusion} adalah pada \textit{printer}, dimana \textit{printer} hanya dapat digunakan oleh satu proses pada satu waktu. Jika proses A sedang mencetak, proses B harus menunggu sampai proses A selesai melakukan tugasnya.
     
     \item \textit{Hold and Wait}: Ketika sebuah proses sudah memegang satu atau lebih sumber daya dan menunggu untuk mendapatkan sumber daya tambahan yang sedang dipegang oleh proses lain. Proses tersebut tidak melepaskan sumber daya yang sudah dipegangnya saat menunggu sumber daya tambahan. Sederhananya, kondisi \textit{Hold-and-Wait} ini adalah proses menahan sumber daya sambil menuggu sumber daya lain.  Kondisi ini dapat menyebabkan situasi dimana proses lain juga menahan sumber daya yang dibutuhkan sehingga menciptakan siklus saling menunggu.
     
     \item \textit{No Preemption}:  Sumber daya yang sudah dialokasikan untuk sebuah proses tidak bisa diputuskan atau diambil secara paksa. Sumber daya hanya dapat dilepaskan secara sukarela oleh proses yang memegangnya setelah selesai menggunakannya. Jika suatu proses menunggu sumber daya yang dipegang proses lain, dan sumber daya tersebut tidak bisa diambil paksa, maka proses pertama akan terjebak menunggu selamanya. Kondisi seperti inilah yang bisa menyebabkan \textit{deadlock} itu terjadi.
     
-    \item \textit{Circular Wait}:  Kondisi dimana serangkaian proses membentuk sebuah lingkaran, dimana setiap proses dalam lingkaran menunggu sumber daya yang sedang dipegang oleh proses lain. Siklus ini mengakibatkan tidak ada proses yang bisa melanjutkan karena semuanya saling menunggu sumber daya yang tidak akan pernah dilepaskan.
-    Dalam \textit{circular wait}, proses saling menunggu satu sama lain, membentuk siklus yang mencegah kemajuan setiap proses. Misalkan, ada empat proses (P1, P2, P3, P4) dan empat sumber daya atau \textit{resource} (R1, R2, R3, R4). \textit{Circular wait} terjadi jika:
+    \item \textit{Circular Wait}:  Kondisi dimana serangkaian proses membentuk sebuah lingkaran, dimana setiap proses dalam lingkaran menunggu sumber daya yang sedang dipegang oleh proses lain. Siklus ini mengakibatkan tidak ada proses yang bisa melanjutkan karena semuanya saling menunggu sumber daya yang tidak akan pernah dilepaskan. Dalam \textit{circular wait}, proses saling menunggu satu sama lain, membentuk siklus yang mencegah kemajuan setiap proses. Misalkan, ada empat proses (P1, P2, P3, P4) dan empat sumber daya atau \textit{resource} (R1, R2, R3, R4). \textit{Circular wait} terjadi jika:
 
     - P1 memegang R1 dan menunggu R2 (yang dipegang oleh P2),
     

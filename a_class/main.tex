@@ -92,7 +92,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    % \includegraphics[width=0.5\textwidth]{/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -126,10 +126,6 @@ This section discusses the role of the operating system in managing the user int
 \begin{itemize}
     \item Graphical User Interface (GUI)
     \item Command-Line Interface (CLI)
-    \item TouchUser Interface (TUI)
-    \item Voice User Interface (VUI)
-    \item Conversational User Interface (CUI)
-    \item Interaction between the user and the operating system
 \end{itemize}
 
 
@@ -150,7 +146,6 @@ This section discusses the role of the operating system in managing the user int
     \item Memfasilitasi Navigasi yang Efisien
 
     UI yang baik membantu pengguna untuk menavigasi aplikasi atau situs web dengan mudah melalui struktur yang konsisten dan logis. Elemen navigasi seperti menu, tombol, dan ikon ditempatkan pada posisi yang strategis, sehingga pengguna tidak perlu membuang banyak waktu mencari fitur atau informasi.
-
     \item Memudahkan Interaksi Pengguna dengan Produk
 
     UI menjadi perantara antara pengguna dan produk atau layanan. Elemen-elemen visual seperti tombol, ikon, gambar, dan teks menjadi sarana utama yang digunakan pengguna untuk berinteraksi dengan sistem. Desain UI yang baik memastikan interaksi tersebut mudah dan menyenangkan.
@@ -158,23 +153,21 @@ This section discusses the role of the operating system in managing the user int
 
 \subsubsection{Komponen-komponen User Interface}
 
-Komponen-komponen utama dalam user interface (UI) dirancang untuk memfasilitasi interaksi pengguna dengan sistem secara efektif dan intuitif. Berikut adalah komponen-komponen umum dalam UI:
+Komponen-komponen utama dalam \emph{user interface} (UI) dirancang untuk memfasilitasi interaksi pengguna dengan sistem secara efektif dan intuitif. Berikut adalah komponen-komponen umum dalam UI:
 \begin{itemize}
     \item Navigation Bar
 \begin{figure}[h] % Memasukkan gambar
     \centering
     \includegraphics[width=0.5\textwidth]{asset/navbar.png }
 \end{figure}
+    \par Navbar adalah komponen navigasi yang biasanya terletak di bagian atas halaman dan digunakan untuk mengarahkan pengguna ke halaman-halaman penting dalam aplikasi atau situs web. Navbar membantu pengguna menavigasi konten dengan mudah dan cepat.
 
-    Navbar adalah komponen navigasi yang biasanya terletak di bagian atas halaman dan digunakan untuk mengarahkan pengguna ke halaman-halaman penting dalam aplikasi atau situs web. Navbar membantu pengguna menavigasi konten dengan mudah dan cepat.
-
-    \item Buttom
+    \item \emph{Buttom}
 \begin{figure}[h] % Memasukkan gambar
     \centering
     \includegraphics[width=0.5\textwidth]{asset/button.png }
 \end{figure}
-
-    Tombol (Button) adalah elemen interaktif yang dapat diklik oleh pengguna untuk melakukan suatu tindakan, seperti mengirimkan data, membuka halaman lain, atau menjalankan fungsi tertentu. Tombol memiliki bentuk dan gaya yang mudah dikenali dan diidentifikasi.
+    \par Tombol (\emph{Button}) adalah elemen interaktif yang dapat diklik oleh pengguna untuk melakukan suatu tindakan, seperti mengirimkan data, membuka halaman lain, atau menjalankan fungsi tertentu. Tombol memiliki bentuk dan gaya yang mudah dikenali dan diidentifikasi.
 
     \item From Input 
 
@@ -182,33 +175,28 @@ Komponen-komponen utama dalam user interface (UI) dirancang untuk memfasilitasi 
     \centering
     \includegraphics[width=0.5\linewidth]{asset/formInput.png}
 \end{figure}
-
-    Form input adalah elemen di mana pengguna dapat memasukkan informasi ke dalam sistem. Form input biasanya digunakan untuk mengumpulkan data dari pengguna, seperti teks, angka, pilihan dari daftar, atau file.
+    \par Form input adalah elemen di mana pengguna dapat memasukkan informasi ke dalam sistem. Form input biasanya digunakan untuk mengumpulkan data dari pengguna, seperti teks, angka, pilihan dari daftar, atau file.
 
     \item Card
 \begin{figure}[h] % Memasukkan gambar
     \centering
     \includegraphics[width=0.5\textwidth]{asset/card.png }
 \end{figure}
-
-    Card adalah komponen UI yang biasanya berbentuk kotak persegi atau persegi panjang, yang digunakan untuk menampilkan informasi singkat, media, atau konten dalam bentuk yang rapi dan terstruktur. Card memudahkan pengguna untuk melihat beberapa elemen atau konten yang terkait dalam satu wadah.
+    \par Card adalah komponen UI yang biasanya berbentuk kotak persegi atau persegi panjang, yang digunakan untuk menampilkan informasi singkat, media, atau konten dalam bentuk yang rapi dan terstruktur. Card memudahkan pengguna untuk melihat beberapa elemen atau konten yang terkait dalam satu wadah.
 
     \item Modal (Popup Dialog)
 \begin{figure}[h] % Memasukkan gambar
     \centering
     \includegraphics[width=0.5\textwidth]{asset/popUp.png }
 \end{figure}
-
-    Modal adalah kotak dialog yang muncul di atas halaman utama untuk menampilkan informasi penting atau meminta konfirmasi dari pengguna. Modal digunakan untuk interaksi yang tidak mengharuskan pengguna berpindah halaman, sehingga mengurangi gangguan pada alur pengguna.
+    \par Modal adalah kotak dialog yang muncul di atas halaman utama untuk menampilkan informasi penting atau meminta konfirmasi dari pengguna. Modal digunakan untuk interaksi yang tidak mengharuskan pengguna berpindah halaman, sehingga mengurangi gangguan pada alur pengguna.
 
     \item Footer
 \begin{figure}[h] % Memasukkan gambar
     \centering
     \includegraphics[width=0.5\textwidth]{asset/footer.png }
 \end{figure}
-
-    Footer adalah area yang terletak di bagian bawah halaman web dan biasanya digunakan untuk menampilkan informasi umum, tautan penting, atau hak cipta. Footer berfungsi sebagai penutup halaman dan sering kali menyertakan elemen navigasi tambahan yang tidak terlalu esensial dibandingkan navbar.
-
+    \par Footer adalah area yang terletak di bagian bawah halaman web dan biasanya digunakan untuk menampilkan informasi umum, tautan penting, atau hak cipta. Footer berfungsi sebagai penutup halaman dan sering kali menyertakan elemen navigasi tambahan yang tidak terlalu esensial dibandingkan navbar.
 \end{itemize}
 
 \begin{thebibliography}{9} 

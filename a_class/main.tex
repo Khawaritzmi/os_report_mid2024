@@ -56,30 +56,30 @@ This section explains the fundamental components that make up a computer system,
 \subsection{System Performance and Metrics}
 \subsubsection{Metrik Sistem Spesifik}
 \begin{enumerate}
-    \item Cycle Per Instructions (CPI)
-    \par CPI adalah salah satu metrik utama yang digunakan untuk mengevaluasi performa CPU (Central Processing Unit). CPI mengukur rata-rata jumlah siklus clock yang dibutuhkan oleh CPU untuk mengeksekusi satu instruksi.
+    \item \textit{Cycle Per Instructions} (CPI) 
+    \par \textit{Cycle Per Instructions} adalah salah satu metrik utama yang digunakan untuk mengevaluasi performa \textit{Central Processing Unit} (CPU). CPI mengukur rata-rata jumlah siklus \textit{clock} yang dibutuhkan oleh CPU untuk mengeksekusi satu instruksi.
     \par Formula umum CPI: 
-    \par CPI = Total Cycle Total/Instructions
-    \par Rendahnya CPI berarti CPU dapat mengeksekusi instruksi lebih efisien, menunjukkan performa yang lebih baik sedangkan tingginya CPI menunjukkan bahwa CPU memerlukan lebih banyak siklus clock untuk mengeksekusi instruksi, yang bisa berarti instruksi tersebut lebih kompleks ata ada masalah dalam pipeline CPU.
+    \par CPI = \textit{Total Cycle/Instructions}
+    \par Rendahnya CPI berarti CPU dapat mengeksekusi instruksi lebih efisien, menunjukkan performa yang lebih baik sedangkan tingginya CPI menunjukkan bahwa CPU memerlukan lebih banyak siklus \textit{clock} untuk mengeksekusi instruksi, yang bisa berarti instruksi tersebut lebih kompleks atau ada masalah dalam \textit{pipeline} CPU.
     \par Contoh Penggunaan CPI
     \par Misalkan kamu memiliki dua CPU: 
     \par CPU A memiliki CPI 1.2 
     \par CPU B memiliki CPI 1.8 
     \par Jika keduanya berjalan pada frekuensi yang sama, katakanlah 3 GHz, CPU A akan lebih efisien karena membutuhkan lebih sedikit siklus per instruksi. Ini berarti CPU A dapat menyelesaikan lebih banyak instruksi dalam waktu yang sama dibandingkan CPU B.
 
-    \item Floating Point Operations Per Second (FLOPS)
-    \par FLOPS adalah metrik yang digunakan untuk mengukur
-    kemampuan komputasi floating-point dari sebuah
+    \item \textit{Floating Point Operations Per Second} (FLOPS)
+    \par \textit{Floating Point Operations Per Second} adalah metrik yang digunakan untuk mengukur
+    kemampuan komputasi \textit{floating-point} dari sebuah
     komputer, yang sangat penting dalam aplikasi yang
     memerlukan kalkulasi numerik berat, seperti simulasi
-    ilmiah, pemodelan 3D, atau machine learning.
+    ilmiah, pemodelan 3D, atau \textit{machine learning}.
     \par Contoh Penggunaan FLOPS:
-    \par Bayangkan kamu bekerja di bidang simulasi ilmiah yang memerlukan perhitungan numerik yang intensif. Sistem A memiliki kapasitas 2 TFLOPS, sementara Sistem B memiliki 5 TFLOPS. Sistem B akan mampu menyelesaikan simulasi tersebut lebih cepat, karena dapat melakukan lebih banyak operasi floating-point per detik.
+    \par Bayangkan kamu bekerja di bidang simulasi ilmiah yang memerlukan perhitungan numerik yang intensif. Sistem A memiliki kapasitas 2 TFLOPS, sementara Sistem B memiliki 5 TFLOPS. Sistem B akan mampu menyelesaikan simulasi tersebut lebih cepat, karena dapat melakukan lebih banyak operasi \textit{floating-point} per detik.
 
-    \item Input/Output Operations Per Second (IOPS)
-    \par IOPS mengukur performa dari perangkat penyimpanan (seperti SSD, HDD) dalam hal jumlah operasi input/output yang dapat diproses dalam satu detik. IOPS sering digunakan untuk mengevaluasi performa disk dan sistem penyimpanan.
+    \item \textit{Input/Output Operations Per Second} (IOPS)
+    \par \textit{Input/Output Operations Per Second} mengukur performa dari perangkat penyimpanan (seperti SSD, HDD) dalam hal jumlah operasi \textit{input/output} yang dapat diproses dalam satu detik. IOPS sering digunakan untuk mengevaluasi performa \textit{disk} dan sistem penyimpanan.
     \par Contoh Penggunaan IOPS:
-    \par Misalkan kamu mengelola server database. SSD A memiliki 100,000 IOPS, sementara SSD B memiliki 50,000 IOPS. SSD A akan mampu menangani lebih banyak operasi baca/tulis per detik, sehingga lebih cocok untuk lingkungan database yang memerlukan akses data cepat dan simultan.
+    \par Misalkan kamu mengelola \textit{server database}. SSD A memiliki 100,000 IOPS, sementara SSD B memiliki 50,000 IOPS. SSD A akan mampu menangani lebih banyak operasi baca/tulis per detik, sehingga lebih cocok untuk lingkungan \textit{database} yang memerlukan akses data cepat dan simultan.
     
 \end{enumerate}
 

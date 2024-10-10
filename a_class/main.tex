@@ -6,6 +6,7 @@
 \usepackage{color}
 \usepackage{pythonhighlight}
 
+
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
 \date{\today}
@@ -129,6 +130,44 @@ This section discusses the role of the operating system in managing the user int
     \item Interaction between the user and the operating system
 \end{itemize}
 
+\subsubsection{Karakteristik User Interface}
+Dalam mendesain antarmuka pengguna, terdapat beberapa karakteristik yang harus dipertimbangkan agar pengguna mendapatkan pengalaman yang optimal. Karakteristik tersebut adalah:
+
+\begin{itemize}
+    \item \textbf{Jelas (\textit{Clarity)}}: Antarmuka yang jelas memudahkan pengguna memahami fungsionalitas dan informasi yang disajikan \cite{nielsen1995}.
+    \item \textbf{Singkat \textit{(Conciseness)}}: Penyajian informasi yang tidak bertele-tele meningkatkan efektivitas penggunaan antarmuka \cite{shneiderman1997}.
+    \item \textbf{Konsisten \textit{(Consistency)}}: Konsistensi dalam tampilan dan fungsi antarmuka membantu pengguna menguasai sistem dengan lebih cepat \cite{nielsen2000}.
+    \item \textbf{Responsif \textit{(Responsiveness)}}: Responsivitas penting agar pengguna merasa antarmuka dapat diandalkan \cite{holtzblatt2005}.
+    \item \textbf{Menarik \textit{(Attractiveness)}}: Tampilan yang menarik secara visual meningkatkan kepuasan pengguna \cite{tractinsky1997}.
+    \item \textbf{Familiar \textit{(Familiarity)}}: Menggunakan elemen yang sudah dikenal pengguna mempermudah adaptasi dengan antarmuka \cite{norman1988}.
+    \item \textbf{Efisien \textit{(Efficiency)}}: Antarmuka harus memfasilitasi tugas pengguna dengan cepat dan mudah \cite{nielsen1993}.
+\end{itemize}
+
+\subsubsection{Contoh User Interface}
+
+Dalam dunia desain antarmuka pengguna (UI), tren terus berkembang untuk memberikan pengalaman yang lebih interaktif dan menyenangkan. Beberapa contoh tren UI yang sedang populer saat ini meliputi:
+
+\paragraph{Advance Cursor Interactions}
+\textit{Advance cursor interactions} melibatkan penggunaan kursor untuk lebih dari sekadar penunjuk sederhana. UI ini memungkinkan kursor merespons interaksi pengguna dengan efek seperti perubahan bentuk, ukuran, atau warna, memberikan pengalaman yang lebih interaktif dan imersif \cite{busche2020}. Efek ini meningkatkan keterlibatan pengguna dengan membuat elemen UI terasa lebih responsif dan hidup.
+
+\paragraph{Complex \& Animated Gradients}
+Gradien kompleks dengan animasi memberikan tampilan yang dinamis pada antarmuka pengguna. Penggunaan berbagai warna dengan perpindahan halus dan animasi lembut menciptakan visual yang menarik dan memberikan kesan modern \cite{sutton2020}. Gradien ini sering digunakan untuk memberikan kedalaman dan menciptakan ilusi gerakan di dalam UI.
+
+\paragraph{Bold Color Choices}
+Pemilihan warna yang tegas dan mencolok semakin populer di desain UI. Warna-warna berani memberikan kontras yang kuat dan menciptakan suasana yang energik dan penuh semangat. Desain dengan warna tegas juga dapat menarik perhatian pengguna dan memandu mereka ke bagian penting dari antarmuka \cite{coleman2021}.
+
+\paragraph{Focus on Typography}
+Fokus pada tipografi dalam UI menekankan pentingnya penggunaan font yang tepat untuk menyampaikan pesan dengan jelas. Ukuran huruf yang besar dan pilihan font yang kuat membantu meningkatkan keterbacaan serta estetika antarmuka \cite{tschichold1995}. Tipografi yang baik juga memperkuat identitas merek dan meningkatkan pengalaman pengguna secara keseluruhan.
+
+\paragraph{Dark Mode}
+\textit{Dark mode} menjadi tren populer karena mengurangi ketegangan mata saat pengguna menggunakan aplikasi dalam kondisi pencahayaan rendah. Dengan menggunakan warna gelap sebagai latar belakang dan warna terang untuk teks, mode ini juga membantu menghemat energi pada perangkat dengan layar OLED \cite{ricker2021}. Selain itu, dark mode memberikan tampilan yang lebih elegan dan modern pada UI.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{asset/ContohUI.drawio (1).jpg}
+    \caption{Contoh desain UI.}
+    \label{fig:contoh_ui}
+\end{figure}
+
 \subsection{Virtualization in Operating Systems}
 Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
 \begin{itemize}
@@ -143,7 +182,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \subsubsection{Group 1}
 \begin{python}
     class Process:
-    def __init__(self, pid, arrival_time, burst_time):
+    def init(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
         self.burst_time = burst_time
@@ -166,14 +205,15 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied Amdahl's Law to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+Students were tasked with creating a simple CLI for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -185,5 +225,8 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}

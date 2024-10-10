@@ -69,7 +69,7 @@ Processes are a central concept in operating systems. This section covers:
 
 \subsection{Scheduling Algorithms}
 \subsubsection{Round Robbin}
-salah satu algoritma penjadwalan proses yang digunakan dalam sistem operasi. Algoritma ini membagi waktu eksekusi secara adil kepada setiap proses yang berjalan dalam sistem dengan prinsip "quantum time". Setelah quantum habis, proses yang sedang berjalan akan ditunda, dan CPU akan diberikan ke proses berikutnya dalam antrian. Algoritma ini berfokus pada fairness atau keadilan dalam pembagian waktu CPU.
+salah satu algoritma penjadwalan proses yang digunakan dalam sistem operasi. Algoritma ini membagi waktu eksekusi secara adil kepada setiap proses yang berjalan dalam sistem dengan prinsip "\textit{quantum time}". Setelah quantum habis, proses yang sedang berjalan akan ditunda, dan CPU akan diberikan ke proses berikutnya dalam antrian. Algoritma ini berfokus pada \textit{fairness} atau keadilan dalam pembagian waktu CPU.
 
 \begin{figure}[h]
 \centering
@@ -82,20 +82,20 @@ salah satu algoritma penjadwalan proses yang digunakan dalam sistem operasi. Alg
 \item Kelebihan
 \begin{itemize}
     \item Setiap proses memiliki kesempatan untuk dieksekusi secara adil dalam waktu yang sama.
-    \item Cocok untuk sistem time-sharing.
+    \item Cocok untuk sistem \textit{time-sharing} .
 \end{itemize}
 \end{itemize}
 
 \begin{itemize}
 \item Kekurangan
 \begin{itemize}
-    \item Overhead terjadi karena switching antara proses, terutama jika quantum terlalu kecil.
+    \item \textit{Overhead} terjadi karena \textit{switching} antara proses, terutama jika quantum terlalu kecil.
     \item Jika quantum terlalu besar, algoritma ini bisa berubah menjadi FCFS
 \end{itemize}
 \end{itemize}
 
 \paragraph{Contoh}
- nyata dari algoritma Round Robin dapat dilihat dalam situasi seperti ujian, di mana seorang siswa memiliki sejumlah soal untuk dijawab. Misalnya, setiap soal diberi waktu 2 menit. Jika siswa belum selesai menjawab soal tersebut dalam 2 menit, mereka harus beralih ke soal berikutnya. Setelah semua soal sudah dibaca atau dikerjakan sebentar, siswa kembali ke soal yang belum selesai.
+ nyata dari algoritma \textit{Round Robin} dapat dilihat dalam situasi seperti ujian, di mana seorang siswa memiliki sejumlah soal untuk dijawab. Misalnya, setiap soal diberi waktu 2 menit. Jika siswa belum selesai menjawab soal tersebut dalam 2 menit, mereka harus beralih ke soal berikutnya. Setelah semua soal sudah dibaca atau dikerjakan sebentar, siswa kembali ke soal yang belum selesai.
 \begin{itemize}
     \item Siswa mulai dengan soal pertama dan memiliki waktu 2 menit untuk menjawab.
     \item Jika belum selesai dalam 2 menit, siswa harus melanjutkan ke soal berikutnya.
@@ -196,7 +196,7 @@ Students were tasked with implementing various process scheduling algorithms (e.
 
 \subsubsection{Group 5}
 \textbf{Soal:}
-Hitung waktu selesai, waktu putar, dan waktu tunggu untuk setiap proses jika menggunakan algoritma FCFS (First Come First Serve), SJN (Shortest Job First), dan RR (Round Robbin).
+Hitung waktu selesai, waktu putar, dan waktu tunggu untuk setiap proses jika menggunakan algoritma FCFS (\textit{First Come First Serve}), SJN (\textit{Shortest Job First}), dan RR (\textit{Round Robin}).
     \begin{table}[h] % Optional: For floating position
         \centering
         \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
@@ -329,15 +329,15 @@ def round_robin(proses_list, kuota_waktu):
         P4 & 3 & 1 & 6 & 3 & 2 \\
         \hline
     \end{tabular}
-    \caption{Tabel Hasil Algoritma Round Robin (Quantum = 2)}
+    \caption{Tabel Hasil Algoritma \textit{Round Robin} (Quantum = 2)}
 \end{table}
 
 \subsection*{Kesimpulan:}
 Dari hasil output tersebut, kita bisa menyimpulkan bahwa:
 
 \begin{itemize}
-    \item FCFS lebih adil karena memproses sesuai urutan kedatangan, namun dapat menyebabkan waktu tunggu lebih lama untuk proses dengan burst pendek yang datang terlambat.
-    \item SJN memberikan waktu tunggu lebih rendah secara keseluruhan, terutama untuk proses dengan burst pendek, tetapi bisa menyebabkan kelaparan (starvation) bagi proses yang datang lebih awal namun memiliki burst besar.
+    \item FCFS lebih adil karena memproses sesuai urutan kedatangan, namun dapat menyebabkan waktu tunggu lebih lama untuk proses dengan \textit{burst} pendek yang datang terlambat.
+    \item SJN memberikan waktu tunggu lebih rendah secara keseluruhan, terutama untuk proses dengan burst pendek, tetapi bisa menyebabkan kelaparan (\textit{starvation}) bagi proses yang datang lebih awal namun memiliki burst besar.
     \item RR memastikan keadilan di antara proses dengan meminimalkan waktu tunggu bagi proses yang seringkali lambat diproses oleh algoritma lain, meski bisa sedikit lebih lama dalam penyelesaian jika quantum-nya kecil.
 \end{itemize}
 

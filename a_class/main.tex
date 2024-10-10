@@ -111,7 +111,7 @@ File systems provide a way for the operating system to store, retrieve, and mana
 \subsection{Input and Output Management}
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
 
-\subsubsection{Struktur Input/Output}
+\subsubsection{Struktur \textit{Input/Output}}
 \begin{figure}[h] % [h] artinya gambar diletakkan 'here' (di sini)
     \centering
     \includegraphics[width=0.5\textwidth]{asset/Struktur_IO.png}
@@ -133,7 +133,7 @@ Input and output management is key for handling the interaction between the syst
             \item Proses aplikasi \emph{user level} meminta operasi I/O.
             \item Permintaan diteruskan ke driver perangkat.
             \item Driver akan melakukan operasi I/O dan menunggu hingga selesai.
-            \item Setelah selesai, driver akan memberitahu proses aplikasi.
+            \item Setelah selesai, \textit{driver} akan memberitahu proses aplikasi.
             \item Proses aplikasi kemudian dapat melanjutkan pekerjaannya.
         \end{itemize}
         \item Kelebihan:Sederhana untuk diimplementasikan.
@@ -153,8 +153,8 @@ Input and output management is key for handling the interaction between the syst
         \item Alur Kerja:
         \begin{itemize}
             \item Proses aplikasi meminta operasi I/O.
-            \item Permintaan diteruskan ke driver perangkat.
-            \item Driver akan memulai operasi I/O dan memberikan kendali kembali ke CPU.
+            \item Permintaan diteruskan ke \textit{driver} perangkat.
+            \item \textit{Driver} akan memulai operasi I/O dan memberikan kendali kembali ke CPU.
             \item Saat operasi I/O selesai, perangkat akan mengirimkan interupsi ke CPU.
             \item CPU akan merespons interupsi dengan menjalankan \emph{interrupt handler.}
             \item \emph{Interrupt handler} akan memberitahu proses aplikasi bahwa operasi I/O telah selesai. 
@@ -172,7 +172,7 @@ Input and output management is key for handling the interaction between the syst
     \end{enumerate}
 \end{enumerate}
 
-\subsubsection{Metode Operasi Sistem Input/Output}
+\subsubsection{Metode Operasi Sistem \textit{Input/Output}}
 \begin{enumerate}
     \item I/O Terprogram \par
     Metode ini melibatkan CPU secara langsung dalam proses pengiriman dan penerimaan data dari perangkat I/O. Dalam I/O terprogram, CPU harus memeriksa secara terus-menerus \textit{(polling)} apakah perangkat I/O siap untuk melakukan transfer data. CPU kemudian mentransfer data secara manual antara perangkat dan memori. Ini menyebabkan CPU terlibat penuh dalam operasi I/O dan tidak dapat melakukan tugas lain selama proses berlangsung. Salah satu kelemahan utama metode ini adalah efisiensinya yang rendah karena CPU harus menunggu perangkat I/O untuk siap.

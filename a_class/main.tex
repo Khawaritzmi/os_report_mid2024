@@ -81,6 +81,10 @@ Process Scheduling adalah mekanisme yang berjalan secara terus-menerus untuk men
 \subsubsection{Process Termination}
 Process Termination hanya terjadi ketika proses tersebut sudah tidak diperlukan lagi, entah karena telah selesai dieksekusi, terjadi kesalahan, atau karena dihentikan oleh pengguna atau OS. Proses yang dihentikan akan dibuang dari sistem (PCB dihapus, memori dibebaskan), dan tidak lagi dijadwalkan untuk berjalan.
 
+\subsubsection{Context Switching}
+Context switching adalah mekanisme yang memungkinkan sistem operasi untuk berpindah dari satu proses ke proses lain. Setiap kali terjadi perpindahan, OS perlu menyimpan state dari proses yang sedang berjalan (misalnya nilai register, program counter, stack pointer, dll.) dan memuat state dari proses yang akan dijalankan. Proses penyimpanan dan pemuatan ini memerlukan waktu dan sumber daya, sehingga context switching dianggap sebagai overhead dalam sistem multitasking. Dalam sistem preemptive multitasking, di mana proses-proses dihentikan secara paksa oleh OS untuk memberikan giliran pada proses lain, context switching menjadi sangat penting untuk menjaga ilusi bahwa semua proses berjalan secara bersamaan. Proses ini terjadi ketika CPU berpindah dari satu proses ke proses lain, atau dari proses ke kernel mode, misalnya saat menangani interrupts.
+
+
 
 \subsection{Scheduling Algorithms}
 This section covers:

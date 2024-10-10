@@ -68,21 +68,21 @@ Processes are a central concept in operating systems. This section covers:
 \end{itemize}
 
 \subsubsection{Process Creation}
-Process creation adalah tahap di mana sistem operasi menciptakan proses baru:
+\textit{Process creation} adalah tahap di mana sistem operasi menciptakan proses baru:
 \begin{enumerate}
-    \item \textbf{Inisialisasi PCB:} OS membuat Process Control Block (PCB) yang berisi informasi dasar proses, seperti Process ID (PID), status awal, dan program counter.
-    \item \textbf{Masuk ke Ready Queue:} Proses ditempatkan dalam Ready Queue, menunggu giliran untuk dijadwalkan dan dieksekusi oleh CPU.
+    \item \textbf{Inisialisasi PCB:} OS membuat \textit{Process Control Block} (PCB) yang berisi informasi dasar proses, seperti Process ID (PID), status awal, dan program \textit{counter}.
+    \item \textbf{Masuk ke \textit{Ready Queue}:} Proses ditempatkan dalam \textit{Ready Queue}, menunggu giliran untuk dijadwalkan dan dieksekusi oleh CPU.
     \item \textbf{Alokasi sumber daya:} OS mengalokasikan sumber daya yang diperlukan oleh proses, seperti memori untuk kode dan data, serta akses ke perangkat I/O.
 \end{enumerate}
 
 \subsubsection{Process Scheduling}
-Process Scheduling adalah mekanisme yang berjalan secara terus-menerus untuk menentukan proses mana yang akan dijalankan pada CPU. Penjadwalan terjadi ketika sistem memutuskan proses yang siap untuk dieksekusi atau melakukan context switching antara beberapa proses. Tanpa penjadwalan yang baik, sistem tidak bisa mengalokasikan waktu CPU dengan efisien untuk berbagai proses yang ada.
+\textit{Process Scheduling} adalah mekanisme yang berjalan secara terus-menerus untuk menentukan proses mana yang akan dijalankan pada CPU. Penjadwalan terjadi ketika sistem memutuskan proses yang siap untuk dieksekusi atau melakukan \textit{context switching} antara beberapa proses. Tanpa penjadwalan yang baik, sistem tidak bisa mengalokasikan waktu CPU dengan efisien untuk berbagai proses yang ada.
 
 \subsubsection{Process Termination}
-Process Termination hanya terjadi ketika proses tersebut sudah tidak diperlukan lagi, entah karena telah selesai dieksekusi, terjadi kesalahan, atau karena dihentikan oleh pengguna atau OS. Proses yang dihentikan akan dibuang dari sistem (PCB dihapus, memori dibebaskan), dan tidak lagi dijadwalkan untuk berjalan.
+\textit{Process Termination} hanya terjadi ketika proses tersebut sudah tidak diperlukan lagi, entah karena telah selesai dieksekusi, terjadi kesalahan, atau karena dihentikan oleh pengguna atau OS. Proses yang dihentikan akan dibuang dari sistem (PCB dihapus, memori dibebaskan), dan tidak lagi dijadwalkan untuk berjalan.
 
 \subsubsection{Context Switching}
-Context switching adalah mekanisme yang memungkinkan sistem operasi untuk berpindah dari satu proses ke proses lain. Setiap kali terjadi perpindahan, OS perlu menyimpan state dari proses yang sedang berjalan (misalnya nilai register, program counter, stack pointer, dll.) dan memuat state dari proses yang akan dijalankan. Proses penyimpanan dan pemuatan ini memerlukan waktu dan sumber daya, sehingga context switching dianggap sebagai overhead dalam sistem multitasking. Dalam sistem preemptive multitasking, di mana proses-proses dihentikan secara paksa oleh OS untuk memberikan giliran pada proses lain, context switching menjadi sangat penting untuk menjaga ilusi bahwa semua proses berjalan secara bersamaan. Proses ini terjadi ketika CPU berpindah dari satu proses ke proses lain, atau dari proses ke kernel mode, misalnya saat menangani interrupts.
+\textit{Context switching} adalah mekanisme yang memungkinkan sistem operasi untuk berpindah dari satu proses ke proses lain. Setiap kali terjadi perpindahan, OS perlu menyimpan \textit{state} dari proses yang sedang berjalan (misalnya nilai \textit{register}, program \textit{counter , stack pointer,} dll.) dan memuat \textit{state} dari proses yang akan dijalankan. Proses penyimpanan dan pemuatan ini memerlukan waktu dan sumber daya, sehingga \textit{context switching} dianggap sebagai \textit{overhead} dalam sistem multitasking. Dalam sistem \textit{preemptive multitasking}, di mana proses-proses dihentikan secara paksa oleh OS untuk memberikan giliran pada proses lain, \textit{}context switching menjadi sangat penting untuk menjaga ilusi bahwa semua proses berjalan secara bersamaan. Proses ini terjadi ketika CPU berpindah dari satu proses ke proses lain, atau dari proses ke kernel mode, misalnya saat menangani \textit{interrupts}.
 
 
 
@@ -197,17 +197,17 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}
-   \item \textbf{File creation and deletion}: File creation adalah proses menciptakan berkas baru dalam sistem berkas. Ini dilakukan dengan mendefinisikan nama berkas dan format yang diinginkan, lalu menyimpan data ke dalam berkas tersebut. Contohnya, saat kita membuat berkas teks, kita dapat menyimpan berbagai informasi atau data di dalamnya.
+   \item \textbf{File creation and deletion}: \textit{File creation} adalah proses menciptakan berkas baru dalam sistem berkas. Ini dilakukan dengan mendefinisikan nama berkas dan format yang diinginkan, lalu menyimpan data ke dalam berkas tersebut. Contohnya, saat kita membuat berkas teks, kita dapat menyimpan berbagai informasi atau data di dalamnya.
     
-    Sebaliknya, deletion adalah proses menghilangkan berkas yang sudah ada dan tidak lagi diperlukan. Hal ini penting untuk mengelola ruang penyimpanan serta menjaga sistem tetap rapi. Saat menghapus berkas, kita perlu memastikan bahwa berkas yang akan dihapus benar-benar ada, agar tidak terjadi kesalahan.
+    Sebaliknya, \textit{deletion} adalah proses menghilangkan berkas yang sudah ada dan tidak lagi diperlukan. Hal ini penting untuk mengelola ruang penyimpanan serta menjaga sistem tetap rapi. Saat menghapus berkas, kita perlu memastikan bahwa berkas yang akan dihapus benar-benar ada, agar tidak terjadi kesalahan.
     
-    \item \textbf{Reading from and writing to files}: Reading berarti mengambil data yang tersimpan dalam berkas untuk digunakan dalam program atau ditampilkan kepada pengguna. Proses ini memungkinkan kita memanfaatkan informasi yang telah ada tanpa harus membuatnya ulang. Misalnya, kita bisa membaca daftar nama dari sebuah berkas dan menampilkannya di layar.
+    \item \textbf{Reading from and writing to files}: \textit{Reading} berarti mengambil data yang tersimpan dalam berkas untuk digunakan dalam program atau ditampilkan kepada pengguna. Proses ini memungkinkan kita memanfaatkan informasi yang telah ada tanpa harus membuatnya ulang. Misalnya, kita bisa membaca daftar nama dari sebuah berkas dan menampilkannya di layar.
     
-    Writing adalah proses menyimpan data ke dalam berkas. Ini dapat dilakukan dengan menambahkan informasi baru ke berkas yang sudah ada atau membuat berkas baru jika belum ada. Proses ini sangat berguna untuk menyimpan hasil kerja, catatan, atau informasi penting lainnya agar dapat diakses di lain waktu.
+    \textit{Writing} adalah proses menyimpan data ke dalam berkas. Ini dapat dilakukan dengan menambahkan informasi baru ke berkas yang sudah ada atau membuat berkas baru jika belum ada. Proses ini sangat berguna untuk menyimpan hasil kerja, catatan, atau informasi penting lainnya agar dapat diakses di lain waktu.
     
-    \item \textbf{Navigating directories and managing file permissions}: Navigating directories adalah kemampuan untuk berpindah antara berbagai folder atau direktori dalam sistem berkas. Ini penting karena berkas dan direktori biasanya disusun dalam hirarki, sehingga kita perlu dapat menavigasi struktur tersebut untuk menemukan berkas yang dibutuhkan.
+    \item \textbf{Navigating directories and managing file permissions}: \textit{Navigating directories} adalah kemampuan untuk berpindah antara berbagai folder atau direktori dalam sistem berkas. Ini penting karena berkas dan direktori biasanya disusun dalam hirarki, sehingga kita perlu dapat menavigasi struktur tersebut untuk menemukan berkas yang dibutuhkan.
     
-    Managing file permissions adalah proses mengatur siapa yang dapat mengakses dan memodifikasi berkas tertentu. Dalam sistem operasi, izin dapat ditetapkan untuk pengguna tertentu, kelompok, atau semua orang. Hal ini membantu menjaga keamanan data dan memastikan bahwa hanya orang yang berwenang yang dapat mengubah atau menghapus berkas. Misalnya, izin baca, tulis, dan eksekusi dapat diatur untuk setiap berkas dan direktori, memberikan kontrol penuh terhadap akses data.
+    \textit{Managing file permissions} adalah proses mengatur siapa yang dapat mengakses dan memodifikasi berkas tertentu. Dalam sistem operasi, izin dapat ditetapkan untuk pengguna tertentu, kelompok, atau semua orang. Hal ini membantu menjaga keamanan data dan memastikan bahwa hanya orang yang berwenang yang dapat mengubah atau menghapus berkas. Misalnya, izin baca, tulis, dan eksekusi dapat diatur untuk setiap berkas dan direktori, memberikan kontrol penuh terhadap akses data.
 
     \item \textbf{Contoh soal dan pengimplementasian pada code python}:
     Buatlah program Python yang melakukan hal berikut:

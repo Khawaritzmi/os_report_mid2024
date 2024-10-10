@@ -197,9 +197,77 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}
-    \item File creation and deletion
-    \item Reading from and writing to files
-    \item Navigating directories and managing file permissions
+   \item \textbf{File creation and deletion}: File creation adalah proses menciptakan berkas baru dalam sistem berkas. Ini dilakukan dengan mendefinisikan nama berkas dan format yang diinginkan, lalu menyimpan data ke dalam berkas tersebut. Contohnya, saat kita membuat berkas teks, kita dapat menyimpan berbagai informasi atau data di dalamnya.
+    
+    Sebaliknya, deletion adalah proses menghilangkan berkas yang sudah ada dan tidak lagi diperlukan. Hal ini penting untuk mengelola ruang penyimpanan serta menjaga sistem tetap rapi. Saat menghapus berkas, kita perlu memastikan bahwa berkas yang akan dihapus benar-benar ada, agar tidak terjadi kesalahan.
+    
+    \item \textbf{Reading from and writing to files}: Reading berarti mengambil data yang tersimpan dalam berkas untuk digunakan dalam program atau ditampilkan kepada pengguna. Proses ini memungkinkan kita memanfaatkan informasi yang telah ada tanpa harus membuatnya ulang. Misalnya, kita bisa membaca daftar nama dari sebuah berkas dan menampilkannya di layar.
+    
+    Writing adalah proses menyimpan data ke dalam berkas. Ini dapat dilakukan dengan menambahkan informasi baru ke berkas yang sudah ada atau membuat berkas baru jika belum ada. Proses ini sangat berguna untuk menyimpan hasil kerja, catatan, atau informasi penting lainnya agar dapat diakses di lain waktu.
+    
+    \item \textbf{Navigating directories and managing file permissions}: Navigating directories adalah kemampuan untuk berpindah antara berbagai folder atau direktori dalam sistem berkas. Ini penting karena berkas dan direktori biasanya disusun dalam hirarki, sehingga kita perlu dapat menavigasi struktur tersebut untuk menemukan berkas yang dibutuhkan.
+    
+    Managing file permissions adalah proses mengatur siapa yang dapat mengakses dan memodifikasi berkas tertentu. Dalam sistem operasi, izin dapat ditetapkan untuk pengguna tertentu, kelompok, atau semua orang. Hal ini membantu menjaga keamanan data dan memastikan bahwa hanya orang yang berwenang yang dapat mengubah atau menghapus berkas. Misalnya, izin baca, tulis, dan eksekusi dapat diatur untuk setiap berkas dan direktori, memberikan kontrol penuh terhadap akses data.
+
+    \item \textbf{Contoh soal dan pengimplementasian pada code python}:
+    Buatlah program Python yang melakukan hal berikut:
+    Membuat berkas bernama data.txt, menulis tiga kalimat ke dalam berkas tersebut. membaca isi berkas dan menampilkannya di layar, menghapus berkas data.txt.
+
+    \begin{python}
+    def create_and_write_file(filename, content):
+    try:
+        with open(filename, 'w') as file:
+            file.write(content)
+        print(f"Berkas '{filename}' telah dibuat dan ditulis.")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat membuat atau menulis berkas: {e}")
+
+# 2. Membaca isi berkas
+def read_file(filename):
+    try:
+        if os.path.exists(filename):
+            with open(filename, 'r') as file:
+                content = file.read()
+                print(f"Isi berkas '{filename}':\n{content}")
+        else:
+            print(f"Berkas '{filename}' tidak ditemukan.")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat membaca berkas: {e}")
+
+# 3. Menghapus berkas
+def delete_file(filename):
+    try:
+        if os.path.exists(filename):
+            os.remove(filename)
+            print(f"Berkas '{filename}' telah dihapus.")
+        else:
+            print(f"Berkas '{filename}' tidak ditemukan.")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat menghapus berkas: {e}")
+        # Implementasi
+filename = input("Masukkan nama berkas (misalnya 'data.txt'): ")
+content = input("Masukkan konten yang ingin ditulis ke dalam berkas:\n")
+
+create_and_write_file(filename, content)  # Membuat dan menulis berkas
+read_file(filename)                        # Membaca isi berkas
+delete_file(filename)                      # Menghapus berkas
+
+    \end{python}
+    \item \textb{Output}: Saat menjalankan program, output yang dihasilkan akan seperti berikut:
+\begin{verbatim}
+Masukkan nama berkas (misalnya 'data.txt'): data.txt
+Masukkan konten yang ingin ditulis ke dalam berkas:
+Ini adalah kalimat pertama.
+Ini adalah kalimat kedua.
+Ini adalah kalimat ketiga.
+Berkas 'data.txt' telah dibuat dan ditulis.
+Isi berkas 'data.txt':
+Ini adalah kalimat pertama.
+Ini adalah kalimat kedua.
+Ini adalah kalimat ketiga.
+Berkas 'data.txt' telah dihapus.
+\end{verbatim}
+\end{python}
 \end{itemize}
 
 \section{Conclusion}

@@ -77,11 +77,121 @@ This section covers:
 It explains how these algorithms are used to allocate CPU time to processes.
 
 \subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
+\subsubsection{\textit{Process Creation}}
+(Isi materi disini)
+
+\subsubsection{Siapa yang Membuat Proses}
+(Isi materi disini)
+
+\subsubsection{Proses \textit{Termination}}
 \begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
+    \item Definisi Proses \textit{Termination}
+     (isi materi disini)
+
+    \item Jenis-jenis \textit{Termination}
+    (Isi materi disini)
+
+    \item Apa yang Terjadi Setelah \textit{Termination}
+    
+
+    Setelah proses dibuat, proses tersebut mulai berjalan dan melakukan apa 
+    pun tugasnya. Namun, tidak ada yang bertahan selamanya, bahkan tidak proses. 
+    Cepat atau lambat proses baru akan berhenti, biasanya karena salah satu kondisi 
+    berikut :
+
+    \begin{enumerate}
+        \item Normal \textit{Exit} (voluntary)
+        \item Error \textit{Exit} (voluntary)
+        \item Fatal \textit{Exit} (involuntary)
+        \item \textit{Killed by another process (involuntary)}
+    \end{enumerate}
+
+    Sebagian besar proses berhenti karena mereka telah menyelesaikan 
+    tugasnya. Saat menjadi compiler telah mengkompilasi program yang diberikan 
+    padanya, kompilator mengeksekusi panggilan sistem untuk memberitahu sistem 
+    operasi yang sudah selesai. Panggilan ini keluar di UNIX dan \textit{ExitProcess} di 
+    Windows. Program berorientasi layar juga mendukung penghentian sukarela. 
+    Kata prosesor, browser Internet, dan program serupa selalu memiliki ikon atau 
+    menu item yang dapat diklik pengguna untuk memberi tahu proses untuk 
+    menghapus file sementara yang dimilikinya buka lalu akhiri
+
+    Alasan kedua untuk penghentian adalah karena proses tersebut 
+    menemukan kesalahan fatal.
+
+    Alasan ketiga penghentian adalah kesalahan yang disebabkan oleh 
+    proses, seringkali karena bug program. Contohnya termasuk menjalankan 
+    instruksi ilegal, referensi memori yang tidak ada, atau membaginya dengan nol. 
+    Di beberapa sistem (misalnya, UNIX), sebuah proses dapat memberi tahu sistem 
+    operasi bahwa ia ingin menangani kesalahan tertentu itu sendiri, di mana kasus 
+    proses ini ditandai (terputus) bukannya dihentikan ketika salah satu kesalahan 
+    terjadi.
+
+    Alasan keempat suatu proses mungkin berhenti adalah bahwa proses 
+    tersebut menjalankan panggilan sistem yang memberi tahu sistem operasi untuk 
+    menghentikan beberapa proses lain. Di UNIX panggilan ini adalah membunuh. 
+    Fungsi Win32 yang sesuai adalah \textit{TerminateProcess}.
+
+    Setelah sebuah proses dihentikan di sistem operasi, ada beberapa hal yang terjadi di balik layar untuk memastikan semuanya berjalan dengan lancar. Mari kita bahas ini dengan cara yang santai.
+    \begin{enumerate}
+        \item Pembebasan Sumber Daya
+        
+
+        Setiap proses yang berjalan di komputer 
+        menggunakan berbagai sumber daya, seperti 
+        memori, CPU, \textit{file}, dan perangkat keras lainnya. 
+        Ketika proses tersebut dihentikan, semua sumber daya 
+        yang telah dipinjam oleh proses itu harus dikembalikan ke 
+        sistem agar bisa digunakan oleh proses lain. 
+        \item Tanda Bahwa Proses Selesai
+        
+
+        Ketika sebuah proses dihentikan, OS akan menandai bahwa 
+        proses tersebut sudah selesai. Ini penting agar OS tidak 
+        mencoba menjalankan kembali proses yang sudah selesai. 
+        Selain itu, informasi tentang bagaimana proses itu berakhir 
+        (apakah sukses atau terjadi error) disimpan oleh OS.
+
+        \textit{Exit} Status: Setelah proses berhenti, biasanya ada 
+        semacam kode yang dikembalikan untuk menunjukkan 
+        apakah proses itu berhasil atau ada masalah. Ini disebut 
+        \textit{exit} status. Jika proses berjalan lancar, \textit{exit} status-nya 
+        mungkin 0(nol). Kalau ada masalah, \textit{exit} status-nya bisa berupa 
+        angka lain yang menunjukkan \textit{error}.
+
+        \item Membersihkan Proses dari Daftar
+        
+
+        Sistem operasi memiliki daftar semua proses yang sedang 
+        berjalan. Ketika sebuah proses selesai, OS akan menghapus 
+        proses itu dari daftar. Ini seperti menandai bahwa pekerjaan 
+        selesai sehingga OS tidak lagi memperhitungkan proses 
+        tersebut.
+
+        \item  Menginformasikan Proses Lain
+        
+
+        Kadang-kadang, ada proses lain yang bergantung pada proses 
+        yang baru saja dihentikan. OS akan memberitahukan proses-proses 
+        tersebut bahwa proses yang mereka tunggu sudah selesai. 
+        Ini memungkinkan proses lain untuk melanjutkan tugasnya.
+
+        \item  \textit{Logging} atau Pencatatan
+        
+
+        Terakhir, beberapa sistem operasi akan mencatat bahwa 
+        sebuah proses telah dihentikan dalam \textit{log} sistem. Ini 
+        seperti mencatat dalam buku harian tentang apa yang telah 
+        terjadi. Informasi ini bisa berguna jika ada masalah atau
+        jika kamu ingin melihat apa yang telah dilakukan komputer 
+        di masa lalu. 
+    \end{enumerate}
 \end{itemize}
+\begin{thebibliography}{99}
+    \bibitem{}
+    Octaviano, A., Junianto, M. B. S., \& Saprudin, S. (2022). SISTEM OPERASI.
+    \bibitem{}
+    Pangera, A. A., \& Ariyus, D. (2005). Sistem Operasi. Penerbit Andi.
+\end{thebibliography}
 
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
@@ -92,7 +202,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{D:/Repo Sisop/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -174,6 +284,107 @@ This assignment involved designing a multithreading scenario to solve a computat
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsubsection {Group 6}
+Tuliskan implementasi CLI sederhana yang dapat melakukan perintah berikut:
+
+\subsubsection{Group 6}
+
+\textbf{Soal:}
+
+Buatlah \textit{Simple CLI} menggunakan Python, lalu lakukan serangkaian operasi berikut dan catat hasilnya:
+
+    \begin{enumerate}
+        \item Buat sebuah berkas bernama \texttt{laporan.txt}.
+        \item Tampilkan daftar berkas dalam direktori saat ini.
+        \item Tampilkan status sistem.
+        \item Tampilkan daftar proses yang sedang berjalan.
+        \item Hapus berkas \texttt{laporan.txt} yang telah dibuat sebelumnya.
+        \item Tampilkan kembali daftar berkas dalam direktori saat ini.
+    \end{enumerate}
+
+Berikan tangkapan layar atau salin keluaran dari setiap langkah di atas.
+
+\textbf{Jawaban:}
+
+\begin{lstlisting}
+import os
+import psutil
+import datetime
+
+def create_file(filename):
+    with open(filename, 'w') as f:
+        f.write("This is a new file.")
+    return f"File '{filename}' created successfully."
+
+def list_files():
+    files = os.listdir('.')
+    return "\n".join(files)
+
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        return f"File '{filename}' deleted successfully."
+    else:
+        return f"File '{filename}' not found."
+
+def list_processes():
+    processes = []
+    for proc in psutil.process_iter(['pid', 'name']):
+        processes.append(f"{proc.info['pid']}: {proc.info['name']}")
+    return "\n".join(processes[:10])  # Limiting to first 10 for brevity
+
+def system_status():
+    cpu_percent = psutil.cpu_percent()
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage('C:\\')  # Ganti '/' dengan 'C:\\'
+    
+    return f"CPU Usage: {cpu_percent}%\nMemory Usage: {memory.percent}%\nDisk Usage: {disk.percent}%"
+
+def main():
+    print("Welcome to the Simple CLI Simulator!")
+    print("Type 'help' for a list of commands.")
+    
+    while True:
+        command = input(">>> ").strip().lower()
+        
+        if command == "exit":
+            print("Goodbye!")
+            break
+        elif command == "help":
+            print("Available commands:")
+            print("  create <filename> - Create a new file")
+            print("  list - List files in the current directory")
+            print("  delete <filename> - Delete a file")
+            print("  processes - List running processes")
+            print("  status - Show system status")
+            print("  exit - Exit the CLI")
+        elif command.startswith("create "):
+            filename = command.split(" ", 1)[1]
+            print(create_file(filename))
+        elif command == "list":
+            print(list_files())
+        elif command.startswith("delete "):
+            filename = command.split(" ", 1)[1]
+            print(delete_file(filename))
+        elif command == "processes":
+            print(list_processes())
+        elif command == "status":
+            print(system_status())
+        else:
+            print("Unknown command. Type 'help' for a list of commands.")
+
+if _name_ == "_main_":
+    main()
+\end{lstlisting}
+
+\textbf{\textit{Output:}}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{D:/Repo Sisop/os_report_mid2024/a_class/asset/Screenshot 2024-10-03 114321.png}
+    \caption{\textit{Output} Kode}
+\end{figure}
+
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -182,6 +393,7 @@ In this assignment, students implemented file system access routines, including:
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
 \end{itemize}
+
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

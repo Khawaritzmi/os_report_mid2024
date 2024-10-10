@@ -99,47 +99,56 @@
 		\item File structure
 		\item File access methods
 		\item Directory structure
-		\\Direktori adalah kumpulan titik yang berisi informasi tentang semua file. Beberapa sistem menyimpan ratusan file pada disk ratusan \textit{gigabyte}. Untuk mengatur semua data menggunakan organisasi yang dilakukan dalam dua bagian.
-		
-		\begin{figure}[h!]
-			\centering
-			\includegraphics[width=0.8\textwidth]{aset/Halaman-1.drawio.png}
-			
-		\end{figure}
-		\\Pertama, system file dipecah ke dalam partisi, yang disebut juga “\textit{minidisc}” (pada mesin IBM) atau “volume” (pada mesin PC dan \textit{Macintosh}). Setiap disk pada sistem berisi sedikitnya satu partisi, merupakan struktur \textit{low-level} dimana file dan direktori berada. Terkadang, partisi digunakan untuk menentukan beberapa daerah terpisah dalam satu disk, yang diperlakukan sebagai perangkat penyimpan yang terpisah. Sistem lain menggunakan partisi yang lebih besar dari sebuah disk untuk mengelompokkan disk ke dalam satu struktur logika. Kedua, setiap partisi berisi informasi mengenai file di dalamnya. Informasi ini disimpan pada\textit{ entry }dalam “\textit{device directory atau volume table of contents}”. Perangkat direktori (atau direktori) menyimpan informasi seperi nama, lokasi, ukuran dan tipe untuk semua file dari partisi tersebut. Organisasi file yang umum dapat dilihat pada gambar .
-		\begin{figure}[h!]
-			\centering
-			\includegraphics[width=0.8\textwidth]{aset/Halaman-2.drawio.png}
-			
-		\end{figure}
-		\\ Informasi yang terdapat pada direktori adalah :  Nama, Tipe, Alamat, Panjang saat ini,  Panjang maksimum, Tanggal akses terakhir, Tanggal perubahan terakhir, ID pemilik, Informasi proteksi . Beberapa operasi yang dibentuk pada direktori adalah : Mencari file (\textit{search}),  Membuat file (\textit{create}), Menghapus file (\textit{delete}), Mendaftar suatu direktori (\textit{list}), Mengubah nama file (\textit{r\textit{ename}}),  Melintasi sistem file (\textit{traverse})   
-		Organisasi file dan direktori disarankan yang seefisien mungkin sehingga dapat menempatkan file dengan cepat. Selain itu dalam penamaan file dan direktori harus nyaman untuk\textit{ user}. Dua \textit{user} dapat memberikan nama file yang sama. File yang sama dapat mempunyai beberapa nama. Dalam organisasi file dan direktori juga perlu dilakukan pengelompokan file berdasarkan \textit{property}, misalnya semua program Java, game dan lain-lain. 
-		
-		\subsubsection{One-level directory}
-		\\Direktori ini hanya terdiri dari satu direktori untuk setiap user. Pada direktori jenis ini terjadi permasalahan penamaan dan pengelompokan berdasarkan user. 
-		\begin{figure}[h!]
-			\centering
-			\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-3.drawio.png}
-			
-		\end{figure}
-		\subsubsection{two-level directory}
-		Direktori ini terdiri dari dua level yang memisahkan direktori untuk setiap \textit{user} . Setiap file diberi nama \textit{path}, dapat mempunyai nama file yang sama untuk \textit{user} yang berbeda, mempunyai kapabilitas pencarian, tetapi belum dilakukan pengelompokan.    \begin{figure}[h!]
-			\centering
-			\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-4.drawio.png}
-			
-		\end{figure}
-		
-		\subsubsection{Tree Structured Directory or three levels }
-		Direktori berstruktur pohon merupakan struktur direktori yang biasa digunakan. Pohon mempunyai direktori \textit{root}. Setiap file pada sistem mempunyai nama \textit{path} yang unik.
-		
-		\begin{figure}[h!]
-			\centering
-			\includegraphics[width=0.5\textwidth]{aset/File system-Halaman-5.drawio.png}
-			
-		\end{figure}
-		
-		Pada direktori ini pencarian file dan direktori lebih efisien, mengelompokkan file dan dapat mengakses direktori dan sub direktori. Sebuah direktori atau subdirektori berisi kumpulan file atau sub direktori. Sebuah direktori merupakan file yang diperlakukan dengan cara khusus. Semua direktori mempunyai format internal yang sama. Satu bit dalam setiap masukan direktori merupakan masukan sebagai file (0) atau sebagai subdirektori (1). \textit{Call system} khusus digunakan untuk membuat dan menghapus direktori. Nama \textit{path} dapat dibagi menjadi dua tipe yaitu nama path “absolut” dan “relatif”. Pada saat membuat file baru akan dilakukan pada \textit{current directory}. Demikian juga pada saat membuat direktori baru.
-		
+			\\Direktori adalah kumpulan titik yang berisi informasi tentang semua \textit{file}. Beberapa sistem menyimpan ratusan \textit{file} pada disk ratusan \textit{gigabyte}. Untuk mengatur semua data menggunakan organisasi yang dilakukan dalam dua bagian.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{aset/Halaman-1.drawio.png}
+		\captionsetup{labelformat=empty}
+		\caption{Gambar 8. Direktori}
+	\end{figure}
+	
+	Pertama,\textit{ system file} dipecah ke dalam partisi, yang disebut juga “\textit{minidisc}” (pada mesin IBM) atau “volume” (pada mesin PC dan \textit{Macintosh}). Setiap disk pada sistem berisi sedikitnya satu partisi, merupakan struktur \textit{low-level} dimana \textit{file} dan direktori berada. Terkadang, partisi digunakan untuk menentukan beberapa daerah terpisah dalam satu \textit{disk}, yang diperlakukan sebagai perangkat penyimpan yang terpisah. Sistem lain menggunakan partisi yang lebih besar dari sebuah \textit{disk} untuk mengelompokkan \textit{disk} ke dalam satu struktur logika. Kedua, setiap partisi berisi informasi mengenai \textit{file }di dalamnya. Informasi ini disimpan pada\textit{ entry }dalam “\textit{device directory atau volume table of contents}”. Perangkat direktori (atau direktori) menyimpan informasi seperi nama, lokasi, ukuran dan tipe untuk semua\textit{ file} dari partisi tersebut. Organisasi \textit{file} yang umum dapat dilihat pada gambar .
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{aset/Halaman-2.drawio.png}
+		\captionsetup{labelformat=empty}
+		\caption{Gambar 9. Organisasi Sistem File}
+	\end{figure}
+	Informasi yang terdapat pada direktori adalah :  Nama, Tipe, Alamat, Panjang saat ini,  Panjang maksimum, Tanggal akses terakhir, Tanggal perubahan terakhir, ID pemilik, Informasi proteksi . Beberapa operasi yang dibentuk pada direktori adalah : Mencari \textit{file} (\textit{search}),  Membuat \textit{file} (\textit{create}), Menghapus \textit{file} (\textit{delete}), Mendaftar suatu direktori (\textit{list}), Mengubah nama \textit{file} (\textit{r\textit{ename}}),  Melintasi sistem \textit{file }(\textit{traverse})   
+	Organisasi \textit{file} dan direktori disarankan yang seefisien mungkin sehingga dapat menempatkan \textit{file} dengan cepat. Selain itu dalam penamaan \textit{file} dan direktori harus nyaman untuk\textit{ user}. Dua \textit{user} dapat memberikan nama \textit{file} yang sama. \textit{File} yang sama dapat mempunyai beberapa nama. Dalam organisasi \textit{file} dan direktori juga perlu dilakukan pengelompokan \textit{file }berdasarkan \textit{property}, misalnya semua program Java, game dan lain-lain. 
+	
+	\subsubsection{One - Level Directory}
+	Direktori ini hanya terdiri dari satu direktori untuk setiap\textit{ user}. Pada direktori jenis ini terjadi permasalahan penamaan dan pengelompokan berdasarkan \textit{user.} 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-3.drawio.png}
+		\captionsetup{labelformat=empty}
+		\caption{Gambar 10.\textit{ One - Level Directory}}
+	\end{figure}
+	
+	\subsubsection{Two - Level Directory}
+	Direktori ini terdiri dari dua \textit{level} yang memisahkan direktori untuk setiap \textit{user} . Setiap \textit{file} diberi nama \textit{path}, dapat mempunyai nama \textit{file} yang sama untuk \textit{user} yang berbeda, mempunyai kapabilitas pencarian, tetapi belum dilakukan pengelompokan. 
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{aset/File system-Halaman-4.drawio.png}
+		\captionsetup{labelformat=empty}
+		\caption{Gambar 11. \textit{Two - Level Directory}}
+	\end{figure}
+	
+	\subsubsection{Tree Structured Directory or Three Levels }
+	Direktori berstruktur pohon merupakan struktur direktori yang biasa digunakan. Pohon mempunyai direktori \textit{root}. Setiap \textit{file }pada sistem mempunyai nama \textit{path} yang unik.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.5\textwidth]{aset/File system-Halaman-5.drawio.png}
+		\captionsetup{labelformat=empty}
+		\caption{Gambar 12.\textit{ Tree Structured Directory or Three Levels}}
+	\end{figure}
+	
+	Pada direktori ini pencarian \textit{file} dan direktori lebih efisien, mengelompokkan \textit{file} dan dapat mengakses direktori dan sub direktori. Sebuah direktori atau subdirektori berisi kumpulan \textit{file} atau sub direktori. Sebuah direktori merupakan \textit{file} yang diperlakukan dengan cara khusus. Semua direktori mempunyai format internal yang sama. Satu bit dalam setiap masukan direktori merupakan masukan sebagai \textit{file} (0) atau sebagai subdirektori (1). \textit{Call system} khusus digunakan untuk membuat dan menghapus direktori. Nama \textit{path} dapat dibagi menjadi dua tipe yaitu nama path “absolut” dan “relatif”. Pada saat membuat \textit{file} baru akan dilakukan pada \textit{current directory}. Demikian juga pada saat membuat direktori baru.
 		
 		\item file system mounting
 		\item file sharing

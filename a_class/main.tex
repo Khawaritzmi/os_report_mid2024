@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{A class}
@@ -86,18 +85,88 @@ Details how processes are created and terminated by the operating system, includ
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item Konsep Threads
+    \item Hubungan antara Threads dan Proses
+    \item Manfaat Penggunaan Threads
+    \item Multithreading
+    \item Threads vs Process
+    \item Model Multithreading
+    \item Pengelolaan Threads
+    \item Penerapan Threads pada Sistem Operasi
 \end{itemize}
+\subsubsection{Konsep Threads}
+\subsubsection{Hubungan antara Threads dan Proses}
+\subsubsection{Manfaat Penggunaan Threads}
+Beberapa manfaat utama dari \textit{multithreading} meliputi:
+\begin{itemize}
+    \item Peningkatan kinerja dan efisiensi:
+    \begin{itemize}
+        \item \textit{Multithreading} memungkinkan eksekusi beberapa tugas secara bersamaan dengan memanfaatkan sumber daya \textit{CPU} secara lebih optimal. Ketika sebuah program berjalan dalam mode satu \textit{thread} (dikenal sebagai \textit{single-threading}), prosesor hanya dapat menangani satu tugas pada satu waktu. Namun, dengan \textit{multithreading}, beberapa \textit{threads} dapat berjalan dalam waktu yang sama, memanfaatkan kemampuan inti prosesor untuk menangani lebih dari satu operasi. Misalnya, dalam aplikasi grafis, satu \textit{thread} dapat menangani rendering objek, sementara \textit{thread} lain menangani input pengguna.
+        \item Pada sistem dengan \textit{multiprosesor} atau \textit{multi-core}, \textit{threads} dapat berjalan secara paralel, yang artinya setiap inti prosesor dapat menangani \textit{thread} yang berbeda. Misalnya, jika sebuah komputer memiliki empat inti prosesor, ia dapat menjalankan empat \textit{threads} secara paralel, yang meningkatkan kemampuan komputer untuk menyelesaikan pekerjaan lebih cepat. Ini sangat berguna untuk aplikasi yang membutuhkan banyak komputasi seperti pemrosesan data besar, aplikasi \textit{machine learning}, atau aplikasi \textit{scientific computing}. Selain itu, \textit{throughput}, atau jumlah tugas yang bisa diselesaikan dalam satu waktu, juga akan meningkat secara signifikan dengan adanya pemrosesan paralel ini.
+    \end{itemize}
+    
+    \item Responsivitas aplikasi yang lebih baik:
+    \begin{itemize}
+        \item Aplikasi yang memanfaatkan \textit{multithreading} cenderung lebih responsif terhadap input pengguna meskipun ada tugas berat yang sedang berjalan di latar belakang. Misalnya, dalam sebuah program pengeditan video, satu \textit{thread} dapat terus menjalankan tugas rendering, sementara \textit{thread} lain tetap menerima input pengguna seperti pemotongan video atau perubahan filter. Pengguna tidak akan merasa aplikasi "terkunci" atau "membeku", karena proses rendering dan interaksi pengguna dapat berjalan secara bersamaan.
+        \item Dengan adanya \textit{multithreading}, aplikasi dapat mencegah terjadinya \textit{bottleneck} atau kemacetan dalam menjalankan berbagai tugas yang memakan waktu lama. Sebagai contoh, saat aplikasi sedang melakukan pengunduhan file besar, alih-alih harus menunggu hingga pengunduhan selesai, aplikasi masih dapat merespons input pengguna seperti membuka menu, melakukan tugas lainnya, atau menampilkan informasi progres pengunduhan dalam waktu nyata. Ini sangat membantu dalam memberikan pengalaman pengguna yang lebih baik.
+    \end{itemize}
+    
+    \item Penggunaan sumber daya yang lebih efisien:
+    \begin{itemize}
+        \item \textit{Threads} dalam satu proses berbagi memori dan sumber daya lainnya, membuat penggunaan memori menjadi lebih efisien dibandingkan menjalankan beberapa proses yang terpisah. Jika setiap tugas dilakukan dalam proses terpisah, sistem harus menyediakan ruang memori dan sumber daya lainnya untuk masing-masing proses, yang tentu saja membutuhkan lebih banyak overhead. Namun, dengan \textit{threads}, overhead ini dapat dikurangi karena mereka berbagi ruang memori yang sama.
+        \item Selain itu, karena \textit{threads} berbagi ruang memori, pertukaran informasi di antara mereka jauh lebih cepat dibandingkan jika menggunakan proses terpisah yang memerlukan mekanisme komunikasi antar-proses (\textit{IPC}). Dalam aplikasi yang sering membutuhkan pembagian data antar-tugas, seperti aplikasi basis data atau sistem transaksi, efisiensi komunikasi antar-\textit{threads} ini sangat penting untuk menjaga kinerja dan responsivitas yang optimal.
+        \item Sebagai contoh, bayangkan sebuah sistem pemrosesan transaksi di mana satu \textit{thread} bertugas membaca data transaksi dari basis data, sementara \textit{thread} lain memverifikasi transaksi tersebut. Karena keduanya berbagi ruang memori, data transaksi yang dibaca tidak perlu disalin dari satu \textit{thread} ke \textit{thread} lain, yang menghemat waktu dan memori. Dalam skala besar, penghematan ini bisa sangat signifikan.
+    \end{itemize}
+    
+    \item Penyederhanaan desain program:
+    \begin{itemize}
+        \item Dengan menggunakan \textit{multithreading}, pengembang dapat membagi tugas besar menjadi tugas-tugas kecil yang dijalankan dalam \textit{threads} terpisah, menyederhanakan struktur program secara keseluruhan. Misalnya, dalam aplikasi permainan video, satu \textit{thread} dapat bertugas untuk menangani fisika objek, sementara \textit{thread} lain bertugas untuk mengelola AI karakter, dan \textit{thread} lain mengurus rendering grafis. Dengan membagi tugas-tugas ini ke dalam \textit{threads} terpisah, pengembangan dan pemeliharaan program menjadi lebih mudah karena setiap \textit{thread} dapat difokuskan pada satu tugas spesifik.
+        \item Selain itu, \textit{threads} juga memudahkan pengelolaan beberapa tugas secara bersamaan tanpa mempersulit desain program secara keseluruhan. Setiap \textit{thread} dapat dikembangkan, diuji, dan dikelola secara independen dari \textit{threads} lain, mengurangi kerumitan kode dan menghindari potensi kesalahan dalam sinkronisasi tugas.
+        \item Misalnya, dalam aplikasi e-commerce yang kompleks, satu \textit{thread} dapat menangani pemrosesan pesanan, sementara yang lain menangani verifikasi pembayaran, dan \textit{thread} ketiga menangani pengiriman. Desain terpisah semacam ini memudahkan pengembang untuk memisahkan logika bisnis yang berbeda dan memastikan setiap bagian program berfungsi dengan benar secara terisolasi.
+    \end{itemize}
+    
+    \item Komunikasi antar-\textit{threads} yang efisien:
+    \begin{itemize}
+        \item Dalam sebuah proses yang menjalankan banyak \textit{threads}, komunikasi antar-\textit{threads} dapat dilakukan lebih efisien karena mereka berbagi ruang memori yang sama. Misalnya, jika satu \textit{thread} menghasilkan data yang dibutuhkan oleh \textit{thread} lain, data tersebut dapat diakses langsung tanpa perlu disalin ke memori terpisah. Hal ini berbeda dengan proses yang terpisah, yang membutuhkan mekanisme seperti soket atau saluran komunikasi yang memperlambat interaksi antar proses.
+        \item Keuntungan dari komunikasi antar-\textit{threads} yang lebih efisien ini sangat penting dalam aplikasi yang membutuhkan sinkronisasi cepat antar tugas, seperti aplikasi server yang menangani banyak permintaan pengguna secara bersamaan. Sebagai contoh, sebuah server web dapat memiliki satu \textit{thread} yang menangani permintaan pengguna, sementara \textit{thread} lain mengumpulkan data dari basis data. Kedua \textit{threads} dapat berkomunikasi dengan cepat untuk memberikan respons yang lebih cepat kepada pengguna.
+    \end{itemize}
+    
+    \item Skalabilitas yang lebih baik:
+    \begin{itemize}
+        \item Program yang dirancang dengan \textit{multithreading} dapat lebih mudah diskalakan untuk memanfaatkan sistem dengan lebih banyak inti prosesor. Misalnya, pada sistem dengan banyak inti prosesor, \textit{threads} tambahan dapat dijalankan secara paralel untuk meningkatkan efisiensi pemrosesan. Ini sangat bermanfaat dalam server modern yang harus menangani ribuan pengguna sekaligus. Dengan menambahkan lebih banyak \textit{threads}, server dapat menangani lebih banyak permintaan tanpa menurunkan kinerja.
+        \item Selain itu, program berbasis \textit{multithreading} cenderung lebih siap untuk beradaptasi dengan teknologi perangkat keras baru. Dengan penambahan prosesor atau sumber daya lainnya, program tersebut dapat diubah dan dikembangkan tanpa harus mendesain ulang keseluruhan struktur program. Hal ini memungkinkan pengembangan aplikasi yang lebih berkelanjutan dan mudah ditingkatkan di masa depan.
+    \end{itemize}
+    
+    \item Pemanfaatan waktu tunggu \textit{I/O}:
+    \begin{itemize}
+        \item Dalam banyak kasus, operasi \textit{I/O} (seperti membaca atau menulis file, atau berkomunikasi dengan jaringan) memakan waktu lebih lama dibandingkan operasi komputasi biasa. Dengan \textit{multithreading}, satu \textit{thread} dapat melanjutkan pemrosesan tugas lain sementara menunggu hasil dari operasi \textit{I/O}, sehingga sistem tidak dibiarkan menganggur. Ini meningkatkan efisiensi penggunaan waktu dan sumber daya.
+        \item Sebagai contoh, dalam aplikasi berbasis web, sementara satu \textit{thread} menunggu respons dari server jarak jauh, \textit{threads} lain dapat melanjutkan pemrosesan data lokal atau menampilkan informasi kepada pengguna. Dengan demikian, pengguna tidak perlu menunggu hingga semua tugas selesai sebelum melanjutkan interaksi dengan aplikasi.
+    \end{itemize}
+    
+    \item Cocok untuk aplikasi \textit{server}:
+    \begin{itemize}
+        \item Aplikasi server seperti server web atau server database sangat diuntungkan dari \textit{multithreading} karena harus menangani banyak permintaan klien secara bersamaan. Alih-alih membuat satu proses terpisah untuk setiap klien (yang akan memakan banyak memori dan sumber daya sistem), server dapat menggunakan \textit{threads} untuk menangani setiap koneksi klien secara lebih efisien. Setiap klien dapat dilayani oleh satu atau beberapa \textit{threads}, memungkinkan server untuk memproses permintaan dengan cepat tanpa kelebihan beban.
+        \item Selain itu, \textit{multithreading} juga memungkinkan server untuk tetap responsif meskipun beban kerja meningkat. Misalnya, server dapat memulai \textit{threads} baru untuk menangani permintaan klien tambahan tanpa memengaruhi kinerja \textit{threads} yang sudah ada. Ini memastikan bahwa server dapat menangani lebih banyak klien sekaligus tanpa mengorbankan kualitas layanan.
+    \end{itemize}
+\end{itemize}
+\begin{thebibliography}{99}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/a_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
+\bibitem{vitadiar2022}
+T. Z. Vitadiar, G. S. Permadi, \textit{Sistem Operasi}, 2022.
 
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+\bibitem{watrianthos2018}
+R. Watrianthos, I. Purnama, \textit{Buku Ajar Sistem Operasi}, Uwais Inspirasi Indonesia, 2018.
+
+\end{thebibliography}
+
+
+
+\subsubsection{Multithreading}
+\subsubsection{Threads vs Process}
+\subsubsection{Model Multithreading}
+\subsubsection{Pengelolaan Threads}
+\subsubsection{Penerapan Threads pada Sistem Operasi}
+
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -140,32 +209,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
-\end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 

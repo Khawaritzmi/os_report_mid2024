@@ -33,7 +33,7 @@ The main objectives of this course are:
 
 \subsection{Course Structure}
 The course is divided into two halves. This report focuses on the first half, which covers:
-\begin{itemize}
+\begin{itemiz;[e}
     \item Basic Concepts and Components of Computer Systems
     \item System Performance and Metrics
     \item System Architecture of Computer Systems
@@ -101,10 +101,44 @@ Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahk
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
+\subsubsection{Konsep File System}
+\subsubsection{Atribut File}
+\subsubsection{Operasi pada File}
+\subsubsection{Tipe File}
+\subsubsection{Struktur File}
+\subsubsection{Metode Akses File}
+\subsubsection{Struktur Direktori}
+\subsubsection{\textit{File System Mounting}}
+\subsubsection{File \textit{Sharing}}
+\subsubsection{Proteksi}
+\\Informasi yang disimpan dalam system komputer harus diproteksi dari kerusakan fisik (\textit{reliability}) dan akses yang tidak benar (\textit{protection}).
+\\\textit{Reliability} biasanya dilakukan dengan duplikasi \textit{copy} dari file. Beberapa sistem komputer mempunyai sistem yang secara otomatis (atau melalui intervensi operator komputer) menduplikasi file ke tape secara regular dari sistem file yang secara tiba-tiba dihapus. \textit{Protection}, sebaliknya, dapat dilakukan dalam beberapa cara. 
 \begin{itemize}
-    \item File system structure
-    \item File access methods
-    \item Directory management
+\item Tipe Akses 
+\\Mekanisme proteksi dengan tipe akses file terbatas yang dapat dibuat. Akses diperbolehkan atau tidak tergantung beberapa faktor, satu diantaranya permintaan tipe akses. Beberapa operasi yang disediakan: 
+\begin{itemize}
+\item Membaca dari file (read) 
+\item Menulis ke file (write)  
+\item Menjalankan file (execute)  
+\item Menambah isi file (append)  
+\item Menghapus file (delete)  
+\item Melihat nama dan atribut file (list) 
+\end{itemize}
+\\Operasi yang lain, seperti pemberian nama, meng-copy atau mengubah file, juga harus dikontrol. Untuk beberapa alasan, fungsi level lebih tinggi (seperti mengcopy) diimplementasikan oleh system program yang menggunakan system call level lebih rendah. Proteksi disediakan hanya pada level lebih rendah. Sebagai contoh, meng-copy file diimplementasikan dengan deretan permintaan membaca. Dalam hal ini user dengan akses read dapat menyebabkan file di-copy, dicetak dan lain-lain. 
+\item Access List dan Group 
+\\Pendekatan permasalahan proteksi yang sering digunakan adalah dengan membuat akses secara dependent pada identifikasi user. Skema umum untuk implementasi akses identity-dependent dengan menghubungkan masing-masing file dan direktori dg sebuah access list yang menentukan nama user dan tipe akses yang diijinkan untuk setiap user. 
+\\Bila user meminta akses ke file khusus, sistem operasi memeriksa access list. Jika user tersebut terdaftar, akses diijinkan, sebaliknya terjadi protection violation dan dilarang mengakses file. 
+\\Masalah pokok dengan access list adalah ukuran. Jika ingin mengijinkan user membaca file, harus didaftar semua user dengan akses read. Teknik ini mempunyai dua konsekuensi yaitu membangun sebuah daftar mungkin kesulitan dan directory entry yang sebelumnya mempunyai ukuran tetap sekarang menjadi ukuran bervariasi, sehingga muncul permasalahan manajemen ruang. 
+\\Masalah ini dipecahkan dengan melakukan pengetatan terhadap access list. Beberapa system memperkenalkan tiga klasifikasi user: 
+\begin{itemize}
+    \item Owner: User yang membuat file  
+    \item Group: Kumpulan user yang menggunakan file bersama-sama dan memerlukan akses yang sama  
+    \item Universe: Semua user lain dalam system. 
+    \\Agar sistem diatas bekerja dg baik, keanggotaan group harus dikontrol secara ketat. Sebagai contoh, dalam sistem UNIX, group dapat dibuat dan dimodifikasi hanya oleh manager (superuser). 
+\end{itemize}
+\item Contoh Proteksi : UNIX 
+\\Pada sistem UNIX, proteksi direktori ditangani sama dengan proteksi file, misalnya, diasosiasikan dengan setiap subdirektory menggunakan owner, group dan universe (others) sebagai 3 bit RWX. 
+\\Informasi yang terdapat pada file dari kiri ke kanan terdiri dari proteksi file atau direktori, jumlah link ke file, nama pemilik, nama group, ukuran file dalam byte, tanggal membuat, nama file dengan contoh gambar di bawah. 
 \end{itemize}
 
 \subsection{Input and Output Management}
@@ -140,9 +174,26 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-\begin{python}
-    class Process:
+\subsubsection{Group 8}
+\subsubsection{Soal}
+Implementasikan algoritma penjadwalan proses berikut ini: \textbf{First Come First Serve (FCFS)}, \textbf{Shortest Job Next (SJN)}, dan \textbf{Round Robin (RR)}. Bandingkan performa dari algoritma-algoritma tersebut berdasarkan waktu turnaround, waktu tunggu, dan throughput.
+
+\subsubsection{Jawaban}
+
+\subsubsection{Penjelasan Algoritma}
+
+\begin{itemize}
+    \item \textbf{First Come First Serve (FCFS)}: Proses diproses sesuai dengan urutan kedatangan.
+    \item \textbf{Shortest Job Next (SJN)}: Proses dengan waktu burst paling pendek akan diproses terlebih dahulu.
+    \item \textbf{Round Robin (RR)}: Setiap proses mendapatkan waktu kuantum untuk diproses secara bergantian.
+\end{itemize}
+
+\subsection{Kode Implementasi}
+
+Berikut adalah implementasi kelas \texttt{Process} dan tiga algoritma penjadwalan dalam Python.
+
+\begin{python}[language=Python, caption=Kelas Process]
+class Process:
     def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
@@ -152,20 +203,84 @@ Students were tasked with implementing various process scheduling algorithms (e.
         self.waiting_time = 0
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
+\subsubsection{First Come First Serve (FCFS)}
+\begin{python}
+def fcfs(processes):
+    current_time = 0
+    for process in sorted(processes, key=lambda x: x.arrival_time):
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time
+        process.completion_time = current_time + process.burst_time
+        process.turnaround_time = process.completion_time - process.arrival_time
+        process.waiting_time = process.turnaround_time - process.burst_time
+        current_time += process.burst_time
+    return processes
+\end{python}
+
+\subsubsection{Shortest Job Next (SJN)}
+\begin{python}
+def sjn(processes):
+    current_time = 0
+    completed = []
+    while processes:
+        available_processes = [p for p in processes if p.arrival_time <= current_time]
+        if available_processes:
+            process = min(available_processes, key=lambda x: x.burst_time)
+            processes.remove(process)
+            if current_time < process.arrival_time:
+                current_time = process.arrival_time
+            process.completion_time = current_time + process.burst_time
+            process.turnaround_time = process.completion_time - process.arrival_time
+            process.waiting_time = process.turnaround_time - process.burst_time
+            current_time += process.burst_time
+            completed.append(process)
+        else:
+            current_time += 1
+    return completed
+\end{python}
+
+\subsubsection{Round Robin (RR)}
+\begin{python}
+def round_robin(processes, quantum):
+    queue = processes[:]
+    current_time = 0
+    while queue:
+        process = queue.pop(0)
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time
+        if process.burst_time > quantum:
+            process.burst_time -= quantum
+            current_time += quantum
+            queue.append(process)
+        else:
+            current_time += process.burst_time
+            process.completion_time = current_time
+            process.turnaround_time = process.completion_time - process.arrival_time
+            process.waiting_time = process.turnaround_time - process.burst_time
+    return processes
+\end{python}
+
+\subsubsection{Hasil Perbandingan}
+
+Tabel di bawah ini menunjukkan hasil perbandingan waktu turnaround, waktu tunggu, dan throughput untuk masing-masing algoritma.
+
+\begin{table}[htbp]
     \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \begin{tabular}{|c|c|c|c|}
     \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
+    \textbf{Algoritma} & \textbf{Waktu Turnaround (ms)} & \textbf{Waktu Tunggu (ms)} & \textbf{Throughput (proses/ms)} \\
     \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
+    FCFS & 45 & 25 & 0.02 \\
     \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
+    SJN & 40 & 20 & 0.025 \\
+    \hline
+    RR & 50 & 30 & 0.02 \\
     \hline
     \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
+    \caption{Perbandingan Algoritma Penjadwalan}
+    \label{tab:comparison}
 \end{table}
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 

@@ -215,18 +215,20 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+	In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
 \subsubsection{Group 9}
 
-In this task, we simulate a potential deadlock scenario and implement a deadlock prevention strategy. Two processes, Process 1 and Process 2, each require two resources: Resource A and Resource B.
+Tugas ini berfokus pada simulasi skenario \textit{deadlock} potensial serta penerapan strategi pencegahan \textit{deadlock}. Dua proses, Proses 1 dan Proses 2, masing-masing memerlukan dua sumber daya: Sumber Daya A dan Sumber Daya B.
 
-\subsection*{Deadlock Simulation}
+\subsection*{Simulasi Deadlock}
 
-In the deadlock simulation, Process 1 first locks Resource A and waits for Resource B, while Process 2 locks Resource B and waits for Resource A. This creates a circular wait condition, which leads to a deadlock.
+Dalam simulasi \textit{deadlock}, Proses 1 mengunci Sumber Daya A terlebih dahulu dan menunggu Sumber Daya B, sementara Proses 2 mengunci Sumber Daya B dan menunggu Sumber Daya A. Hal ini menciptakan kondisi \textit{Circular Wait Condition}, yang berujung pada \textit{deadlock}.
 
-\subsection*{Deadlock Prevention}
+\subsection*{Pencegahan Deadlock}
 
-To prevent the deadlock, we apply a consistent resource allocation order. Both processes are required to lock Resource A first, followed by Resource B. This ensures that no circular wait occurs, and thus avoids the deadlock.\vspace{10pt}
+Untuk mencegah \textit{deadlock}, maka diterapkan urutan alokasi sumber daya yang konsisten. Kedua proses harus mengunci Sumber Daya A terlebih dahulu, diikuti oleh Sumber Daya B. Dengan demikian, tunggu-melilit dapat dicegah, dan \textit{deadlock} tidak terjadi.
+\vspace{10pt}
 
 	\lstset{ 
 		language=Python,
@@ -352,10 +354,11 @@ t2_prevent.join()
 print("Deadlock prevention simulation complete.")
 \end{lstlisting}
 
-\subsection*{Explanation}
+\subsection*{Penjelasan}
 \begin{itemize}
-    \item \textbf{Deadlock Simulation}: In this part, we simulate a deadlock where Process 1 locks Resource A and waits for Resource B, while Process 2 locks Resource B and waits for Resource A. This leads to a circular wait (deadlock).
-    \item \textbf{Deadlock Prevention}: In the second part, we use a consistent resource allocation order, where both processes request Resource A first and then Resource B. This prevents deadlock because no circular wait can occur.
+    \item \textbf{Simulasi Deadlock}: Pada bagian ini, kita mensimulasikan \textit{deadlock} di mana Proses 1 mengunci Sumber Daya A dan menunggu Sumber Daya B, sementara Proses 2 mengunci Sumber Daya B dan menunggu Sumber Daya A. Hal ini menyebabkan kondisi circular wait (\textit{deadlock}).
+    \item \textbf{Pencegahan Deadlock}: Pada bagian kedua, kita menggunakan urutan alokasi sumber daya yang konsisten, di mana kedua proses meminta Sumber Daya A terlebih dahulu dan kemudian Sumber Daya B. Ini mencegah \textit{deadlock} karena tidak ada tunggu-melilit yang dapat terjadi.
+
 \end{itemize}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}

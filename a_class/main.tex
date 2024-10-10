@@ -223,22 +223,67 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
+%Ilham Kurniawan - H071231024
+
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\subsubsection{Pertanyaan dan Jawaban serta Implementasi Kode \textit{Python} untuk \textit{Multithreading and Amdahl’s Law}}
+
+\textbf{Pertanyaan :} 
+
+\vspace{0.2cm}
+
+Mengapa fungsi thread.join() digunakan di dalam loop terakhir pada fungsi {contoh\_multithreading}
+
+\begin{python}
+Assignment 3
+
+import threading
+import time
+
+def komputasi():
+    # Simulasi tugas komputasi yang intensif
+    time.sleep(1)  # Misalkan ini adalah pekerjaan yang memakan waktu
+
+def contoh_multithreading(jumlah_thread):
+    threads = []
+    for _ in range(jumlah_thread):
+        thread = threading.Thread(target=komputasi)
+        threads.append(thread)
+        thread.start()
+    
+    for thread in threads:
+        thread.join()  # Tunggu semua thread selesai
+
+# Menghitung percepatan menggunakan Hukum Amdahl
+def hukum_amdahl(proporsi_sekuensial, jumlah_thread):
+    proporsi_paralel = 1 - proporsi_sekuensial
+    percepatan = 1 / (proporsi_sekuensial + (proporsi_paralel / jumlah_thread))
+    return percepatan
+
+# Asumsi proporsi pekerjaan yang tidak dapat diparalelkan
+proporsi_sekuensial = 0.2  # 20% dari pekerjaan tidak dapat diparalelkan
+jumlah_thread = 4
+percepatan = hukum_amdahl(proporsi_sekuensial, jumlah_thread)
+print(f"Percepatan teoritis dengan {jumlah_thread} thread: {percepatan}")
+\end{python}
+
+\textbf{Jawaban :} Fungsi thread.join() digunakan untuk memastikan bahwa program utama menunggu hingga setiap \textit{thread} selesai menjalankan tugasnya sebelum melanjutkan ke bagian kode berikutnya. Tanpa join(), program utama bisa saja berakhir lebih cepat atau menjalankan bagian kode berikutnya sebelum semua \textit{thread} selesai, yang bisa menyebabkan masalah dalam tugas yang bergantung pada hasil \textit{thread}.
 
 %Ilham Kurniawan - H071231024
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 
-\subsubsection{Pertanyaan dan Implementasi Kode Python untuk \textit{Command-Line Interface} (CLI) Sederhana}
+\subsubsection{Pertanyaan dan Jawaban serta Implementasi Kode \textit{Python} untuk \textit{Command-Line Interface} (CLI) Sederhana}
 
 \textbf{Pertanyaan} :
 
 \vspace{0.2cm}
 
-Jelaskan fungsi cli() dalam kode Python di bawah dan sebutkan perintah-perintah apa saja yang didukung oleh CLI tersebut!
+Jelaskan fungsi cli() dalam kode \textit{Python} di bawah dan sebutkan perintah-perintah apa saja yang didukung oleh CLI tersebut!
 
 \begin{python}
+Assignment 4
+
 import os
 
 def cli():
@@ -269,7 +314,7 @@ cli()
 
 \end{python}
 
-\textbf{Jawaban} : Fungsi cli() dalam kode Python tersebut merupakan antarmuka baris perintah sederhana yang memungkinkan \textit{user} untuk melakukan manipulasi file dasar. Perintah yang didukung adalah:
+\textbf{Jawaban} : Fungsi cli() dalam kode \textit{Python} tersebut merupakan antarmuka baris perintah sederhana yang memungkinkan \textit{user} untuk melakukan manipulasi file dasar. Perintah yang didukung adalah:
 
 \begin{itemize}
     \item buat: Membuat file kosong dengan nama yang diberikan oleh \textit{user}.
@@ -278,13 +323,46 @@ cli()
     \item keluar: Mengakhiri program CLI.
 \end{itemize}
 
+%Ilham Kurniawan - H071231024
+
 \subsection{Assignment 5: File System Access}
-In this assignment, students implemented file system access routines, including:
-\begin{itemize}
-    \item File creation and deletion
-    \item Reading from and writing to files
-    \item Navigating directories and managing file permissions
-\end{itemize}
+\subsubsection{Pertanyaan dan Jawaban serta Implementasi Kode \textit{Python} untuk \textit{File System Access}}
+
+\textbf{Pertanyaan :}
+
+\vspace{0.2cm}
+
+Jelaskan bagaimana cara membuat file baru dan menulis konten ke file tersebut di dalam kode di bawah!
+
+\vspace{0.2cm}
+
+\begin{python}
+Assignment 5
+
+import os
+
+def akses_sistem_file():
+    # Membuat file
+    with open('contoh.txt', 'w') as f:
+        f.write("Hello, World!")  # Tulis konten ke file
+
+    # Membaca dari file
+    with open('contoh.txt', 'r') as f:
+        konten = f.read()  # Baca konten file
+        print("Konten file:", konten)
+
+    # Daftar file dalam direktori saat ini
+    files = os.listdir('.')
+    print("File dalam direktori saat ini:", files)
+
+    # Menghapus file
+    os.remove('contoh.txt')  # Hapus file yang telah dibuat
+    print("contoh.txt telah dihapus.")
+
+akses_sistem_file()  # Jalankan fungsi akses sistem file
+\end{python}
+
+\textbf{Jawaban :} Kode membuat file baru menggunakan with open('contoh.txt', 'w') as f:. Mode 'w' digunakan untuk menulis ke file, yang akan membuat file baru jika file belum ada. Kemudian, f.write("Hello, World!") digunakan untuk menulis string "Hello, World!" ke dalam file contoh.txt.
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.

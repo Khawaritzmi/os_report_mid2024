@@ -115,7 +115,7 @@ Input and output management is key for handling the interaction between the syst
 \begin{enumerate}
     \item \textit{Input}.
     \textit{Input} adalah semua data dan perintah yang dimasukkan ke dalam memori komputer untuk diproses lebih lanjut oleh prosesor(Gall0, 2024).
-    Contoh: data (angka, teks, gambar), perintah (klik mouse, ketikan \textit{keyboard}, perintah suara).\\
+    Contoh: data (angka, teks, gambar), perintah (klik \textit{mouse}, ketikan \textit{keyboard}, perintah suara).\\
     \item \textit{Output}.
     \textit{Output} adalah hasil dari pemrosesan data oleh komputer. Setelah menerima dan memproses \textit{input}, komputer menghasilkan \textit{output} yang bisa berupa informasi atau tindakan (Gallo, 2024).
     Contoh: hasil visual (tampilan di layar monitor), cetakan fisik (dokumen dari \textit{printer}), \textit{Audio} (notifikasi dari \textit{speaker}), \textit{file} (dokumen digital, \textit{spreadsheet}).\\
@@ -135,9 +135,9 @@ Alifiah dkk (2024) menjelaskan bahwa konsep \textit{input/output} secara umum ad
 Struktur logik komputer pribadi memiliki sebuah bus tunggal yang digunakan untuk menghubungkan CPU, memori, dan piranti-piranti I/O. Sebagian besar sistem memiliki 2 \textit{bus} atau lebih (\textit{bus} kecepatan tinggi, untuk papan-papan I/O modern) dan bus kecepatan rendah (untuk papan-papan I/O yang lebih lama). Macam-macam Bus:
 \begin{enumerate}
     \item \textit{Bus Arbiter} adalah sebuah \textit{chip} yang menentukan untuk mendapatkan giliran pertama penggunaan \textit{bus}.
-    \item \textit{Bus} ISA (\textit{Industry Standard Architecture}) adalah suatu rancangan komputer yang tetap mempertahankan \textit{bus} PC lama.
-    \item \textit{Bus} EISA (\textit{Extended} ISA) adalah suatu rancangan komputer yang menggunakan \textit{multiple bus} dimana salah satu busnya adalah \textit{bus} ISA.
-    \item \textit{Bus} PCI (\textit{Peripheral Component Interconnect}) suatu rancangan komputer yang dapat digunakan dalam banyak konfigurasi dan memiliki sebuah penghubung kepada bus ISA. 
+    \item \textit{Bus} \textit{Industry Standard Architecture} (ISA) adalah suatu rancangan komputer yang tetap mempertahankan \textit{bus} PC lama.
+    \item \textit{Bus} \textit{Extended} ISA (EISA ) adalah suatu rancangan komputer yang menggunakan \textit{multiple bus} dimana salah satu busnya adalah \textit{bus} ISA.
+    \item \textit{Bus} \textit{Peripheral Component Interconnect} (PCI ) suatu rancangan komputer yang dapat digunakan dalam banyak konfigurasi dan memiliki sebuah penghubung kepada bus ISA. 
 \end{enumerate}
 \item \textit{Host Adapter}. Pengendali ialah alat-alat elektronik yang berfungsi untuk mengoperasikan \textit{port, bus}, dan perangkat. 
 \end{enumerate}
@@ -164,7 +164,7 @@ Struktur logik komputer pribadi memiliki sebuah bus tunggal yang digunakan untuk
         \end{enumerate}
         \item Alat \textit{Output}
         \begin{enumerate}
-            \item \textit{Hard-copy device}, yaitu alat yang digunakan untuk mencetak tulisan dan image pada media keras seperti kertas atau film.
+            \item \textit{Hard-copy device}, yaitu alat yang digunakan untuk mencetak tulisan dan gambar pada media keras seperti kertas atau film.
             \item \textit{Soft-copy device}, yaitu alat yang digunakan untuk menampilkan tulisan dan gambar pada media lunak yang berupa sinyal elektronik.
         \end{enumerate}
     \end{enumerate}
@@ -512,10 +512,10 @@ print("File 'data.txt' dan direktori 'test_dir' berhasil dihapus.")
 Penjelasan:
 \begin{enumerate}
     \item Membuat \textit{file}: Menggunakan open() dengan mode 'w' untuk membuat \textit{file} baru atau menulis ulang \textit{file} yang ada.
-    \item Menulis \textit{file}: Teks "Hello, this is a test file" ditulis ke dalam file menggunakan method write().
+    \item Menulis \textit{file}: Teks "Hello, this is a test file" ditulis ke dalam \textit{file} menggunakan \textit{method} write().
     \item Membaca \textit{file}: Isi \textit{file} dibaca dan ditampilkan menggunakan method read().
     \item Membuat direktori: Direktori baru test_dir dibuat menggunakan os.mkdir().
-    \item Memindahkan \textit{file}: File data.txt dipindahkan ke dalam direktori test_dir menggunakan shutil.move().
+    \item Memindahkan \textit{file}: \textit{File} data.txt dipindahkan ke dalam direktori test_dir menggunakan shutil.move().
     \item Cek hak akses \textit{file}: Hak akses \textit{file} dicek menggunakan os.stat() dan ditampilkan dalam format oktal. 
     \begin{enumerate}
         \item Misalkan \textit{output}-nya adalah 644. Ini berarti:
@@ -530,7 +530,7 @@ Penjelasan:
             \item 5 untuk grup dan pengguna lainnya berarti mereka hanya bisa membaca dan mengeksekusi \textit{file} (4 + 1).
         \end{itemize}
     \end{enumerate}
-    \item Menghapus file dan direktori: File dan direktori dihapus menggunakan os.remove() dan os.rmdir().
+    \item Menghapus \textit{file} dan direktori: \textit{File} dan direktori dihapus menggunakan os.remove() dan os.rmdir().
 \end{enumerate}
 
 \section{Conclusion}

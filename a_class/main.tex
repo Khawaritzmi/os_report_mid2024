@@ -36,12 +36,12 @@ John von Neumann pertama kali menawarkan arsitektur von Neumann pada tahun 1945,
     \item \textbf{Fleksibilitas:}
     \begin{itemize}
       \item Pemrograman yang Fleksibel: Instruksi dan data dapat disimpan dalam memori yang sama, memungkinkan program untuk diubah selama runtime.
-      \item Kemudahan Pengembangan Software: Perubahan pada kode atau data tidak memerlukan perubahan pada perangkat keras.
+      \item Kemudahan Pengembangan \textit{Software}: Perubahan pada kode atau data tidak memerlukan perubahan pada perangkat keras.
     \end{itemize}
     
-    \item \textbf{Pemanfaatan Memori yang Efisien:}
+    \item \textbf{Penggunaan Memori yang Efisien:}
     \begin{itemize}
-      \item Penggunaan Memori yang Dinamis: Memori dapat dialokasikan untuk instruksi atau data sesuai kebutuhan, tanpa harus memisahkan ruang secara fisik.
+      \item Penggunaan Memori yang lebih mudah: Memori dapat dialokasikan untuk instruksi atau data sesuai kebutuhan, tanpa harus memisahkan ruang secara fisik.
     \end{itemize}
   \end{itemize}
   
@@ -79,7 +79,7 @@ Arsitektur Harvard menggunakan dua ruang memori yang berbeda untuk menyimpan ins
   \item \textbf{Performa Lebih Baik:}
   \begin{itemize}
     \item Akses Memori Paralel: Memiliki jalur terpisah untuk data dan instruksi memungkinkan akses simultan ke memori instruksi dan data, meningkatkan kecepatan eksekusi dan mengurangi bottleneck memori.
-    \item Eksekusi Instruksi yang Lebih Cepat: Dengan akses yang terpisah, prosesor dapat mengambil instruksi dan data secara bersamaan, mempercepat kinerja sistem.
+    \item Eksekusi Instruksi yang Lebih Cepat: Dengan akses yang terpisah, \textit{prosesor} dapat mengambil instruksi dan data secara bersamaan, mempercepat kinerja sistem.
   \end{itemize}
   
   \item \textbf{Optimasi Memori:}
@@ -89,7 +89,7 @@ Arsitektur Harvard menggunakan dua ruang memori yang berbeda untuk menyimpan ins
   
   \item \textbf{Keamanan dan Stabilitas:}
   \begin{itemize}
-    \item Isolasi Data dan Instruksi: Dengan memisahkan data dan instruksi, risiko kesalahan pengkodean yang dapat menyebabkan korupsi data atau instruksi berkurang.
+    \item Isolasi Data dan Instruksi: Dengan memisahkan data dan instruksi, risiko kesalahan pengkodean yang dapat menyebabkan data bisa rusak atau instruksi berkurang.
   \end{itemize}
 \end{enumerate}
 
@@ -98,7 +98,7 @@ Arsitektur Harvard menggunakan dua ruang memori yang berbeda untuk menyimpan ins
 \begin{enumerate}[label=\arabic*.]
   \item \textbf{Kompleksitas Desain:}
   \begin{itemize}
-    \item Desain yang Lebih Rumit: Memerlukan dua jalur memori terpisah dan pengaturan memori yang lebih kompleks, yang dapat meningkatkan biaya dan kompleksitas desain perangkat keras.
+    \item Desain yang Lebih sulit: memakai dua jalur memori terpisah dan pengaturan memori yang lebih kompleks, yang dapat meningkatkan biaya dan kompleksitas desain perangkat keras.
     \item Penggunaan Memori yang Tidak Fleksibel: Memori untuk instruksi dan data harus dialokasikan secara terpisah, yang bisa menyebabkan pemborosan jika salah satu jenis memori tidak digunakan sepenuhnya.
   \end{itemize}
   
@@ -114,17 +114,17 @@ Arsitektur Harvard menggunakan dua ruang memori yang berbeda untuk menyimpan ins
 \end{enumerate}
 
 \section{Instruction Set Architecture (ISA)}
-Instruction Set Architecture (ISA) adalah bagian dari arsitektur komputer yang menentukan cara kerja perangkat keras dan perangkat lunak dalam menjalankan instruksi program. ISA berperan sebagai jembatan antara perangkat lunak (software) dan perangkat keras (hardware) dalam sistem komputer.
+(ISA)Instruction Set Architecture atau Arsitektur Set Instruksi adalah bagian dari arsitektur komputer yang menentukan cara kerja perangkat keras dan perangkat lunak dalam menjalankan instruksi program. ISA berperan sebagai jembatan antara perangkat lunak (software) dan perangkat keras (hardware) dalam sistem komputer.
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{assets/ISA.drawio.png}
-    \caption{}
+    \caption{Arsitektur Set Instruksi}
     \label{fig:enter-label}
 \end{figure}
 \subsection{Komponen Utama ISA}
 
 \begin{itemize}
-  \item Set Instruksi: Kumpulan perintah yang dapat dijalankan oleh prosesor.
+  \item Set Instruksi: Kumpulan perintah yang dapat dijalankan oleh \textit{prosesor}.
   \item Mode Pengalamatan: Cara dalam menentukan lokasi data yang diperlukan oleh instruksi.
   \item Format Instruksi: Tata letak atau struktur instruksi di dalam memori.
 \end{itemize}
@@ -132,36 +132,36 @@ Instruction Set Architecture (ISA) adalah bagian dari arsitektur komputer yang m
 \subsection{Jenis-Jenis ISA}
 
 \begin{enumerate}[label=\arabic*.]
-  \item \textbf{CISC (Complex Instruction Set Computing):} Set instruksi yang lebih kompleks dengan tujuan untuk mengurangi jumlah instruksi yang perlu dieksekusi oleh prosesor.
-  \item \textbf{RISC (Reduced Instruction Set Computing):} Set instruksi yang lebih sederhana, tetapi dapat dieksekusi dengan cepat oleh prosesor.
+  \item \textbf{CISC (\textit{Complex Instruction Set Computing atau Komputasi Set Instruksi Kompleks}):} Set instruksi yang lebih kompleks dengan tujuan untuk mengurangi jumlah instruksi yang perlu dieksekusi oleh \textit{prosesor}.
+  \item \textbf{RISC (\textit{Reduced Instruction Set Computing atau Pengurangan Komputasi Set Instruksi}):} Set instruksi yang lebih sederhana, tetapi dapat dieksekusi dengan cepat oleh \textit{prosesor}.
 \end{enumerate}
 
-ISA sangat penting karena menentukan performa prosesor serta kemampuannya dalam menjalankan berbagai aplikasi perangkat lunak.
+ISA itu penting karena menentukan performa \textit{prosesor} serta kemampuannya dalam menjalankan berbagai aplikasi perangkat lunak.
 
 \section{Mikro Arsitektur}
 
-Mikro arsitektur adalah desain internal prosesor yang mencakup semua bagian, seperti unit kontrol, unit aritmatika dan logika (ALU), dan cache memori. Ini melibatkan implementasi fisik dari ISA. Mikro arsitektur bertujuan untuk membuat prosesor menangani dan menjalankan instruksi seefektif mungkin.
+Mikro arsitektur adalah desain internal \textit{prosesor} yang mencakup semua bagian, seperti unit kontrol, unit aritmatika dan logika (ALU), dan cache memori. Ini melibatkan implementasi fisik dari ISA. Mikro arsitektur bertujuan untuk membuat \textit{prosesor} menangani dan menjalankan instruksi seefektif mungkin.
 
 \subsection{Komponen Utama Mikro Arsitektur}
 
 \begin{itemize}
-  \item \textbf{Pipelining:} Teknik untuk meningkatkan efisiensi prosesor dengan mengeksekusi beberapa instruksi sekaligus pada berbagai tahap pemrosesan.
+  \item \textbf{\textit{Pipelining}:} Teknik untuk meningkatkan efisiensi \textit{prosesor} dengan mengeksekusi beberapa instruksi sekaligus pada berbagai tahap pemrosesan.
 
-  \item \textbf{Branch Prediction:} Teknologi yang memungkinkan prosesor untuk memprediksi cabang dari instruksi kondisional sehingga dapat mengurangi penundaan dalam eksekusi.
+  \item \textbf{\textit{Branch Prediction}:} Teknologi yang memungkinkan \textit{prosesor} untuk memprediksi cabang dari instruksi kondisional sehingga dapat mengurangi penundaan dalam eksekusi.
 \end{itemize}
 
-Mikro arsitektur berfungsi sebagai penghubung antara ISA dan desain perangkat keras, yang berarti bahwa implementasi fisik dari sebuah prosesor dapat bervariasi meskipun memiliki ISA yang sama.
+Mikro arsitektur berfungsi sebagai penghubung antara ISA dan desain perangkat keras, yang berarti bahwa implementasi fisik dari sebuah \textit{prosesor} dapat bervariasi meskipun memiliki ISA yang sama.
 
 \section{Kesimpulan}
 
-Arsitektur sebuah sistem komputer sangat penting untuk kinerja, efisiensi, dan fleksibilitasnya. Setiap metode arsitektur von Neumann dan Harvard untuk menangani data dan instruksi memiliki keunggulan dan kekurangan. Sementara ISA berfungsi sebagai jembatan antara perangkat lunak dan perangkat keras, mikro arsitektur berkonsentrasi pada desain fisik prosesor untuk melaksanakan ISA. Memahami perbedaan dan manfaat masing-masing arsitektur ini sangat penting untuk mengembangkan dan mengoptimalkan sistem komputer.
+Arsitektur sebuah sistem komputer sangat penting untuk kinerja, efisiensi, dan fleksibilitasnya. Setiap metode arsitektur von Neumann dan Harvard untuk menangani data dan instruksi memiliki kelebihan dan kekurangan. Sementara Arsitektur Set Instruksi berfungsi sebagai jembatan antara perangkat lunak dan perangkat keras, mikro arsitektur berkonsentrasi pada desain fisik \textit{prosesor} untuk melaksanakan ISA. Memahami perbedaan dan manfaat masing-masing arsitektur ini sangat penting untuk mengembangkan dan mengoptimalkan sistem komputer.
 
 \section{Referensi}
 
 \begin{enumerate}
   \item Hennessy, J. L., \& Patterson, D. A. (2011). \textit{Computer Architecture: A Quantitative Approach}. Morgan Kaufmann.
   \item Stallings, W. (2015). \textit{Computer Organization and Architecture: Designing for Performance}. Pearson.
-  \item Tanenbaum, A. S., \& Austin, T. (2013). \textit{Structured Computer Organization}. Pearson.
+  \item UNIKOM.M Zusane Oematan (2010).  \textit{Ringkasan Set Instruksi Dan Mode pengalamatan (Addressing Mode }. 
 \end{enumerate}
 
 \end{document}

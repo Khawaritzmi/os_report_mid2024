@@ -175,7 +175,7 @@ Input and output management is key for handling the interaction between the syst
 \subsubsection{Metode Operasi Sistem Input/Output}
 \begin{enumerate}
     \item I/O Terprogram \par
-    Metode ini melibatkan CPU secara langsung dalam proses pengiriman dan penerimaan data dari perangkat I/O. Dalam I/O terprogram, CPU harus memeriksa secara terus-menerus (polling) apakah perangkat I/O siap untuk melakukan transfer data. CPU kemudian mentransfer data secara manual antara perangkat dan memori. Ini menyebabkan CPU terlibat penuh dalam operasi I/O dan tidak dapat melakukan tugas lain selama proses berlangsung. Salah satu kelemahan utama metode ini adalah efisiensinya yang rendah karena CPU harus menunggu perangkat I/O untuk siap.
+    Metode ini melibatkan CPU secara langsung dalam proses pengiriman dan penerimaan data dari perangkat I/O. Dalam I/O terprogram, CPU harus memeriksa secara terus-menerus \textit{(polling)} apakah perangkat I/O siap untuk melakukan transfer data. CPU kemudian mentransfer data secara manual antara perangkat dan memori. Ini menyebabkan CPU terlibat penuh dalam operasi I/O dan tidak dapat melakukan tugas lain selama proses berlangsung. Salah satu kelemahan utama metode ini adalah efisiensinya yang rendah karena CPU harus menunggu perangkat I/O untuk siap.
     \item I/O \emph{Interrupt Driven} \par
     Pada metode ini, perangkat I/O mengirim sinyal interupsi kepada CPU ketika perangkat tersebut siap untuk menerima atau mengirim data. CPU tidak perlu terus-menerus memeriksa status perangkat I/O, sehingga bisa mengerjakan tugas lain sampai menerima interupsi. Ketika interupsi terjadi, CPU menghentikan sementara tugas yang sedang dilakukan, menangani interupsi untuk menyelesaikan operasi I/O, kemudian kembali melanjutkan tugas sebelumnya. Metode ini lebih efisien dibandingkan I/O terprogram karena CPU tidak selalu terikat dengan perangkat I/O dan bisa mengerjakan tugas lain sambil menunggu interupsi.
     \item \emph{Direct Memory Access} (DMA) \par
@@ -183,7 +183,7 @@ Input and output management is key for handling the interaction between the syst
 \end{enumerate}
 
 \subsubsection{\emph{Interrupt Handler}}
-Apabila suatu transfer selesai maka pengontrol biasanya menyebabkan suatu interupt yang memaksa CPU untuk menunda menjalankan programnya dan mulai menjalankan prosedur khusus yang disebut \emph{interupt handler}. \emph{Interupt handler} adalah kondisi dimana CPU menunda program yang sedang dijalankan dan berganti menjalankan program khusus pada saat akses memori langsung sedang berlangsung dan minta \emph{interupt}.
+Apabila suatu transfer selesai maka pengontrol biasanya menyebabkan suatu \textit{interupt} yang memaksa CPU untuk menunda menjalankan programnya dan mulai menjalankan prosedur khusus yang disebut \emph{interupt handler}. \emph{Interupt handler} adalah kondisi dimana CPU menunda program yang sedang dijalankan dan berganti menjalankan program khusus pada saat akses memori langsung sedang berlangsung dan minta \emph{interupt}.
 
 \begin{thebibliography}{10}
     \bibitem{Jurnal Kendali Teknik dan Sains}
@@ -263,9 +263,9 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 
 \subsubsection{Group 9}
 \begin{itemize}
-    \item \textbf{Tugas Pemrograman CLI: Manajemen Antarmuka Pengguna}
+    \item \textbf{Tugas Pemrograman CLI : Manajemen Antarmuka Pengguna}
 \end{itemize}
-\par \textbf{Deskripsi Tugas:} Buatlah sebuah program Command Line Interface (CLI) sederhana untuk manajemen antarmuka pengguna. Program ini harus mendukung perintah-perintah dasar berikut:
+\par \textbf{Deskripsi Tugas:} Buatlah sebuah program \textit{Command Line Interface (CLI)} sederhana untuk manajemen antarmuka pengguna. Program ini harus mendukung perintah-perintah dasar berikut:
 \begin{enumerate}
     \item Manipulasi berkas baru:
     \begin{itemize}
@@ -276,18 +276,18 @@ Students were tasked with creating a simple **CLI** for user interface managemen
     \item Manajemen Proses
     \begin{itemize}
         \item Menampilkan daftar proses yang sedang berjalan di sistem.
-        \item Menghentikan proses berdasarkan PID (Process ID).
+        \item Menghentikan proses berdasarkan PID \textit{(Process ID)}.
     \end{itemize}
     \item Pelaporan Status Sistem
     \begin{itemize}
         \item Menampilkan penggunaan CPU saat ini.
         \item Menampilkan penggunaan memori saat ini.
-        \item Menampilkan waktu aktif sistem (uptime).
+        \item Menampilkan waktu aktif sistem \textit{(uptime).}
     \end{itemize}
 \end{enumerate}
 \par \textbf{Ketentuan :}
 \begin{enumerate}
-    \item Program harus berjalan di lingkungan CLI (Command Line Interface) tanpa antarmuka grafis.
+    \item Program harus berjalan di lingkungan CLI \textit{(Command Line Interface)} tanpa antarmuka grafis.
     \item Pengguna dapat memasukkan perintah melalui CLI untuk menjalankan fungsi yang diinginkan.
     \item Buat dokumentasi singkat mengenai cara penggunaan program (petunjuk perintah).
 \end{enumerate}
@@ -295,22 +295,22 @@ Students were tasked with creating a simple **CLI** for user interface managemen
 \begin{itemize}
     \item Menyediakan opsi untuk menampilkan daftar direktori saat ini.
     \item Menampilkan informasi jaringan seperti alamat IP atau kecepatan jaringan.
-    \item Membuat log aktivitas untuk setiap perintah yang dijalankan.
+    \item Membuat \textit{log} aktivitas untuk setiap perintah yang dijalankan.
 \end{itemize}
 \par \textbf{Contoh Perintah CLI yang Diharapkan:}
 \begin{itemize}
-    \item create-file 
-    \item list-files
-    \item delete-file 
-    \item list-processes
-    \item kill-process 
-    \item cpu-status
-    \item memory-status
-    \item system-uptime
+    \item \textit{create-file} 
+    \item \textit{list-files}
+    \item \textit{delete-file} 
+    \item \textit{list-processes}
+    \item \textit{kill-process} 
+    \item \textit{cpu-status}
+    \item \textit{memory-status}
+    \item \textit{system-uptime}
 \end{itemize}
 \par \textbf{Jawaban:}
 \begin{python}
-    import os
+import os
 import psutil
 import time
 

@@ -124,31 +124,48 @@ Explores the concept of deadlocks and methods for preventing them:
 \subsection{User Interface Management}
 
 
-\textit{User Interface Management} adalah proses merancang, mengimplementasi, dan memelihara unsur-unsur interaktif dari sebuah sistem perangkat lunak yang memungkinkan pengguna untuk berinteraksi dengan fungsi sistem tersebut.
+ adalah proses merancang, mengimplementasi, dan memelihara unsur-unsur interaktif dari sebuah sistem perangkat lunak yang memungkinkan pengguna untuk berinteraksi dengan fungsi sistem tersebut.
+
+  Shneiderman(2016) Menjelaskan tentang proses merancang dari sebuah sistem 
+ 
 
 \subsubsection{Jenis-Jenis User Interface}
-\par Antarmuka pengguna (\textit{User Interface}) dapat didefinisikan sebagai bagian dari sistem komputer yang memungkinkan manusia berinteraksi dengan dan melakukan tugas-tugas pada sistem komputer tersebut. Perkembangan antarmuka pengguna telah menghasilkan beberapa jenis utama, termasuk Antarmuka Baris Perintah (CLI), Antarmuka Pengguna Grafis (GUI), Antarmuka Pengguna Teks (TUI), Antarmuka Pengguna Suara (VUI), dan Antarmuka Pengguna Percakapan (CUI). 
+\par Antarmuka pengguna (\textit{User Interface}) dapat didefinisikan sebagai bagian dari sistem komputer yang memungkinkan manusia berinteraksi dengan dan melakukan tugas-tugas pada sistem komputer tersebut. Perkembangan antarmuka pengguna telah menghasilkan beberapa jenis utama. 
+
+
 
 \begin{enumerate}
-    \item{Antarmuka Pengguna Grafis (GUI)}
+    \item{\textit{Graphical User Interfaces} (GUI)
 
-\textit{Graphical User Interface} (GUI) adalah jenis antarmuka yang digunakan oleh pengguna untuk berinteraksi dengan sistem operasi melalui gambar-gambar grafis, ikon, menu, dan menggunakan alat penunjuk (\textit{pointing device}) seperti tetikus atau bola jejak. Unsur-unsur utama dari GUI bisa diringkas dalam konsep JIMA (\textit{jendela, ikon, menu, alat penunjuk})
+ adalah jenis antarmuka yang digunakan oleh pengguna untuk berinteraksi dengan sistem operasi melalui gambar-gambar grafis, ikon, menu, dan menggunakan alat penunjuk (\textit{pointing device}) seperti tetikus atau bola jejak. Unsur-unsur utama dari GUI bisa diringkas dalam konsep JIMA (\textit{jendela, ikon, menu, alat penunjuk})
 
- \item{Antarmuka Baris Perintah (CLI)}
+ Shneiderman(2016) Menjelaskan tugas tugas komputer yang memungkinkan pengguna  berinteraksi dengan sistem operasi
 
-\textit{Command Line Interface} (CLI) adalah jenis antarmuka di mana pengguna berinteraksi dengan sistem operasi melalui terminal teks. Pengguna menjalankan perintah dan program di sistem operasi tersebut dengan cara mengetikkan baris-baris tertentu.
 
-\item{Antarmuka Pengguna Teks (TUI)}
+ \item\textit{Command Line Interface} (CLI)
 
-\textit{Text User Interface} (TUI) merupakan bentuk antarmuka yang menggabungkan unsur CLI dan GUI. Antarmuka ini menggunakan karakter teks untuk menciptakan tampilan semi-grafis. TUI menawarkan navigasi yang lebih mudah dibandingkan CLI, namun tetap mempertahankan efisiensi penggunaan sumber daya sistem yang rendah. TUI sering digunakan pada sistem operasi berbasis teks atau aplikasi yang memerlukan tampilan sederhana namun fungsional.
+ adalah jenis antarmuka di mana pengguna berinteraksi dengan sistem operasi melalui terminal teks. Pengguna menjalankan perintah dan program di sistem operasi tersebut dengan cara mengetikkan baris-baris tertentu.
 
-\item {Antarmuka Pengguna Suara (VUI)}
+ Shneiderman(2016) Menjelaskan pengguna berinteraksi dengan sistem operasi. 
 
-\textit{Voice User Interface} (VUI) adalah jenis antarmuka yang memungkinkan pengguna berinteraksi dengan sistem menggunakan suara. Teknologi ini memanfaatkan pemrosesan bahasa alami dan pengenalan suara untuk menerjemahkan perintah lisan menjadi tindakan yang dapat dijalankan oleh sistem. VUI telah menjadi semakin populer dengan munculnya asisten virtual seperti Siri, Alexa, dan Google Assistant.
 
-\item{Antarmuka Pengguna Percakapan (CUI)}
+\item{\textit{Text User Interface} (TUI)}
 
-\textit{Conversational User Interface} (CUI) merupakan pengembangan lebih lanjut dari VUI, yang memungkinkan interaksi yang lebih alami dan kontekstual antara pengguna dan sistem. CUI tidak hanya mengandalkan perintah suara, tetapi juga dapat menggunakan teks, seperti yang terlihat pada robot obrolan dan asisten virtual berbasis teks. CUI dirancang untuk memahami konteks percakapan dan memberikan tanggapan yang lebih personal dan relevan.
+ merupakan bentuk antarmuka yang menggabungkan unsur CLI dan GUI. Antarmuka ini menggunakan karakter teks untuk menciptakan tampilan semi-grafis. TUI menawarkan navigasi yang lebih mudah dibandingkan CLI, namun tetap mempertahankan efisiensi penggunaan sumber daya sistem yang rendah. TUI sering digunakan pada sistem operasi berbasis teks atau aplikasi yang memerlukan tampilan sederhana namun fungsional.
+
+McTear (2016) menjelaskan betuk antarmuka yang menggabungkan unsur CLI  dan GUI 
+
+\item {\textit{Voice User Interface} (VUI)}
+
+ adalah jenis antarmuka yang memungkinkan pengguna berinteraksi dengan sistem menggunakan suara. Teknologi ini memanfaatkan pemrosesan bahasa alami dan pengenalan suara untuk menerjemahkan perintah lisan menjadi tindakan yang dapat dijalankan oleh sistem. VUI telah menjadi semakin populer dengan munculnya asisten virtual seperti Siri, Alexa, dan Google Assistant.
+
+McTear (2016) menjelaskan pengguna berinteraksi dengan sistem menggunakan suara
+
+\item{\textit{Conversational User Interface} (CUI)}
+
+ merupakan pengembangan lebih lanjut dari VUI, yang memungkinkan interaksi yang lebih alami dan kontekstual antara pengguna dan sistem. CUI tidak hanya mengandalkan perintah suara, tetapi juga dapat menggunakan teks, seperti yang terlihat pada robot obrolan dan\textit{ asisten virtual }berbasis teks. CUI dirancang untuk memahami konteks percakapan dan memberikan tanggapan yang lebih personal dan relevan.
+ 
+ McTear (2016) menjelaskan betuk antarmuka yang menggabungkan unsur CLI  dan GUI
 
 \end{enumerate}
 
@@ -156,20 +173,24 @@ Explores the concept of deadlocks and methods for preventing them:
 
 Interaksi antara pengguna dan sistem operasi adalah proses komunikasi dua arah yang memungkinkan pengguna untuk mengendalikan dan menggunakan fungsi-fungsi komputer melalui berbagai jenis antarmuka. Aspek-aspek kunci dalam interaksi pengguna-sistem operasi:
 
+Raymond(2003) menjelaskan tentang interaksi antara dan sistem operasi
+
 \begin{enumerate}
-\item Antarmuka Pengguna Grafis (GUI) menjadi pilihan utama bagi kebanyakan pengguna karena kemudahannya. Melalui GUI, pengguna dapat mengelola berkas, folder, dan aplikasi dengan mudah menggunakan tetikus atau layar sentuh. Ikon, jendela, dan menu yang disediakan memungkinkan navigasi yang intuitif dalam sistem berkas dan pengoperasian berbagai fungsi komputer. Di sisi lain, Antarmuka Baris Perintah (CLI) tetap menjadi pilihan bagi pengguna tingkat lanjut dan administrator sistem. CLI menawarkan kendali yang lebih tepat dan kemampuan untuk mengotomatisasi tugas-tugas kompleks melalui skrip.
+\item \textit{Graphical User Interfaces } (GUI) menjadi pilihan utama bagi kebanyakan pengguna karena kemudahannya. Melalui GUI, pengguna dapat mengelola berkas, folder, dan aplikasi dengan mudah menggunakan tetikus atau layar sentuh. Ikon, jendela, dan menu yang disediakan memungkinkan navigasi yang intuitif dalam sistem berkas dan pengoperasian berbagai fungsi komputer. Di sisi lain, \item{Command Line Interface (CLI)} tetap menjadi pilihan bagi pengguna tingkat lanjut dan administrator sistem. CLI menawarkan kendali yang lebih tepat dan kemampuan untuk mengotomatisasi tugas-tugas kompleks melalui skrip.
 
 \item {Manajemen Berkas dan Direktori} menjadi lebih mudah dengan adanya representasi visual dalam GUI, sementara CLI menyediakan perintah-perintah yang memungkinkan manipulasi berkas secara efisien. Pengguna dapat dengan mudah membuat, menghapus, memindahkan, dan mengatur berkas serta folder sesuai kebutuhan mereka.
 
-\item {Manajemen Proses} sistem operasi memungkinkan pengguna untuk memulai, menghentikan, dan memantau aplikasi yang berjalan. GUI menyediakan \textit{pengelola tugas} yang memvisualisasikan proses yang sedang berjalan, sementara CLI menawarkan perintah-perintah untuk mengelola proses dengan tingkat kendali yang lebih tinggi.
+\item {Manajemen Proses} sistem operasi memungkinkan pengguna untuk memulai, menghentikan, dan memantau\textit{ aplikasi} yang berjalan. GUI menyediakan \textit{pengelola tugas} yang memvisualisasikan proses yang sedang berjalan, sementara CLI menawarkan perintah-perintah untuk mengelola proses dengan tingkat kendali yang lebih tinggi.
 
-\item {Konfigurasi Sistem} menjadi lebih mudah diakses melalui panel kendali atau pengaturan dalam GUI, memungkinkan pengguna untuk menyesuaikan berbagai aspek sistem operasi. Sementara itu, CLI dan Antarmuka Pengguna Teks (TUI) memungkinkan konfigurasi yang lebih mendalam melalui berkas konfigurasi dan perintah-perintah khusus.
+\item {Konfigurasi Sistem} menjadi lebih mudah diakses melalui panel kendali atau pengaturan dalam GUI, memungkinkan pengguna untuk menyesuaikan berbagai aspek sistem operasi. Sementara itu memungkinkan konfigurasi yang lebih mendalam melalui berkas konfigurasi dan perintah-perintah khusus.
 
 \item {Keamanan dan otentikasi} merupakan aspek penting dalam interaksi pengguna-sistem. Sistem operasi menyediakan mekanisme masuk dan manajemen hak akses untuk melindungi data dan sumber daya sistem. GUI menawarkan dialog visual yang ramah pengguna untuk proses otentikasi, sementara CLI menggunakan \textit{prompt} teks yang sederhana namun aman.
 
 \item {Pembaruan dan pemeliharaan sistem} menjadi lebih mudah dengan adanya pemberitahuan visual dan panduan dalam GUI. Sementara itu, CLI memungkinkan administrator sistem untuk melakukan pembaruan dan pemeliharaan melalui perintah dan skrip yang dapat diotomatisasi.
 
 \item{Aksesibilitas} menjadi fokus penting dalam pengembangan antarmuka modern. Antarmuka Pengguna Suara (VUI) dan Antarmuka Pengguna Percakapan (CUI) meningkatkan aksesibilitas bagi pengguna dengan kebutuhan khusus. Fitur seperti pembaca layar dan kendali suara terintegrasi dengan baik dalam sistem operasi modern, memastikan bahwa teknologi dapat diakses oleh semua kalangan.
+
+Cohen(2004) Menjelaskan tentang pentingnya fokus dalam pengembangan antarmuka 
 \end{enumerate}
 
 \begin{thebibliography}{9} 
@@ -393,8 +414,6 @@ Ali mencoba menulis program tersebut menggunakan bahasa Python, tapi dia bingung
 
 \paragraph{Jawaban:}
 
-
-
 \begin{lstlisting}[language=Python]
 import os  
 
@@ -467,7 +486,7 @@ In this assignment, students implemented file system access routines, including:
 
 \subsubsection{Kelompok 12}b
 
-\paragraph{Pertanyaan:} Bagaimana mekanisme pengaturan izin akses langsung ke sistem berkas lokal dari aplikasi web melalui API File System Access dalam konteks keamanan data, dan bagaimana cara pengembang dapat memastikan bahwa izin yang diberikan kepada aplikasi hanya terbatas pada direktori yang spesifik tanpa menimbulkan potensi risiko pengungkapan data di luar cakupan yang dimaksud?
+\paragraph{Pertanyaan:} Bagaimana mekanisme pengaturan izin akses langsung ke sistem berkas lokal dari aplikasi web melalui \textit{API File System Access }dalam konteks keamanan data, dan bagaimana cara pengembang dapat memastikan bahwa izin yang diberikan kepada aplikasi hanya terbatas pada direktori yang spesifik tanpa menimbulkan potensi risiko pengungkapan data di luar cakupan yang dimaksud?
 
 \paragraph{Jawaban:} Mekanisme pengaturan izin akses dalam File System Access API memungkinkan aplikasi web untuk berinteraksi langsung dengan sistem berkas lokal pengguna. Akses ini dilakukan berdasarkan izin yang diberikan pengguna secara eksplisit, sehingga pengembang harus memastikan aplikasi hanya meminta izin untuk berkas atau direktori yang diperlukan.
 

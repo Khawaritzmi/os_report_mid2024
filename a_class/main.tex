@@ -56,8 +56,29 @@ This section explains the fundamental components that make up a computer system,
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
 
+
 \subsection{System Architecture of Computer Systems}
-Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
+
+
+Konsep sistem arsitektur komputer merujuk pada desain dan struktur dasar yang menentukan cara kerja komputer, termasuk interaksi antara komponen perangkat keras (\textit{hardware}) dan perangkat lunak (\textit{software}). Arsitektur komputer pada dasarnya menjelaskan bagaimana CPU, memori, perangkat \textit{input/output}, dan komponen lain bekerja sama untuk menjalankan instruksi program. Arsitektur ini mencakup tidak hanya desain fisik bagian-bagian tersebut, tetapi juga bagaimana mereka diatur untuk mencapai kinerja komputasi terbaik.
+
+\subsubsection{Pengertian Sistem Arsitektur Komputer}
+
+
+Semua komputer, berapapun ukurannya, didasarkan pada seperangkat aturan yang menyatakan bagaimana perangkat lunak dan perangkat keras bergabung bersama dan berinteraksi untuk membuatnya bekerja. Inilah yang disebut dengan arsitektur komputer (Diaz, 2022). 
+
+
+Arsitektur komputer juga dapat diartikan sebagai ilmu yang mempelajari tentang cara menghubungkan berbagai komponen perangkat keras, hingga terbentuklah sebuah komputer (Gischa, 2021). Singkatnya, arsitektur komputer terdiri dari beberapa aturan untuk menjalankan dan mengoperasikan sistem (Cmcbinus, 2024).
+
+\begin{thebibliography}{9}
+
+    \bibitem{} Diaz, D. (2022, June 1). What is computer architecture? - University of Sunderland. University of Sunderland. Retrieved from https://online.sunderland.ac.uk/what-is-computer-architecture/
+    
+    \bibitem{} Cmcbinus. (2024, April 23). Arsitektur Komputer: Penjelasan dan Kategori Utamanya. BINUS UNIVERSITY MALANG | Pilihan Universitas Terbaik Di Malang. https://binus.ac.id/malang/2023/07/arsitektur-komputer-penjelasan-dan-kategori-utamanya/
+    
+    \bibitem{} Gischa, S. (2021, June 11). Arsitektur Komputer: Pengertian, Jenis, Fungsi, dan Bagiannya. KOMPAS.com. https://www.kompas.com/skola/read/2021/06/11/143000169/arsitektur-komputer-pengertian-jenis-fungsi-dan-bagiannya
+    
+\end{thebibliography}
 
 \subsection{Process Description and Control}
 Processes are a central concept in operating systems. This section covers:
@@ -140,10 +161,10 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+\subsubsection{Kelompok 3}
 \begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
+class Process:
+    def__init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
         self.burst_time = burst_time
@@ -166,14 +187,264 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
+
+\begin{itemize}
+    \item Pertanyaan :
+
+    Buatlah sebuah kelas \textit{Process} dalam \textit{Python} yang memiliki atribut untuk menyimpan PID (\textit{Process ID}), \textit{arrival-time}, \textit{burst-time}, serta atribut tambahan seperti \textit{completion-time}, \textit{turnaround-time}, dan \textit{waiting-time}. Kemudian, buatlah sebuah fungsi untuk menghitung waktu penyelesaian (\textit{completion time}) dari proses dengan algoritma \textit{First Come First Serve} (FCFS), dan tampilkan hasilnya.
+\end{itemize}
+\begin{itemize}
+ \item Jawaban :
+\end{itemize}
+\begin{python}
+class Process:
+def _init_(self, pid, arrival_time, burst_time):
+        self.pid = pid
+        self.arrival_time = arrival_time
+        self.burst_time = burst_time
+        self.completion_time = 0
+        self.turnaround_time = 0
+        self.waiting_time = 0
+
+    def fcfs_scheduling(processes):
+    # Mengurutkan proses berdasarkan arrival_time
+    processes.sort(key=lambda x: x.arrival_time)
+    
+    # Menentukan completion_time, turnaround_time, dan waiting_time
+    current_time = 0
+    for process in processes:
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time
+        
+        process.completion_time = current_time + process.burst_time
+        process.turnaround_time = process.completion_time - process.arrival_time
+        process.waiting_time = process.turnaround_time - process.burst_time
+        
+        current_time = process.completion_time
+
+def display_processes(processes):
+    print("{:<10} {:<15} {:<15} {:<20} {:<20} {:<20}".format(
+        'PID', 'Arrival Time', 'Burst Time', 'Completion Time', 'Turnaround Time', 'Waiting Time'))
+    for process in processes:
+        print("{:<10} {:<15} {:<15} {:<20} {:<20} {:<20}".format(
+            process.pid, process.arrival_time, process.burst_time, process.completion_time, process.turnaround_time, process.waiting_time))
+
+# Contoh proses
+processes = [
+    Process(1, 0, 4),
+    Process(2, 1, 3),
+    Process(3, 2, 1),
+    Process(4, 3, 2)
+]
+
+# Menjalankan algoritma FCFS
+fcfs_scheduling(processes)
+
+# Menampilkan hasil
+display_processes(processes) 
+\end{python}
+\begin{itemize}
+    \item Penjelasan :
+
+    Dengan menggunakan algoritma \textit{First Come First Serve} (FCFS), setiap proses dijadwalkan berdasarkan urutan kedatangan. Setelah proses pertama selesai, proses berikutnya dimulai, dan waktu penyelesaian dihitung berdasarkan \textit{burst time} (durasi eksekusi) setiap proses. Dalam contoh ini, proses pertama (PID 1) dengan waktu kedatangan 0 dan \textit{burst time} 4 selesai pada waktu 4, sehingga waktu \textit{turnaround}-nya juga 4 dan waktu tunggunya 0. Proses kedua (PID 2) yang tiba pada waktu 1 memiliki waktu penyelesaian 7, waktu \textit{turnaround} 6, dan waktu tunggu 3. Proses ketiga (PID 3) dan keempat (PID 4) dihitung dengan cara yang sama. \textit{Output} menunjukkan bahwa dengan FCFS, proses-proses dengan waktu kedatangan lebih awal diselesaikan lebih dulu, sementara proses yang datang belakangan harus menunggu proses sebelumnya selesai, menghasilkan waktu tunggu yang lebih tinggi pada proses yang datang belakangan.
+\end{itemize}
+
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Kelompok 3}
+
+\begin{itemize}
+    \item Pertanyaan :
+    
+    Bagaimana cara membuat dua \textit{thread} dalam \textit{Python} yang saling menunggu untuk mengakses dua sumber daya yang berbeda, sehingga menyebabkan \textit{deadlock}? Jelaskan juga \textit{output}-nya.
+\end{itemize}
+\begin{itemize}
+    \item Jawaban :
+\end{itemize}
+\begin{python}
+import threading
+import time
+
+resource_a = threading.Lock()
+resource_b = threading.Lock()
+
+def thread1():
+    print("Thread-1: Mengambil Resource A")
+    resource_a.acquire()
+    time.sleep(1)
+    print("Thread-1: Mengambil Resource B")
+    resource_b.acquire()  # Deadlock terjadi di sini
+    resource_b.release()
+    resource_a.release()
+
+def thread2():
+    print("Thread-2: Mengambil Resource B")
+    resource_b.acquire()
+    time.sleep(1) 
+    print("Thread-2: Mengambil Resource A")
+    resource_a.acquire()  # Deadlock terjadi di sini
+    resource_a.release()
+    resource_b.release()
+
+t1 = threading.Thread(target=thread1)
+t2 = threading.Thread(target=thread2)
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+print("Program selesai.")
+\end{python}
+\begin{itemize}
+    \item Penjelasan :
+
+    \textit{Thread}-1 berhasil mengunci \textit{resource}-a dan mencetak pesan bahwa ia telah mengambil \textit{Resource} A, sementara \textit{Thread}-2 mengunci \textit{resource}-b dan mencetak pesan bahwa ia telah mengambil \textit{Resource} B. Setelah \textit{sleep} selama satu detik, \textit{Thread}-1 mencoba mengunci \textit{resource}-b, tetapi gagal karena sudah dipegang oleh \textit{Thread}-2. Demikian pula, \textit{Thread}-2 mencoba mengunci \textit{resource}-a, yang sudah dipegang oleh \textit{Thread}-1. Akibatnya, kedua \textit{thread} saling menunggu, menyebabkan program terjebak dalam kondisi \textit{deadlock}, dan tidak mencapai pernyataan "Program selesai." Ini menggambarkan bagaimana \textit{deadlock} dapat terjadi dalam pemrograman \textit{multithreading}.
+\end{itemize}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+\subsubsection{Kelompok 3}
+
+\begin{itemize}
+    \item Pertanyaan :
+    
+    Program \textit{Python} yang menggunakan \textit{multithreading} untuk menghitung jumlah bilangan genap dan bilangan ganjil dari \textit{list} yang berisi satu juta angka. Gunakan dua \textit{thread}: satu \textit{thread} untuk menghitung bilangan genap dan satu lagi untuk menghitung bilangan ganjil. Terapkan juga hukum \textit{Amdhal} untuk menghitung kecepatan \textit{theoretical}.
+\end{itemize}
+    
+\begin{itemize}
+    \item Jawaban :
+\end{itemize}
+\begin{python}
+import threading
+import time
+
+# Fungsi untuk menghitung bilangan genap
+def count_even(data, result):
+    count = 0
+    for num in data:
+        if num % 2 == 0:
+            count += 1
+    result[0] = count
+
+# Fungsi untuk menghitung bilangan ganjil
+def count_odd(data, result):
+    count = 0
+    for num in data:
+        if num % 2 != 0:
+            count += 1
+    result[0] = count
+
+# Fungsi multithreading
+def multi_thread(data):
+    even_result = [0]
+    odd_result = [0]
+
+    t1 = threading.Thread(target=count_even, args=(data, even_result))
+    t2 = threading.Thread(target=count_odd, args=(data, odd_result))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    return even_result[0], odd_result[0]
+
+# Fungsi untuk menghitung speedup Amdahl's Law
+def amdahl_speedup(P, N):
+    return 1 / ((1 - P) + (P / N))
+
+# List dengan 1 juta angka
+data = list(range(1, 1000001))
+
+# Menghitung menggunakan multithreading
+start_time = time.time()
+even_count, odd_count = multi_thread(data)
+multi_thread_time = time.time() - start_time
+
+# Hukum Amdahl dengan 2 thread dan P = 0.95
+P = 0.95
+N = 2
+speedup = amdahl_speedup(P, N)
+
+print(f"Jumlah bilangan genap: {even_count}")
+print(f"Jumlah bilangan ganjil: {odd_count}")
+print(f"Waktu eksekusi multi-thread: {multi_thread_time:.4f} detik")
+print(f"Speedup teoritis menurut Hukum Amdahl: {speedup:.2f}x")
+\end{python}
+\begin{itemize}
+    \item Penjelasan :
+
+    Program tersebut menggunakan \textit{multithreading} untuk menghitung jumlah bilangan genap dan ganjil dari \textit{list} yang berisi satu juta angka, dengan dua \textit{thread} yang bekerja secara paralel. Untuk menghitung kecepatan teoritis (\textit{speedup}) saat menggunakan lebih dari satu \textit{thread}, diterapkan hukum \textit{Amdahl}. Diasumsikan bahwa 95\% dari program dapat diparalelkan. Hasil perhitungan menunjukkan bahwa dengan menggunakan dua \textit{thread}, \textit{speedup} teoritis sekitar 1.90 kali lebih cepat dibandingkan eksekusi pada satu \textit{thread}. Ini menunjukkan bahwa \textit{multithreading} dapat meningkatkan kinerja secara signifikan, namun peningkatannya juga dibatasi oleh bagian program yang tidak bisa diparalelkan.
+\end{itemize}
+
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsubsection{Kelompok 3}
+
+\begin{itemize}
+    \item Pertanyaan :
+    
+    Bagaimana cara membuat \textit{Command-Line Interface} (CLI) menggunakan \textit{Python} untuk manajemen \textit{file} yang mendukung operasi dasar seperti membuat, menampilkan, dan menghapus \textit{file}, serta menjelaskan setiap komponen penting dari implementasi tersebut?
+\end{itemize}
+\begin{itemize}
+    \item Jawaban :
+\end{itemize}
+\begin{python}
+import argparse
+import os
+
+# Fungsi untuk membuat file
+def create_file(filename):
+    with open(filename, 'w') as file:
+        file.write("This is a new file.")
+    print(f"File '{filename}' created.")
+
+# Fungsi untuk menampilkan file
+def list_files():
+    files = os.listdir('.')
+    print("Files in the current directory:")
+    for file in files:
+        print(f"- {file}")
+
+# Fungsi untuk menghapus file
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f"File '{filename}' deleted.")
+    except FileNotFoundError:
+        print(f"File '{filename}' not found.")
+
+# Fungsi utama untuk menjalankan CLI
+def main():
+    # Menggunakan argparse untuk menangani argumen dari pengguna
+    parser = argparse.ArgumentParser(description='Simple CLI for file management.')
+    parser.add_argument('command', choices=['create', 'list', 'delete'], help='Command to execute.')
+    parser.add_argument('filename', nargs='?', help='Name of the file to manipulate.')
+
+    args = parser.parse_args()
+
+    # Menentukan tindakan berdasarkan argumen yang diberikan
+    if args.command == 'create' and args.filename:
+        create_file(args.filename)
+    elif args.command == 'list':
+        list_files()
+    elif args.command == 'delete' and args.filename:
+        delete_file(args.filename)
+    else:
+        print("Invalid command or missing filename.")
+
+if __name__ == "__main__":
+    main()
+\end{python}
+\begin{itemize}
+    \item Penjelasan :
+
+    \textit{Command-Line Interface} (CLI) yang dibuat menggunakan \textit{Python} ini memanfaatkan modul \textit{argparse} untuk menangani argumen dari pengguna dan modul os untuk melakukan manipulasi berkas. Program ini mendukung tiga operasi dasar: membuat berkas, menampilkan daftar berkas, dan menghapus berkas. Fungsi \textit{create-file} membuat berkas baru dengan nama yang diberikan, \textit{list-files} menampilkan semua berkas yang ada di direktori saat ini, dan \textit{delete-file} menghapus berkas yang ditentukan. Pada fungsi utama (\textit{main}), program memeriksa perintah yang diberikan oleh pengguna seperti \textit{create}, \textit{list}, atau \textit{delete}, dan menjalankan fungsi yang sesuai. CLI ini memungkinkan pengguna untuk mengelola berkas secara langsung melalui terminal dengan perintah yang sederhana dan praktis.
+    
+\end{itemize}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
@@ -181,6 +452,24 @@ In this assignment, students implemented file system access routines, including:
     \item File creation and deletion
     \item Reading from and writing to files
     \item Navigating directories and managing file permissions
+\end{itemize}
+\subsubsection{Kelompok 3}
+
+\begin{itemize}
+    \item  Pertanyaan :
+    
+    Sebuah \textit{file} bernama report.txt saat ini memiliki izin atau proteksi -rw-r--r-- Berikan penjelasan apa arti bagian dari proteksi tersebut.
+\end{itemize}
+
+
+\begin{itemize}
+        \item Jawaban :
+         \begin{itemize}
+             \item - : menandakan bahwa \textit{file} tersebut bertipe biasa;
+             \item rw- : pemilik \textit{file} memiliki hak akses untuk membaca (r) dan mengedit (x), tetapi tidak bisa mealkukan exekusi (x);
+             \item r- - : grup pengguna hanya memiliki hak akses untuk membaca (r) saja, tanpa bisa mengedit (w), dan mengeksekusi (x);
+             \item r- - : untuk pengguna lain juga memiliki hak akses hanya untuk membaca (r), tanpa bisa mengeksekusi (x) dan mengedit(r).
+         \end{itemize}
 \end{itemize}
 
 \section{Conclusion}

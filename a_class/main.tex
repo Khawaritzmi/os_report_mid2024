@@ -139,9 +139,12 @@ Explores the concept of deadlocks and methods for preventing them:
                         \textit{resource allocation graph} ada beberapa ketentuan sebagai berikut:
                         
                         \begin{itemize}
-                            \item \textbf{Persegi} menandakan sebuah sumber daya atau \textit{resource} yang biasa diberi penanda "R(n)", jumlah \textit{resource} yang bisa digunakan biasa ditandai dengan jumlah titik yang ada dalam persegi tersebut,
-                            \item \textbf{Lingkaran} menandakan sebuah proses dengan penanda huruf "P(n)",
-                            \item \textbf{Lingkaran} $\longrightarrow$ \textbf{Persegi} menandakan bahwa proses tersebut sedang meminta sebuah sumber daya dari \textit{resource},
+                            \item \textbf{Persegi} menandakan sebuah sumber daya atau \textit{resource} yang biasa diberi penanda "R(n)", jumlah \textit{resource} yang bisa digunakan biasa ditandai dengan jumlah titik yang ada dalam persegi tersebut.
+                            
+                            \item \textbf{Lingkaran} menandakan sebuah proses dengan penanda huruf "P(n)".
+                            
+                            \item \textbf{Lingkaran} $\longrightarrow$ \textbf{Persegi} menandakan bahwa proses tersebut sedang meminta sebuah sumber daya dari \textit{resource}. 
+                            
                             \item \textbf{Persegi} $\longrightarrow$ \textbf{Lingkaran} menandakan bahwa sumber daya dari \textit{resource} sedang digunakan oleh proses tersebut.\newline
                         \end{itemize}
 
@@ -156,13 +159,13 @@ Explores the concept of deadlocks and methods for preventing them:
                     \item \textit{\textbf{State-based Model}}
 
                         \hspace{1cm}
-                        model yang digunakan untuk menganalisa dan mendeteksi \textit{deadlock} dengan melihat keadaan (\textit{state}) sistem dalam hal alokasi sumber daya dan proses yang sedang berjalan.
+                        Model yang digunakan untuk menganalisa dan mendeteksi \textit{deadlock} dengan melihat keadaan (\textit{state}) sistem dalam hal alokasi sumber daya dan proses yang sedang berjalan.
 
                         \hspace{1cm}
                         Gambar dibawah adalah contoh ilustrasi dari \textit{state-based model} yang biasa digunakan untuk menentukan apakah sistem berada dalam kondisi \textit{safe} atau \textit{unsafe}. Sistem bisa dikatakan dalam \textit{state} aman jika sistem dapat mengalokasikan sumber daya untuk setiap proses secara berurutan dan menghindari \textit{deadlock}.
                         
                         \hspace{1cm}
-                        Untuk menentukan apakah sistem berada dalam kondisi \textit{safe} atau \textit{unsafe} kita bisa menggunakan \textit{safety algorithm} atau \textit{banker algorithm}\newline
+                        Untuk menentukan apakah sistem berada dalam kondisi \textit{safe} atau \textit{unsafe} kita bisa menggunakan \textit{safety algorithm} atau \textit{banker algorithm}.\newline
 
                         \begin{figure}[h]
                             \centering
@@ -187,11 +190,11 @@ Explores the concept of deadlocks and methods for preventing them:
                         \hspace{1cm}
                         Model \textit{wait-for graph} biasa digunakan untuk menyederhanakan hasil dari model \textit{resource allocation graph}, tapi ada beberapa syarat yang harus terpenuhi jika ingin mengubah \textit{resource allocation graph} menjadi model \textit{wait-for graph}, adapun syarat dan ketentuannya sebagai berikut : 
                         \begin{itemize}
-                            \item Tidak ada \textit{resource}, jadi model \textit{wait-for graph} hanya dapat menampilkan proses tanpa menampilkan \textit{resource},
+                            \item Tidak ada \textit{resource}, jadi model \textit{wait-for graph} hanya dapat menampilkan proses tanpa menampilkan \textit{resource}.
+                            
                             \item  Mengubah relasi proses-\textit{resource} menjadi antar proses.\newline
                         \end{itemize}
 
-                        
                 \end{enumerate}
             \item \textbf{Deteksi dan Pemulihan \textit{Deadlock}}
         \end{enumerate}
@@ -282,45 +285,56 @@ This assignment involved designing a multithreading scenario to solve a computat
     \textbf{Penjelasan : }
     \begin{enumerate}
         \item Kita mengimpor modul \textit{math} untuk menggunakan konstanta \textit{inf} (tak terhingga) nanti.
+        
         \item Membuat fungsi \textit{calculate\_speedup} yang menerima dua parameter:
             \begin{itemize}
-                \item \textit{parallel\_fraction}: Bagian program yang dapat diparalelkan (0 sampai 1)
-                \item \textit{num\_processors}: Jumlah prosesor atau \textit{thread} yang digunakan
+                \item \textit{parallel\_fraction}: Bagian program yang dapat diparalelkan (0-1).
+                
+                \item \textit{num\_processors}: Jumlah prosesor atau \textit{thread} yang digunakan.
             \end{itemize}
+            
         \item Implementasi Hukum Amdahl:
             \begin{itemize}
-                \item Ini adalah implementasi langsung dari rumus Hukum Amdahl: \textit{Speedup} = 1 / ((1 - P) + (P / N))
-                \item \textit{serial\_fraction} adalah bagian yang tidak dapat diparalelkan (1 - P)
-                \item Rumus menghitung \textit{speedup} berdasarkan fraksi paralel dan jumlah prosesor
+                \item Ini adalah implementasi langsung dari rumus Hukum Amdahl: \textit{Speedup} = 1 / ((1 - P) + (P / N)).
+                
+                \item \textit{serial\_fraction} adalah bagian yang tidak dapat diparalelkan (1 - P).
+                
+                \item Rumus menghitung \textit{speedup} berdasarkan fraksi paralel dan jumlah prosesor.
             \end{itemize}
+            
         \item Pengaturan parameter masalah :
             \begin{itemize}
-                \item Sesuai soal, 75\% program dapat diparalelkan dan menggunakan enam \textit{core}
+                \item Sesuai soal, 75\% program dapat diparalelkan dan menggunakan enam \textit{core}.
             \end{itemize}
+            
         \item Konversi persentase ke fraksi :
             \begin{itemize}
-                \item Mengubah 75\% menjadi 0.75 untuk perhitungan
+                \item Mengubah 75\% menjadi 0.75 untuk perhitungan.
             \end{itemize}
+            
         \item Perhitungan \textit{speedup} :
             \begin{itemize}
-                \item Memanggil fungsi dengan parameter yang telah ditentukan
+                \item Memanggil fungsi dengan parameter yang telah ditentukan.
             \end{itemize}
+            
         \item  Mencetak hasil :
             \begin{itemize}
-                \item Menampilkan hasil perhitungan dengan format yang mudah dibaca
-                \item .2f memformat angka dengan dua desimal
+                \item Menampilkan hasil perhitungan dengan format yang mudah dibaca.
+                \item .2f memformat angka dengan dua desimal.
             \end{itemize}
+            
         \item  Perhitungan \textit{speedup} teoritis maksimum :
             \begin{itemize}
-                \item Menghitung \textit{speedup} dengan jumlah prosesor tak terbatas (\textit{math.inf})
-                \item Ini menunjukkan batas atas teoritis dari \textit{speedup} yang mungkin dicapai
+                \item Menghitung \textit{speedup} dengan jumlah prosesor tak terbatas (\textit{math.inf}).
+                
+                \item Ini menunjukkan batas atas teoritis dari \textit{speedup} yang mungkin dicapai.
             \end{itemize}
+            
         \item Mencetak \textit{speedup} teoritis maksimum :
             \begin{itemize}
-                \item Menampilkan batas atas teoritis \textit{speedup}
+                \item Menampilkan batas atas teoritis \textit{speedup}.
             \end{itemize}
-
-
+            
     \end{enumerate}
 \end{enumerate}
 
@@ -401,28 +415,38 @@ def main():
 if __name__ == "__main__":
     main()
     \end{python}
+    
     \textbf{Penjelasan :}
     \begin{enumerate}
         \item Kita mengimpor modul-modul yang diperlukan:
             \begin{itemize}
-                \item \textit{os} untuk operasi \textit{file} dan sistem,
-                \item \textit{psutil} untuk manajemen proses dan pemantauan status sistem,
+                \item \textit{os} untuk operasi \textit{file} dan sistem.
+                
+                \item \textit{psutil} untuk manajemen proses dan pemantauan status sistem.
+                
                 \item \textit{sys} untuk fungsi-fungsi terkait sistem, termasuk keluar dari program.
             \end{itemize}
+            
         \item Fungsi utama :
             \begin{itemize}
                 \item \textit{create\_file(filename)}: Membuat \textit{file} baru.
+                
                 \item \textit{list\_files()}: Menampilkan daftar \textit{file} di direktori saat ini.
+                
                 \item \textit{delete\_file(filename)}: Menghapus \textit{file} yang ditentukan.
+                
                 \item \textit{list\_processes()}: Menampilkan daftar proses yang sedang berjalan.
+                
                 \item \textit{system\_status()}: Menampilkan penggunaan CPU, memori, dan \textit{disk}.
             \end{itemize}
+            
         \item Fungsi \textit{main()}:
             \begin{itemize}
                 \item Menampilkan menu utama dalam \textit{loop}.
                 \item Meminta input dari pengguna.
                 \item Memanggil fungsi yang sesuai berdasarkan pilihan pengguna.
             \end{itemize}
+            
         \item Kita menggunakan \textit{if \_\_name\_\_ == "\_\_main\_\_"}: 
             \begin{itemize}
                 \item untuk memastikan bahwa \textit{main()} hanya dijalankan jika \textit{script} dieksekusi langsung, bukan diimpor sebagai modul.

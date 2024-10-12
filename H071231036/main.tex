@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage{graphicx} % Diperlukan untuk memasukkan gambar
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+\title{Laporan Mata Kuliah Sistem Operasi - Paruh Pertama Semester}
+\author{Kelas A}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Pendahuluan}
+Laporan ini merangkum topik-topik yang telah dibahas selama paruh pertama mata kuliah Sistem Operasi. Laporan ini mencakup konsep teoretis, implementasi praktis, serta tugas-tugas. Mata kuliah ini berfokus pada dasar-dasar sistem operasi, termasuk arsitektur sistem, manajemen proses, penjadwalan CPU, dan penanganan deadlock.
+
+\section{Gambaran Umum Mata Kuliah}
+\subsection{Tujuan}
+Tujuan utama dari mata kuliah ini adalah:
+\begin{itemize}
+    \item Memahami komponen dasar dan arsitektur dari sistem komputer.
+    \item Mempelajari manajemen proses, penjadwalan, dan komunikasi antar-proses.
+    \item Menjelajahi sistem berkas, manajemen input/output, dan virtualisasi.
+    \item Mempelajari pencegahan dan penanganan deadlock dalam sistem operasi.
+\end{itemize}
+
+\subsection{Struktur Mata Kuliah}
+Mata kuliah ini dibagi menjadi dua bagian. Laporan ini berfokus pada paruh pertama yang mencakup:
+\begin{itemize}
+    \item Konsep dan Komponen Dasar Sistem Komputer
+    \item Kinerja Sistem dan Metrik
+    \item Arsitektur Sistem Komputer
+    \item Deskripsi dan Pengendalian Proses
+    \item Algoritma Penjadwalan
+    \item Pembuatan dan Penghentian Proses
+    \item Pengenalan Threads
+    \item Sistem Berkas
+    \item Manajemen Input dan Output
+    \item Pengenalan dan Pencegahan Deadlock
+    \item Manajemen Antarmuka Pengguna
+    \item Virtualisasi dalam Sistem Operasi
+\end{itemize}
+
+\section{Topik yang Dibahas}
+
+\subsection{Konsep dan Komponen Dasar Sistem Komputer}
+Bagian ini menjelaskan komponen dasar yang membentuk sistem komputer, termasuk CPU, memori, penyimpanan, dan perangkat input/output.
+
+\subsection{Kinerja Sistem dan Metrik}
+Bagian ini memperkenalkan berbagai metrik kinerja sistem yang digunakan untuk mengukur efisiensi sistem komputer, termasuk throughput, waktu respons, dan utilisasi.
+
+\subsection{Arsitektur Sistem Komputer}
+Bagian ini menggambarkan arsitektur sistem komputer modern, dengan fokus pada interaksi antara perangkat keras dan sistem operasi.
+
+\subsection{Deskripsi dan Pengendalian Proses}
+Proses merupakan konsep sentral dalam sistem operasi. Bagian ini mencakup:
+\begin{itemize}
+    \item Status proses dan transisi status
+    \item Process Control Block (PCB)
+    \item Pergantian konteks
+\end{itemize}
+
+\subsection{Algoritma Penjadwalan}
+Bagian ini membahas:
+\begin{itemize}
+    \item First-Come, First-Served (FCFS)
+    \item Shortest Job Next (SJN)
+    \item Round Robin (RR)
+\end{itemize}
+Penjelasan tentang bagaimana algoritma ini digunakan untuk mengalokasikan waktu CPU ke proses-proses.
+
+\subsection{Pembuatan dan Penghentian Proses}
+Menjelaskan bagaimana proses dibuat dan dihentikan oleh sistem operasi, termasuk:
+\begin{itemize}
+    \item Penciptaan proses (process spawning)
+    \item Kondisi penghentian proses
+\end{itemize}
+
+\subsection{Pengenalan Threads}
+Bagian ini memperkenalkan konsep threads dan hubungannya dengan proses, mencakup:
+\begin{itemize}
+    \item Proses single-threaded vs. multi-threaded
+    \item Manfaat multithreading
+\end{itemize}
+
+\subsection{Sistem Berkas}
+Sistem berkas menyediakan cara bagi sistem operasi untuk menyimpan, mengambil, dan mengelola data. Bagian ini menjelaskan:
+\begin{itemize}
+    \item Struktur sistem berkas
+    \item Metode akses berkas
+    \item Manajemen direktori
+\end{itemize}
+
+\subsection{Manajemen Input dan Output}
+Manajemen input dan output sangat penting untuk menangani interaksi antara sistem dan perangkat eksternal. Bagian ini mencakup:
+\begin{itemize}
+    \item Driver perangkat
+    \item Penjadwalan I/O
+\end{itemize}
+
+\subsection{Pengenalan dan Pencegahan Deadlock}
+Bagian ini menjelaskan konsep deadlock dan metode untuk mencegahnya:
+\begin{itemize}
+    \item Pengenalan deadlock
+    \item Kondisi terjadinya deadlock
+    \item Deteksi dan pemulihan dari deadlock
+    \item Teknik pencegahan deadlock
+\end{itemize}
+
+\subsubsection{Deadlock dalam Kehidupan Sehari-hari}
+Deadlock bukan hanya konsep dalam sistem komputer, tetapi juga dapat terjadi dalam situasi kehidupan sehari-hari di mana beberapa pihak menunggu satu sama lain untuk melepaskan sumber daya, sehingga terjadi kebuntuan. Berikut adalah beberapa contoh deadlock dalam kehidupan nyata:
+
+\begin{itemize}
+    \item \textbf{Kemacetan di Persimpangan:} Bayangkan sebuah persimpangan empat arah dengan mobil-mobil datang dari semua arah. Jika setiap mobil masuk ke persimpangan dan menghalangi yang lain, tidak ada yang bisa bergerak maju. Ini adalah contoh klasik deadlock, di mana setiap mobil menunggu yang lain untuk bergerak.
+    
+    \item \textbf{Diner yang Menunggu Peralatan Makan:} Di sebuah restoran, jika beberapa pengunjung berbagi satu set alat makan, deadlock dapat terjadi jika masing-masing pengunjung memegang satu alat (misalnya, satu pengunjung memegang pisau dan menunggu garpu, sementara yang lain memegang garpu dan menunggu pisau). Keduanya tidak dapat melanjutkan tanpa yang lain.
+    
+    \item \textbf{Pintu Terkunci dan Kunci:} Dua orang berusaha masuk ke kamar yang berbeda, tetapi kunci kamar masing-masing ada di kamar yang lain. Jika orang A menunggu orang B untuk membuka kamarnya dan mendapatkan kunci, dan orang B menunggu orang A melakukan hal yang sama, mereka akan terjebak tanpa henti.
+    
+    \item \textbf{Sumber Daya Bersama di Tempat Kerja:} Di lingkungan kerja kolaboratif, jika dua tim menunggu sumber daya bersama seperti printer atau persetujuan proyek dari tim lain, keduanya tidak bisa melanjutkan sampai yang lain selesai, menyebabkan deadlock dalam alur kerja.
+\end{itemize}
+
+\subsection{Manajemen Antarmuka Pengguna}
+Bagian ini membahas peran sistem operasi dalam mengelola antarmuka pengguna. Topik yang dibahas meliputi:
+\begin{itemize}
+    \item Antarmuka Grafis Pengguna (GUI)
+    \item Antarmuka Baris Perintah (CLI)
+    \item Interaksi antara pengguna dan sistem operasi
+\end{itemize}
+
+\subsection{Virtualisasi dalam Sistem Operasi}
+Virtualisasi memungkinkan beberapa sistem operasi berjalan secara bersamaan pada satu mesin fisik. Bagian ini membahas:
+\begin{itemize}
+    \item Konsep virtualisasi
+    \item Hypervisor dan jenis-jenisnya
+    \item Manfaat virtualisasi dalam komputasi modern
+\end{itemize}
+
+\section{Tugas dan Pekerjaan Praktis}
+\subsection{Tugas 1: Penjadwalan Proses}
+Mahasiswa diminta untuk mengimplementasikan berbagai algoritma penjadwalan proses (misalnya, FCFS, SJN, dan RR) dan membandingkan kinerja mereka di bawah kondisi yang berbeda.
+
+\subsection{Tugas 2: Penanganan Deadlock}
+Dalam tugas ini, mahasiswa diminta untuk mensimulasikan berbagai skenario deadlock dan mengeksplorasi berbagai metode pencegahan.
+
+\subsection{Tugas 3: Multithreading dan Hukum Amdahl}
+Tugas ini melibatkan merancang skenario multithreading untuk menyelesaikan masalah komputasi intensif. Mahasiswa kemudian menerapkan *Hukum Amdahl* untuk menghitung percepatan teoritis dari program seiring bertambahnya jumlah thread.
+
+\subsection{Tugas 4: Antarmuka Baris Perintah (CLI) Sederhana untuk Manajemen Antarmuka Pengguna}
+Mahasiswa diminta untuk membuat *CLI* sederhana untuk manajemen antarmuka pengguna. CLI ini harus mendukung perintah dasar seperti manipulasi berkas (membuat, daftar, dan menghapus berkas), manajemen proses, dan pelaporan status sistem.
+
+\subsection{Tugas 5: Akses File Sistem}
+Dalam tugas ini, siswa diminta untuk melakukan akses file sistem menggunakan Python. Soal ini mencakup pembuatan file, membaca isi file, dan menampilkan daftar file dalam direktori. Berikut adalah soal yang harus dikerjakan:
+
+\textbf{Soal:} Buatlah sebuah program Python yang melakukan hal berikut:
+1. Membuat sebuah file baru dengan nama `contoh.txt` dan menuliskan beberapa kalimat ke dalamnya.
+2. Membaca dan menampilkan isi dari file `contoh.txt`.
+3. Menampilkan semua file yang ada di direktori saat ini.
+
+\textbf{Kode Python:}
+\begin{lstlisting}[language=Python]
+import os
+
+# 1. Membuat file dan menuliskan isi
+with open('contoh.txt', 'w') as file:
+    file.write('Ini adalah contoh file.\n')
+    file.write('File ini digunakan untuk demonstrasi akses file sistem.\n')
+
+# 2. Membaca dan menampilkan isi file
+with open('contoh.txt', 'r') as file:
+    isi_file = file.read()
+    print('Isi dari contoh.txt:')
+    print(isi_file)
+
+# 3. Menampilkan semua file di direktori saat ini
+print('\nDaftar file di direktori saat ini:')
+for nama_file in os.listdir('.'):
+    print(nama_file)
+\end{lstlisting}
+
+\textbf{Jawaban:} Ketika kode di atas dijalankan, output yang diharapkan adalah sebagai berikut:
+\begin{verbatim}
+Isi dari contoh.txt:
+Ini adalah contoh file.
+File ini digunakan untuk demonstrasi akses file sistem.
+
+Daftar file di direktori saat ini:
+contoh.txt
+\end{verbatim}
+
+\section{Kesimpulan}
+Paruh pertama mata kuliah ini memperkenalkan konsep inti sistem operasi, termasuk manajemen proses, penjadwalan, multithreading, dan akses sistem berkas. Topik-topik ini memberikan dasar untuk pembahasan lebih lanjut di paruh kedua mata kuliah.
+
+\end{document}

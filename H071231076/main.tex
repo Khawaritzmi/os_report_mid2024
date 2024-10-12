@@ -1,13 +1,19 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Tugas sisop}
+\author{Adrian Tri putra}
+\date{September 2024}
+
+\begin{document}
+
+\maketitle
 \documentclass[12pt]{article}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{graphicx}
-\usepackage{minted}
-\usepackage{amsmath}
-\usepackage{array}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -55,30 +61,31 @@ The course is divided into two halves. This report focuses on the first half, wh
 
 \subsection{Basic Concepts and Components of Computer Systems}
     \subsubsection{Definisi dan Konsep}
-    \hspace*{1cm}Sistem adalah kumpulan komponen yang saling berinteraksi dan bekerja sama untuk mencapai tujuan tertentu.
+    Sistem adalah kumpulan komponen yang saling berinteraksi dan bekerja sama untuk mencapai tujuan tertentu.
     
     Komputer adalah peralatan elektronik yang menerima masukan data, mengolah data, dan memberikan hasil keluaran dalam bentuk informasi. Komputer sendiri tidak berfungsi tanpa sistem komputer yang terintegrasi, karena sistem komputer yang lengkap meliputi semua komponen yang bekerja bersama-sama untuk menghasilkan informasi yang diinginkan12.
     
-    Berdasarkan kedua definisi tersebut, Sistem komputer adalah kumpulan perangkat komputer yang saling terkait dan berinteraksi untuk menjalankan suatu aktivitas atau program menggunakan komputer. Sistem komputer terdiri dari tiga komponen utama: \textit {Hardware} (perangkat keras), \textit{Software} (perangkat lunak), dan \textit{Brainware} (manusia/pengguna)
+    Berdasarkan kedua definisi tersebut, Sistem komputer adalah kumpulan perangkat komputer yang saling terkait dan berinteraksi untuk menjalankan suatu aktivitas atau program menggunakan komputer. Sistem komputer terdiri dari tiga komponen utama: Hardware (perangkat keras), Software (perangkat lunak), dan Brainware (manusia/pengguna)
     
 Konsep Dasar Sistem Komputer
 
-1. \textit {Hardware} (Perangkat Keras)
-\textit {Hardware} adalah bagian fisik dari sistem komputer yang dapat disentuh. Komponen utama hardware meliputi:
+1. Hardware (Perangkat Keras)
+Hardware adalah bagian fisik dari sistem komputer yang dapat disentuh. Komponen utama hardware meliputi:
 \begin{itemize}
-    \item \textit{Motherboard}: Papan induk yang menghubungkan semua komponen hardware.
+    \item Motherboard: Papan induk yang menghubungkan semua komponen hardware.
     \item CPU (Central Processing Unit): Otak komputer yang melakukan pengolahan data.
     \item RAM (Random Access Memory): Memori sementara untuk data yang sedang diproses.
     \item Input/Output Unit: Perangkat untuk memasukkan dan mengeluarkan data.
 \end{itemize}
 
-2. \textit{Software} (Perangkat Lunak)
-\textit{Software} adalah instruksi yang menjalankan hardware. Komponen utama software meliputi:
+2. Software (Perangkat Lunak)
+Software adalah instruksi yang menjalankan hardware. Komponen utama software meliputi:
 
 \begin{itemize}
     \item Sistem Operasi (OS): Program dasar yang menghubungkan pengguna dengan hardware dan mengelola sumber daya.
     \item Program Aplikasi: Program yang melakukan tugas spesifik seperti pengolah kata, peramban web, dan lain-lain.
 \end{itemize}
+
 
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
@@ -158,180 +165,12 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
-Terdapat tiga proses dengan waktu kedatangan dan waktu burst sebagai berikut:
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\textbf{Proses} & \textbf{Arrival Time} & \textbf{Burst Time} \\ \hline
-P1 & 0 & 4 \\ \hline
-P2 & 1 & 3 \\ \hline
-P3 & 2 & 1 \\ \hline
-\end{tabular}
-\caption {\textit{Arrival Time} dan \textit{Burst Time }untuk masing-masing proses}
-\end{table}
-
-Implementasikan algoritma penjadwalan \textit{First Come First Serve} (FCFS) dan \textit {Round Robin} (RR) dengan kuantum waktu 2. Hitung \textit{Waiting Time} dan \textit{Turnaround Time} untuk masing-masing proses. 
-\vspace{0.2cm}
-
-\textbf{Jawaban: }
-
-\begin{minted}[linenos, frame=single]{python}
-def fcfs_scheduling(processes):
-    n = len(processes)
-    waiting_time = [0] * n
-    turnaround_time = [0] * n
-
-    for i in range(1, n):
-        waiting_time[i] = waiting_time[i-1] + processes[i-1][1]
-
-    for i in range(n):
-        turnaround_time[i] = waiting_time[i] + processes[i][1]
-
-    return waiting_time, turnaround_time
-
-def rr_scheduling(processes, quantum):
-    n = len(processes)
-    waiting_time = [0] * n
-    turnaround_time = [0] * n
-    rem_burst_time = [process[1] for process in processes]
-    time = 0
-
-    while True:
-        done = True
-        for i in range(n):
-            if rem_burst_time[i] > 0:
-                done = False
-                if rem_burst_time[i] > quantum:
-                    time += quantum
-                    rem_burst_time[i] -= quantum
-                else:
-                    time += rem_burst_time[i]
-                    waiting_time[i] = time - processes[i][1]
-                    rem_burst_time[i] = 0
-        if done:
-            break
-
-    for i in range(n):
-        turnaround_time[i] = waiting_time[i] + processes[i][1]
-
-    return waiting_time, turnaround_time
-
-processes = [
-    [1, 4],  
-    [2, 3],  
-    [3, 1],  
-]
-
-quantum = 2
-
-fcfs_waiting, fcfs_turnaround = fcfs_scheduling(processes)
-
-rr_waiting, rr_turnaround = rr_scheduling(processes, quantum)
-
-print("FCFS Waiting Time: ", fcfs_waiting)
-print("FCFS Turnaround Time: ", fcfs_turnaround)
-print("RR Waiting Time: ", rr_waiting)
-print("RR Turnaround Time: ", rr_turnaround)
-
-\end{minted}
-\textbf{Output: }
-\begin{verbatim}
-FCFS Waiting Time:  [0, 4, 7]
-FCFS Turnaround Time:  [4, 7, 8]
-RR Waiting Time:  [3, 5, 4]
-RR Turnaround Time:  [7, 8, 5]
-\end{verbatim}
-
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
-\subsubsection{Group 1}
-Kamu diminta untuk membuat program multithreading untuk menghitung jumlah elemen dari array besar (berisi 1 juta elemen acak). Implementasikan program ini dengan dan tanpa \textit{multithreading}. Gunakan 4 \textit{thread} untuk melakukan pembagian tugas.
-
-Setelah itu, gunakan \textit{Amdahl's Law} untuk menghitung \textit{theoretical} speedup ketika kamu menambah jumlah \textit{thread} dari 1 ke 4.
-
-\begin{document}
-
-\textbf{Rumus Amdahl's Law:}
-\begin{equation}
-S(N) = \frac{1}{(1 - P) + \frac{P}{N}}
-\end{equation}
-
-\begin{itemize}
-    \item $S(N)$ = Speedup dengan $N$ thread.
-    \item $P$ = Persentase bagian program yang dapat di-paralelisasi.
-    \item $N$ = Jumlah thread.
-\end{itemize}
-\vspace{0.2cm}
-
-\textbf{Jawaban: }
-\begin{minted}[linenos, frame=single]{python}
-import threading
-import random
-import time
-
-array = [random.randint(1, 100) for _ in range(10**6)]
-
-def partial_sum(arr, start, end, result, index):
-    result[index] = sum(arr[start:end])
-
-def sequential_sum(arr):
-    return sum(arr)
-
-def multithreaded_sum(arr, num_threads=4):
-    length = len(arr)
-    thread_list = []
-    result = [0] * num_threads
-    chunk_size = length // num_threads
-    
-    for i in range(num_threads):
-        start = i * chunk_size
-        end = (i + 1) * chunk_size if i != num_threads - 1 else length
-        thread = threading.Thread(target=partial_sum, args=(arr, start, end, result, i))
-        thread_list.append(thread)
-        thread.start()
-
-    for thread in thread_list:
-        thread.join()
-
-    return sum(result)
-
-def amdahls_law(p, n):
-    return 1 / ((1 - p) + (p / n))
-
-if __name__ == "__main__":
-
-    start_time = time.time()
-    seq_result = sequential_sum(array)
-    sequential_time = time.time() - start_time
-    print(f"Sequential Sum: {seq_result}, Time: {sequential_time:.4f} seconds")
-
-    start_time = time.time()
-    multi_result = multithreaded_sum(array)
-    multithreaded_time = time.time() - start_time
-    print(f"Multithreaded Sum: {multi_result}, Time: {multithreaded_time:.4f} seconds")
-
-    p = 0.80
-    speedup_1_thread = amdahls_law(p, 1)
-    speedup_4_threads = amdahls_law(p, 4)
-
-    print(f"Theoretical Speedup with 1 thread: {speedup_1_thread:.4f}")
-    print(f"Theoretical Speedup with 4 threads: {speedup_4_threads:.4f}")
-\end{minted}
-\vspace{0.2cm}
-
-\textbf{Output: }
-\begin{verbatim}
-Sequential Sum: 50558877, Time: 0.0075 seconds
-Multithreaded Sum: 50558877, Time: 0.0139 seconds
-Theoretical Speedup with 1 thread: 1.0000
-Theoretical Speedup with 4 threads: 2.5000
-\end{verbatim}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
@@ -347,15 +186,5 @@ In this assignment, students implemented file system access routines, including:
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
 
-\begin{thebibliography}{99}
-
-\bibitem{faaizah2023} Faaizah, N. (2023, 16 Oktober). Sistem Komputer: Pengertian, Bagian, Tujuan, dan Komponen Fisik. \textit{detikedu}, https://www.detik.com/edu/detikpedia/d-6983357/sistem-komputer-pengertian-bagian-tujuan-dan-komponen-fisik.
-
-\bibitem{denning1989} Denning, P. J., Comer, D. E., Gries, D., Mulder, M. C., Tucker, A., Turner, A. J., \& Young, P. R. (1989). Computing as a discipline. \textit{Computer}, 22(2), 63-70.
-
-\end{thebibliography}
-
 \end{document}
-
-
 \end{document}

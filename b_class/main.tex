@@ -90,15 +90,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Benefits of multithreading
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
-
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
 \begin{itemize}
@@ -122,12 +113,20 @@ Explores the concept of deadlocks and methods for preventing them:
 \end{itemize}
 
 \subsection{User Interface Management}
-This section discusses the role of the operating system in managing the user interface. Topics covered include:
-\begin{itemize}
-    \item Graphical User Interface (GUI)
-    \item Command-Line Interface (CLI)
-    \item Interaction between the user and the operating system
-\end{itemize}
+		
+		Manajemen antarmuka pengguna (User Interface Management) adalah komponen kritis dalam sistem operasi modern yang bertanggung jawab untuk mengatur interaksi antara pengguna dan komputer \cite{Lazar2017}. Fungsi utamanya meliputi pengelolaan input pengguna, rendering output visual, dan koordinasi berbagai elemen antarmuka untuk menciptakan pengalaman yang kohesif dan efisien.
+		
+		Ciri-ciri penting dari manajemen antarmuka pengguna meliputi:
+		\begin{itemize}
+			\item Konsistensi: Menjaga keseragaman dalam desain dan fungsi di seluruh aplikasi.
+			\item Responsivitas: Memastikan sistem merespons input pengguna dengan cepat dan akurat.
+			\item Aksesibilitas: Menyediakan fitur yang memungkinkan penggunaan oleh individu dengan berbagai kemampuan.
+			\item Adaptabilitas: Kemampuan untuk menyesuaikan dengan preferensi pengguna dan konteks penggunaan.
+			\item Keamanan: Melindungi data pengguna dan sistem dari akses yang tidak sah.
+		\end{itemize}
+		
+		Sistem operasi modern mengimplementasikan manajemen antarmuka pengguna melalui berbagai komponen, termasuk window manager, display server, dan toolkit antarmuka pengguna \cite{Tanenbaum2015}. Integrasi yang mulus antara komponen-komponen ini memungkinkan sistem operasi untuk mendukung berbagai jenis antarmuka, yang paling umum adalah Graphical User Interface (GUI) dan Command-Line Interface (CLI). 
+
 
 \subsection{Virtualization in Operating Systems}
 Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
@@ -184,7 +183,168 @@ In this assignment, students implemented file system access routines, including:
     \item Navigating directories and managing file permissions
 \end{itemize}
 
+\subsubsection{Group 12}
+{Soal 1: Pembuatan dan Penghapusan File}
+Buatlah sebuah program yang akan membuat file bernama \texttt{example.txt} dan menulis teks "Ini adalah contoh file" ke dalamnya. Setelah itu, tampilkan apakah file tersebut berhasil dibuat. Kemudian, hapus file tersebut dan periksa apakah file berhasil dihapus.
+
+\paragraph{Jawaban:}
+\begin{verbatim}
+import os
+
+# Membuat dan menulis ke file
+with open("example.txt", "w") as file:
+    file.write("Ini adalah contoh file")
+
+# Mengecek apakah file berhasil dibuat
+if os.path.exists("example.txt"):
+    print("File 'example.txt' berhasil dibuat.")
+else:
+    print("File 'example.txt' gagal dibuat.")
+
+# Menghapus file
+os.remove("example.txt")
+
+# Mengecek apakah file berhasil dihapus
+if not os.path.exists("example.txt"):
+    print("File 'example.txt' berhasil dihapus.")
+else:
+    print("File 'example.txt' gagal dihapus.")
+\end{verbatim}
+
+\paragraph{Output:}
+\begin{verbatim}
+File 'example.txt' berhasil dibuat.
+File 'example.txt' berhasil dihapus.
+\end{verbatim}
+
+\subsubsection{Group 12}
+{Soal 2: Membaca dan Menulis ke File}
+Buatlah sebuah program yang akan menambahkan teks "Tambahan teks baru" ke dalam file \texttt{log.txt} tanpa menghapus konten yang sudah ada. Kemudian, baca dan tampilkan isi file \texttt{log.txt} setelah penambahan teks.
+
+\paragraph{Jawaban:}
+\begin{verbatim}
+# Menambahkan teks baru ke file tanpa menghapus konten sebelumnya
+with open("log.txt", "a") as file:
+    file.write("Tambahan teks baru\n")
+
+# Membaca dan menampilkan isi file
+with open("log.txt", "r") as file:
+    content = file.read()
+
+print("Isi file 'log.txt':\n", content)
+\end{verbatim}
+
+\paragraph{Output:}
+\begin{verbatim}
+Isi file 'log.txt':
+Tambahan teks baru
+\end{verbatim}
+
+\subsubsection{Group 12}
+{Soal 3: Menavigasi Direktori}
+Buatlah sebuah program yang akan membuat folder baru bernama \texttt{new\_folder}. Setelah itu, program harus berpindah ke direktori tersebut dan menampilkan direktori saat ini. Terakhir, kembali ke direktori awal dan hapus folder \texttt{new\_folder}.
+
+\paragraph{Jawaban:}
+\begin{verbatim}
+import os
+
+# Membuat folder baru
+os.mkdir("new_folder")
+print("Folder 'new_folder' berhasil dibuat.")
+
+# Pindah ke dalam folder yang baru dibuat
+os.chdir("new_folder")
+print("Direktori saat ini:", os.getcwd())
+
+# Kembali ke direktori awal
+os.chdir("..")
+print("Kembali ke direktori awal:", os.getcwd())
+
+# Menghapus folder yang baru dibuat
+os.rmdir("new_folder")
+print("Folder 'new_folder' berhasil dihapus.")
+\end{verbatim}
+
+\paragraph{Output:}
+\begin{verbatim}
+Folder 'new_folder' berhasil dibuat.
+Direktori saat ini: /path/to/current/directory/new_folder
+Kembali ke direktori awal: /path/to/current/directory
+Folder 'new_folder' berhasil dihapus.
+\end{verbatim}
+
+\subsubsection{Group 12}
+{Soal 4: Manajemen Izin File}
+Buatlah sebuah program yang akan mengubah izin file \texttt{contoh.txt} sehingga hanya pemilik file yang memiliki akses baca dan tulis. Setelah itu, tampilkan izin file yang baru. Jika file \texttt{contoh.txt} tidak ada, buat file terlebih dahulu.
+
+\paragraph{Jawaban:}
+\begin{verbatim}
+import os
+import stat
+
+# Membuat file jika tidak ada
+if not os.path.exists("contoh.txt"):
+    with open("contoh.txt", "w") as file:
+        file.write("Ini adalah file contoh.")
+
+# Mengubah izin file sehingga hanya pemilik yang dapat membaca dan menulis
+os.chmod("contoh.txt", stat.S_IRUSR | stat.S_IWUSR)
+
+# Mengecek izin file yang telah diubah
+file_stat = os.stat("contoh.txt")
+print("Izin file 'contoh.txt':", oct(file_stat.st_mode)[-3:])
+\end{verbatim}
+
+\paragraph{Output:}
+\begin{verbatim}
+Izin file 'contoh.txt': 600
+\end{verbatim}
+
+\subsubsection{Group 12}
+{Soal 5: Mengecek Izin File}
+Buatlah sebuah program yang memeriksa apakah file \texttt{data.txt} memiliki izin tulis untuk pemilik. Jika tidak, berikan izin tulis kepada pemilik dan tampilkan perubahan yang terjadi.
+
+\paragraph{Jawaban:}
+\begin{verbatim}
+import os
+import stat
+
+# Mengecek apakah file memiliki izin tulis untuk pemilik
+file_stat = os.stat("data.txt")
+if not bool(file_stat.st_mode & stat.S_IWUSR):
+    print("File 'data.txt' tidak memiliki izin tulis untuk pemilik.")
+    os.chmod("data.txt", file_stat.st_mode | stat.S_IWUSR)
+    print("Izin tulis telah diberikan kepada pemilik.")
+else:
+    print("File 'data.txt' sudah memiliki izin tulis untuk pemilik.")
+
+# Mengecek izin file setelah perubahan
+file_stat = os.stat("data.txt")
+print("Izin file 'data.txt':", oct(file_stat.st_mode)[-3:])
+\end{verbatim}
+
+\paragraph{Output:}
+\begin{verbatim}
+File 'data.txt' tidak memiliki izin tulis untuk pemilik.
+Izin tulis telah diberikan kepada pemilik.
+Izin file 'data.txt': 600
+\end{verbatim}
+
+
+
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{9}
+
+\bibitem{Lazar2017} 
+    Lazar, J., Feng, J. H., \& Hochheiser, H. (2017). \textit{Research methods in human-computer interaction} (2nd ed.). Morgan Kaufmann.
+
+\bibitem{Tanenbaum2015} 
+    Tanenbaum, A. S., \& Bos, H. (2015). \textit{Modern operating systems} (4th ed.). Pearson.
+
+\end{thebibliography}
+
+
 
 \end{document}

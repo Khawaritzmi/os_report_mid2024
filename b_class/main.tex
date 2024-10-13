@@ -128,6 +128,32 @@ This section discusses the role of the operating system in managing the user int
     \item Command-Line Interface (CLI)
     \item Interaction between the user and the operating system
 \end{itemize}
+\subsubsection{Command-Line Interface (CLI)}
+		
+		Meskipun GUI dominan dalam penggunaan umum, CLI tetap menjadi alat penting, terutama untuk \textit{administrator} sistem, pengembang, dan pengguna tingkat lanjut. CLI memungkinkan interaksi dengan sistem operasi melalui perintah teks, menawarkan tingkat kontrol dan efisiensi yang sulit dicapai melalui GUI. \cite{Shotts2019}
+		
+		Komponen utama CLI dalam sistem operasi modern meliputi:
+		\begin{itemize}
+			\item Shell: \textit{Interpreter} yang memproses perintah pengguna (contoh: Bash, Zsh, PowerShell).
+			\item Terminal Emulator: Program yang menyediakan antarmuka untuk berinteraksi dengan shell.
+			\item Utilitas Command-line: Kumpulan program yang dapat dijalankan dari CLI untuk berbagai tugas sistem.
+			\item Scripting Capabilities: Kemampuan untuk mengotomatisasi tugas melalui skrip shell.
+		\end{itemize}
+		
+		Keunggulan CLI meliputi:
+		\begin{itemize}
+			\item Efisiensi: Pengguna dapat melakukan tugas kompleks dengan cepat.
+			\item Otomatisasi: Tugas berulang dapat dengan mudah diskrip dan diotomatisasi.
+			\item Penggunaan Sumber Daya Rendah: CLI memerlukan sumber daya sistem yang jauh lebih sedikit dibandingkan GUI.
+			\item Akses Jarak Jauh: CLI sangat cocok untuk mengelola sistem jarak jauh melalui koneksi jaringan dengan \textit{bandwith} rendah.
+			\item Presisi: Memungkinkan kontrol yang sangat terperinci atas operasi sistem. \cite{Greenberg2017}
+		\end{itemize}
+
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=0.6\textwidth]{asset/CLI.JPG}
+                \caption{gambar CLI}
+            \end{figure}
 
 \subsection{Virtualization in Operating Systems}
 Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
@@ -140,32 +166,147 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+\subsubsection{Kode Python dan Tabel Perbandingan Process Scheduling}
 \begin{python}
     class Process:
     def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
+        self.pid = pid  
+        self.arrival_time = arrival_time  
+        self.burst_time = burst_time  
+        self.completion_time = 0  
+        self.turnaround_time = 0  # Turnaround time (completion - arrival)
+        self.waiting_time = 0  # Waiting time (turnaround - burst)
+
+    def calculate_times(self):
+        self.turnaround_time = self.completion_time - self.arrival_time
+        self.waiting_time = self.turnaround_time - self.burst_time
+
+# First Come First Served (FCFS)
+def fcfs_scheduling(processes):
+    current_time = 0
+    for process in sorted(processes, key=lambda p: p.arrival_time):
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time  
+        process.completion_time = current_time + process.burst_time
+        process.calculate_times()
+        current_time = process.completion_time
+
+# Shortest Job Next (SJN)
+def sjn_scheduling(processes):
+    current_time = 0
+    remaining_processes = sorted(processes, key=lambda p: (p.arrival_time, p.burst_time))
+
+    while remaining_processes:
+        # Mengambil proses dengan burst time terpendek
+        available_processes = [p for p in remaining_processes if p.arrival_time <= current_time]
+        if available_processes:
+            next_process = min(available_processes, key=lambda p: p.burst_time)
+        else:
+            # jika tidak ada proses yang tiba, majukan ke arrival berikutnya
+            next_process = remaining_processes[0]
+            current_time = next_process.arrival_time
+
+        current_time += next_process.burst_time
+        next_process.completion_time = current_time
+        next_process.calculate_times()
+        remaining_processes.remove(next_process)
+
+# Round Robin (RR) 
+def rr_scheduling(processes, quantum):
+    current_time = 0
+    queue = sorted(processes, key=lambda p: p.arrival_time)
+    time_queue = []
+
+    while queue or time_queue:
+        # tambahkan proses yang telah sampai di antrian
+        while queue and queue[0].arrival_time <= current_time:
+            time_queue.append(queue.pop(0))
+        
+        if time_queue:
+            process = time_queue.pop(0)
+            
+            if process.burst_time > quantum:
+                process.burst_time -= quantum
+                current_time += quantum
+                # mengembalikan proses ke antrian jika belum selesai
+                time_queue.extend([p for p in queue if p.arrival_time <= current_time])
+                time_queue.append(process)
+            else:
+                current_time += process.burst_time
+                process.completion_time = current_time
+                process.calculate_times()
+        else:
+            current_time = queue[0].arrival_time  # Maju ke arrival time selanjutnya jika antrian kosong
+
+# Fungsi untuk mengatur ulang completion, turnaround, dan waiting times untuk proses
+def reset_processes(processes):
+    for process in processes:
+        process.completion_time = 0
+        process.turnaround_time = 0
+        process.waiting_time = 0
+
+# Contoh penggunaan:
+processes = [
+    Process(1, 0, 5),
+    Process(2, 1, 3),
+    Process(3, 2, 8),
+    Process(4, 3, 6)
+]
+
+# FCFS
+fcfs_scheduling(processes)
+print("\n--- FCFS Scheduling ---")
+print("PID\tArrival\tBurst\tCompletion\tTurnaround\tWaiting")
+for process in processes:
+    print(f"{process.pid}\t{process.arrival_time}\t{process.burst_time}\t"
+          f"{process.completion_time}\t{process.turnaround_time}\t\t{process.waiting_time}")
+
+# Mengatur ulang proses untuk algoritma selanjutnya
+reset_processes(processes)
+
+# SJN
+sjn_scheduling(processes)
+print("\n--- SJN Scheduling ---")
+print("PID\tArrival\tBurst\tCompletion\tTurnaround\tWaiting")
+for process in processes:
+    print(f"{process.pid}\t{process.arrival_time}\t{process.burst_time}\t"
+          f"{process.completion_time}\t{process.turnaround_time}\t\t{process.waiting_time}")
+
+# Mengatur ulang proses untuk algoritma selanjutnya
+reset_processes(processes)
+
+# Round Robin Scheduling dengan Quantum = 2
+quantum = 2
+rr_scheduling(processes, quantum)
+print("\n--- Round Robin Scheduling (Quantum = 2) ---")
+print("PID\tArrival\tBurst\tCompletion\tTurnaround\tWaiting")
+for process in processes:
+    print(f"{process.pid}\t{process.arrival_time}\t{process.burst_time}\t"
+          f"{process.completion_time}\t{process.turnaround_time}\t\t{process.waiting_time}")
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
+\begin{table}[h!]
     \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
+    \textbf{Algoritma} & \textbf{PID} & \textit{\textbf{Arrival Time}} & \textit{\textbf{Burst Time}} & \textit{\textbf{Completion Time}} & \textit{\textbf{Turnaround Time}} & \textit{\textbf{Waiting Time}} \\ \hline
+    \textbf{FCFS}      & 1            & 0                    & 5                   & 5                        & 5                        & 0                     \\ \hline
+                       & 2            & 1                    & 3                   & 8                        & 7                        & 4                     \\ \hline
+                       & 3            & 2                    & 8                   & 16                       & 14                       & 6                     \\ \hline
+                       & 4            & 3                    & 6                   & 22                       & 19                       & 13                    \\ \hline
+    \textbf{SJN}       & 1            & 0                    & 5                   & 9                        & 9                        & 4                     \\ \hline
+                       & 2            & 1                    & 3                   & 4                        & 3                        & 0                     \\ \hline
+                       & 3            & 2                    & 8                   & 23                       & 21                       & 13                    \\ \hline
+                       & 4            & 3                    & 6                   & 15                       & 12                       & 6                     \\ \hline
+    \textbf{RR}        & 1            & 0                    & 5                   & 9                        & 9                        & 4                     \\ \hline
+                       & 2            & 1                    & 3                   & 6                        & 5                        & 2                     \\ \hline
+                       & 3            & 2                    & 8                   & 22                       & 20                       & 12                    \\ \hline
+                       & 4            & 3                    & 6                   & 18                       & 15                       & 9                     \\ \hline
+    \end{tabular}%
+    }
+    \caption{Perbandingan FCFS, SJN, dan RR}
+    \end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
@@ -186,5 +327,13 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{9}
+    \bibitem{Shotts2019} 
+                Shotts, W. (2019). \textit{The Linux command line: A complete introduction} (2nd ed.). No Starch Press.
+    
+    \bibitem{Greenberg2017} 
+                Greenberg, J., Mates, P., \& Nam, Y. J. (2017). Robust command line interfaces: Enhancing usability while maintaining power. \textit{Journal of Systems and Software}, 133, 176-189. https://doi.org/10.1016/j.jss.2017.07.011
+\end{thebibliography}
 
 \end{document}

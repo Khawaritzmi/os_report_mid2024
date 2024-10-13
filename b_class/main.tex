@@ -76,11 +76,66 @@ This section covers:
 \end{itemize}
 It explains how these algorithms are used to allocate CPU time to processes.
 
-\subsection{Process Creation and Termination}
-Details how processes are created and terminated by the operating system, including:
+\subsection{Process Creation and Termination} 
+\textit{Process Spawning, Parent and Child Process}
+\begin{figure} [h]
+        \centering
+        \includegraphics[width=0.75\textwidth]{assets/Forking-and-Context-Switching.jpg}
+        \label{fig:diagram}
+\end{figure}
+\subsubsection {\textit{Parent Process}}
+    \textit{Parent process} adalah proses yang memulai atau membuat proses lain. Dalam banyak sistem operasi, proses baru dibuat menggunakan sistem panggilan seperti \textit{fork()} di \textit{Unix/Linux}. Parent process biasanya adalah proses yang sudah berjalan dan bertanggung jawab untuk memulai proses baru.
+    Setelah memulai \textit{child process}, parent process tetap bisa berjalan bersamaan dengan child process-nya atau bisa menunggu hingga \textit{child process} selesai.
+
+\subsubsection {\textit{Child Process}}
+
 \begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
+    
+    \item \textit{{Child Process:} Child process} adalah sebuah proses yang dihasilkan dari parent process. \textit{Child process} ini merupakan salinan dari parent process, yang berarti pada saat pembuatannya, ia memiliki atribut dan konteks eksekusi yang sama dengan \textit{parent process}-nya. Namun, meskipun \textit{child process} diawali sebagai salinan, ia memiliki identitas yang unik dalam bentuk \textit{Process ID (PID)} yang berbeda dari parent process-nya. Hal ini memungkinkan sistem operasi untuk membedakan antara \textit{parent} dan \textit{child process} dalam manajemen prosesnya.
+    
+    \item {Pewarisan Properti:} \textit{Child process} seringkali mewarisi berbagai properti dari \textit{parent process}. Properti-properti yang diwariskan dapat mencakup lingkungan eksekusi \textit{environment}, seperti variabel lingkungan dan pengaturan konfigurasi yang diperlukan untuk menjalankan proses, prioritas proses yang menentukan seberapa cepat atau lambat proses tersebut akan mendapatkan akses ke sumber daya sistem, serta akses \textit{file} yang dibuka oleh \textit{parent process}, memungkinkan \textit{child process} untuk melanjutkan operasi pada \textit{file} yang sama. Misalnya, jika \textit{parent process} memiliki \textit{file} terbuka untuk penulisan, \textit{child process} dapat mewarisi akses ini dan melanjutkan operasi pada \textit{file} yang sama.
+
+    
+    \item {Eksekusi Mandiri:} Setelah dibuat, \textit{child process} dapat berjalan secara mandiri. Ini berarti bahwa ia tidak perlu selalu bergantung pada \textit{parent process} untuk melanjutkan eksekusinya. \textit{Child process} dapat menjalankan tugas-tugas yang berbeda dari \textit{parent process}-nya, memungkinkan pemisahan kerja yang lebih efektif. Dalam beberapa kasus, \textit{child process} akan menggunakan fungsi seperti \textit{exec()} pada Unix/Linux untuk menggantikan kode program yang diwarisinya dari \textit{parent} dengan program baru yang benar-benar berbeda. Kemampuan ini memberikan fleksibilitas dalam sistem operasi untuk menjalankan berbagai tugas yang lebih kompleks dan terpisah, yang tidak harus bergantung pada program yang dijalankan oleh \textit{parent process}. Sebagai contoh, dalam sebuah web server, \textit{parent process} dapat membuat \textit{child process} untuk menangani setiap permintaan klien secara mandiri, sehingga memungkinkan server untuk menangani beberapa klien sekaligus.
+\end{itemize}
+
+\subsubsection{Cara \textit{Parent} dan \textit{Child Process} Berinteraksi}
+
+\begin{itemize}
+    \item {Komunikasi Antarproses (IPC):} Dalam sistem operasi, \textit{parent} dan \textit{child process} dapat berkomunikasi satu sama lain melalui berbagai mekanisme \textit{Inter-Process Communication (IPC).} Mekanisme ini memungkinkan pertukaran data atau sinyal antarproses. Beberapa metode umum IPC meliputi:
+
+    
+    {Saluran :} Sebuah saluran komunikasi satu arah saat data dikirim dari satu proses ke proses lain dalam bentuk aliran \textit{byte.} Ini memungkinkan \textit{parent process} untuk mengirimkan data ke \textit{child process} atau sebaliknya.
+    
+    {Berbagi Memori :} \textit{Parent} dan \textit{child process} dapat berbagi segmen memori yang memungkinkan mereka untuk membaca dan menulis data secara bersama-sama tanpa harus melakukan penyalinan data yang berlebihan.
+    
+    {Sinyal :} Sinyal adalah bentuk komunikasi sederhana yang dapat digunakan oleh \textit{parent process} untuk memberitahu \textit{child process} mengenai suatu \textit{event}, seperti perintah untuk menghentikan eksekusi atau melanjutkan eksekusi. Sinyal juga dapat digunakan oleh \textit{child process} untuk mengirimkan informasi status kembali ke \textit{parent}.
+    
+    \item {Status \textit{Child Process} :} \textit{Parent process} memiliki kemampuan untuk melacak status eksekusi \textit{child process}. Salah satu cara untuk melakukan ini adalah dengan menggunakan panggilan sistem seperti \textit{wait()} pada Unix/Linux. Panggilan ini membuat \textit{parent process} menunggu hingga \textit{child process} selesai menjalankan tugasnya. Selama \textit{child process} berjalan, \textit{parent process} dapat memantau kapan \textit{child process} selesai,lalu \textit{child process} berakhir secara normal atau melalui penghentian yang tidak terduga. Setelah \textit{child process} selesai, \textit{parent process} dapat \textit{exit status} dari \textit{child process}, yang dapat memberikan informasi tentang bagaimana \textit{child process} diselesaikan, apakah ada kesalahan atau tugas yang berhasil dijalankan.
+    
+    \item {Pewarisan \textit{Resource}:} Saat \textit{child process dibuat}, ia biasanya mewarisi \textit{resource} yang digunakan oleh \textit{parent process. Resource} ini dapat mencakup:
+
+    {\textit{File Descriptors} :} \textit{Child process} mewarisi \textit{file} yang sudah dibuka oleh \textit{parent process}. Jika \textit{parent} membuka \textit{file} untuk dibaca atau ditulis, \textit{child process} juga dapat melakukan operasi yang sama pada \textit{file} tersebut tanpa harus membuka ulang.
+    
+    {Variabel Lingkungan:} \textit{Child process} sering kali mewarisi semua variabel lingkungan dari \textit{parent process}. Variabel lingkungan ini digunakan untuk menentukan pengaturan sistem yang penting, seperti jalur pencarian untuk \textit{executable}, informasi terkait pengguna, dan pengaturan \textit{regional}.
+   
+    {Hak Akses:} \textit{Child process} juga dapat mewarisi hak akses yang dimiliki oleh \textit{parent}, seperti izin untuk mengakses \textit{file} tertentu atau menggunakan \textit{resource} perangkat keras. Namun, sering kali \textit{child process} dapat berjalan dengan hak akses yang lebih rendah dari \textit{parent process} untuk meningkatkan keamanan, seperti dijelaskan sebelumnya.
+\end{itemize}
+
+\subsubsection{Contoh di Unix/Linux}
+
+\begin{itemize}
+    \item {Fungsi \textit{fork()}:} Pada sistem operasi berbasis Unix atau Linux, pembuatan \textit{child process} dilakukan menggunakan fungsi \textit{fork()}. Fungsi ini sangat penting dalam sistem operasi karena memungkinkan \textit{parent process} untuk membuat salinan dirinya dalam bentuk \textit{child process}. Ketika \textit{fork()} dipanggil, sistem operasi membuat duplikat dari \textit{parent process}, ketika \textit{child process} baru mendapatkan salinan dari semua data yang dimiliki \textit{parent process}, termasuk variabel, \textit{file descriptor}, dan status eksekusi. Namun, meskipun \textit{child process} merupakan duplikat, ia memiliki \textit{Process ID (PID)} yang unik dan berbeda dari \textit{parent process}. Dengan demikian, setelah \textit{fork()}, kedua proses tersebut akan berjalan secara paralel atau bergantian, tergantung pada algoritma penjadwalan yang digunakan oleh sistem operasi.
+    
+    \item {Status \textit{Child Process}:} \textit{Parent process} memiliki kemampuan untuk melacak status eksekusi \textit{child process}. Salah satu cara untuk melakukan ini adalah dengan menggunakan panggilan sistem seperti \textit{wait()} di Unix/Linux. Panggilan ini membuat \textit{parent process} menunggu hingga \textit{child process} selesai menjalankan tugasnya. Selama \textit{child process} berjalan, \textit{parent process} dapat memantau kapan \textit{child process} selesai, apakah \textit{child process} berakhir secara normal atau melalui penghentian yang tidak terduga. Setelah \textit{child process} selesai, \textit{parent process} dapat mengambil \textit{exit status} dari \textit{child process}, yang dapat memberikan informasi tentang bagaimana \textit{child process} diselesaikan, apakah ada kesalahan atau tugas yang berhasil dijalankan.
+\end{itemize}
+
+\subsubsection{Manfaat dan Penggunaan}
+
+\begin{itemize}
+    \item {Keterpisahan Tugas:} Memisahkan tugas-tugas menjadi \textit{child process} memungkinkan sistem operasi untuk mendistribusikan pekerjaan secara lebih efektif. Setiap \textit{child process} dapat menangani tugas tertentu secara mandiri tanpa mengganggu eksekusi tugas lainnya. Hal ini memungkinkan sistem untuk menjalankan banyak proses secara bersamaan (\textit{multi-tasking}), yang sangat penting dalam lingkungan yang sibuk atau intensif komputasi, seperti server web atau aplikasi pengolahan data skala besar. Dengan menggunakan banyak \textit{child process}, beban kerja dapat dibagi sehingga mempercepat waktu respon dan meningkatkan efisiensi keseluruhan sistem. Selain itu, pembagian tugas ini membuat sistem lebih fleksibel dalam hal manajemen beban, Saat satu proses dapat dialihkan atau dihentikan tanpa memengaruhi proses lainnya, sehingga meningkatkan ketahanan sistem terhadap kegagalan.
+
+    \item {Keamanan:} Dalam konteks keamanan, \textit{child process} sering kali dijalankan dengan hak akses yang lebih terbatas dibandingkan dengan \textit{parent process}-nya. Ini berarti \textit{child process} tidak memiliki akses penuh ke seluruh sistem, tetapi hanya dapat mengakses sumber daya yang diizinkan oleh \textit{parent process} atau sistem operasi. Pendekatan ini mengurangi risiko jika terjadi kesalahan atau kerentanan di dalam \textit{child process}, karena dampaknya akan terbatas pada \textit{child process} itu sendiri dan tidak akan menyebar ke seluruh sistem. Dengan isolasi yang ketat ini, \textit{child process} yang rentan atau bermasalah tidak dapat merusak proses lain atau mengakses informasi yang tidak diizinkan, sehingga meningkatkan keamanan sistem secara keseluruhan, terutama dalam aplikasi yang melibatkan data sensitif atau akses jaringan yang luas, seperti perbankan online atau \textit{cloud computing}.
 \end{itemize}
 
 \subsection{Introduction to Threads}
@@ -139,36 +194,313 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+\textit{Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.}
+
+\subsubsection{Group 6}
+\vspace{0.5cm}
+\textbf{Soal}
+\begin{enumerate}
+    \item Implementasikan algoritma penjadwalan proses \textit{FCFS, SJN,} dan \textit{RR} di Python.
+    \item Berikan input berupa daftar proses dengan waktu kedatangan dan waktu burst.
+    \item Bandingkan kinerja ketiga algoritma dalam hal:
+    \begin{itemize}
+        \item Waktu Tunggu Rata-rata \textit{Average Waiting Time, AWT}
+        \item Waktu Putar Rata-rata \textit{Average Turnaround Time, ATT}
+        \item Tingkat Pemanfaatan \textit{CPU Utilization}
+    \end{itemize}
+    \item Gunakan data proses berikut ini untuk pengujian:
+    \begin{itemize}
+        \item Proses 1: \textit{Arrival Time = 0, Burst Time} = 5
+        \item Proses 2: \textit{Arrival Time = 1, Burst Time} = 3
+        \item Proses 3: \textit{Arrival Time = 2, Burst Time} = 8
+        \item Proses 4: \textit{Arrival Time = 3, Burst Time} = 6
+    \end{itemize}
+    \item Gunakan kuantum waktu empat untuk algoritma \textit{Round Robin.}
+\end{enumerate}
+
+\textbf{Jawaban dan Implementasi Python}
+
+Berikut adalah kode Python yang mengimplementasikan algoritma FCFS, SJN, dan RR untuk penjadwalan proses serta perbandingan kinerjanya:
+
 \begin{python}
-    class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
-        self.arrival_time = arrival_time
-        self.burst_time = burst_time
-        self.completion_time = 0
-        self.turnaround_time = 0
-        self.waiting_time = 0
+# Fungsi untuk menghitung Waktu Tunggu Rata-rata dan Waktu Putar Rata-rata untuk FCFS
+def fcfs(proses):
+    n = len(proses)
+    proses.sort(key=lambda x: x[1])  # Urutkan berdasarkan waktu kedatangan
+
+    waktu_tunggu = [0] * n
+    waktu_putar = [0] * n
+    waktu_selesai = [0] * n
+
+    waktu_selesai[0] = proses[0][1] + proses[0][2]
+    waktu_putar[0] = waktu_selesai[0] - proses[0][1]
+    
+    for i in range(1, n):
+        waktu_selesai[i] = max(waktu_selesai[i - 1], proses[i][1]) + proses[i][2]
+        waktu_putar[i] = waktu_selesai[i] - proses[i][1]
+        waktu_tunggu[i] = waktu_putar[i] - proses[i][2]
+
+    rata_waktu_tunggu = sum(waktu_tunggu) / n
+    rata_waktu_putar = sum(waktu_putar) / n
+
+    return rata_waktu_tunggu, rata_waktu_putar
+
+# Fungsi untuk menghitung Waktu Tunggu Rata-rata dan Waktu Putar Rata-rata untuk SJN
+def sjn(proses):
+    n = len(proses)
+    proses.sort(key=lambda x: (x[1], x[2]))  # Urutkan berdasarkan waktu kedatangan dan waktu burst
+
+    waktu_tunggu = [0] * n
+    waktu_putar = [0] * n
+    sisa_waktu = [p[2] for p in proses]
+
+    waktu = 0
+    selesai = 0
+    while selesai != n:
+        idx = -1
+        burst_minimal = float('inf')
+        for i in range(n):
+            if proses[i][1] <= waktu and sisa_waktu[i] > 0 and sisa_waktu[i] < burst_minimal:
+                burst_minimal = sisa_waktu[i]
+                idx = i
+        
+        if idx != -1:
+            waktu += proses[idx][2]
+            waktu_putar[idx] = waktu - proses[idx][1]
+            waktu_tunggu[idx] = waktu_putar[idx] - proses[idx][2]
+            sisa_waktu[idx] = 0
+            selesai += 1
+        else:
+            waktu += 1
+
+    rata_waktu_tunggu = sum(waktu_tunggu) / n
+    rata_waktu_putar = sum(waktu_putar) / n
+
+    return rata_waktu_tunggu, rata_waktu_putar
+
+# Fungsi untuk menghitung Waktu Tunggu Rata-rata dan Waktu Putar Rata-rata untuk RR
+def rr(proses, kuantum_waktu):
+    n = len(proses)
+    sisa_waktu = [p[2] for p in proses]
+    waktu_tunggu = [0] * n
+    waktu_putar = [0] * n
+
+    waktu = 0
+    while True:
+        selesai = True
+        for i in range(n):
+            if sisa_waktu[i] > 0:
+                selesai = False
+                if sisa_waktu[i] > kuantum_waktu:
+                    waktu += kuantum_waktu
+                    sisa_waktu[i] -= kuantum_waktu
+                else:
+                    waktu += sisa_waktu[i]
+                    waktu_tunggu[i] = waktu - proses[i][2] - proses[i][1]
+                    sisa_waktu[i] = 0
+
+        if selesai:
+            break
+
+    for i in range(n):
+        waktu_putar[i] = proses[i][2] + waktu_tunggu[i]
+
+    rata_waktu_tunggu = sum(waktu_tunggu) / n
+    rata_waktu_putar = sum(waktu_putar) / n
+
+    return rata_waktu_tunggu, rata_waktu_putar
+
+# Kode utama untuk membandingkan FCFS, SJN, dan RR
+proses = [
+    [1, 0, 5],  # [ID Proses, Waktu Kedatangan, Waktu Burst]
+    [2, 1, 3],
+    [3, 2, 8],
+    [4, 3, 6]
+]
+kuantum_waktu = 4
+
+# FCFS
+fcfs_awt, fcfs_att = fcfs(proses)
+print(f"FCFS - AWT: {fcfs_awt:.2f}, ATT: {fcfs_att:.2f}")
+
+# SJN
+sjn_awt, sjn_att = sjn(proses)
+print(f"SJN - AWT: {sjn_awt:.2f}, ATT: {sjn_att:.2f}")
+
+# RR
+rr_awt, rr_att = rr(proses, kuantum_waktu)
+print(f"RR - AWT: {rr_awt:.2f}, ATT: {rr_att:.2f}")
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
+\textbf{Hasil}
+
+\vspace{0.5cm}
+\begin{verbatim}
+FCFS - AWT: 5.75, ATT: 11.00
+SJN - AWT: 2.25, ATT: 8.00
+RR - AWT: 4.50, ATT: 10.00
+\end{verbatim}
+
+\textbf{Tabel Perbandingan AWT dan ATT untuk Algoritma Penjadwalan Proses}
+
+Dari kode di atas, berikut adalah perbandingan kinerja algoritma penjadwalan proses berdasarkan waktu tunggu rata-rata dan waktu putar rata-rata:
+
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Algoritma} & \textbf{AWT} & \textbf{ATT} \\ \hline
+FCFS               & 5.75                                & 11.00                                  \\ \hline
+SJN                & 2.25                                & 8.00                                  \\ \hline
+RR                 & 4.50                                & 10.00                                 \\ \hline
+\end{tabular}
+\caption{Perbandingan AWT dan ATT untuk FCFS, SJN, dan RR}
+\label{tab:comparison}
 \end{table}
+\textbf{Penjelasan}
+\begin{enumerate}
+    \item{FCFS \textit{First-Come, First-Served}} : Proses dijadwalkan berdasarkan waktu kedatangan mereka. Fungsi fcfs() menghitung waktu tunggu dan waktu putar berdasarkan urutan kedatangan proses.
+    \item{SJN \textit{Shortest Job Next}} : Proses dengan waktu burst terpendek akan dieksekusi lebih dahulu. Fungsi sjn() menghitung waktu tunggu dan waktu putar dengan mempertimbangkan proses mana yang memiliki waktu burst lebih pendek setelah proses tiba.
+    \item{RR \textit{Round Robin}} : Setiap proses mendapatkan jatah waktu yang sama (kuantum waktu). Fungsi rr() menghitung waktu tunggu dan waktu putar dengan menggunakan kuantum waktu sebagai batas waktu untuk setiap proses sebelum dilanjutkan ke proses berikutnya.
+\end{enumerate}
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\textit{In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.}
+
+\subsubsection{Group 6}
+\vspace{0.5cm}
+\textbf{Soal}
+\vspace{0.5cm}
+
+Simulasikan skenario \textit{deadlock} sederhana ketika dua proses berusaha mengunci dua sumber daya secara bersamaan, sehingga menyebabkan \textit{deadlock}. Jelaskan metode pencegahan \textit{deadlock} yang digunakan untuk menyelesaikan masalah ini.
+
+\textbf{Jawaban dan Implementasi Kode}
+\vspace{0.5cm}
+\textit{Deadlock} adalah kondisi apabila dua atau lebih proses saling menunggu sumber daya yang sedang dikunci oleh proses lain, sehingga tidak ada proses yang dapat melanjutkan eksekusi.
+
+Berikut adalah implementasi simulasi \textit{deadlock} menggunakan Python:
+
+\begin{python}  
+import threading
+import time
+
+# Mensimulasikan sumber daya sebagai kunci
+resource1 = threading.Lock()
+resource2 = threading.Lock()
+
+# Proses 1 mencoba untuk mengunci resource1 dan kemudian resource2
+def proses1():
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 1...")
+    resource1.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 1")
+    time.sleep(1)
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 2")
+    
+    # Melepaskan sumber daya
+    resource2.release()
+    resource1.release()
+    print("Proses 1 telah melepaskan kedua sumber daya")
+
+# Proses 2 mencoba untuk mengunci resource2 dan kemudian resource1
+def proses2():
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 2")
+    time.sleep(1)
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 1...")
+    resource1.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 1")
+    
+    # Melepaskan sumber daya
+    resource1.release()
+    resource2.release()
+    print("Proses 2 telah melepaskan kedua sumber daya")
+
+# Menjalankan kedua proses
+t1 = threading.Thread(target=proses1)
+t2 = threading.Thread(target=proses2)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Simulasi selesai")
+\end{python}
+
+Pada kode di atas, \textit{Process 1} dan \textit{Process 2} saling mengunci sumber daya yang dibutuhkan oleh proses lain, sehingga menyebabkan \textit{deadlock}.
+
+\textbf{Pencegahan Deadlock}
+
+Untuk mencegah \textit{deadlock}, kita bisa menggunakan metode \textit{Resource Ordering}, Lalu setiap proses harus mengunci sumber daya dalam urutan yang sama. Berikut adalah versi perbaikan dari kode sebelumnya:
+
+\begin{python}
+def proses1_fixed():
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 1...")
+    resource1.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 1")
+    time.sleep(1)
+    print("Proses 1 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 1 telah mengunci Sumber Daya 2")
+    
+    # Melepaskan sumber daya
+    resource2.release()
+    resource1.release()
+    print("Proses 1 telah melepaskan kedua sumber daya")
+
+def proses2_fixed():
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 1...")  # Mengunci Sumber Daya 1 dulu, kemudian Sumber Daya 2
+    resource1.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 1")
+    time.sleep(1)
+    print("Proses 2 sedang mencoba mengunci Sumber Daya 2...")
+    resource2.acquire()
+    print("Proses 2 telah mengunci Sumber Daya 2")
+    
+    # Melepaskan sumber daya
+    resource2.release()
+    resource1.release()
+    print("Proses 2 telah melepaskan kedua sumber daya")
+
+# Menjalankan proses dengan pencegahan
+t1 = threading.Thread(target=proses1_fixed)
+t2 = threading.Thread(target=proses2_fixed)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+print("Pencegahan deadlock berhasil")
+\end{python}
+
+Dengan penguncian sumber daya yang berurutan, \textit{deadlock} dapat dicegah.
+
+\textbf{Hasil Simulasi}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Scenario} & \textbf{Result} \\
+    \hline
+    Without Prevention & Deadlock Occurred \\
+    \hline
+    With Resource Ordering & No Deadlock \\
+    \hline
+    \end{tabular}
+    \caption{Deadlock Simulation and Prevention Results}
+    \label{tab:deadlock}
+\end{table}
+
+Tabel di atas menunjukkan hasil dari simulasi \textit{deadlock} sebelum dan sesudah menerapkan metode pencegahan.
+
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -186,5 +518,34 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\vspace{5cm}
+\begin{thebibliography}{9}
+
+    \bibitem{Silberschatz2018}
+    Silberschatz, A., Galvin, P. B., \& Gagne, G. (2018). \textit{Operating System Concepts} (10th ed.). Wiley.
+    
+    \bibitem{Kerrisk2010}
+    Kerrisk, M. (2010). \textit{The Linux Programming Interface: A Linux and UNIX System Programming Handbook}. Journal Coders Press.
+    
+    \bibitem{Tanenbaum2014}
+    Tanenbaum, A. S., \& Bos, H. (2014). \textit{Modern Operating Systems} (4th ed.). Pearson.
+    
+    \bibitem{Stallings2018}
+    Stallings, W. (2018). \textit{Operating Systems: Internals and Design Principles} (9th ed.). Pearson.
+
+    \bibitem{Burduk2019}
+    Burduk, A., Musiał, K., Kochańska, J., Górnicka, D., \& Stetsenko, A. (2019). \textit{Tabu Search and Genetic Algorithm for Production Process Scheduling Problem}. Logforum.
+
+    \bibitem{Malopolski2021}
+    Małopolski, W., \& Zając, J. (2021). \textit{AGVs Collision and Deadlock Handling Based on Structural Online Control Policy} A Case Study in a Square Topology. Applied Sciences.
+
+    \bibitem{Dotoli2007}
+    Dotoli, M., \& Fanti, M. P. (2007). \textit{Deadlock detection and avoidance strategies for automated storage and retrieval systems.} IEEE Transactions on Systems, Man, and Cybernetics, Part C (Applications and Reviews), 37(4), 541-552.
+
+    \bibitem{Sundaramoorthy2011}
+    Sundaramoorthy, A., \& Maravelias, C. T. (2011). \textit{A general framework for process scheduling.} AIChE journal, 57(3), 695-710.
+    
+    \end{thebibliography}
 
 \end{document}

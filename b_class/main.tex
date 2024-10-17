@@ -60,12 +60,39 @@ This section introduces various system performance metrics used to measure the e
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
 \subsection{Process Description and Control}
-Processes are a central concept in operating systems. This section covers:
+\subsubsection{Definition of Process}
+Proses adalah program yang sedang dieksekusi, yang terdiri dari instruksi yang berjalan pada CPU, serta informasi yang diperlukan untuk menjalankan program tersebut. Setiap proses memiliki siklus hidup yang melibatkan berbagai keadaan (states) dan transisi antar keadaan tersebut.
+
+\subsubsection{Process states and state transitions}
+Keadaan proses merujuk pada status atau fase yang dilalui oleh suatu proses selama siklus hidupnya. Setiap proses dapat berada dalam salah satu dari beberapa keadaan yang berbeda, dan transisi antar keadaan ini diatur oleh sistem operasi untuk memastikan manajemen proses yang efisien. Berikut adalah beberapa keadaan utama yang biasanya diidentifikasi dalam sistem operasi:
+
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=0.6\textwidth]{asset/gambar_keadaan_proses.png}
+        \caption{gambar keadaan dalam proses}
+\end{figure}
+
 \begin{itemize}
-    \item Process states and state transitions
-    \item Process control block (PCB)
-    \item Context switching
+    \item \textbf{New (Baru)}: Proses baru saja dibuat. Pada keadaan ini, proses sedang dalam tahap inisialisasi, di mana sistem operasi mengalokasikan sumber daya yang diperlukan seperti memori dan ID proses.
+    \item \textbf{Ready (Siap)}: Proses telah siap untuk dieksekusi tetapi belum mendapatkan akses ke CPU. Proses ini menunggu dalam antrean ready hingga sistem operasi memilihnya untuk dieksekusi. Proses dalam keadaan ini dapat dipindahkan kembali ke antrean jika CPU sedang sibuk.
+    \item \textbf{Running (Berjalan)}: Proses sedang dieksekusi oleh CPU. Pada keadaan ini, instruksi proses sedang dijalankan. CPU memberikan waktu eksekusi untuk proses dalam keadaan ini.
+    \item \textbf{Waiting (Menunggu)}: Proses tidak dapat melanjutkan eksekusi hingga suatu event tertentu terjadi seperti menyelesaikan operasi I/O. Ketika menunggu, proses tidak dapat menggunakan CPU dan akan pindah ke antrean waiting.
+    \item \textbf{Terminated (Selesai)}: Proses telah selesai menjalankan semua instruksinya. Semua sumber daya yang dialokasikan untuk proses tersebut dibebaskan, dan sistem operasi memperbarui status proses menjadi terminated.
 \end{itemize}
+
+Transisi antara keadaan proses ini adalah bagian penting dari manajemen proses. Berikut adalah beberapa transisi umum:
+\begin{itemize}
+    \item \textbf{New → Ready}: Ketika proses berhasil dibuat dan siap untuk dijadwalkan.
+    \item \textbf{Ready → Running}: Ketika CPU memilih proses dari antrean ready untuk dieksekusi.
+    \item \textbf{Running → Waiting}: Ketika proses membutuhkan I/O atau menunggu event tertentu (misalnya menyelesaikan pembacaan dari disk).
+    \item \textbf{Running → Ready}: Ketika proses di-preempt karena waktu eksekusi habis atau ada proses dengan prioritas lebih tinggi yang memerlukan CPU.
+    \item \textbf{Waiting → Ready}: Ketika event yang ditunggu oleh proses selesai, proses tersebut kembali ke antrean ready.
+    \item \textbf{Running → Terminated}: Ketika proses selesai menjalankan semua instruksinya.
+\end{itemize}
+
+\subsubsection{Process Control Block (PCB)}
+\subsubsection{Context Switching}
+\subsubsection{Process Management By Operating Systems}
 
 \subsection{Scheduling Algorithms}
 This section covers:
@@ -92,7 +119,7 @@ This section introduces the concept of threads and their relation to processes, 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
+    \includegraphics[width=0.5\textwidth]{asset/example.png}  % Sesuaikan nama file dan ukurannya
     \caption{Ini adalah gambar contoh dari multithreading.}
     \label{fig:contoh_gambar}
 \end{figure}
@@ -166,16 +193,390 @@ Students were tasked with implementing various process scheduling algorithms (e.
     \caption{Your table caption} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
-
+ 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Contoh Kasus Deadlock}
+Misalkan terdapat tiga proses yang bersaing untuk mendapatkan tiga jenis sumber daya: A, B, dan C. Setiap jenis sumber daya memiliki 10 unit. Proses-proses tersebut adalah sebagai berikut:
+
+\begin{itemize}
+    \item P1 memiliki 3 unit A, 2 unit B, dan 2 unit C, serta membutuhkan tambahan 1 unit A, 1 unit B, dan 3 unit C.
+    \item P2 memiliki 2 unit A, 3 unit B, dan 3 unit C, serta membutuhkan tambahan 2 unit A, 1 unit B, dan 2 unit C.
+    \item P3 memiliki 1 unit A, 2 unit B, dan 2 unit C, serta membutuhkan tambahan 4 unit A, 2 unit B, dan 2 unit C.
+\end{itemize}
+
+
+Apakah sistem ini dalam kondisi deadlock? Jika iya, bagaimana cara menghindarinya menggunakan Algoritma Bankir? (Silberschatz, 2018) \cite{silberschatz2018operating}
+
+\subsubsection{Implementasi Algoritma Bankir}
+Berikut adalah contoh kode Python untuk mensimulasikan Algoritma Bankir:
+
+\begin{python}
+
+    # Algoritma Bankir dalam Python
+    
+    # Jumlah proses dan sumber daya
+    P = 3  # Jumlah proses
+    R = 3  # Jumlah jenis sumber daya (A, B, C)
+    
+    # Sumber daya yang tersedia
+    available = [3, 3, 2]  # A = 3, B = 3, C = 2 (Sumber daya yang tersedia)
+    
+    # Permintaan maksimum dari masing-masing proses
+    max_demand = [
+        [7, 5, 3],  # Permintaan maksimum P1 untuk A, B, C
+        [3, 2, 2],  # Permintaan maksimum P2
+        [9, 0, 2]   # Permintaan maksimum P3
+    ]
+    
+    # Sumber daya yang saat ini dialokasikan untuk masing-masing proses
+    allocated = [
+        [3, 2, 2],  # Sumber daya yang dialokasikan untuk P1
+        [2, 0, 0],  # Sumber daya yang dialokasikan untuk P2
+        [3, 0, 2]   # Sumber daya yang dialokasikan untuk P3
+    ]
+    
+    # Menghitung matriks kebutuhan (max_demand - allocated)
+    def calculate_need(max_demand, allocated):
+        need = []
+        for i in range(P):
+            need.append([max_demand[i][j] - allocated[i][j] for j in range(R)])
+        return need
+    
+    # Fungsi untuk memeriksa apakah sistem dalam kondisi aman
+    def is_safe(available, max_demand, allocated):
+        need = calculate_need(max_demand, allocated)
+        work = available[:]
+        finish = [False] * P
+        safe_sequence = []
+    
+        while len(safe_sequence) < P:
+            found_process = False
+            for i in range(P):
+                if not finish[i]:
+                    if all(need[i][j] <= work[j] for j in range(R)):
+                        # Jika proses dapat diselesaikan
+                        for j in range(R):
+                            work[j] += allocated[i][j]
+                        finish[i] = True
+                        safe_sequence.append(i)
+                        found_process = True
+    
+            if not found_process:
+                break
+    
+        if len(safe_sequence) == P:
+            print(f"Sistem berada dalam keadaan aman.\nUrutan aman: {safe_sequence}")
+            return True
+        else:
+            print("Sistem berada dalam kondisi deadlock.")
+            return False
+    
+    # Memeriksa apakah sistem dalam keadaan aman
+    is_safe(available, max_demand, allocated)
+\end{python}
+
+\subsubsection{Penjelasan Kode}
+\begin{itemize}
+    \item \textbf{available}: Jumlah sumber daya yang tersedia untuk masing-masing jenis (A, B, dan C).
+    \item \textbf{max\_demand}: Matriks yang menunjukkan permintaan maksimum sumber daya untuk setiap proses.
+    \item \textbf{allocated}: Matriks yang menunjukkan jumlah sumber daya yang telah dialokasikan untuk masing-masing proses.
+    \item \textbf{calculate\_need}: Fungsi untuk menghitung sumber daya yang masih dibutuhkan oleh setiap proses.
+    \item \textbf{is\_safe}: Fungsi utama yang menentukan apakah sistem berada dalam keadaan aman (safe state) atau dalam kondisi deadlock, menggunakan Algoritma Bankir.
+\end{itemize}
+
+Jika sistem berada dalam kondisi aman, program akan menampilkan pesan:
+\begin{verbatim}
+    Sistem berada dalam keadaan aman.
+    Urutan aman: [0, 2, 1]
+\end{verbatim}
+
+
+Jika sistem berada dalam kondisi deadlock, program akan menampilkan pesan:
+\begin{verbatim}
+    Sistem berada dalam kondisi deadlock.
+\end{verbatim}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
-Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+Tugas ini bertujuan untuk membuat Command-Line Interface (CLI) sederhana yang memfasilitasi manajemen antarmuka pengguna. CLI ini memungkinkan pengguna untuk melakukan operasi dasar terkait pengelolaan file dan proses, serta memantau status sistem melalui perintah yang mudah.
 
+\subsubsection{Tujuan Membuat CLI }
+
+Membuat CLI yang mampu menangani:
+
+\begin{itemize}
+    \item \textbf{Manipulasi file}: membuat, menampilkan, dan menghapus file.
+    \item \textbf{Manajemen proses}: menampilkan dan menghentikan proses berdasarkan PID (Process ID).
+    \item \textbf{Pelaporan status sistem}: menampilkan informasi memori dan ruang penyimpanan yang digunakan.
+\end{itemize}
+
+\subsubsection{Fitur CLI}
+
+CLI harus mampu menerima perintah pengguna untuk:
+
+\begin{itemize}
+    \item Membuat file baru.
+    \item Menampilkan daftar file dalam direktori saat ini.
+    \item Menghapus file yang ada.
+    \item Menampilkan daftar proses yang berjalan.
+    \item Menghentikan proses berdasarkan PID.
+    \item Menampilkan status memori dan ruang penyimpanan sistem.
+\end{itemize}
+
+\subsubsection{Penjelasan Fitur}
+
+\begin{enumerate}
+    \item \textbf{Manipulasi File}
+    \begin{itemize}
+        \item \textbf{Membuat File}: Membuat file teks sesuai keinginan pengguna.
+        \item \textbf{Menampilkan Daftar File}: Menampilkan semua file dalam direktori saat ini.
+        \item \textbf{Menghapus File}: Menghapus file berdasarkan nama yang diberikan.
+    \end{itemize}
+    \item \textbf{Manajemen Proses}
+    \begin{itemize}
+        \item \textbf{Menampilkan Daftar Proses}: Menampilkan semua proses berjalan, lengkap dengan PID dan nama proses.
+        \item \textbf{Menghentikan Proses}: Menghentikan proses berdasarkan PID yang diberikan.
+    \end{itemize}
+    \item \textbf{Pelaporan Status Sistem}
+    \begin{itemize}
+        \item \textbf{Status Memori}: Menampilkan penggunaan memori sistem.
+        \item \textbf{Ruang Penyimpanan}: Menampilkan status penggunaan ruang penyimpanan
+    \end{itemize}
+\end{enumerate}
+ 
+\subsubsection{\textbf{Contoh Soal}}
+
+\textbf{Soal:} Buatlah sebuah program Python yang berfungsi sebagai CLI sederhana untuk melakukan:
+
+\begin{enumerate}
+    \item Membuat file teks baru dengan nama dan isi yang diinginkan.
+    \item Menampilkan daftar file dalam direktori saat ini.
+    \item Menghapus file yang dipilih pengguna.
+    \item Menampilkan proses yang sedang berjalan di sistem.
+    \item Menghentikan proses berdasarkan \textbf{PID}.
+    \item Menampilkan informasi status sistem, seperti penggunaan memori dan ruang penyimpanan.
+\end{enumerate}
+
+ 
+\subsubsection{\textbf{Contoh Kode Python}}
+
+Berikut adalah implementasi Python untuk menjawab soal tersebut
+
+\begin{python}
+    
+    import os
+    import psutil  # Library untuk mengelola proses dan status sistem
+    
+    # Fungsi untuk membuat file
+    def create_file():
+        filename = input("Masukkan nama file: ")
+        content = input("Masukkan isi file: ")
+        with open(filename, "w") as file:
+            file.write(content)
+        print(f"File '{filename}' berhasil dibuat.")
+    
+    # Fungsi untuk menampilkan daftar file
+    def list_files():
+        files = os.listdir()
+        print("Daftar file di direktori saat ini:")
+        for file in files:
+            print(f"- {file}")
+    
+    # Fungsi untuk menghapus file
+    def delete_file():
+        filename = input("Masukkan nama file yang ingin dihapus: ")
+        if os.path.exists(filename):
+            os.remove(filename)
+            print(f"File '{filename}' berhasil dihapus.")
+        else:
+            print("File tidak ditemukan.")
+    
+    # Fungsi untuk menampilkan daftar proses
+    def list_processes():
+        print("Proses yang sedang berjalan:")
+        for proc in psutil.process_iter(['pid', 'name']):
+            print(f"PID: {proc.info['pid']}, Nama: {proc.info['name']}")
+    
+    # Fungsi untuk menghentikan proses berdasarkan PID
+    def kill_process():
+        pid = int(input("Masukkan PID proses yang ingin dihentikan: "))
+        try:
+            p = psutil.Process(pid)
+            p.terminate()
+            print(f"Proses dengan PID {pid} berhasil dihentikan.")
+        except psutil.NoSuchProcess:
+            print("Proses tidak ditemukan.")
+    
+    # Fungsi untuk menampilkan status sistem
+    def system_status():
+        memory = psutil.virtual_memory()
+        storage = psutil.disk_usage('/')
+        print(f"Status Memori: {memory.percent}% digunakan")
+        print(f"Ruang Penyimpanan: {storage.percent}% digunakan")
+    
+    # Fungsi utama CLI
+    def cli():
+        while True:
+            print("\n=== CLI Sederhana ===")
+            print("1. Buat file")
+            print("2. Tampilkan daftar file")
+            print("3. Hapus file")
+            print("4. Tampilkan daftar proses")
+            print("5. Hentikan proses")
+            print("6. Tampilkan status sistem")
+            print("7. Keluar")
+            choice = input("Pilih opsi (1-7): ")
+    
+            if choice == '1':
+                create_file()
+            elif choice == '2':
+                list_files()
+            elif choice == '3':
+                delete_file()
+            elif choice == '4':
+                list_processes()
+            elif choice == '5':
+                kill_process()
+            elif choice == '6':
+                system_status()
+            elif choice == '7':
+                print("Keluar dari CLI.")
+                break
+            else:
+                print("Pilihan tidak valid, silakan coba lagi.")
+    
+    # Memulai CLI
+    cli()
+\end{python}
+
+
+\subsubsection{\textbf{Penjelasan Kode}}
+
+\begin{itemize}
+    \item \textbf{create\_file}: Fungsi ini membuat file baru berdasarkan nama dan isi yang dimasukkan oleh pengguna.
+    \item \textbf{list\_files}: Menampilkan semua file di direktori saat ini.
+    \item \textbf{delete\_file}: Menghapus file yang dipilih pengguna.
+    \item \textbf{list\_processes}: Menampilkan daftar proses yang berjalan di sistem.
+    \item \textbf{kill\_process}: Menghentikan proses yang dipilih berdasarkan \textbf{PID}.
+    \item \textbf{system\_status}: Menampilkan informasi penggunaan memori dan ruang penyimpanan sistem.
+\end{itemize}
+
+ 
+\subsubsection{\textbf{Output Program CLI Sederhana}}
+
+Berikut adalah contoh output dari program CLI sederhana:
+
+\begin{enumerate}
+    \item \textbf{Membuat File}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 1
+    Masukkan nama file: contoh.txt
+    Masukkan isi file: Ini adalah contoh isi file.
+    File 'contoh.txt' berhasil dibuat.
+    \end{verbatim}
+
+    \item \textbf{Menampilkan Daftar File}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 2
+    Daftar file di direktori saat ini:
+    - contoh.txt
+    \end{verbatim}
+
+    \item \textbf{Menghapus File}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 3
+    Masukkan nama file yang ingin dihapus: contoh.txt
+    File 'contoh.txt' berhasil dihapus.
+    \end{verbatim}
+
+    \item \textbf{Menampilkan Daftar Proses}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 4
+    Proses yang sedang berjalan:
+    PID: 1234, Nama: python
+    PID: 5678, Nama: bash
+    \end{verbatim}
+
+    \item \textbf{Menghentikan Proses}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 5
+    Masukkan PID proses yang ingin dihentikan: 1234
+    Proses dengan PID 1234 berhasil dihentikan.
+    \end{verbatim}
+
+    \item \textbf{Menampilkan Status Sistem}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 6
+    Status Memori: 45.0% digunakan
+    Ruang Penyimpanan: 60.0% digunakan
+    \end{verbatim}
+
+    \item \textbf{Keluar dari CLI}
+    \begin{verbatim}
+    === CLI Sederhana ===
+    1. Buat file
+    2. Tampilkan daftar file
+    3. Hapus file
+    4. Tampilkan daftar proses
+    5. Hentikan proses
+    6. Tampilkan status sistem
+    7. Keluar
+    Pilih opsi (1-7): 7
+    Keluar dari CLI.
+    \end{verbatim}
+\end{enumerate}
+
+ 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}
@@ -186,5 +587,24 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+%\section*{Daftar Pustaka}
+
+\begin{thebibliography}{}
+
+\bibitem{}
+GeeksforGeeks. (n.d.). \textit{Process states in operating system}. Diakses pada 30 September 2024, dari \url{https://www.geeksforgeeks.org/process-states-in-operating-system/}
+
+\bibitem{}
+Tutorialspoint. (n.d.). \textit{Operating system - Process control block}. Diakses pada 30 September 2024, dari \url{https://www.tutorialspoint.com/operating_system/os_process_control_block.htm}
+
+\bibitem{}
+Wikipedia contributors. (n.d.). Context switch. Dalam \textit{Wikipedia, The Free Encyclopedia}. Diakses pada 30 September 2024, dari \url{https://en.wikipedia.org/wiki/Context_switch}
+
+\bibitem{silberschatz2018operating}
+Silberschatz, A., Galvin, P. B., \& Gagne, G. (2018). \textit{Operating System Concepts} (10th ed.). Wiley. Diakses pada 30 September 2024, dari \url{https://www.wiley.com/en-us/Operating+System+Concepts%2C+10th+Edition-p-9781119471158}
+
+\end{thebibliography}
+
 
 \end{document}

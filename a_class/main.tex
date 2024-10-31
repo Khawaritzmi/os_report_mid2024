@@ -407,12 +407,60 @@ File systems provide a way for the operating system to store, retrieve, and mana
     \item Directory management
 \end{itemize}
 
+\setlength{\parindent}{0pt}
+
 \subsection{Input and Output Management}
-Input and output management is key for handling the interaction between the system and external devices. This section includes:
-\begin{itemize}
-    \item Device drivers
-    \item I/O scheduling
-\end{itemize}
+
+\setcounter{subsubsection}{3}
+\subsubsection{Pengaksesan Input/Output}
+
+\begin{enumerate}
+    \item \textbf{Memory Mapped I/O} \\
+    Piranti I/O dihubungkan sebagai lokasi memori virtual dimana port I/O tergantung memori utama. \\ 
+    Karakteristik:
+    \begin{itemize}
+        \item Port I/O dihubungkan ke \textit{bus alamat}.
+        \item Piranti input sebagai bagian memori yang memberikan data ke \textit{bus data}. Piranti output sebagai bagian memori yang memiliki data yang tersimpan di dalamnya.
+        \item Port I/O menempati lokasi tertentu pada ruang alamat dan diakses seolah-olah adalah lokasi memori.
+    \end{itemize}
+    
+    \item \textbf{I/O Mapped I/O (I/O Isolated)} \\
+    Piranti I/O dihubungkan sebagai lokasi terpisah dengan lokasi memori, dimana port I/O tidak tergantung pada memori utama. \\
+    Karakteristik:
+    \begin{itemize}
+        \item Port I/O tidak tergantung memori utama.
+        \item Transfer informasi dilakukan di bawah kendali sinyal kontrol yang menggunakan instruksi \textit{INPUT} dan \textit{OUTPUT}.
+        \item Operasi I/O tergantung sinyal kendali dari CPU.
+        \item Instruksi I/O mengaktifkan baris kendali \textit{read/write} pada port I/O, sedangkan instruksi memori akan mengaktifkan baris kendali \textit{read/write} pada memori.
+        \item Ruang memori dan ruang alamat I/O menyatu, sehingga dapat memiliki alamat yang sama.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Skema Komputer}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{/asset/skema_komputer.png}
+    \caption{Diagram sistem komputer}
+\end{figure}
+
+Diagram ini menunjukkan alur data. Proses yang digambarkan dimulai dengan \textit{data input} yang masuk ke dalam sistem dan dikirim ke \textit{Central Processing Unit (CPU)}. Di dalam CPU, \textit{control unit} mengambil instruksi dari \textit{primary storage} (memori utama) dan mengarahkan data tersebut ke \textit{arithmetic logical unit (ALU)} untuk melakukan operasi aritmatika dan logika.\vspace{10pt}
+
+Setelah data diproses, hasilnya dapat disimpan sementara di \textit{primary storage} atau permanen di \textit{secondary storage}, kemudian hasil akhirnya dikeluarkan melalui \textit{data output} untuk digunakan oleh pengguna atau perangkat lain. Proses ini berlangsung berulang-ulang dalam berbagai operasi komputasi.
+
+\subsubsection{Model Mesin Komputer}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{/asset/model_mesin.png}
+    \caption{Diagram model mesin komputer}
+\end{figure}
+
+Diagram ini menggambarkan interaksi antara CPU, memori utama, dan saluran \textit{input/output (I/O)} dalam sistem komputer. CPU terdiri dari beberapa komponen utama seperti \textit{Program Status Register (PSR)}, \textit{Control Unit}, \textit{Arithmetic & Logical Unit (ALU)}, dan \textit{Register}.\vspace{10pt}
+
+\textit{Control Unit} mengatur jalannya instruksi dan aliran data, sementara \textit{ALU} menangani operasi aritmatika dan logika. Data dan instruksi dari memori utama diterjemahkan oleh \textit{Address Translation Unit}, yang mengubah alamat logis menjadi alamat fisik. \textit{Main storage} (memori utama) berisi \textit{Storage Address Register (SAR)} dan \textit{Storage Data Register (SDR)} untuk menyimpan alamat dan data yang sedang diakses, serta memiliki \textit{Protection Key Storage} untuk mengatur akses terhadap data dengan kunci proteksi.\vspace{10pt}
+
+Saluran \textit{I/O (I/O Channel)} mengelola komunikasi data antara perangkat \textit{input/output} dan memori, dengan bantuan \textit{Control Unit (CU)} yang terhubung ke perangkat eksternal. CPU dapat menerima interupsi dari perangkat I/O, timer interval, atau proteksi penyimpanan untuk memprioritaskan atau menunda proses tertentu.
 
 \subsection{Deadlock Introduction and Prevention}
 Explores the concept of deadlocks and methods for preventing them:
@@ -614,7 +662,151 @@ Dari hasil \textit{output} tersebut, kita bisa menyimpulkan bahwa:
 \end{itemize}
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+	In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Group 9}
+
+Tugas ini berfokus pada simulasi skenario \textit{deadlock} potensial serta penerapan strategi pencegahan \textit{deadlock}. Dua proses, Proses 1 dan Proses 2, masing-masing memerlukan dua sumber daya: Sumber Daya A dan Sumber Daya B.
+
+\subsection*{Simulasi Deadlock}
+
+Dalam simulasi \textit{deadlock}, Proses 1 mengunci Sumber Daya A terlebih dahulu dan menunggu Sumber Daya B, sementara Proses 2 mengunci Sumber Daya B dan menunggu Sumber Daya A. Hal ini menciptakan kondisi \textit{Circular Wait Condition}, yang berujung pada \textit{deadlock}.
+
+\subsection*{Pencegahan Deadlock}
+
+Untuk mencegah \textit{deadlock}, maka diterapkan urutan alokasi sumber daya yang konsisten. Kedua proses harus mengunci Sumber Daya A terlebih dahulu, diikuti oleh Sumber Daya B. Dengan demikian, tunggu-melilit dapat dicegah, dan \textit{deadlock} tidak terjadi.
+\vspace{10pt}
+
+	\lstset{ 
+		language=Python,
+		backgroundcolor=\color{white}, 
+		commentstyle=\color{gray}, 
+		keywordstyle=\color{blue},
+		basicstyle=\ttfamily\footnotesize, 
+		breaklines=true,  
+		frame=single, 
+		showstringspaces=false, 
+	}
+
+\begin{lstlisting}
+import threading
+import time
+
+# Create two locks to represent Resource A and Resource B
+resource_a = threading.Lock()
+resource_b = threading.Lock()
+
+# Function for Process 1
+def process_1():
+    print("Process 1: Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 1: Acquired Resource A.")
+    
+    time.sleep(1)  # Simulating work with Resource A
+    
+    print("Process 1: Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 1: Acquired Resource B.")
+    
+    # Release resources after processing
+    resource_b.release()
+    resource_a.release()
+    
+    print("Process 1: Released both resources.")
+
+# Function for Process 2
+def process_2():
+    print("Process 2: Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 2: Acquired Resource B.")
+    
+    time.sleep(1)  # Simulating work with Resource B
+    
+    print("Process 2: Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 2: Acquired Resource A.")
+    
+    # Release resources after processing
+    resource_a.release()
+    resource_b.release()
+    
+    print("Process 2: Released both resources.")
+
+# Simulating Deadlock
+print("Starting simulation of potential deadlock...")
+
+# Create two threads for Process 1 and Process 2
+t1 = threading.Thread(target=process_1)
+t2 = threading.Thread(target=process_2)
+
+# Start the threads
+t1.start()
+t2.start()
+
+# Join threads back to the main thread to finish execution
+t1.join()
+t2.join()
+
+print("Simulation of potential deadlock complete.\n")
+
+# Deadlock Prevention using a consistent resource allocation order
+print("Starting deadlock prevention simulation...")
+
+def process_1_prevent_deadlock():
+    print("Process 1 (Prevent): Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 1 (Prevent): Acquired Resource A.")
+    
+    time.sleep(1)  # Simulating work with Resource A
+    
+    print("Process 1 (Prevent): Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 1 (Prevent): Acquired Resource B.")
+    
+    # Release resources after processing
+    resource_b.release()
+    resource_a.release()
+    
+    print("Process 1 (Prevent): Released both resources.")
+
+def process_2_prevent_deadlock():
+    print("Process 2 (Prevent): Requesting Resource A...")
+    resource_a.acquire()
+    print("Process 2 (Prevent): Acquired Resource A.")
+    
+    time.sleep(1)  # Simulating work with Resource A
+    
+    print("Process 2 (Prevent): Requesting Resource B...")
+    resource_b.acquire()
+    print("Process 2 (Prevent): Acquired Resource B.")
+    
+    # Release resources after processing
+    resource_b.release()
+    resource_a.release()
+    
+    print("Process 2 (Prevent): Released both resources.")
+
+# Using consistent resource allocation order (A -> B) to prevent deadlock
+t1_prevent = threading.Thread(target=process_1_prevent_deadlock)
+t2_prevent = threading.Thread(target=process_2_prevent_deadlock)
+
+# Start the threads
+t1_prevent.start()
+t2_prevent.start()
+
+# Join threads back to the main thread to finish execution
+t1_prevent.join()
+t2_prevent.join()
+
+print("Deadlock prevention simulation complete.")
+\end{lstlisting}
+
+\subsection*{Penjelasan}
+\begin{itemize}
+    \item \textbf{Simulasi Deadlock}: Pada bagian ini, kita mensimulasikan \textit{deadlock} di mana Proses 1 mengunci Sumber Daya A dan menunggu Sumber Daya B, sementara Proses 2 mengunci Sumber Daya B dan menunggu Sumber Daya A. Hal ini menyebabkan kondisi circular wait (\textit{deadlock}).
+    \item \textbf{Pencegahan Deadlock}: Pada bagian kedua, kita menggunakan urutan alokasi sumber daya yang konsisten, di mana kedua proses meminta Sumber Daya A terlebih dahulu dan kemudian Sumber Daya B. Ini mencegah \textit{deadlock} karena tidak ada tunggu-melilit yang dapat terjadi.
+
+\end{itemize}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

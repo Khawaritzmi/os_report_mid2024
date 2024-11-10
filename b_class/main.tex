@@ -51,7 +51,26 @@ The course is divided into two halves. This report focuses on the first half, wh
 \section{Topics Covered}
 
 \subsection{Basic Concepts and Components of Computer Systems}
-This section explains the fundamental components that make up a computer system, including the CPU, memory, storage, and input/output devices.
+\subsubsection{Definisi dan Konsep Dasar Sistem Komputer}
+\subsubsection{Komponen-Komponen Sistem Komputer}
+\subsubsection{Fungsi Utama Sistem Komputer}
+\par
+Sistem komputer terdiri dari beberapa komponen dasar yang berfungsi bersama untuk mengolah data dan menjalankan instruksi. Fungsi utama dari sistem komputer dapat dikelompokkan menjadi empat kategori utama:
+\begin{itemize}
+    \item Central Processing Unit (CPU):
+    \par
+    CPU adalah otak dari komputer yang menjalankan instruksi dari perangkat lunak (software). CPU terdiri dari dua komponen utama:
+    \begin{itemize}
+        \item 	Arithmetic Logic Unit (ALU): Menyelesaikan operasi aritmetika dan logika.
+        \item 	Control Unit (CU): Mengontrol aliran data dan instruksi antara berbagai komponen komputer.
+    \end{itemize}
+    \item Memory(Primary Storage):
+    \par Memori, sering disebut sebagai RAM(Random Access Memory), menyimpan data sementara yang sedang digunakan oleh CPU. Memori bersifat volatil, artinya data akan hilang saat daya dimatikan.
+    \item Storage(Secondary Storage):
+    \par Penyimpanan sekunder menyediakan ruang untuk menyimpan data secara permanen, meskipun komputer dimatikan. Contoh perangkat penyimpanan termasuk hard drive (HDD), solid-state drive (SSD), dan optical drive.
+    \item Input/Output Devices(I/O Devices):
+    \par Perangkat input memungkinkan pengguna memasukkan data ke dalam sistem komputer (misalnya, keyboard, mouse, scanner). Sementara itu, perangkat output menampilkan hasil pengolahan komputer (misalnya, monitor, printer).
+    \par Sistem komputer ini bekerja sama untuk memproses data dan menghasilkan informasi yang bermanfaat bagi pengguna.
 
 \subsection{System Performance and Metrics}
 This section introduces various system performance metrics used to measure the efficiency of a computer system, including throughput, response time, and utilization.
@@ -142,7 +161,7 @@ Virtualization allows multiple operating systems to run concurrently on a single
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
 \subsubsection{Group 1}
 \begin{python}
-    class Process:
+class Process:
     def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
@@ -168,7 +187,73 @@ Students were tasked with implementing various process scheduling algorithms (e.
 \end{table}
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods. Below is a simple Python simulation demonstrating a deadlock situation:
+
+\begin{python}
+import threading
+import time
+
+resource_a = threading.Lock()
+resource_b = threading.Lock()
+
+def process_1():
+    print("Process 1: Acquiring Resource A")
+    with resource_a:
+        time.sleep(1)  
+        print("Process 1: Acquiring Resource B")
+        with resource_b:
+            print("Process 1: Working with both resources")
+
+def process_2():
+    print("Process 2: Acquiring Resource B")
+    with resource_b:
+        time.sleep(1)  
+        print("Process 2: Acquiring Resource A")
+        with resource_a:
+            print("Process 2: Working with both resources")
+
+
+t1 = threading.Thread(target=process_1)
+t2 = threading.Thread(target=process_2)
+
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+\end{python}
+
+To prevent deadlocks, we can ensure a consistent order of resource acquisition:
+
+\begin{python}
+def process_1():
+    print("Process 1: Acquiring Resource A")
+    with resource_a:
+        time.sleep(1)  
+        print("Process 1: Acquiring Resource B")
+        with resource_b:
+            print("Process 1: Working with both resources")
+
+def process_2():
+    print("Process 2: Acquiring Resource A")
+    with resource_a:
+        time.sleep(1) 
+        print("Process 2: Acquiring Resource B")
+        with resource_b:
+            print("Process 2: Working with both resources")
+
+
+t1 = threading.Thread(target=process_1)
+t2 = threading.Thread(target=process_2)
+
+t1.start()
+t2.start()
+
+
+t1.join()
+t2.join()
+\end{python}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.

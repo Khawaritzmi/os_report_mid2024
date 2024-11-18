@@ -115,7 +115,94 @@ Input and output management is key for handling the interaction between the syst
 \end{itemize}
 
 \subsection{Deadlock Introduction and Prevention}
-Explores the concept of deadlocks and methods for preventing them:
+Deadlock adalah kondisi dalam sistem komputasi di mana dua atau lebih proses tidak dapat melanjutkan eksekusi karena saling menunggu sumber daya yang sedang digunakan oleh proses lain. Deadlock terjadi ketika setiap proses dalam himpunan tersebut menunggu sumber daya yang dipegang oleh proses lain, sehingga menyebabkan lingkaran penantian yang tak berujung. Akibatnya, tidak ada proses yang dapat melanjutkan, dan sistem mengalami kebuntuan.
+
+Model deadlock dapat dijelaskan menggunakan diagram graf alokasi sumber daya (\textit{Resource Allocation Graph} - RAG). Pada RAG, terdapat dua jenis simpul:
+
+\begin{enumerate}
+    \item \textbf{Proses}: Digambarkan sebagai lingkaran.
+    \item \textbf{Sumber daya}: Digambarkan sebagai kotak atau persegi panjang.
+\end{enumerate}
+
+Setiap sumber daya mungkin memiliki beberapa unit yang dapat dialokasikan ke proses. Terdapat dua jenis busur (panah) dalam graf ini:
+
+\begin{itemize}
+    \item \textbf{Busur permintaan (request edge)}: Dari proses ke sumber daya, menunjukkan bahwa proses meminta sumber daya.
+    \item \textbf{Busur alokasi (assignment edge)}: Dari sumber daya ke proses, menunjukkan bahwa sumber daya telah dialokasikan ke proses tersebut.
+\end{itemize}
+
+Contoh sederhana deadlock: Misalkan ada dua proses, P1 dan P2, serta dua sumber daya, R1 dan R2. Proses P1 memegang sumber daya R1 dan meminta R2, sementara P2 memegang R2 dan meminta R1. Maka terbentuk lingkaran penantian sebagai berikut:
+
+\begin{enumerate}
+    \item P1 $\rightarrow$ (meminta) R2
+    \item P2 $\rightarrow$ (meminta) R1
+    \item R1 $\rightarrow$ (dialokasikan) P1
+    \item R2 $\rightarrow$ (dialokasikan) P2
+\end{enumerate}
+
+Karena kedua proses saling menunggu, sistem mengalami deadlock.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\linewidth]
+    {asset/deadlockRAG.drawio.png}
+    \label{fig:deadlock-RAG}
+\end{figure}
+
+Dalam diagram ini, P1 menunggu R2 dan P2 menunggu R1, sehingga keduanya tidak dapat melanjutkan eksekusi.
+
+\subsubsection{Deadlock: Konsep Dasar, Contoh, dan Deteksi}
+
+Deadlock adalah situasi di mana dua atau lebih proses mengalami kebuntuan karena saling menunggu sumber daya yang dipegang oleh proses lain. Deadlock sering terjadi pada sistem multiproses dan multithreading, di mana proses-proses berbagi sumber daya seperti memori, berkas, atau perangkat keras.
+
+Sumber daya yang terlibat dalam deadlock dapat berupa:
+
+\begin{itemize}
+    \item \textbf{Sumber daya fisik}: seperti pencetak (printer), port jaringan, CPU, atau memori.
+    \item \textbf{Sumber daya logis}: seperti berkas, mutex, semafor, atau basis data.
+\end{itemize}
+
+Sistem operasi modern menghadapi risiko deadlock terutama pada sistem yang mendukung multitasking.
+
+\subsubsection{Contoh Kasus Deadlock dalam Kehidupan Nyata}
+
+Beberapa analogi yang menjelaskan deadlock secara visual:
+
+\begin{itemize}
+    \item \textbf{Contoh Jalan Raya}: Dua mobil berhadapan di jalan sempit, masing-masing menunggu yang lain mundur. Keduanya saling menunggu dan tidak ada yang dapat bergerak. Ini adalah situasi deadlock.
+    \item \textbf{Contoh Restoran}: Seorang pelayan A memiliki kopi tetapi membutuhkan sendok dari pelayan B. Sementara itu, pelayan B memiliki sendok tetapi membutuhkan cangkir dari pelayan A. Keduanya tidak dapat menyelesaikan tugas karena saling menunggu.
+\end{itemize}
+
+\subsubsection{Deteksi Deadlock}
+
+Pendekatan utama dalam menangani deadlock adalah deteksi deadlock, di mana sistem secara aktif memeriksa apakah telah terjadi deadlock dan mengambil langkah-langkah untuk menyelesaikannya.
+
+Berikut beberapa metode untuk mendeteksi deadlock:
+
+\paragraph{a. Penggunaan Resource Allocation Graph (RAG)}
+
+RAG digunakan untuk memodelkan alokasi sumber daya ke proses. Jika ada siklus dalam graf ini, maka deadlock mungkin terjadi. Dalam RAG:
+
+\begin{itemize}
+    \item \textbf{Proses}: Digambarkan sebagai lingkaran.
+    \item \textbf{Sumber daya}: Digambarkan sebagai kotak atau persegi panjang.
+\end{itemize}
+
+Jika ada siklus dalam graf ini, deadlock telah terjadi.
+
+\paragraph{b. Algoritma Deteksi Deadlock pada Sumber Daya Tunggal}
+
+Pada sistem di mana setiap sumber daya hanya memiliki satu instansi, deteksi deadlock dilakukan dengan memeriksa apakah ada siklus dalam graf alokasi sumber daya. Jika siklus terdeteksi, maka deadlock terjadi.
+
+\paragraph{c. Algoritma Deteksi Deadlock pada Sumber Daya Multipel}
+
+Jika sebuah sistem memiliki beberapa instansi dari jenis sumber daya yang sama, maka algoritma seperti \textit{Banker's Algorithm} dapat digunakan. Algoritma ini menilai apakah sistem dapat memenuhi semua permintaan sumber daya tanpa memasuki kondisi deadlock.
+
+Dengan mengidentifikasi cara aman untuk mengalokasikan sumber daya, algoritma ini membantu mencegah terjadinya deadlock.
+
+\paragraph{Referensi}
+Ali A. \textit{151444239-Sistem-Operasi-Buku.pdf}. C.V.ANDI; 2005. p.212.
+Mengeksplorasi konsep deadlock dan metode untuk mencegahnya:
 \begin{itemize}
     \item Deadlock conditions
     \item Deadlock prevention techniques
@@ -140,9 +227,21 @@ Virtualization allows multiple operating systems to run concurrently on a single
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
 Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+\subsubsection{Kelompok 10}
+
+\begin{enumerate}
+    \item Soal 1
+
+Sebuah sistem memiliki tiga proses dengan waktu kedatangan (\textit{arrival time}) dan waktu eksekusi (\textit{burst time}) sebagai berikut:  
+\[P1: arrival\_time = 0, burst\_time = 8\]  
+\[P2: arrival\_time = 1, burst\_time = 4\]  
+\[P3: arrival\_time = 2, burst\_time = 9\]  
+
+Implementasikan algoritma penjadwalan \textit{First-Come, First-Served} (FCFS) dan hitung waktu penyelesaian (\textit{completion time}), waktu penyelesaian penuh (\textit{turnaround time}), dan waktu tunggu (\textit{waiting time}) untuk setiap proses.
+
+\textit{Jawaban:}
 \begin{python}
-    class Process:
+class Process:
     def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
@@ -150,25 +249,125 @@ Students were tasked with implementing various process scheduling algorithms (e.
         self.completion_time = 0
         self.turnaround_time = 0
         self.waiting_time = 0
+
+def fcfs_scheduling(processes):
+    current_time = 0
+    
+    # Mengurutkan proses berdasarkan waktu kedatangan
+    processes.sort(key=lambda x: x.arrival_time)
+    
+    for process in processes:
+        if current_time < process.arrival_time:
+            current_time = process.arrival_time  # Mengatur waktu jika tidak ada proses yang tiba
+        process.completion_time = current_time + process.burst_time
+        process.turnaround_time = process.completion_time - process.arrival_time
+        process.waiting_time = process.turnaround_time - process.burst_time
+        current_time = process.completion_time  # Memperbarui waktu saat ini
+
+    return processes
+
+# Data masalah
+processes = [
+    Process("P1", 0, 8),
+    Process("P2", 1, 4),
+    Process("P3", 2, 9)
+]
+
+# Penjadwalan FCFS
+scheduled_processes = fcfs_scheduling(processes)
+
+print("PID\tArrival\tBurst\tCompletion\tTurnaround\tWaiting")
+for process in scheduled_processes:
+    print(f"{process.pid}\t{process.arrival_time}\t{process.burst_time}\t{process.completion_time}\t{process.turnaround_time}\t{process.waiting_time}")
 \end{python}
 
-\begin{table}[htbp] % Optional: For floating position
-    \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
-    \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
-    \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
-    \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
-    \label{tab:your_label} % Optional: For cross-referencing the table
-\end{table}
+\textit{Penjelasan:}
+\begin{enumerate}
+    \item Membuat kelas \textit{Process} yang menyimpan informasi terkait \textit{pid} (ID proses), \textit{arrival\_time} (waktu kedatangan), \textit{burst\_time} (waktu eksekusi), \textit{completion\_time} (waktu penyelesaian), \textit{turnaround\_time} (waktu penyelesaian penuh), dan \textit{waiting\_time} (waktu tunggu).
+    \item Fungsi \textit{fcfs\_scheduling} menjalankan penjadwalan menggunakan algoritma FCFS. Langkah-langkahnya adalah:
+        \begin{enumerate}
+            \item Mengurutkan proses berdasarkan waktu kedatangan (\textit{arrival\_time}).
+            \item Memeriksa apakah waktu saat ini (\textit{current\_time}) kurang dari waktu kedatangan proses, dan memperbaruinya jika diperlukan.
+            \item Menghitung \textit{completion\_time}, \textit{turnaround\_time}, dan \textit{waiting\_time}.
+        \end{enumerate}
+    \item Memasukkan data proses sesuai soal, menjalankan algoritma FCFS, dan menampilkan hasil dalam bentuk tabel.
+\end{enumerate}
+\end{enumerate}
+
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+
+\subsubsection{Kelompok 10}
+\begin{enumerate}
+    \item Soal 1
+
+Sebuah sistem memiliki 5 proses (P1, P2, P3, P4, P5) dan 3 jenis sumber daya (R1, R2, R3). Jumlah setiap sumber daya adalah:  
+\[R1: 10 unit, R2: 5 unit, R3: 7 unit\]
+
+Setiap proses membutuhkan sejumlah unit dari setiap sumber daya untuk menjalankan tugasnya. Tugas Anda adalah mensimulasikan skenario deadlock dan mengimplementasikan Algoritma Bankir untuk mencegah deadlock dalam sistem ini.
+
+\textit{Jawaban:}
+\begin{python}
+import numpy as np
+
+# Fungsi untuk memeriksa apakah sistem berada dalam keadaan aman
+def is_safe(available, allocation, max_need):
+    n_processes = len(allocation)
+    n_resources = len(available)
+    
+    work = available.copy()
+    finish = [False] * n_processes
+    safe_sequence = []
+    
+    while len(safe_sequence) < n_processes:
+        found_process = False
+        for i in range(n_processes):
+            if not finish[i]:
+                # Memeriksa apakah proses bisa dilanjutkan
+                if all(max_need[i][j] - allocation[i][j] <= work[j] for j in range(n_resources)):
+                    work = [work[j] + allocation[i][j] for j in range(n_resources)]
+                    finish[i] = True
+                    safe_sequence.append(f"P{i+1}")
+                    found_process = True
+                    break
+        if not found_process:
+            return False, []
+    return True, safe_sequence
+
+# Data masalah: alokasi dan kebutuhan maksimum untuk setiap proses
+allocation = np.array([[0, 1, 0], [2, 0, 0], [3, 0, 2], [2, 1, 1], [0, 0, 2]])
+max_need = np.array([[7, 5, 3], [3, 2, 2], [9, 0, 2], [2, 2, 2], [4, 3, 3]])
+available = np.array([3, 3, 2])  # Sumber daya yang tersedia (R1, R2, R3)
+
+# Memeriksa apakah sistem dalam keadaan aman
+safe, sequence = is_safe(available, allocation, max_need)
+
+if safe:
+    print("Sistem dalam keadaan aman.")
+    print("Urutan aman: ", " -> ".join(sequence))
+else:
+    print("Sistem dalam keadaan deadlock.")
+\end{python}
+
+\textit{Penjelasan:}
+\begin{enumerate}
+    \item Fungsi \textit{is\_safe} digunakan untuk memeriksa apakah sistem dalam keadaan aman menggunakan Algoritma Bankir.
+        \begin{enumerate}
+            \item \textit{work} menyimpan jumlah sumber daya yang tersedia.
+            \item \textit{finish} adalah array boolean yang menandakan apakah suatu proses sudah selesai atau belum.
+            \item Algoritma memeriksa apakah proses dapat dilanjutkan berdasarkan alokasi sumber daya yang tersedia dan kebutuhan maksimum. Jika proses dapat dilanjutkan, alokasinya ditambahkan kembali ke \textit{work}.
+            \item Jika tidak ada proses yang dapat dilanjutkan, sistem dianggap berada dalam keadaan deadlock.
+        \end{enumerate}
+    \item Data masalah terdiri dari:
+        \begin{enumerate}
+            \item \textit{allocation}: Matriks alokasi saat ini untuk setiap proses.
+            \item \textit{max\_need}: Matriks kebutuhan maksimum setiap proses.
+            \item \textit{available}: Sumber daya yang tersedia.
+        \end{enumerate}
+    \item Algoritma memeriksa apakah keadaan sistem aman dan menampilkan urutan aman jika memungkinkan.
+\end{enumerate}
+\end{enumerate}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
@@ -186,5 +385,21 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\subsection{References}
+\begin{thebibliography}{9}
+
+\bibitem{silberschatz}
+A. Silberschatz, G. Gagne, and P. B. Galvin, 
+\textit{Operating System Concepts}, 9th ed. 
+John Wiley \& Sons, 2012.
+
+\bibitem{tanenbaum}
+A. S. Tanenbaum and H. Bos, 
+\textit{Modern Operating Systems}, 4th ed. 
+Pearson, 2014.
+
+\end{thebibliography}
+
 
 \end{document}

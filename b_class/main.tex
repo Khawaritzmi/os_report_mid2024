@@ -4,7 +4,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{pythonhighlight}
 
 \title{Operating System Course Report - First Half of the Semester}
 \author{B class}
@@ -78,10 +77,54 @@ It explains how these algorithms are used to allocate CPU time to processes.
 
 \subsection{Process Creation and Termination}
 Details how processes are created and terminated by the operating system, including:
+\subsubsection{Pembuatan dan Terminasi Proses}
+Bagian ini menjelaskan bagaimana proses diakhiri oleh sistem operasi, dengan fokus pada proses terminasi dan pembersihan yang terjadi setelahnya. Proses terminasi adalah tahapan akhir dari siklus hidup proses yang ditangani secara hati-hati oleh sistem operasi untuk mencegah masalah seperti kebocoran memori, penggunaan sumber daya yang tidak efisien, atau penguncian sumber daya. Setelah terminasi, langkah-langkah pembersihan (cleanup) menjadi penting dalam menjaga stabilitas dan kinerja sistem secara keseluruhan.
+
+\subsubsection{Proses Terminasi dan Kondisi Cleanup}
+Ketika sebuah proses berakhir, beberapa mekanisme sistem operasi akan melakukan langkah-langkah untuk melepaskan dan mendaur ulang sumber daya yang telah digunakan oleh proses. Proses cleanup ini bertujuan agar sumber daya tersebut dapat digunakan kembali oleh proses lain. Proses terminasi mencakup de-allocating sumber daya yang digunakan, menghapus informasi dari tabel proses, dan mengembalikan status eksekusi ke proses induk.
+
+\subsubsection{De-Alokasi Sumber Daya}
+Sumber daya yang digunakan oleh sebuah proses selama masa hidupnya meliputi memori, file, dan perangkat keras. Ketika proses selesai, sumber daya tersebut harus dilepaskan. Jika tidak, sistem akan kehabisan sumber daya yang menyebabkan kinerja sistem menurun. De-allocating atau pelepasan sumber daya ini sangat krusial karena setiap byte memori atau perangkat keras yang tidak dibebaskan dapat membuat sistem menjadi kurang efisien. Berikut penjelasan lebih detail tentang jenis sumber daya yang dilepaskan:
+
 \begin{itemize}
-    \item Process spawning
-    \item Process termination conditions
+    \item \textbf{Memori (RAM)}: Memori yang dialokasikan ke suatu proses harus dikembalikan ke pool memori setelah proses berakhir. RAM yang tidak dibebaskan kembali ke sistem dapat menyebabkan kebocoran memori (\textit{memory leak}), yaitu kondisi di mana memori yang tidak terpakai tetap terkunci oleh proses yang telah berakhir. Jika kebocoran memori ini dibiarkan, sistem akan mengalami penurunan kinerja karena kapasitas memori yang tersedia semakin berkurang seiring dengan berjalannya waktu, hingga akhirnya menyebabkan sistem melambat atau crash.
+    
+    \item \textbf{File yang Terbuka}: Ketika sebuah proses membuka file selama eksekusi, file tersebut harus ditutup setelah proses selesai. File descriptor yang tetap terbuka dapat mengunci file tersebut, sehingga tidak dapat diakses oleh proses lain yang memerlukannya. Selain itu, jika jumlah file descriptor yang tidak tertutup meningkat, sistem bisa mencapai batas maksimum file descriptor yang dapat dibuka. Ini menyebabkan aplikasi atau proses baru tidak dapat membuka file karena tidak ada lagi file descriptor yang tersedia, dan ini dapat mengakibatkan kegagalan dalam eksekusi proses lain.
+    
+    \item \textbf{Perangkat Keras yang Digunakan}: Beberapa proses membutuhkan akses eksklusif ke perangkat keras tertentu, misalnya port jaringan, printer, atau disk drive. Setelah proses berakhir, akses eksklusif ini harus dilepaskan, sehingga perangkat keras tersebut dapat digunakan oleh proses lain. Jika perangkat keras tidak dilepaskan dengan benar, perangkat tersebut bisa tetap terkunci oleh proses yang telah berakhir, menyebabkan masalah bagi proses lain yang mencoba menggunakan perangkat keras yang sama. Ini bisa menghambat operasi lain dalam sistem dan menyebabkan sistem macet atau tidak responsif.
 \end{itemize}
+
+\subsubsection{Menghapus Entri dari Tabel Proses}
+Setiap proses di dalam sistem dilacak oleh tabel proses (\textit{Process Table}), yang berisi informasi penting mengenai setiap proses yang berjalan. Setelah proses berakhir, entri dalam tabel proses harus dihapus untuk mencegah masalah yang bisa muncul jika PID yang sama digunakan oleh proses baru. Tabel proses berfungsi sebagai "peta" untuk sistem operasi, yang memungkinkan sistem memantau setiap proses yang berjalan dan sumber daya yang sedang digunakan. Penghapusan entri yang tepat sangat penting dalam menjaga efisiensi dan menghindari kebingungan dalam alokasi sumber daya.
+
+\begin{itemize}
+    \item \textbf{Status Proses}: Setiap proses memiliki status, seperti sedang berjalan (\textit{running}), ditunda (\textit{suspended}), atau selesai (\textit{terminated}). Ketika proses telah berakhir, statusnya harus diubah menjadi "terminated" dan entri ini perlu dihapus untuk menghindari konflik dengan proses baru yang mungkin menggunakan PID yang sama. Jika tabel proses tidak diperbarui, sistem mungkin akan menganggap bahwa proses yang sudah berakhir masih berjalan, sehingga dapat menyebabkan penggunaan PID yang tidak benar atau tumpang tindih sumber daya.
+    
+    \item \textbf{PID (Process ID)}: Setiap proses di sistem operasi memiliki identifikasi unik yang disebut PID. Setelah sebuah proses selesai, PID yang digunakan oleh proses tersebut dikembalikan dan dapat digunakan oleh proses lain. Namun, entri di tabel proses harus dihapus terlebih dahulu untuk memastikan bahwa tidak ada informasi yang salah atau usang terkait proses lama yang dapat mengganggu proses baru yang menggunakan PID tersebut. Proses penghapusan ini memastikan bahwa setiap PID yang digunakan tetap unik dan akurat.
+    
+    \item \textbf{Informasi Sumber Daya}: Selain status dan PID, tabel proses juga menyimpan informasi terkait sumber daya yang sedang digunakan oleh proses, seperti memori, file descriptor, dan perangkat keras. Setelah proses berakhir, informasi ini harus dihapus untuk memastikan bahwa sumber daya tersebut dapat digunakan oleh proses lain. Ini juga membantu menghindari masalah yang terkait dengan sumber daya yang tersisa terkunci atau tidak tersedia untuk proses baru.
+\end{itemize}
+
+\subsubsection{Mengembalikan Status Eksekusi ke Parent Process}
+Ketika sebuah proses diciptakan, biasanya ada proses induk (\textit{parent process}) yang bertanggung jawab atas proses tersebut. Setelah proses anak (\textit{child process}) selesai, sistem operasi harus mengembalikan informasi mengenai status eksekusi proses anak ke proses induk. Informasi ini meliputi apakah proses anak berhasil atau gagal, dan alasan mengapa proses berakhir. Mekanisme pengembalian status ini penting agar proses induk dapat mengambil tindakan yang sesuai, seperti melanjutkan eksekusi, menangani kesalahan, atau membuat proses baru.
+
+\begin{itemize}
+    \item \textbf{\texttt{wait()}}: Panggilan sistem ini digunakan oleh proses induk untuk menunggu hingga proses anak selesai. Saat proses anak berakhir, kode keluaran (\textit{exit code}) dikembalikan ke proses induk. Kode ini menunjukkan hasil akhir dari proses anak, seperti apakah proses berhasil diselesaikan atau ada kesalahan yang terjadi. Berdasarkan kode keluaran ini, proses induk dapat mengambil tindakan yang sesuai, seperti melanjutkan operasi, melakukan rollback, atau mencoba menjalankan kembali proses anak dengan kondisi yang berbeda.
+
+    
+    \item \textbf{\texttt{waitpid()}}: 
+    
+    Panggilan ini adalah variasi dari \texttt{wait()}, di mana proses induk dapat menunggu proses anak tertentu berdasarkan PID-nya. Ini sangat berguna dalam situasi di mana proses induk memiliki lebih dari satu proses anak yang berjalan secara bersamaan. Dengan \texttt{waitpid()}, proses induk dapat memilih proses anak mana yang ingin dia tunggu, memberikan kontrol yang lebih besar atas pengelolaan proses dan memastikan bahwa eksekusi berjalan lebih efisien dan terstruktur.
+
+ 
+\end{itemize}
+\begin{figure}[]
+    \centering
+    \includegraphics[width=0.2\textwidth]{assets/OSgambar.drawio.png}
+    \caption{Diagram alur pembersihan setelah terminasi proses.}
+    \label{fig:contoh_gambar}
+\end{figure}
+
 
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
@@ -89,15 +132,6 @@ This section introduces the concept of threads and their relation to processes, 
     \item Single-threaded vs. multi-threaded processes
     \item Benefits of multithreading
 \end{itemize}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -131,11 +165,6 @@ This section discusses the role of the operating system in managing the user int
 
 \subsection{Virtualization in Operating Systems}
 Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
-\begin{itemize}
-    \item Concept of virtualization
-    \item Hypervisors and their types
-    \item Benefits of virtualization in modern computing
-\end{itemize}
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
@@ -176,6 +205,116 @@ This assignment involved designing a multithreading scenario to solve a computat
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
 
+\lstset{
+    backgroundcolor=\color{white},   
+    basicstyle=\footnotesize\ttfamily,  
+    breaklines=true,                
+    frame=single,                     
+    keywordstyle=\color{blue},      
+    commentstyle=\color{green},       
+    stringstyle=\color{red},         
+}
+
+\begin{document}
+
+\subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
+Students were tasked with creating a simple \textbf{CLI} for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\textbf{Deskripsi:} 
+Buatlah sebuah program CLI yang dapat melakukan manipulasi file. Program ini harus mampu:
+\begin{enumerate}
+    \item Membuat file baru dengan nama yang ditentukan oleh pengguna.
+    \item Menampilkan daftar semua file yang ada dalam direktori saat ini.
+    \item Menghapus file berdasarkan nama yang diberikan oleh pengguna.
+\end{enumerate}
+
+\textbf{Kriteria Penilaian:}
+\begin{itemize}
+    \item Fungsi Pembuat File: Program harus berhasil membuat file dengan nama yang valid.
+    \item Fungsi Daftar File: Program harus menampilkan semua file yang ada di direktori saat ini.
+    \item Fungsi Penghapusan File: Program harus dapat menghapus file yang ada dan memberikan pesan kesalahan jika file tidak ditemukan.
+    \item Antarmuka Pengguna: CLI harus mudah digunakan dan responsif terhadap input pengguna.
+\end{itemize}
+
+\paragraph{ANSWER}
+
+\begin{verbatim}
+import os
+import psutil
+
+
+def create_file(file_name):
+    with open(file_name, 'w') as f:
+        f.write('')  # Create an empty file
+    print(f"File '{file_name}' created successfully.")
+
+def list_files():
+    files = os.listdir()
+    if files:
+        print("List of files in the current directory:")
+        for f in files:
+            print(f)
+    else:
+        print("No files found in the current directory.")
+
+
+def delete_file(file_name):
+    if os.path.exists(file_name):
+        os.remove(file_name)
+        print(f"File '{file_name}' deleted successfully.")
+    else:
+        print(f"File '{file_name}' does not exist.")
+
+
+def list_processes():
+    print("List of running processes:")
+    for proc in psutil.process_iter(['pid', 'name', 'cpu_percent']):
+        print(f"PID: {proc.info['pid']}, Name: {proc.info['name']}, CPU: {proc.info['cpu_percent']}%")
+
+def system_status():
+    print("System Status:")
+    print(f"CPU usage: {psutil.cpu_percent()}%")
+    memory = psutil.virtual_memory()
+    print(f"Memory usage: {memory.percent}% ({memory.used / (1024 ** 3):.2f} GB used of {memory.total / (1024 ** 3):.2f} GB)")
+
+
+def cli():
+    while True:
+        print("\nSimple CLI Menu:")
+        print("1. Create file")
+        print("2. List files")
+        print("3. Delete file")
+        print("4. List processes")
+        print("5. System status")
+        print("6. Exit")
+        
+        choice = input("Enter your choice (1-6): ").strip()
+        
+        if choice == '1':
+            file_name = input("Enter the file name to create: ").strip()
+            create_file(file_name)
+        elif choice == '2':
+            list_files()
+        elif choice == '3':
+            file_name = input("Enter the file name to delete: ").strip()
+            delete_file(file_name)
+        elif choice == '4':
+            list_processes()
+        elif choice == '5':
+            system_status()
+        elif choice == '6':
+            print("Exiting CLI...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    cli()
+\end{verbatim}
+
+
+
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:
 \begin{itemize}
@@ -186,5 +325,12 @@ In this assignment, students implemented file system access routines, including:
 
 \section{Conclusion}
 The first half of the course introduced core operating system concepts, including process management, scheduling, multithreading, and file system access. These topics provided a foundation for more advanced topics to be covered in the second half of the course.
+
+\begin{thebibliography}{}
+\bibitem{ref1} Universitas Muhammadiyah Yogyakarta. (n.d.). \textit{Creation and Termination of Processes}. Diambil dari: \url{https://oprek.um.ac.id/proses-spawning}
+\bibitem{ref2} University of Illinois Chicago. (n.d.). \textit{Operating System Cleanup After Process Termination}. Diambil dari: \url{https://os-cleanup.uic.edu}
+\end{thebibliography}
+
+
 
 \end{document}

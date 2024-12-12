@@ -85,19 +85,21 @@ Details how processes are created and terminated by the operating system, includ
 
 \subsection{Introduction to Threads}
 This section introduces the concept of threads and their relation to processes, covering:
+\subsubsection{Single-Threading}
 \begin{itemize}
-    \item Single-threaded vs. multi-threaded processes
-    \item Benefits of multithreading
+    \item\textbf{Definisi} 
+    \par \hspace{2em} Single-Threading adalah model pemrograman di mana hanya satu thread atau alur eksekusi dijalankan dalam suatu program pada satu waktu. Dalam single-threading, satu instruksi dijalankan setelah yang lain secara berurutan. Tidak ada eksekusi paralel, sehingga semua tugas diselesaikan satu per satu, dan jika satu tugas memakan waktu lama, seluruh aplikasi akan menunggu hingga tugas tersebut selesai sebelum melanjutkan ke yang berikutnya.
+    \item\textbf{Contoh}
+    \par \hspace{2em} Sebuah aplikasi kalkulator sederhana: Setiap operasi (seperti penjumlahan atau pengurangan) 	dilakukan satu per satu, dan tidak ada operasi lain yang dapat berjalan sampai operasi sebelumnya selesai. Jika pengguna meminta hasil kalkulasi yang rumit, aplikasi akan menjadi tidak responsif hingga proses kalkulasi selesai.
 \end{itemize}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{/Users/khawaritzmi/Unhas/os_report_mid2024/b_class/asset/example.png}  % Sesuaikan nama file dan ukurannya
-    \caption{Ini adalah gambar contoh dari multithreading.}
-    \label{fig:contoh_gambar}
-\end{figure}
-
-Seperti yang terlihat pada Gambar \ref{fig:contoh_gambar}, inilah cara menambahkan gambar dengan keterangan.
+\subsubsection{Multi-Threading}
+\begin{itemize}
+    \item\textbf{Definisi}
+    \par \hspace{2em} Multi-Threading adalah model pemrograman di mana suatu proses dapat dibagi menjadi beberapa thread atau alur eksekusi yang berjalan secara bersamaan. Setiap thread dapat menjalankan tugas yang berbeda secara paralel dalam satu proses, sehingga program dapat menjalankan banyak operasi secara bersamaan, mempercepat kinerja dan responsivitas.
+    \item\textbf{Contoh} 
+    \par \hspace{2em} Browser Web: Saat membuka tab baru di browser, setiap tab mungkin berjalan dalam thread terpisah. Ini memungkinkan Anda untuk memuat halaman web di satu tab tanpa mengganggu tab lain. Jika satu halaman memerlukan waktu lama untuk memuat, tab lain tetap bisa digunakan tanpa masalah.
+\end{itemize}
 
 \subsection{File Systems}
 File systems provide a way for the operating system to store, retrieve, and manage data. This section explains:
@@ -169,12 +171,105 @@ Students were tasked with implementing various process scheduling algorithms (e.
 
 \subsection{Assignment 2: Deadlock Handling}
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{kelompok 7}
+\begin{itemize}
+    \item\textbf{soal}
+    \par\hspace{2em}Sebuah sistem memiliki total 3 unit resource yang melayani dua proses. Masing-masing proses membutuhkan 2 unit resource dan telah dialokasikan 1 unit resource. Tentukan apakah sistem dalam keadaan aman atau berpotensi mengalami deadlock!
+    
+    \item\textbf{jawaban}
+    \par\hspace{2em}Total resource yang tersedia adalah 3 unit, dan resource yang sudah dialokasikan untuk kedua proses adalah 2 unit. Ini berarti resource yang tersisa di sistem adalah 1 unit.
+    \par\hspace{2em}Kedua proses masing-masing masih membutuhkan 1 unit resource lagi untuk menyelesaikan eksekusi. Karena resource yang tersedia cukup untuk memenuhi kebutuhan salah satu proses, maka proses tersebut dapat selesai. Setelah proses pertama selesai, resource yang dialokasikan dikembalikan, sehingga tersedia 2 unit resource. Dengan resource ini, proses kedua juga dapat diselesaikan.
+    \par Sistem dalam keadaan aman.
 
+     \item\textbf{Implementasi Kode Python}
+    \lstdefinestyle{ystyle}{
+        basicstyle=\ttfamily\footnotesize,
+        breakatwhitespace=false,         
+        breaklines=true,                 
+        captionpos=b,                    
+        keepspaces=true,                                    
+        numbersep=5pt,                  
+        showspaces=false,                
+        showstringspaces=false,
+        showtabs=false,                  
+        tabsize=2,
+        frame=single                   
+    }
+         \lstset{style=ystyle}
+    \begin{lstlisting}def is_safe(total_resources, max_demand, allocated):
+    available = total_resources - sum(allocated)
+    need = [max_demand[i] - allocated[i] for i in range(len(max_demand))]
+
+    for i in range(len(need)):
+        if need[i] <= available:
+            available += allocated[i]
+        else:
+            return False
+    return True
+
+    # Data
+    total_resources = 3
+    max_demand = [2, 2]  # Kedua proses membutuhkan 2 unit
+    allocated = [1, 1]   # Kedua proses sudah dialokasikan 1 unit
+
+    # Cek apakah aman
+    if is_safe(total_resources, max_demand, allocated):
+        print("Sistem dalam keadaan aman.")
+    else:
+        print("Sistem dalam keadaan deadlock.")
+    \end{lstlisting}
+    
+\end{itemize}
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+\subsubsection{kelompok 7}
+\begin{itemize}
+    \item\textbf{soal}
+\par\hspace{2em}Buat sebuah program Command-Line Interface (CLI) sederhana untuk mengelola daftar pengguna. Program harus memiliki menu dengan opsi untuk menambahkan pengguna baru, menghapus pengguna, menampilkan semua pengguna, dan keluar dari program. Program akan terus berjalan hingga pengguna memilih untuk keluar.
+
+    \item\textbf{Jawaban}
+\par\hspace{2em}Program ini memungkinkan pengguna untuk mengelola daftar pengguna melalui antarmuka baris perintah. Pengguna dapat memilih untuk membuat pengguna baru, menghapus pengguna, menampilkan semua pengguna, atau keluar dari program. Program akan terus berjalan hingga pengguna memilih untuk keluar.
+
+    \item\textbf{Implementasi Kode Python}
+    \lstdefinestyle{mystyle}{
+        basicstyle=\ttfamily\footnotesize,
+        breakatwhitespace=false,         
+        breaklines=true,                 
+        captionpos=b,                    
+        keepspaces=true,                                    
+        numbersep=5pt,                  
+        showspaces=false,                
+        showstringspaces=false,
+        showtabs=false,                  
+        tabsize=2,
+        frame=single                   
+    }
+
+        \lstset{style=mystyle}
+    \begin{lstlisting}def display_menu():
+    print("1. Create User\n2. Delete User\n3. List Users\n4. Exit")
+    return input("Choose an option: ")
+
+    users = []
+    while True:
+        choice = display_menu()
+        if choice == '1':
+            user = input("Enter new username: ")
+            users.append(user) if user not in users else print("User already exists.")
+        elif choice == '2':
+            user = input("Enter username to delete: ")
+            users.remove(user) if user in users else print("User not found.")
+        elif choice == '3':
+            print("\n".join(users) if users else "No users available.")
+        elif choice == '4':
+            break
+        else:
+            print("Invalid choice.")
+         \end{lstlisting}
+\end{itemize}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

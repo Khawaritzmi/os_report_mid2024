@@ -160,12 +160,31 @@ Explores the concept of deadlocks and methods for preventing them:
 \end{itemize}
 
 \subsection{User Interface Management}
-This section discusses the role of the operating system in managing the user interface. Topics covered include:
-\begin{itemize}
-    \item Graphical User Interface (GUI)
-    \item Command-Line Interface (CLI)
-    \item Interaction between the user and the operating system
-\end{itemize}
+\subsubsection{Graphical User Interface (GUI)}
+\subsubsection{Graphical User Interface (GUI)}
+		
+		GUI telah menjadi standar de facto untuk interaksi pengguna dalam sistem operasi modern. 
+        GUI menyajikan informasi melalui elemen visual seperti ikon, menu, jendela, dan kontrol grafis lainnya, 
+        memungkinkan pengguna untuk berinteraksi dengan komputer menggunakan perangkat penunjuk seperti mouse atau layar sentuh \cite{Shneiderman2016}.
+		
+		Komponen kunci GUI dalam sistem operasi modern meliputi:
+		\begin{itemize}
+			\item Desktop Environment: Menyediakan latar belakang kerja utama, termasuk wallpaper, ikon desktop, dan panel/dock.
+			\item Window Manager: Mengontrol penempatan dan tampilan jendela aplikasi.
+			\item Widget Toolkit: Menyediakan elemen UI standar seperti tombol, menu, dan kotak dialog.
+			\item Compositing Manager: Menangani efek visual seperti transparansi dan animasi.
+			\item Notification System: Mengelola dan menampilkan pemberitahuan sistem dan aplikasi.
+		\end{itemize}
+		
+		GUI menawarkan beberapa keunggulan signifikan:
+		\begin{itemize}
+			\item Intuitivitas: Pengguna dapat dengan mudah memahami dan menggunakan sistem tanpa pelatihan ekstensif.
+			\item Visualisasi: Informasi kompleks dapat disajikan dalam format yang mudah dipahami.
+			\item Multitasking: Pengguna dapat dengan mudah beralih antara dan mengelola beberapa aplikasi secara bersamaan.
+			\item Aksesibilitas: Fitur seperti pembaca layar dan pengaturan kontras tinggi dapat diintegrasikan untuk mendukung pengguna dengan kebutuhan khusus.
+		\end{itemize}
+
+		Perkembangan terbaru dalam GUI meliputi antarmuka adaptif yang menyesuaikan diri dengan konteks penggunaan dan preferensi pengguna, serta integrasi teknologi seperti pengenalan gestur dan kontrol suara \cite{Murad2021}.
 
 \subsection{Virtualization in Operating Systems}
 Virtualization allows multiple operating systems to run concurrently on a single physical machine. This section explores:
@@ -328,6 +347,70 @@ Virtualization allows multiple operating systems to run concurrently on a single
     \hspace*{1cm} Dengan menggunakan metode \textit{Banker's} untuk algoritma \textit{Safety}, kita bisa memastikan bahwa sistem aman jika menjalankan proses-proses tertentu. Di sini, kita memeriksa setiap proses dan memastikan bahwa alokasi sumber daya untuk setiap proses dapat dilakukan dengan aman sehingga tidak akan menyebabkan \textit{deadlock}. Pada output, sistem akan menampilkan status apakah sistem aman atau tidak, dan menampilkan urutan proses yang aman.
 }
 
+
+\begin{python}
+    import threading
+    import time
+    
+    resource_a = threading.Lock()
+    resource_b = threading.Lock()
+    
+    def process_1():
+        print("Process 1: Acquiring Resource A")
+        with resource_a:
+            time.sleep(1)  
+            print("Process 1: Acquiring Resource B")
+            with resource_b:
+                print("Process 1: Working with both resources")
+    
+    def process_2():
+        print("Process 2: Acquiring Resource B")
+        with resource_b:
+            time.sleep(1)  
+            print("Process 2: Acquiring Resource A")
+            with resource_a:
+                print("Process 2: Working with both resources")
+    
+    t1 = threading.Thread(target=process_1)
+    t2 = threading.Thread(target=process_2)
+    
+    t1.start()
+    t2.start()
+    
+    t1.join()
+    t2.join()
+    \end{python}
+    
+    To prevent deadlocks, we can ensure a consistent order of resource acquisition:
+    
+    \begin{python}
+    def process_1():
+        print("Process 1: Acquiring Resource A")
+        with resource_a:
+            time.sleep(1)  
+            print("Process 1: Acquiring Resource B")
+            with resource_b:
+                print("Process 1: Working with both resources")
+    
+    def process_2():
+        print("Process 2: Acquiring Resource A")
+        with resource_a:
+            time.sleep(1)  
+            print("Process 2: Acquiring Resource B")
+            with resource_b:
+                print("Process 2: Working with both resources")
+    
+    
+    t1 = threading.Thread(target=process_1)
+    t2 = threading.Thread(target=process_2)
+    
+    
+    t1.start()
+    t2.start()
+    
+    t1.join()
+    t2.join()
+    \end{python}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 \hspace*{1cm} Simulasikan skenario \textit{multithreading} untuk menghitung jumlah kuadrat dari rentang angka yang diberikan dan menjumlahkannya, dan terapkan \textit{Amdahl law} untuk menghitung prediksi kecepatan seiring penambahan \textit{thread} untuk mengetahui penggunaan jumlah \textit{thread} yang optimal.

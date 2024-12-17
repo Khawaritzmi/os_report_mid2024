@@ -103,6 +103,59 @@ This section explains the fundamental components that make up a computer system,
 
 \hspace*{1cm} \textit{Performance metrics} berperan penting dalam berbagai aspek pengelolaan dan operasional sistem operasi. Dari monitoring dan manajemen sumber daya hingga optimasi, diagnosis, dan keamanan, metrik ini memberikan wawasan yang diperlukan untuk menjaga sistem tetap berjalan dengan efisien, aman, dan sesuai dengan kebutuhan kinerja yang diharapkan.
 
+\subsubsection{Definisi Performa Sistem}
+
+Performa sistem komputer mengacu pada kemampuan suatu sistem untuk menjalankan tugas atau fungsinya secara efisien dan efektif. Terdapat beberapa aspek penting yang menjadi indikator performa sistem komputer, yaitu:
+
+\textbf{1. Kecepatan Pemrosesan:} \\
+Kecepatan pemrosesan adalah waktu yang dibutuhkan oleh sistem untuk mengeksekusi tugas tertentu. Hal ini biasanya diukur dalam satuan waktu (detik atau milidetik) yang diperlukan untuk menyelesaikan sebuah tugas. Rumus untuk kecepatan pemrosesan dalam hal frekuensi adalah:
+
+\[
+T = \frac{1}{F}
+\]
+
+dengan:
+\begin{itemize}
+    \item $T$ adalah waktu untuk satu siklus pemrosesan (detik per siklus).
+    \item $F$ adalah frekuensi prosesor (siklus per detik atau Hz).
+\end{itemize}
+
+\textbf{2. Penggunaan Sumber Daya:} \\
+Penggunaan sumber daya mengacu pada seberapa efisien sistem menggunakan CPU, memori, dan perangkat keras lainnya untuk menyelesaikan tugas. Pengelolaan sumber daya yang baik akan meminimalkan penggunaan yang berlebihan dan meningkatkan performa secara keseluruhan.
+
+\textbf{3. Responsivitas:} \\
+Responsivitas adalah kecepatan sistem dalam merespons input dari pengguna atau proses lainnya. Responsivitas yang tinggi sangat penting dalam aplikasi \textit{real-time} dan interaktif. Pengukuran responsivitas sering kali berkaitan dengan waktu tunda (\textit{latency}).
+
+\textbf{4. Throughput:} \\
+Throughput mengukur jumlah tugas atau pekerjaan yang dapat diselesaikan oleh sistem dalam waktu tertentu. Throughput yang lebih tinggi menunjukkan bahwa sistem dapat menangani lebih banyak pekerjaan dalam satu waktu. Rumus throughput dapat dinyatakan sebagai:
+
+\[
+Throughput = \frac{\text{Jumlah Pekerjaan}}{\text{Waktu}}
+\]
+
+\textbf{Faktor-Faktor yang Mempengaruhi Performa Sistem:} \\
+Faktor-faktor yang memengaruhi performa sistem dapat dibagi menjadi dua kategori utama, yaitu faktor internal dan faktor eksternal.
+
+\begin{itemize}
+    \item \textbf{Faktor Internal:} Faktor internal melibatkan komponen yang memengaruhi performa sistem dari dalam, termasuk:
+    \begin{itemize}
+        \item \textbf{Kecepatan CPU:} Prosesor dengan kecepatan clock yang lebih tinggi dapat memproses instruksi lebih cepat. Kecepatan CPU diukur dalam Hertz (Hz), dan hubungan antara waktu eksekusi dan clock rate adalah:
+        \[
+        Waktu Eksekusi = \frac{\text{Jumlah Instruksi} \times \text{CPI}}{\text{Clock Rate}}
+        \]
+        \item \textbf{Arsitektur Memori:} Efisiensi memori sangat memengaruhi kinerja, terutama dalam hal kecepatan akses ke data. Struktur \textit{cache}, bandwidth memori, dan ukuran RAM berperan penting.
+        \item \textbf{Algoritma dan Struktur Data:} Algoritma yang dioptimalkan dan pemilihan struktur data yang tepat akan meningkatkan kecepatan pemrosesan serta penggunaan memori secara efisien.
+    \end{itemize}
+    
+    \item \textbf{Faktor Eksternal:} Faktor eksternal mencakup elemen di luar komponen internal yang juga dapat memengaruhi performa sistem, seperti:
+    \begin{itemize}
+        \item \textbf{Beban Kerja:} Semakin besar beban kerja yang ditangani oleh sistem, semakin tinggi kebutuhan akan sumber daya seperti CPU dan memori.
+        \item \textbf{Kondisi Lingkungan:} Faktor-faktor seperti suhu, kelembapan, dan pasokan listrik yang stabil juga memengaruhi performa perangkat keras.
+        \item \textbf{Jaringan:} Dalam sistem yang terhubung ke jaringan, kecepatan dan stabilitas jaringan sangat penting dalam menjaga throughput dan latensi yang rendah.
+    \end{itemize}
+\end{itemize}
+
+
 \subsection{System Architecture of Computer Systems}
 Describes the architecture of modern computer systems, focusing on the interaction between hardware and the operating system.
 
@@ -412,6 +465,53 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Soal}
+
+Jelaskan bagaimana Anda mengimplementasikan fungsi untuk membaca dan menulis file pada sistem berkas. Sebutkan langkah-langkah yang diperlukan untuk memastikan akses file dilakukan dengan aman dan efisien, serta bagaimana Anda menangani situasi ketika file tidak tersedia atau terjadi kesalahan dalam proses akses.
+
+\subsubsection{Jawaban}
+
+Untuk mengimplementasikan fungsi membaca dan menulis file pada sistem berkas, saya menggunakan Python dengan dua fungsi utama: \texttt{baca\_file} dan \texttt{tulis\_file}. Berikut adalah kode lengkapnya:
+
+\begin{verbatim}
+def baca_file(jalur_berkas):
+    try:
+        with open(jalur_berkas, 'r') as berkas:
+            isi = berkas.read()
+            return isi
+    except FileNotFoundError:
+        print(f"Berkas {jalur_berkas} tidak ditemukan.")
+    except IOError:
+        print("Terjadi kesalahan saat membaca berkas.")
+
+def tulis_file(jalur_berkas, konten):
+    try:
+        with open(jalur_berkas, 'w') as berkas:
+            berkas.write(konten)
+            print(f"Berhasil menulis ke berkas {jalur_berkas}.")
+    except IOError:
+        print("Terjadi kesalahan saat menulis ke berkas.")
+
+# Contoh penggunaan
+jalur_berkas = 'contoh.txt'
+konten = 'Ini adalah contoh isi berkas.'
+
+# Menulis ke berkas
+tulis_file(jalur_berkas, konten)
+
+# Membaca dari berkas
+isi_berkas = baca_file(jalur_berkas)
+if isi_berkas:
+    print("Isi berkas:", isi_berkas)
+\end{verbatim}
+
+Kode di atas terdiri dari dua fungsi utama: \texttt{baca\_file} dan \texttt{tulis\_file}. Fungsi \texttt{baca\_file} digunakan untuk membaca isi dari sebuah berkas yang ditentukan dalam variabel \texttt{jalur\_berkas}. Dengan membuka berkas dalam mode baca menggunakan \texttt{with open}, berkas akan secara otomatis ditutup setelah operasi selesai. Fungsi ini juga menangkap kesalahan jika berkas tidak ditemukan atau jika ada masalah I/O lainnya.
+
+Di sisi lain, \texttt{tulis\_file} bertujuan untuk menulis teks yang terdapat dalam variabel \texttt{konten} ke berkas yang juga ditentukan dalam \texttt{jalur\_berkas}. Fungsi ini membuka berkas dalam mode tulis, yang secara otomatis akan membuat berkas baru jika berkas yang dituju belum ada. Seperti fungsi sebelumnya, \texttt{tulis\_file} juga menangkap dan menampilkan pesan jika terjadi kesalahan saat menulis.
+
+Terakhir, terdapat contoh penggunaan fungsi-fungsi tersebut, di mana \texttt{tulis\_file} digunakan untuk menyimpan teks ke dalam berkas, kemudian \texttt{baca\_file} digunakan untuk membaca kembali isi berkas tersebut dan menampilkannya jika berhasil. Kode ini memberikan pengelolaan berkas yang aman serta responsif terhadap kesalahan.
+
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

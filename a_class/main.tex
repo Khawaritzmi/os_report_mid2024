@@ -419,6 +419,35 @@ Explores the concept of deadlocks and methods for preventing them:
 \begin{itemize}
     \item Deadlock conditions
     \item Deadlock prevention techniques
+    \item Resource Allocation Denial
+        
+    \hspace{1cm} Sistem operasi menganalisis permintaan sumber daya dari proses secara saksama dan menentukan  apakah pemberian sumber daya tertentu akan menyebabkan kondisi \textit{unsafe} atau potensi \textit{deadlock}. Jika pemberian sumber daya dianggap tidak aman, sistem akan menolak permintaan sumber daya untuk menghindari \textit{deadlock}. 
+        
+    \hspace{1cm}Salah satu contoh kasus dengan metode ini adalah ketika proses P1 meminta sumber daya R1. Sebelum mengalokasikan sumber daya, sistem mengevaluasi apakah proses lain bisa menyelesaikan eksekusi dengan sumber daya yang tersisa.Jika tidak, permintaan P1 ditolak sementara waktu dan akan dilanjutkan ketika semua sumber daya yang dibutuhkan sudah lengkap.
+    
+    \item Reource Ordering
+
+    \hspace{1cm} Sistem operasi menetapkan pengenal numerik yang unik untuk setiap sumber daya dan memastikan bahwa proses hanya dapat meminta sumber daya dalam urutan yang meningkat. Hal ini memastikan bahwa proses tidak pernah memasuki status \textit{circular wait} dan mencegah \textit{deadlock}.
+    
+    \hspace{1cm} Salah satu contoh kasusnya saat sumber daya 1 harus selalu diminta sebelum sumber daya 2 jika Proses 1 ingin meminta kedua sumber daya. Karena sistem menetapkan urutan, proses 1 harus meminta Sumber daya 1 terlebih dahulu. Jika mendapatkannya, baru boleh meminta sumber daya 2.
+
+    \item Avoidance of Hold-and-wait conditions
+
+    \hspace{1cm} Proses harus meminta semua sumber daya yang dibutuhkan di awal (sebelum memulai eksekusi) atau melepaskan sumber daya yang sedang dipegang sebelum meminta sumber daya tambahan, sehingga menghilangkan kemungkinan \textit{hold and wait}.
+    
+    \hspace{1cm} Salah satu contoh kasus dengan metode ini yaitu ketika proses P1 sedang memegang sumber daya R1 ("\textit{P1 is holding R1}") dan secara bersamaan menunggu sumber daya R2 yang belum tersedia ("\textit{P1 is waiting for R2}"). Dalam konteks ini, proses P1 belum dapat melanjutkan karena masih membutuhkan R2 yang mungkin sedang digunakan oleh proses lain atau belum dialokasikan.
+
+    \item Resource Preemption
+
+    \hspace{1cm} Teknik ini memungkinkan sistem untuk merebut atau mengambil alih sumber daya dari proses yang sedang berjalan jika proses lain tersebut lebih prioritas atau jika diperlukan untuk mencegah \textit{deadlock}. Secara sederhana, jika suatu proses meminta sumber daya yang saat ini dialokasikan ke proses lain, sistem operasi dapat mendahului (mencabut sementara) sumber daya tersebut dari proses saat ini dan mengalokasikannya ke proses yang meminta. 
+
+    \hspace{1cm} Salah satu contoh kasusnya saat proses 1 menggunakan sumber daya 1 dan proses 2 sedang menunggu sumber daya 1. Sistem memutuskan untuk mengambil Sumber Daya 1 dari proses 1 karena dianggap bahwa proses 1 dapat dihentikan sementara dan di-\textit{restart} nanti. Sumber daya 1 kemudian diberikan kepada proses 2, sehingga proses 2 bisa menyelesaikan tugasnya. Setelah proses 2 menyelesaikan pekerjaannya, sumber daya 1 dibebaskan dan proses 1 dapat melanjutkan pekerjaannya setelah mendapatkan kembali sumber daya 1.
+
+    \item Timeouts
+
+    \hspace{1cm} Sistem menggunakan batas waktu (\textit{timeout}) untuk menunggu sumber daya. Jika proses menunggu terlalu lama, ia akan dipaksa gagal atau \textit{restart}. Timeout dapat digunakan untuk mencegah proses berlama-lama dalam kondisi menunggu, sehingga menghindari \textit{deadlock}. Contoh kasus dengan metode ini adalah ketika proses P1 sedang menunggu sumber daya R1 selama 5 menit. Jika setelah batas waktu ini R1 belum tersedia, prosesP1 akan dibatalkan atau dijadwalkan ulang untuk mencoba lagi.
+
+    \hspace{1cm} Salah satu contoh kasusnya saat Proses 1 membutuhkan sumber daya 1 untuk menyelesaikan tugasnya. Namun, sumber daya 1 sedang digunakan oleh proses lain (Proses 2). Sistem menetapkan batas waktu menunggu, misalnya 5 detik untuk proses 1 mencoba untuk mengakses sumber daya 1. Jika dalam 5 detik proses 1 tidak bisa mendapatkan sumber daya 1, maka terjadi \textit{timeout}. Setelah \textit{timeout}, Proses 1 akan melepaskan klaim terhadap sumber daya 1, membatalkan aksinya, dan bisa menunggu beberapa saat sebelum mencoba lagi.
 \end{itemize}
 
 \subsection{User Interface Management}
@@ -439,31 +468,60 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 \section{Assignments and Practical Work}
 \subsection{Assignment 1: Process Scheduling}
-Students were tasked with implementing various process scheduling algorithms (e.g., FCFS, SJN, and RR) and comparing their performance under different conditions.
-\subsubsection{Group 1}
+Dari kode python dengan algoritma FCFS di bawah, berikan \textit{output} mengenai waktu penyelesaian, waktu tunggu, dan waktu putaran dari setiap proses!
+\subsubsection{Kode Python}
 \begin{python}
     class Process:
-    def __init__(self, pid, arrival_time, burst_time):
-        self.pid = pid
+    def __init__(self, id, arrival_time, burst_time):
+        self.id = id
         self.arrival_time = arrival_time
         self.burst_time = burst_time
         self.completion_time = 0
-        self.turnaround_time = 0
         self.waiting_time = 0
+        self.turnaround_time = 0
+
+    def find_fcfs_scheduling(processes):
+        processes.sort(key=lambda x: x.arrival_time)
+        
+        current_time = 0
+        for process in processes:
+            if current_time < process.arrival_time:
+                current_time = process.arrival_time
+            current_time += process.burst_time
+            process.completion_time = current_time
+            process.turnaround_time = process.completion_time - process.arrival_time
+            process.waiting_time = process.turnaround_time - process.burst_time
+    
+    def display_process_info(processes):
+        print("ID Proses\tWaktu Kedatangan\tDurasi Proses\tWaktu Penyelesaian\tWaktu Tunggu\tWaktu Putaran")
+        for process in processes:
+            print(f"{process.id}\t\t{process.arrival_time}\t\t{process.burst_time}\t\t{process.completion_time}\t\t{process.waiting_time}\t\t{process.turnaround_time}")
+    
+    if __name__ == "__main__":
+        processes = [
+            Process(1, 0, 4),
+            Process(2, 1, 2),
+            Process(3, 2, 1),
+            Process(4, 3, 3)
+        ]
+    
+    find_fcfs_scheduling(processes)
+    display_process_info(processes)
+
 \end{python}
 
 \begin{table}[htbp] % Optional: For floating position
     \centering
-    \begin{tabular}{|c|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \begin{tabular}{|c|c|l|l|l|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
     \hline
-    Header 1 & Header 2 & Header 3 \\ % Column headers
+    ID Proses& Waktu Kedatangan&   Durasi Proses& Waktu Penyelesaian&Waktu Tunggu&Waktu Putaran\\ % Column headers
     \hline
-    Row 1, Column 1 & Row 1, Column 2 & Row 1, Column 3 \\ % First row of data
-    \hline
-    Row 2, Column 1 & Row 2, Column 2 & Row 2, Column 3 \\ % Second row of data
-    \hline
+    1& 0&   4& 4&0&4\\ \hline 
+ 2& 1& 2& 6& 3&5\\ \hline 
+ 3& 2& 1& 7& 4&5\\ \hline 
+ 4& 3& 3& 10& 4&7\\ \hline
     \end{tabular}
-    \caption{Your table caption} % Optional: For adding a caption
+    \caption{Output} % Optional: For adding a caption
     \label{tab:your_label} % Optional: For cross-referencing the table
 \end{table}
 
@@ -617,7 +675,43 @@ Dari hasil \textit{output} tersebut, kita bisa menyimpulkan bahwa:
 In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
-This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
+Buatlah program Python yang menghitung kecepatan teoritis dari sebuah program menggunakan \textbf{Hukum Amdahl}. Program harus menerima input proporsi waktu yang dapat diparalelkan dan jumlah thread yang digunakan. Hitung kecepatan teoritis untuk jumlah thread 2, 4, dan 8, serta tampilkan hasilnya. 
+\subsubsection{Kode Python}
+\begin{python}
+    def amdahls_law(parallel_fraction, num_threads):
+    """Menghitung kecepatan teoritis berdasarkan Hukum Amdahl."""
+    serial_fraction = 1 - parallel_fraction
+    speedup = 1 / (serial_fraction + (parallel_fraction / num_threads))
+    return speedup
+
+    if __name__ == "__main__":
+        # Input: proporsi waktu yang dapat diparalelkan (30 detik dari total 100 detik)
+        total_time = 100
+        parallel_time = 30
+        parallel_fraction = parallel_time / total_time
+    
+        # Daftar jumlah thread yang akan diuji
+        num_threads_list = [2, 4, 8]
+    
+        print("Jumlah Thread\tKecepatan Teoritis")
+        for num_threads in num_threads_list:
+            speedup = amdahls_law(parallel_fraction, num_threads)
+            print(f"{num_threads}\t\t{speedup:.3f}")
+\end{python}
+
+\begin{table}[htbp] % Optional: For floating position
+    \centering
+    \begin{tabular}{|c|c|} % Defines number of columns and alignment (c = center, l = left, r = right). '|' creates vertical lines.
+    \hline
+    Jumlah Thread& Kecepatan Teoritis\\ % Column headers
+    \hline
+    2& 1176\\ \hline 
+ 4& 1333\\ \hline 
+ 8& 1500\\\hline
+    \end{tabular}
+    \caption{Output} % Optional: For adding a caption
+    \label{tab:your_label} % Optional: For cross-referencing the table
+\end{table}
 
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.

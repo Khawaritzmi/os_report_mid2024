@@ -149,7 +149,124 @@ File systems provide a way for the operating system to store, retrieve, and mana
 Input and output management is key for handling the interaction between the system and external devices. This section includes:
 \begin{itemize}
     \item Device drivers
-    \item I/O scheduling
+    \subsubsection{Teknik Buffering}
+    \begin{itemize}
+        \item Single Buffering
+        \par Merupakan teknik paling sederhana. Ketika proses memberi perintah untuk perangkat
+ I/O, sistem operasi menyediakan buffer memori utama sistem untuk operasi. Untuk
+ perangkat berorientasi blok. Transfer masukan dibuat ke buffer sistem. Ketika transfer
+ selesai,proses memindahkan blok ke ruang pemakai dan segera meminta blok lain.Teknik
+ ini disebut reading ahead atau anticipated input.Teknik ini dilakukan dengan harapan
+ blok akan segera diperlukan. Untuk banyak tipe komputasi, asumsi ini berlaku. Hanya
+ di akhir pemrosesan maka blok yang dibaca tidak diperlukan.
+ \newline Keunggulan:
+    \begin{itemize}
+        \item  Meningkatkan kecepatan karena proses
+ dapat memproses data sementara blok
+ berikutnya sedang dibaca.
+ \item Sistem operasi dapat melakukan swapping
+ karena data berada di memori sistem.
+    \end{itemize}
+    \newline Kekurangan:
+    \begin{itemize}
+        \item Memperumit sistem operasi karena harus
+        mengelola buffer.
+        \item Logika swapping terpengaruh, terutama jika
+        melibatkan disk I/O.
+    \end{itemize}
+    \item Double Buffering
+    \par Peningkatan dapat dibuat dengan dua buffer sistem.Proses dapat ditransfer ke/dari satu
+    buffer sementara sistem operasi mengosongkan (atau mengisi) buffer lain. Teknik ini
+    disebut double buffering atau buffer swapping. Double buffering menjamin proses tidak
+    menunggu operasi I/O. Peningkatan ini harus dibayar dengan peningkatan kompleksitas.
+    \newline Keunggulan & Kelemahan 
+    \begin{itemize}
+        \item  Meningkatkan efisiensi I/O, namun
+        dengan peningkatan kompleksitas
+        sistem.
+    \end{itemize}
+    \item Circular Buffering
+    \par  Seharusnya melembutkan aliran data antara perangkat I/O dan proses. Jika kinerja
+ proses tertentu menjadi fokus kita, maka kita ingin agar operasi I/O mengikuti proses.
+ Double buffering tidak mencukupi jika proses melakukan operasi I/O yang berturutan
+ dengan cepat. Masalah sering dapat dihindari denga menggunakan lebih dari dua buffer.
+ Ketika lebih dari dua buffer yang digunakan, kumpulan buffer itu sendiri diacu sebagai
+ circulat buffer. Tiap buffer individu adalah satu unit di circular buffer.
+\newline
+\newline Keterbatasan Double Buffering 
+\begin{itemize}
+\item  Double buffering tidak cukup jika
+proses melakukan operasi I/O secara
+berurutan dengan cepat.
+\end{itemize}
+\newline Solusi
+\begin{itemize}
+\newline  
+\item Menggunakan lebih dari dua buffer untuk
+mengatasi masalah tersebut.
+\item Circular buffer adalah kumpulan buffer
+yang berputar, di mana tiap buffer adalah
+satu unit di dalamnya.
+    
+    
+\end{itemize}
+\end{itemize}
+\subsubsection{Programed I/O}
+\par  Pada I/O terprogram, data saling dipertukarkan antara CPU dengan modul I/O. CPU
+mengeksekusi program yang memberikan operasi I/O kepada CPU secara langsung,
+termasuk status perangkat pengindra, pengiriman perintah pembacaan atau penulisan,
+dan pemindahan data. Ketika CPU mengeluarkan perintah ke modul I/O, maka CPU
+harus menunggu sampai operasi I/O selesai. Apabila CPU lebih cepat dibandingkan
+modul I/O, maka hal ini akan membuang-buang waktu CPU. Dengan menggunakan
+interupt driven I/O, CPU mengeluarkan perintah I/O, dilanjutkan dengan mengeksekusi
+intstruksi-instruksi lainnya, dan diinterupsi oleh modul I/O apabila instruksi-instruksi
+tersebut telah selesai dilaksanakan. Dengan menggunakan I/O terprogram dan I/O
+interupt, maka CPU bertanggung jawab atas pengeluaran data dan memori utama untuk
+keperluan output dan penyimpanan data di dalam memori utama untuk keperluaninput.
+Ada dua bentuk lain dari programmed I/O yaitu:
+\begin{itemize}
+\item  Direct I/O
+\par  Sebagai contoh instrument berbasis computer dengan panel saklar dan indicator.Saklar
+berfungsi untuk pemilihan mode operasi oleh operatorinstrument. 
+Indikator
+diimplementasikan menggunakan LED, yang berfungsi sebagai indicator status
+instrument.
+\newline 
+\par Rangkaian tersebut menggunakan prosesor 8-bit dengan ruang alamat I/O terpisah.
+Untuk mengisolasi antara bus data dengan saklar diperlukan rangkaian penyangga.
+Penyangga ini diimplementasikan dengan octal buffer, yang dapat menampung delapan
+saklar. Bagian terpenting lainnya adalah address decoder, yang meng-enable hanya
+jika keluaran address decoder hanya dilewatkan pada saat RD* rendah. Selanjutnya,
+melihat apa yang terjadi ketika CPU mengeksekusi instruksi “INPUT”. Dianggap alamat
+operand berhubungan dengan port input yang ditetapkan.
+\newline
+\par Pada awal I/O machine cycle keluaran address decoder adalah rendah. Kemudian, RD*
+diaktifkan dan SEL1* juga rendah.Selanjutnya keluaran penyangga bus di-enable.
+\newline
+\par Setiap rangkaian peyangga mengemudikan setiap jalur dari jalur bus data CPU untuk
+memberikan nilai tinggi atau rendah. Hal ini tergantung pada posisi saklar yang
+bersangkutan.
+\newline 
+\item  Polled I/O
+\par  Pada polled I/O terlebih dahulu di perlukan pemeriksaan status device I/O. Setelah
+system diinisialisasi, program I/O yang berhubungan, yaitu I/O driver, membaca
+status device I/O. Kemudian menguji bit status untuk menentukan kondisi operasional
+device.Apabila device tidak siap, CPU dapat melompat ke tugas (task) yang
+lain. Beberapa saat kemudian, setelah beberapa interval waktu, mengulangi proses
+sepertidiuraikan di atas. Interval waktu ini tergantung pada kecepatan divais. Sebagai
+contoh printer dengan kecepatan 10 cps lamanya adalah 100 ms.
+\newline
+\par Pada langkah di atas apabila tidak ada task yang dikerjakan, CPU segera mengulang
+kembali untuk membaca dan memeriksa status device. Program I/O keluar “wait
+loop”.Sekarang program melakukan transfer data atau bisa disebut melayani device.
+I/O Interface Controller hubungan device I/O dengan system computer disediakan
+melalui rangkaian standar dalam bentuk chip LSI (large scale integration). Rangkaian
+ini dikenal dengan I/O interface controller, pheripheral interface adapter, dan
+lain-lain. Dengan adanya komponen ini dapat memudahkan menghubungkan device
+I/O yang memiliki karakteristik berbeda dengan system bus umum, tanpa atau
+meminimumkan penggunaan perangkat keras yang khusus. Antarmuka yang paling
+sederhanaadalahregisterpenyanggasatuwordyangbertindaksebagaiportI/O.
+\end{itemize}
 \end{itemize}
 
 \subsection{Deadlock Introduction and Prevention}
@@ -410,8 +527,237 @@ Virtualization allows multiple operating systems to run concurrently on a single
 
 
 
+\subsubsection{Group 9}
+\begin{enumerate}
+    \item Buatlah program multithreading sederhana dalam Python yang menghitung jumlah bilangan prima dalam rentang tertentu. Kemudian, terapkan Hukum Amdahl untuk menghitung percepatan teoretis berdasarkan proporsi bagian dari program yang dapat diparalelkan.
+
+\textit{JAWABAN : }
+\begin{lstlisting}[language=Python, caption={Skenario Multithreading dan Hukum Amdahl}, label={lst:cli_program}, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, commentstyle=\color{gray}]
+import threading
+import math
+import time
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def count_primes(start, end, results, index):
+    count = 0
+    for number in range(start, end):
+        if is_prime(number):
+            count += 1
+    results[index] = count
+
+def main():
+    start_range = 1
+    end_range = 100000
+    num_threads = 4
+    chunk_size = (end_range - start_range) // num_threads
+    threads = []
+    results = [0] * num_threads
+
+    for i in range(num_threads):
+        start = start_range + i * chunk_size
+        end = start_range + (i + 1) * chunk_size if i != num_threads - 1 else end_range
+        thread = threading.Thread(target=count_primes, args=(start, end, results, i))
+        threads.append(thread)
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    total_primes = sum(results)
+    print(f"Total bilangan prima antara {start_range} dan {end_range} adalah: {total_primes}")
+
+    # Menerapkan Hukum Amdahl
+    P = 0.75  # Misalnya 75% dari program dapat diparalelkan
+    speedup = 1 / ((1 - P) + (P / num_threads))
+    print(f"Percepatan teoretis menggunakan Hukum Amdahl dengan {num_threads} thread: {speedup}")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\textit{PENJELASAN: }
+\begin{itemize}
+    \item \textbf{Import Modul:}
+    \begin{itemize}
+        \item \texttt{import threading}: Mengimpor modul \texttt{threading} untuk membuat dan mengelola thread.
+        \item \texttt{import math}: Mengimpor modul \texttt{math} untuk fungsi matematika, seperti \texttt{sqrt()}.
+        \item \texttt{import time}: Modul ini dapat berguna untuk pengukuran waktu, meskipun tidak digunakan dalam kode ini.
+    \end{itemize}
+
+    \item \textbf{Fungsi \texttt{is\_prime(n)}:}
+    \begin{itemize}
+        \item Memeriksa apakah bilangan \texttt{n} adalah bilangan prima dengan cara mengecek faktor dari 2 hingga \texttt{sqrt(n)}. Jika \texttt{n} dapat dibagi oleh salah satu faktor ini, maka \texttt{n} bukan bilangan prima.
+    \end{itemize}
+
+    \item \textbf{Fungsi \texttt{count\_primes(start, end, results, index)}:}
+    \begin{itemize}
+        \item Fungsi ini menghitung jumlah bilangan prima dalam rentang dari \texttt{start} hingga \texttt{end} dan menyimpan hasilnya di \texttt{results} pada indeks \texttt{index}.
+    \end{itemize}
+
+    \item \textbf{Fungsi \texttt{main()}:}
+    \begin{itemize}
+        \item Menentukan rentang pencarian bilangan prima dan jumlah thread yang akan digunakan.
+        \item Menghitung \texttt{chunk\_size} untuk membagi rentang pencarian ke dalam bagian yang lebih kecil untuk setiap thread.
+        \item Menginisialisasi daftar untuk menyimpan objek thread dan hasil masing-masing thread.
+        \item Menggunakan loop untuk membuat dan memulai setiap thread berdasarkan rentang yang ditentukan.
+        \item Menunggu semua thread selesai dieksekusi dengan menggunakan \texttt{join()}.
+        \item Menghitung total bilangan prima dengan menjumlahkan hasil dari setiap thread dan menampilkannya.
+    \end{itemize}
+
+    \item \textbf{Menerapkan Hukum Amdahl:}
+    \begin{itemize}
+        \item Menerapkan Hukum Amdahl untuk menghitung percepatan teoretis berdasarkan proporsi bagian dari program yang dapat diparalelkan. Misalnya, jika 75\% dari program dapat diparalelkan, maka percepatan teoretis dapat dihitung dengan rumus yang sesuai.
+    \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
 \subsection{Assignment 4: Simple Command-Line Interface (CLI) for User Interface Management}
 Students were tasked with creating a simple **CLI** for user interface management. The CLI should support basic commands such as file manipulation (creating, listing, and deleting files), process management, and system status reporting.
+
+\subsubsection{Group 9}
+\begin{enumerate}
+    \item 
+
+Buatlah sebuah program CLI (Command Line Interface) sederhana menggunakan bahasa pemrograman Python. Program ini harus mendukung perintah-perintah berikut:
+\begin{itemize}
+    \item Manipulasi file:
+    \begin{itemize}
+        \item Membuat file baru.
+        \item Menampilkan daftar file dalam direktori saat ini.
+        \item Menghapus file.
+    \end{itemize}
+    \item Manajemen proses:
+    \begin{itemize}
+        \item Menampilkan daftar proses yang sedang berjalan pada sistem.
+    \end{itemize}
+    \item Pelaporan status sistem
+    \begin{itemize}
+        \item Menampilkan penggunaan CPU dan memori saat ini.
+    \end{itemize}
+\end{itemize}
+\newline 
+Berikut adalah contoh implementasi CLI sederhana menggunakan Python.
+
+\textit{JAWABAN : }
+\begin{lstlisting}[language=Python, caption={Program CLI Sederhana}, label={lst:cli_program}, basicstyle=\ttfamily\small, keywordstyle=\color{blue}, commentstyle=\color{gray}]
+import os
+import psutil  # Untuk manajemen proses dan status sistem
+
+def create_file():
+    filename = input("Masukkan nama file yang ingin dibuat: ")
+    with open(filename, 'w') as f:
+        f.write("")  # Membuat file kosong
+    print(f"File '{filename}' berhasil dibuat.")
+
+def list_files():
+    files = os.listdir('.')  # Menampilkan daftar file dalam direktori saat ini
+    if files:
+        print("Daftar file dalam direktori saat ini:")
+        for file in files:
+            print(file)
+    else:
+        print("Tidak ada file dalam direktori ini.")
+
+def delete_file():
+    filename = input("Masukkan nama file yang ingin dihapus: ")
+    if os.path.exists(filename):  # Memeriksa apakah file ada
+        os.remove(filename)
+        print(f"File '{filename}' berhasil dihapus.")
+    else:
+        print(f"File '{filename}' tidak ditemukan.")
+
+def list_processes():
+    print("Daftar proses yang sedang berjalan:")
+    for proc in psutil.process_iter(['pid', 'name']):
+        print(f"PID: {proc.info['pid']}, Nama: {proc.info['name']}")  # Menampilkan PID dan nama proses
+
+def system_status():
+    cpu_usage = psutil.cpu_percent(interval=1)  # Menghitung penggunaan CPU
+    memory_info = psutil.virtual_memory()  # Mendapatkan informasi memori
+    print(f"Penggunaan CPU saat ini: {cpu_usage}%")
+    print(f"Penggunaan Memori: {memory_info.percent}%")
+
+def main():
+    while True:
+        print("\nMenu CLI Sederhana:")
+        print("1. Membuat file baru")
+        print("2. Menampilkan daftar file")
+        print("3. Menghapus file")
+        print("4. Menampilkan daftar proses yang berjalan")
+        print("5. Menampilkan status sistem (CPU & Memori)")
+        print("6. Keluar")
+        
+        choice = input("Pilih perintah (1-6): ")
+
+        if choice == '1':
+            create_file()
+        elif choice == '2':
+            list_files()
+        elif choice == '3':
+            delete_file()
+        elif choice == '4':
+            list_processes()
+        elif choice == '5':
+            system_status()
+        elif choice == '6':
+            print("Keluar dari program.")
+            break
+        else:
+            print("Pilihan tidak valid, silakan coba lagi.")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+\textit{PENJELASAN: }
+\begin{itemize}
+    \item \texttt{import os}: Digunakan untuk manipulasi file dan direktori.
+    \item \texttt{import psutil}: Digunakan untuk mendapatkan informasi mengenai proses yang sedang berjalan dan status sistem (penggunaan CPU dan memori).
+\end{itemize}
+
+\newline Fungsi \texttt{create\_file()}
+\begin{itemize}
+    \item Meminta pengguna untuk memasukkan nama file yang ingin dibuat.
+    \item Membuat file kosong dengan nama tersebut menggunakan \texttt{with open()}.
+\end{itemize}
+
+\newline Fungsi \texttt{list\_files()}
+\begin{itemize}
+    \item Menggunakan \texttt{os.listdir()} untuk mendapatkan daftar file dalam direktori saat ini.
+    \item Menampilkan daftar file kepada pengguna. Jika tidak ada file, mencetak pesan yang sesuai.
+\end{itemize}
+
+\newline Fungsi \texttt{delete\_file()}
+\begin{itemize}
+    \item Meminta pengguna untuk memasukkan nama file yang ingin dihapus.
+    \item Memeriksa keberadaan file tersebut dengan \texttt{os.path.exists()}.
+    \item Menghapus file jika ada, menggunakan \texttt{os.remove()}.
+\end{itemize}
+
+\newline Fungsi \texttt{list\_processes()}
+\begin{itemize}
+    \item Menggunakan \texttt{psutil.process\_iter()} untuk mendapatkan daftar proses yang sedang berjalan.
+    \item Menampilkan PID (Process ID) dan nama setiap proses.
+\end{itemize}
+
+\newline Fungsi \texttt{system\_status()}
+\begin{itemize}
+    \item Menggunakan \texttt{psutil.cpu\_percent()} untuk mendapatkan penggunaan CPU saat ini.
+    \item Menggunakan \texttt{psutil.virtual\_memory()} untuk mendapatkan informasi mengenai penggunaan memori.
+\end{itemize}
+
+\newline Fungsi \texttt{main()}
+\begin{itemize}
+    \item Menyediakan menu interaktif bagi pengguna untuk memilih perintah yang diinginkan.
+    \item Menggunakan loop \texttt{while True} untuk terus menampilkan menu hingga pengguna memilih untuk keluar dengan opsi 6.
+    \item Memproses input pengguna dan memanggil fungsi yang sesuai berdasarkan pilihan yang dibuat.
+\end{itemize}
+\end{enumerate}
 
 \subsection{Assignment 5: File System Access}
 In this assignment, students implemented file system access routines, including:

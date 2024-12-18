@@ -78,6 +78,22 @@ Processes are a central concept in operating systems. This section covers:
     \item Process control block (PCB)
     \item Context switching
 \end{itemize}
+\subsubsection{\textit{Context switching}}
+ \textit{Context switching} Context switching adalah mekanisme yang memungkinkan sistem operasi untuk \textbf{berpindah dari satu proses ke proses lain.} Setiap kali terjadi perpindahan, OS perlu menyimpan state dari proses yang sedang berjalan (misalnya nilai register, program counter, stack pointer, dll.) dan memuat state dari proses yang akan dijalankan. Proses penyimpanan dan pemuatan ini memerlukan waktu dan sumber daya, sehingga context switching dianggap sebagai overhead dalam sistem multitasking. 
+
+ Dalam sistem preemptive multitasking, di mana proses-proses dihentikan secara paksa oleh OS untuk memberikan giliran pada proses lain, context switching menjadi sangat penting untuk menjaga ilusi bahwa semua proses berjalan secara bersamaan. Proses ini terjadi ketika CPU berpindah dari satu proses ke proses lain, atau dari proses ke kernel mode, misalnya saat menangani interrupts. 
+ (\textit{Context switching}).
+
+ \subsubsection{\textit{Inter-Process Communication}}
+ \textit{Inter-Process Communication} IPC adalah serangkaian mekanisme yang disediakan oleh OS untuk \textbf{memungkinkan proses-proses yang berjalan secara bersamaan untuk saling berkomunikasi }atau bekerja sama. Karena proses-proses ini biasanya terisolasi satu sama lain, IPC memungkinkan pertukaran data dan sinkronisasi kerja mereka. 
+
+Beberapa metode umum IPC termasuk:
+\begin{itemize}
+    \item \textbf{Message Passing: }Proses berkomunikasi dengan mengirim dan menerima pesan melalui saluran yang disediakan OS. 
+    \item \textbf{Shared Memory:} Proses berbagi area memori bersama untuk bertukar data, memerlukan sinkronisasi agar tidak terjadi konflik. 
+    \item \textbf{Signals:} Mekanisme sederhana untuk mengirim notifikasi antar-proses tentang terjadinya suatu kejadian. 
+\end{itemize}
+ (\textit{Inter-Process Communication}).
 
 \subsection{Scheduling Algorithms}
 This section covers:
@@ -614,7 +630,49 @@ Dari hasil \textit{output} tersebut, kita bisa menyimpulkan bahwa:
 \end{itemize}
 
 \subsection{Assignment 2: Deadlock Handling}
-In this assignment, students were asked to simulate different deadlock scenarios and explore various prevention methods.
+\subsubsection{Group 4}
+\noindent
+\textbf{Pertanyaan:}
+Terdapat sebuah sistem yang memiliki 4 proses (P1, P2, P3, P4) dan 2 sumber daya (R1, R2). Proses-proses ini meminta dan melepaskan sumber daya sebagai berikut:
+\begin{itemize}
+    \item P1 memegang R1 dan membutuhkan R2
+    \item P2 memegang R2 dan membutuhkan R1
+    \item P3 memegang R2 dan membutuhkan R1
+    \item P4 memegang R1 dan membutuhkan R2
+\end{itemize}
+Apakah sistem ini mengalami \textit{deadlock}? Jika ya, sebutkan proses mana saja yang terlibat dalam deadlock!
+
+\noindent
+\textbf{Jawaban:}
+\[
+P_1 \rightarrow R_1 \rightarrow P_2 \rightarrow R_2 \rightarrow P_1
+\]
+\begin{python}
+# Representasi proses dan resource
+processes = ['P1', 'P2', 'P3', 'P4']
+resources = {'P1': ['R1'], 'P2': ['R2'], 'P3': ['R2'], 'P4': ['R1']}
+needs = {'P1': ['R2'], 'P2': ['R1'], 'P3': ['R1'], 'P4': ['R2']}
+
+# Deteksi circular wait untuk deadlock
+def check_deadlock(processes, resources, needs):
+    for process in processes:
+        holding = resources[process][0]
+        needed = needs[process][0]
+        if holding != needed:
+            print(f"{process} mengalami deadlock (memegang {holding}, menunggu {needed})")
+
+check_deadlock(processes, resources, needs)
+\end{python}
+
+\noindent
+\textbf{Penjelasan:}
+Untuk menganalisis apakah sistem mengalami \textit{deadlock}, kita bisa menggunakan kondisi Coffman untuk deadlock:
+\begin{itemize}
+    \item \textit{Mutual Exclusion}: Setiap sumber daya hanya dapat dimiliki oleh satu proses pada satu waktu.
+    \item \textit{Hold and Wait} : Proses yang memegang satu sumber daya dapat menunggu sumber daya lain.
+    \item \textit{No Preemption} : Sumber daya yang sudah dialokasikan tidak dapat diambil paksa dari proses pemiliknya.
+    \item \textit{Circular Wait} : Harus ada rangkaian siklus proses, di mana setiap proses menunggu sumber daya yang dimiliki oleh proses lain dalam siklus.
+\end{itemize}
 
 \subsection{Assignment 3: Multithreading and Amdahl's Law}
 This assignment involved designing a multithreading scenario to solve a computationally intensive problem. Students then applied **Amdahl's Law** to calculate the theoretical speedup of the program as the number of threads increased.
